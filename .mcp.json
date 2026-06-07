@@ -1,0 +1,22 @@
+{
+  "mcpServers": {
+    "kiro-gpt-bridge": {
+      "command": "node",
+      "args": ["C:\\Users\\sayan\\Desktop\\kirogpt\\mcp-server\\dist\\index.js"],
+      "env": {
+        "KIRO_GPT_MCP_SECRET": "LWhPTNAqhbK5hXHF0rrHzh9O_fSotQxp",
+        "KIRO_GPT_MCP_RELAY_URL": "ws://localhost:3001",
+        "KIRO_GPT_MCP_WORKSPACE": "C:\\Users\\sayan\\Downloads\\RADHA_UPGRADED_PROJECT_FILES new\\RADHA_UPGRADED_PROJECT_FILES",
+        "KIRO_GPT_MCP_PROMPT_REWRITE": "true"
+      }
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["-y", "@playwright/mcp@latest"]
+    },
+    "mobile-mcp": {
+      "command": "npx",
+      "args": ["-y", "@mobilenext/mobile-mcp@latest"]
+    }
+  }
+}

@@ -1,0 +1,1 @@
+{"status":"ok","uptimeSeconds":49.0865952,"registeredAgents":1,"registeredClients":0,"queueDepth":0}

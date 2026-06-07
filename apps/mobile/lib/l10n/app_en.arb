@@ -1,0 +1,535 @@
+{
+  "@@locale": "en",
+  "appName": "RADHA",
+  "@appName": { "description": "App name (brand mark, do not translate)." },
+
+  "tagline": "Retail Assistant for Data, Health & Audits.",
+  "@tagline": { "description": "One-line app tagline shown on splash and onboarding." },
+
+  "continueLabel": "Continue",
+  "getStarted": "Get started",
+  "skip": "Skip",
+  "next": "Next",
+  "back": "Back",
+  "cancel": "Cancel",
+  "save": "Save",
+  "delete": "Delete",
+  "edit": "Edit",
+  "add": "Add",
+  "search": "Search",
+  "loading": "Loading",
+  "error": "Something went wrong",
+  "tryAgain": "Try again",
+  "done": "Done",
+  "close": "Close",
+
+  "signIn": "Sign in",
+  "signOut": "Sign out",
+  "mobileNumber": "Mobile number",
+  "enterOtp": "Enter OTP",
+  "verifyOtp": "Verify OTP",
+  "resendOtp": "Resend OTP",
+  "otpSent": "We sent you a 6-digit code",
+
+  "home": "Home",
+  "scan": "Scan",
+  "expiry": "Expiry",
+  "tasks": "Tasks",
+  "profile": "Profile",
+  "settings": "Settings",
+  "language": "Language",
+
+  "scanProduct": "Scan a product",
+  "pointAtBarcode": "Point your camera at a barcode",
+  "scanAgain": "Scan again",
+  "productNotFound": "Product not found",
+
+  "expiryTracker": "Expiry tracker",
+  "addExpiry": "Add expiry",
+  "expiringSoon": "Expiring soon",
+  "expired": "Expired",
+
+  "yourTasks": "Your tasks",
+  "noTasks": "No tasks yet",
+  "completeTask": "Complete task",
+
+  "welcome": "Welcome",
+  "welcomeMessage": "Scan, track, audit your stock without the spreadsheets.",
+
+  "referrals": "Referrals",
+  "shareYourCode": "Share your code",
+  "yourReferralCode": "Your referral code",
+  "invitees": "Invitees",
+  "rewardsEarned": "Rewards earned",
+  "redeemCode": "Redeem code",
+  "enterReferralCode": "Enter a referral code",
+
+  "chooseLanguage": "Choose language",
+  "languageUpdated": "Language updated",
+
+  "errorGeneric": "Something went wrong. Please try again.",
+  "@errorGeneric": { "description": "Fallback error shown when the backend returns no recognised code." },
+
+  "errorRateLimitOtp": "Too many OTP requests. Try again in {seconds} seconds.",
+  "@errorRateLimitOtp": {
+    "description": "OTP rate limit (HTTP 429) — backend code E3007 or generic E1004.",
+    "placeholders": {
+      "seconds": { "type": "int", "example": "60" }
+    }
+  },
+
+  "errorOtpInvalid": "Invalid OTP. Please try again.",
+  "@errorOtpInvalid": { "description": "OTP did not verify (E3005)." },
+
+  "errorOtpExpired": "OTP expired. Please request a new one.",
+  "@errorOtpExpired": { "description": "OTP request window elapsed (E3006)." },
+
+  "errorAuthRequired": "Please sign in to continue.",
+  "@errorAuthRequired": { "description": "Session missing / token expired (E3000, E3002)." },
+
+  "errorNotFound": "Not found.",
+  "@errorNotFound": { "description": "Generic 404 (E5000)." },
+
+  "ingredientExplainerErrorTitle": "Could not load explanation",
+  "@ingredientExplainerErrorTitle": { "description": "Title shown when fetching an ingredient explanation fails (FE-19)." },
+
+  "ingredientExplainerHealthConsiderations": "Health considerations",
+  "@ingredientExplainerHealthConsiderations": { "description": "Section header above the bullet list on the ingredient explainer screen (FE-19)." },
+
+  "healthyAlternativesTitle": "Better choices than {productName}",
+  "@healthyAlternativesTitle": {
+    "description": "AppBar title on the healthy alternatives screen (FE-22) when the source product name is known.",
+    "placeholders": {
+      "productName": { "type": "String", "example": "Coca-Cola 500ml" }
+    }
+  },
+
+  "healthyAlternativesGenericTitle": "Better choices",
+  "@healthyAlternativesGenericTitle": { "description": "AppBar title on the healthy alternatives screen (FE-22) when the source product name is unavailable." },
+
+  "healthyAlternativesEmptyTitle": "No healthier alternatives yet",
+  "@healthyAlternativesEmptyTitle": { "description": "Empty-state title on the healthy alternatives screen (FE-22)." },
+
+  "healthyAlternativesEmptyBody": "No healthier alternatives found in the same category yet.",
+  "@healthyAlternativesEmptyBody": { "description": "Empty-state body on the healthy alternatives screen (FE-22)." },
+
+  "healthyAlternativesErrorTitle": "Could not load alternatives",
+  "@healthyAlternativesErrorTitle": { "description": "Error-state title on the healthy alternatives screen (FE-22)." },
+
+  "healthyAlternativesAddToList": "Add to shopping list",
+  "@healthyAlternativesAddToList": { "description": "CTA on each alternative card to add the item to the shopping list (FE-22)." },
+
+  "healthyAlternativesView": "View",
+  "@healthyAlternativesView": { "description": "Primary CTA on each alternative card to open the product's scan-result page (FE-22)." },
+
+  "healthyAlternativesAddedToList": "Added to your shopping list",
+  "@healthyAlternativesAddedToList": { "description": "Snackbar confirmation after adding an alternative to the shopping list (FE-22)." },
+
+  "healthyAlternativesAddFailed": "Could not add to shopping list",
+  "@healthyAlternativesAddFailed": { "description": "Snackbar shown when adding an alternative to the shopping list fails (FE-22)." },
+
+  "savedProductsTitle": "Saved products",
+  "@savedProductsTitle": { "description": "AppBar title on the saved products screen (FE-16)." },
+
+  "savedProductsEmptyTitle": "Saved products",
+  "@savedProductsEmptyTitle": { "description": "Empty-state title on the saved products screen (FE-16)." },
+
+  "savedProductsEmptyBody": "Save products from the scan result screen to see them here.",
+  "@savedProductsEmptyBody": { "description": "Empty-state body on the saved products screen (FE-16)." },
+
+  "savedProductsErrorTitle": "Could not load saved products",
+  "@savedProductsErrorTitle": { "description": "Error-state title on the saved products screen (FE-16)." },
+
+  "savedProductsSavedOn": "Saved {date}",
+  "@savedProductsSavedOn": {
+    "description": "Subtitle showing when a saved product was bookmarked (FE-16).",
+    "placeholders": {
+      "date": { "type": "String", "example": "12 Jun 2026" }
+    }
+  },
+
+  "digestTitle": "Your week with RADHA",
+  "@digestTitle": { "description": "Hero headline on the weekly digest landing screen (FE-24)." },
+
+  "digestWeekRange": "{start} – {end}",
+  "@digestWeekRange": {
+    "description": "Subtitle below the digest hero showing the week range, e.g. 'May 19 – May 25, 2026' (FE-24).",
+    "placeholders": {
+      "start": { "type": "String", "example": "May 19" },
+      "end": { "type": "String", "example": "May 25, 2026" }
+    }
+  },
+
+  "digestSavingsHero": "₹{amount} saved",
+  "@digestSavingsHero": {
+    "description": "Hero metric on the weekly digest when estimated savings is greater than zero (FE-24).",
+    "placeholders": {
+      "amount": { "type": "String", "example": "248" }
+    }
+  },
+
+  "digestScansHero": "{count, plural, =1{1 scan} other{{count} scans}}",
+  "@digestScansHero": {
+    "description": "Hero metric on the weekly digest when savings is zero — falls back to scan count (FE-24).",
+    "placeholders": {
+      "count": { "type": "int", "example": "12" }
+    }
+  },
+
+  "digestHeroEmptyHeadline": "A quiet week",
+  "@digestHeroEmptyHeadline": { "description": "Hero metric headline shown when the user has no activity for the week (FE-24)." },
+
+  "digestScans": "Scans",
+  "@digestScans": { "description": "Stat label for total scans (FE-24)." },
+
+  "digestSavedProducts": "Saved",
+  "@digestSavedProducts": { "description": "Stat label for saved products count (FE-24)." },
+
+  "digestExpiringSoon": "Expiring soon",
+  "@digestExpiringSoon": { "description": "Stat label for items expiring this week (FE-24)." },
+
+  "digestRecallAlerts": "{count, plural, =1{1 recall alert} other{{count} recall alerts}}",
+  "@digestRecallAlerts": {
+    "description": "Headline on the recall alerts call-out card (FE-24).",
+    "placeholders": {
+      "count": { "type": "int", "example": "2" }
+    }
+  },
+
+  "digestRecallAlertsBody": "Products you scanned this week have new safety advisories.",
+  "@digestRecallAlertsBody": { "description": "Body copy on the recall alerts call-out card (FE-24)." },
+
+  "digestRecallAlertsCta": "Review",
+  "@digestRecallAlertsCta": { "description": "CTA on the recall alerts call-out card linking to /recall-alerts (FE-24)." },
+
+  "digestTopCategoriesHeader": "What you're scanning",
+  "@digestTopCategoriesHeader": { "description": "Section header above the top categories bar list (FE-24)." },
+
+  "digestHighlightsHeader": "Highlights",
+  "@digestHighlightsHeader": { "description": "Section header above the health highlights bullet list (FE-24)." },
+
+  "digestContinueScanning": "Continue scanning",
+  "@digestContinueScanning": { "description": "Primary CTA in the digest action footer routing to /scan (FE-24)." },
+
+  "digestShare": "Share my week",
+  "@digestShare": { "description": "Secondary text CTA in the digest footer that opens the native share sheet (FE-24)." },
+
+  "digestShareTemplate": "I scanned {scans} products this week and saved ₹{savings} with RADHA. Try it: https://radha.app",
+  "@digestShareTemplate": {
+    "description": "Body of the native share intent fired from the weekly digest screen (FE-24).",
+    "placeholders": {
+      "scans": { "type": "int", "example": "12" },
+      "savings": { "type": "String", "example": "248" }
+    }
+  },
+
+  "digestEmptyTitle": "No activity this week",
+  "@digestEmptyTitle": { "description": "Empty-state title on the weekly digest screen (FE-24)." },
+
+  "digestEmptyBody": "Start scanning to build your weekly story.",
+  "@digestEmptyBody": { "description": "Empty-state body on the weekly digest screen (FE-24)." },
+
+  "digestErrorTitle": "Could not load your weekly digest",
+  "@digestErrorTitle": { "description": "Error-state title on the weekly digest screen (FE-24)." },
+
+  "settingsTitle": "Settings",
+  "@settingsTitle": { "description": "AppBar title for the Settings hub (FE-32)." },
+
+  "settingsNotifications": "Notifications",
+  "@settingsNotifications": { "description": "Notifications section header in Settings hub (FE-32)." },
+  "settingsPushNotifications": "Push notifications",
+  "settingsPushNotificationsHint": "Get alerts on your phone",
+  "settingsRecallAlerts": "Recall alerts",
+  "settingsRecallAlertsHint": "Be told when a product you scanned is recalled",
+  "settingsWeeklyDigest": "Weekly digest",
+  "settingsWeeklyDigestHint": "Sunday summary of your scans and savings",
+
+  "settingsAppearance": "Appearance",
+  "settingsTheme": "Theme",
+  "settingsThemeSystem": "System",
+  "settingsThemeLight": "Light",
+  "settingsThemeDark": "Dark",
+  "settingsLanguage": "Language",
+  "settingsTextSize": "Text size",
+  "settingsTextSizeSmall": "Small",
+  "settingsTextSizeStandard": "Standard",
+  "settingsTextSizeLarge": "Large",
+
+  "settingsDataPrivacy": "Data & privacy",
+  "settingsAllergens": "Allergen profile",
+  "settingsAllergensHint": "Pick the ingredients we should warn you about",
+  "settingsSignOutAll": "Sign out from all devices",
+  "settingsSignOutAllConfirmTitle": "Sign out everywhere?",
+  "settingsSignOutAllConfirmBody": "You'll need to sign in again on every device that uses this account.",
+  "settingsDeleteAccount": "Delete account",
+  "settingsDeleteAccountTitle": "Delete account",
+  "settingsDeleteAccountBody": "This will permanently delete your data. Type DELETE to confirm.",
+  "settingsDeleteAccountConfirm": "DELETE",
+  "settingsDeleteAccountUnavailable": "Contact support to delete your account.",
+  "settingsDeleteAccountContact": "Contact support",
+
+  "settingsAbout": "About",
+  "settingsTerms": "Terms of service",
+  "settingsPrivacyPolicy": "Privacy policy",
+  "settingsVersion": "App version",
+  "settingsVersionValue": "Version {version} ({build})",
+  "@settingsVersionValue": {
+    "description": "Subtitle on the App version row in Settings hub.",
+    "placeholders": {
+      "version": { "type": "String", "example": "1.0.0" },
+      "build": { "type": "String", "example": "1" }
+    }
+  },
+  "settingsSupport": "Support",
+  "settingsSupportHint": "Get help, report a bug, or share feedback",
+  "settingsLinkOpenFailed": "Could not open link",
+
+  "conflictBannerCount": "{count, plural, =1{1 conflict needs your attention} other{{count} conflicts need your attention}}",
+  "@conflictBannerCount": {
+    "description": "Sticky banner shown when the offline queue has unresolved sync conflicts (FE-34).",
+    "placeholders": {
+      "count": { "type": "int", "example": "2" }
+    }
+  },
+  "conflictBannerCta": "Resolve",
+  "conflictBannerDismiss": "Dismiss",
+  "conflictResolveTitle": "Resolve sync conflicts",
+  "conflictResolveSubtitle": "Pick which version to keep for each item.",
+  "conflictUseMine": "Use my version",
+  "conflictUseServer": "Use server version",
+  "conflictResolved": "Conflict resolved",
+  "conflictResolvedAll": "All conflicts resolved",
+  "conflictAttempts": "Tried {count, plural, =1{1 time} other{{count} times}}",
+  "@conflictAttempts": {
+    "description": "Sub-label on a conflict card showing how many sync attempts have been made.",
+    "placeholders": {
+      "count": { "type": "int", "example": "6" }
+    }
+  },
+  "conflictResourceTask": "Task",
+  "conflictResourceExpiry": "Expiry record",
+  "conflictResourceScan": "Scan",
+  "conflictResourceInventory": "Stock adjustment",
+  "conflictResourceGrn": "GRN entry",
+  "conflictResourceShoppingList": "Shopping list item",
+  "conflictResourceGeneric": "Sync change",
+  "conflictLocalChangeSummary": "Your change: {summary}",
+  "@conflictLocalChangeSummary": {
+    "description": "One-line summary of the user's local edit shown on a conflict card (FE-34).",
+    "placeholders": {
+      "summary": { "type": "String", "example": "{title: Restock cooler}" }
+    }
+  },
+
+  "supportTitle": "Support",
+  "supportContactUs": "Contact us",
+  "supportEmailUs": "Email us",
+  "supportEmailUsHint": "support@radha.app",
+  "supportCallUs": "Call support",
+  "supportCallUsHint": "Mon–Fri, 9am–6pm IST",
+  "supportReportBug": "Report a bug",
+  "supportBugDescription": "What happened?",
+  "supportBugDescriptionHint": "Describe what you were doing when it broke.",
+  "supportAttachScreenshot": "Attach screenshot",
+  "supportScreenshotAttached": "Screenshot attached",
+  "supportRemoveScreenshot": "Remove",
+  "supportSubmit": "Send report",
+  "supportSubmitted": "Thanks — we received your report.",
+  "supportSubmitFailed": "Could not send. Please email us instead.",
+  "supportBugDescriptionRequired": "Please describe what happened.",
+  "supportFaq": "Frequently asked questions",
+  "supportFaqQ1": "How do I scan a barcode?",
+  "supportFaqA1": "Open the Scan tab, point your camera at the barcode, and hold steady. We'll find the product the moment we read a clean code.",
+  "supportFaqQ2": "What if a product isn't in the database?",
+  "supportFaqA2": "Tap \"Add product\" on the not-found screen and we'll create a new entry tied to your store. The catalog grows for everyone over time.",
+  "supportFaqQ3": "How do I cancel my subscription?",
+  "supportFaqA3": "Go to Profile → Subscription. You can cancel anytime; we don't charge after the next billing cycle starts.",
+  "supportFaqQ4": "Why am I seeing a recall alert?",
+  "supportFaqA4": "We match every scan against the FSSAI recall feed. If a batch you sold is on the list, we surface it so you can pull stock and notify customers.",
+  "supportFaqQ5": "How do I share my allergen profile with family?",
+  "supportFaqA5": "Allergen profiles are per-account today. Share them with family by signing in on the same household account, or pick the same allergens on each phone.",
+
+  "reportsTitle": "Reports & exports",
+  "@reportsTitle": { "description": "AppBar title on the Reports & Exports screen (FE-30)." },
+  "reportsTabAvailable": "Available",
+  "@reportsTabAvailable": { "description": "Tab label for the Available section (FE-30)." },
+  "reportsTabScheduled": "Scheduled",
+  "@reportsTabScheduled": { "description": "Tab label for the Scheduled section (FE-30)." },
+  "reportsTabHistory": "History",
+  "@reportsTabHistory": { "description": "Tab label for the History section (FE-30)." },
+
+  "reportsQuickExportsHeader": "Quick exports",
+  "@reportsQuickExportsHeader": { "description": "Section header above the 2x2 quick-exports grid (FE-30)." },
+
+  "reportsInventorySnapshot": "Inventory snapshot",
+  "@reportsInventorySnapshot": { "description": "Quick-export tile title for the inventory snapshot (FE-30)." },
+  "reportsExpiringItems": "Expiring items",
+  "@reportsExpiringItems": { "description": "Quick-export tile title for the expiring items report (FE-30)." },
+  "reportsSalesSummary": "Sales summary",
+  "@reportsSalesSummary": { "description": "Quick-export tile title for the sales summary (FE-30)." },
+  "reportsAuditLog": "Audit log",
+  "@reportsAuditLog": { "description": "Quick-export tile title for the audit log (FE-30)." },
+
+  "reportsGenerate": "Generate",
+  "@reportsGenerate": { "description": "Primary CTA in the export config bottom sheet (FE-30)." },
+  "reportsGenerateSuccess": "Report ready",
+  "@reportsGenerateSuccess": { "description": "Snackbar confirming the export download was opened (FE-30)." },
+  "reportsGenerateQueued": "Generation started — we'll notify you when it's ready",
+  "@reportsGenerateQueued": { "description": "Snackbar shown when a generate request was accepted but the file isn't downloadable yet (FE-30)." },
+  "reportsGenerateFailed": "Could not start the report",
+  "@reportsGenerateFailed": { "description": "Snackbar shown when the generate API call fails outright (FE-30)." },
+  "reportsDownloadFailed": "Could not open the download",
+  "@reportsDownloadFailed": { "description": "Snackbar shown when the presigned URL fails to launch (FE-30)." },
+
+  "reportsScheduleNew": "New schedule",
+  "@reportsScheduleNew": { "description": "FAB label on the Scheduled tab (FE-30)." },
+  "reportsScheduleCreate": "Create schedule",
+  "@reportsScheduleCreate": { "description": "Primary CTA in the scheduler bottom sheet (FE-30)." },
+  "reportsScheduleSuccess": "Schedule created",
+  "@reportsScheduleSuccess": { "description": "Snackbar confirming a new recurring schedule was created (FE-30)." },
+  "reportsScheduleReportLabel": "Report",
+  "@reportsScheduleReportLabel": { "description": "Section label in the scheduler bottom sheet selecting which report to schedule (FE-30)." },
+  "reportsScheduleDayOfWeek": "Day of week",
+  "@reportsScheduleDayOfWeek": { "description": "Section label in the scheduler bottom sheet selecting which weekday to fire on (FE-30)." },
+  "reportsScheduleDayOfMonth": "Day of month",
+  "@reportsScheduleDayOfMonth": { "description": "Section label in the scheduler bottom sheet selecting which day of the month to fire on (FE-30)." },
+  "reportsScheduleTime": "Time",
+  "@reportsScheduleTime": { "description": "Section label in the scheduler bottom sheet selecting the hour to fire (FE-30)." },
+  "reportsScheduleFormat": "Format",
+  "@reportsScheduleFormat": { "description": "Section label in the scheduler bottom sheet selecting the export format (FE-30)." },
+  "reportsScheduleActionsTooltip": "Schedule actions",
+  "@reportsScheduleActionsTooltip": { "description": "Tooltip on the per-row schedule actions menu (FE-30)." },
+
+  "reportsFrequency": "Frequency",
+  "@reportsFrequency": { "description": "Section label in the scheduler bottom sheet selecting how often the report fires (FE-30)." },
+  "reportsFrequencyDaily": "Daily",
+  "@reportsFrequencyDaily": { "description": "Daily-frequency choice (FE-30)." },
+  "reportsFrequencyWeekly": "Weekly",
+  "@reportsFrequencyWeekly": { "description": "Weekly-frequency choice (FE-30)." },
+  "reportsFrequencyMonthly": "Monthly",
+  "@reportsFrequencyMonthly": { "description": "Monthly-frequency choice (FE-30)." },
+
+  "reportsPause": "Pause",
+  "@reportsPause": { "description": "Per-row action label that pauses a recurring schedule (FE-30)." },
+  "reportsResume": "Resume",
+  "@reportsResume": { "description": "Per-row action label that resumes a paused schedule (FE-30)." },
+  "reportsDelete": "Delete",
+  "@reportsDelete": { "description": "Per-row destructive action label for a recurring schedule (FE-30)." },
+  "reportsDeleteScheduleTitle": "Delete schedule?",
+  "@reportsDeleteScheduleTitle": { "description": "Confirmation dialog title shown before cancelling a recurring schedule (FE-30)." },
+  "reportsDeleteScheduleBody": "This recurring schedule will stop firing. Past runs stay in your history.",
+  "@reportsDeleteScheduleBody": { "description": "Confirmation dialog body for cancelling a recurring schedule (FE-30)." },
+
+  "reportsLastRun": "Last run {when}",
+  "@reportsLastRun": {
+    "description": "Subtitle on a scheduled-report row showing when the schedule last fired (FE-30).",
+    "placeholders": {
+      "when": { "type": "String", "example": "12 Jun 2026, 9:00 AM" }
+    }
+  },
+  "reportsLastRunNever": "Hasn't run yet",
+  "@reportsLastRunNever": { "description": "Subtitle on a scheduled-report row that hasn't fired yet (FE-30)." },
+  "reportsNextRun": "Next run {when}",
+  "@reportsNextRun": {
+    "description": "Subtitle on a scheduled-report row showing the next firing time (FE-30).",
+    "placeholders": {
+      "when": { "type": "String", "example": "13 Jun 2026, 9:00 AM" }
+    }
+  },
+
+  "reportsDownload": "Download",
+  "@reportsDownload": { "description": "Tooltip / label on a per-row download icon button on the History tab (FE-30)." },
+
+  "reportsStatusCompleted": "Ready",
+  "@reportsStatusCompleted": { "description": "Status pill label for a completed report (FE-30)." },
+  "reportsStatusGenerating": "Generating",
+  "@reportsStatusGenerating": { "description": "Status pill label for a pending or in-flight report (FE-30)." },
+  "reportsStatusFailed": "Failed",
+  "@reportsStatusFailed": { "description": "Status pill label for a failed report (FE-30)." },
+  "reportsStatusCancelled": "Cancelled",
+  "@reportsStatusCancelled": { "description": "Status pill label for a cancelled report (FE-30)." },
+  "reportsStatusExpired": "Expired",
+  "@reportsStatusExpired": { "description": "Status pill label for a report whose artefacts have expired (FE-30)." },
+
+  "reportsEmptyTitle": "No exports yet",
+  "@reportsEmptyTitle": { "description": "Empty-state title on the History tab (FE-30)." },
+  "reportsEmptyBody": "Generate a report from the Available tab and it'll show up here.",
+  "@reportsEmptyBody": { "description": "Empty-state body on the History tab (FE-30)." },
+  "reportsScheduledEmptyTitle": "No scheduled reports",
+  "@reportsScheduledEmptyTitle": { "description": "Empty-state title on the Scheduled tab (FE-30)." },
+  "reportsScheduledEmptyBody": "Tap New schedule to have a report run automatically.",
+  "@reportsScheduledEmptyBody": { "description": "Empty-state body on the Scheduled tab (FE-30)." },
+  "reportsErrorTitle": "Could not load reports",
+  "@reportsErrorTitle": { "description": "Error-state title shown when the reports list fails to load (FE-30)." },
+
+  "ohsTitle": "Operational health",
+  "@ohsTitle": { "description": "AppBar / hero title on the OHS Dashboard screen (FE-26)." },
+  "ohsScoreCaption": "OHS score",
+  "@ohsScoreCaption": { "description": "Eyebrow caption above the headline OHS score (FE-26)." },
+  "ohsScore": "{score}",
+  "@ohsScore": {
+    "description": "Headline OHS score, rendered in JetBrains Mono. The placeholder is the integer 0-100 derived from the dashboard summary (FE-26).",
+    "placeholders": {
+      "score": { "type": "int", "example": "84" }
+    }
+  },
+  "ohsDeltaUp": "+{value} from last week",
+  "@ohsDeltaUp": {
+    "description": "Subtitle below the OHS score when the week-over-week delta is positive (FE-26).",
+    "placeholders": {
+      "value": { "type": "int", "example": "3" }
+    }
+  },
+  "ohsDeltaDown": "-{value} from last week",
+  "@ohsDeltaDown": {
+    "description": "Subtitle below the OHS score when the week-over-week delta is negative (FE-26).",
+    "placeholders": {
+      "value": { "type": "int", "example": "2" }
+    }
+  },
+  "ohsDeltaSame": "No change from last week",
+  "@ohsDeltaSame": { "description": "Subtitle below the OHS score when this week matches last week (FE-26)." },
+  "ohsDeltaUnavailable": "Not enough data for a week-over-week comparison yet",
+  "@ohsDeltaUnavailable": { "description": "Subtitle below the OHS score when there's no prior week to compare to (FE-26)." },
+
+  "ohsCompliance": "Compliance",
+  "@ohsCompliance": { "description": "Bento card label for the compliance dimension (FE-26)." },
+  "ohsInventoryHygiene": "Inventory hygiene",
+  "@ohsInventoryHygiene": { "description": "Bento card label for the inventory-hygiene dimension (FE-26)." },
+  "ohsAuditCompletion": "Audit completion",
+  "@ohsAuditCompletion": { "description": "Bento card label for the audit-completion dimension (FE-26)." },
+
+  "ohsActionItemsHeader": "Action items",
+  "@ohsActionItemsHeader": { "description": "Section header above the list of recommended next actions (FE-26)." },
+  "ohsActionExpiry": "{count, plural, =1{1 expiry alert needs a review} other{{count} expiry alerts need a review}}",
+  "@ohsActionExpiry": {
+    "description": "Action-item label that routes to /expiry (FE-26).",
+    "placeholders": {
+      "count": { "type": "int", "example": "12" }
+    }
+  },
+  "ohsActionLowStock": "{count, plural, =1{1 low-stock alert is unresolved} other{{count} low-stock alerts are unresolved}}",
+  "@ohsActionLowStock": {
+    "description": "Action-item label that routes to /inventory/low-stock-alerts (FE-26).",
+    "placeholders": {
+      "count": { "type": "int", "example": "5" }
+    }
+  },
+  "ohsActionTasks": "Review open tasks for your store",
+  "@ohsActionTasks": { "description": "Action-item label that routes to /tasks (FE-26)." },
+  "ohsActionNoneBody": "Everything looks good — keep scanning to maintain your score.",
+  "@ohsActionNoneBody": { "description": "Body shown in the action-items area when no callable counters are non-zero (FE-26)." },
+
+  "ohsTrendHeader": "Trend",
+  "@ohsTrendHeader": { "description": "Section header above the 7-bar weekly trend (FE-26)." },
+
+  "ohsViewDetailedReports": "View detailed reports",
+  "@ohsViewDetailedReports": { "description": "Primary footer CTA on the OHS dashboard, routing to /reports (FE-26)." },
+
+  "ohsEmptyTitle": "Build your operational health score",
+  "@ohsEmptyTitle": { "description": "Empty-state title on the OHS dashboard (FE-26)." },
+  "ohsEmptyBody": "Start scanning to build your OHS score.",
+  "@ohsEmptyBody": { "description": "Empty-state body on the OHS dashboard (FE-26)." },
+  "ohsErrorTitle": "Could not load your dashboard",
+  "@ohsErrorTitle": { "description": "Error-state title on the OHS dashboard (FE-26)." }
+}

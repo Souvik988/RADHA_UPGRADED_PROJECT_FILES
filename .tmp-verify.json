@@ -1,0 +1,10 @@
+﻿{
+    "ANDROID_HOME":  "C:\\Android",
+    "ANDROID_SDK_ROOT":  "C:\\Android",
+    "sdkmanager_path":  "C:\\Android\\cmdline-tools\\latest\\bin\\sdkmanager.bat",
+    "sdkmanager_present":  true,
+    "user_path":  "C:\\Users\\sayan\\AppData\\Local\\Programs\\nodejs;C:\\Users\\sayan\\AppData\\Local\\Programs\\ffmpeg\\bin;C:\\Users\\sayan\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\sayan\\AppData\\Local\\Programs\\Ollama;C:\\Users\\sayan\\AppData\\Local\\Programs\\Antigravity\\bin;C:\\Users\\sayan\\AppData\\Local\\Programs\\Kiro\\bin;C:\\Users\\sayan\\AppData\\Local\\Programs\\Windsurf\\bin;C:\\Java\\jdk-17\\bin;C:\\Android\\cmdline-tools\\latest\\bin;C:\\Android\\platform-tools;C:\\Android\\emulator",
+    "path_has_cmdline_bin":  true,
+    "path_has_platform_tools":  true,
+    "path_has_emulator":  true
+}

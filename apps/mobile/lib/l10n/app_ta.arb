@@ -1,0 +1,349 @@
+{
+  "@@locale": "ta",
+  "appName": "RADHA",
+  "tagline": "தரவு, ஆரோக்கியம் மற்றும் தணிக்கைக்கான சில்லறை உதவியாளர்.",
+  "continueLabel": "தொடரவும்",
+  "getStarted": "தொடங்கவும்",
+  "skip": "தவிர்",
+  "next": "அடுத்து",
+  "back": "பின்",
+  "cancel": "ரத்து",
+  "save": "சேமி",
+  "delete": "நீக்கு",
+  "edit": "திருத்து",
+  "add": "சேர்",
+  "search": "தேடு",
+  "loading": "ஏற்றுகிறது",
+  "error": "ஏதோ தவறு நடந்தது",
+  "tryAgain": "மீண்டும் முயற்சிக்கவும்",
+  "done": "முடிந்தது",
+  "close": "மூடு",
+  "signIn": "உள்நுழை",
+  "signOut": "வெளியேறு",
+  "mobileNumber": "மொபைல் எண்",
+  "enterOtp": "OTP உள்ளிடவும்",
+  "verifyOtp": "OTP சரிபார்க்கவும்",
+  "resendOtp": "OTP மீண்டும் அனுப்பு",
+  "otpSent": "உங்களுக்கு 6 இலக்க குறியீடு அனுப்பப்பட்டது",
+  "home": "முகப்பு",
+  "scan": "ஸ்கேன்",
+  "expiry": "காலாவதி",
+  "tasks": "பணிகள்",
+  "profile": "சுயவிவரம்",
+  "settings": "அமைப்புகள்",
+  "language": "மொழி",
+  "scanProduct": "பொருளை ஸ்கேன் செய்",
+  "pointAtBarcode": "பார்கோடில் கேமராவை வையுங்கள்",
+  "scanAgain": "மீண்டும் ஸ்கேன் செய்",
+  "productNotFound": "பொருள் கிடைக்கவில்லை",
+  "expiryTracker": "காலாவதி கண்காணிப்பு",
+  "addExpiry": "காலாவதி சேர்",
+  "expiringSoon": "விரைவில் காலாவதியாகும்",
+  "expired": "காலாவதியானது",
+  "yourTasks": "உங்கள் பணிகள்",
+  "noTasks": "பணிகள் இல்லை",
+  "completeTask": "பணியை முடிக்கவும்",
+  "welcome": "வரவேற்கிறோம்",
+  "welcomeMessage": "விரிதாள்கள் இல்லாமல் உங்கள் சரக்கை ஸ்கேன், கண்காணிக்க, தணிக்கை செய்யுங்கள்.",
+  "referrals": "பரிந்துரைகள்",
+  "shareYourCode": "உங்கள் குறியீட்டைப் பகிரவும்",
+  "yourReferralCode": "உங்கள் பரிந்துரை குறியீடு",
+  "invitees": "அழைக்கப்பட்டவர்கள்",
+  "rewardsEarned": "சம்பாதித்த வெகுமதிகள்",
+  "redeemCode": "குறியீட்டை மீட்க",
+  "enterReferralCode": "பரிந்துரை குறியீட்டை உள்ளிடவும்",
+  "chooseLanguage": "மொழியைத் தேர்ந்தெடு",
+  "languageUpdated": "மொழி புதுப்பிக்கப்பட்டது",
+  "errorGeneric": "ஏதோ தவறு நடந்தது. மீண்டும் முயற்சிக்கவும்.",
+  "errorRateLimitOtp": "அதிக OTP கோரிக்கைகள். {seconds} வினாடிகளில் மீண்டும் முயற்சிக்கவும்.",
+  "@errorRateLimitOtp": {
+    "placeholders": {
+      "seconds": { "type": "int" }
+    }
+  },
+  "errorOtpInvalid": "OTP தவறானது. மீண்டும் முயற்சிக்கவும்.",
+  "errorOtpExpired": "OTP காலாவதியானது. புதிய OTP கோரவும்.",
+  "errorAuthRequired": "தொடர உள்நுழையவும்.",
+  "errorNotFound": "கிடைக்கவில்லை.",
+  "ingredientExplainerErrorTitle": "விளக்கத்தை ஏற்ற முடியவில்லை",
+  "ingredientExplainerHealthConsiderations": "ஆரோக்கிய கருத்துகள்",
+  "healthyAlternativesTitle": "{productName} ஐ விட சிறந்த தேர்வுகள்",
+  "@healthyAlternativesTitle": {
+    "placeholders": {
+      "productName": { "type": "String" }
+    }
+  },
+  "healthyAlternativesGenericTitle": "சிறந்த தேர்வுகள்",
+  "healthyAlternativesEmptyTitle": "ஆரோக்கியமான மாற்றுகள் இன்னும் இல்லை",
+  "healthyAlternativesEmptyBody": "இதே வகையில் இன்னும் ஆரோக்கியமான மாற்றுகள் கிடைக்கவில்லை.",
+  "healthyAlternativesErrorTitle": "மாற்றுகளை ஏற்ற முடியவில்லை",
+  "healthyAlternativesAddToList": "ஷாப்பிங் பட்டியலில் சேர்",
+  "healthyAlternativesView": "காண்",
+  "healthyAlternativesAddedToList": "ஷாப்பிங் பட்டியலில் சேர்க்கப்பட்டது",
+  "healthyAlternativesAddFailed": "ஷாப்பிங் பட்டியலில் சேர்க்க முடியவில்லை",
+  "savedProductsTitle": "சேமித்த பொருட்கள்",
+  "savedProductsEmptyTitle": "சேமித்த பொருட்கள்",
+  "savedProductsEmptyBody": "ஸ்கேன் முடிவு திரையில் இருந்து பொருட்களை சேமித்தால் அவை இங்கு காண்பிக்கப்படும்.",
+  "savedProductsErrorTitle": "சேமித்த பொருட்களை ஏற்ற முடியவில்லை",
+  "savedProductsSavedOn": "{date} அன்று சேமிக்கப்பட்டது",
+  "@savedProductsSavedOn": {
+    "placeholders": {
+      "date": { "type": "String" }
+    }
+  },
+
+  "digestTitle": "RADHA-வுடன் உங்கள் வாரம்",
+  "digestWeekRange": "{start} – {end}",
+  "@digestWeekRange": {
+    "placeholders": {
+      "start": { "type": "String" },
+      "end": { "type": "String" }
+    }
+  },
+  "digestSavingsHero": "₹{amount} சேமிப்பு",
+  "@digestSavingsHero": {
+    "placeholders": {
+      "amount": { "type": "String" }
+    }
+  },
+  "digestScansHero": "{count, plural, =1{1 ஸ்கேன்} other{{count} ஸ்கேன்கள்}}",
+  "@digestScansHero": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "digestHeroEmptyHeadline": "அமைதியான வாரம்",
+  "digestScans": "ஸ்கேன்கள்",
+  "digestSavedProducts": "சேமிக்கப்பட்டவை",
+  "digestExpiringSoon": "விரைவில் காலாவதி",
+  "digestRecallAlerts": "{count, plural, =1{1 ரிகால் எச்சரிக்கை} other{{count} ரிகால் எச்சரிக்கைகள்}}",
+  "@digestRecallAlerts": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "digestRecallAlertsBody": "இந்த வாரம் நீங்கள் ஸ்கேன் செய்த தயாரிப்புகளுக்கு புதிய பாதுகாப்பு அறிவிப்புகள் உள்ளன.",
+  "digestRecallAlertsCta": "பார்க்க",
+  "digestTopCategoriesHeader": "நீங்கள் ஸ்கேன் செய்வது",
+  "digestHighlightsHeader": "முக்கியாம்சங்கள்",
+  "digestContinueScanning": "தொடர்ந்து ஸ்கேன் செய்",
+  "digestShare": "என் வாரத்தைப் பகிர்",
+  "digestShareTemplate": "இந்த வாரம் நான் {scans} தயாரிப்புகளை ஸ்கேன் செய்து RADHA மூலம் ₹{savings} சேமித்தேன். முயற்சிக்கவும்: https://radha.app",
+  "@digestShareTemplate": {
+    "placeholders": {
+      "scans": { "type": "int" },
+      "savings": { "type": "String" }
+    }
+  },
+  "digestEmptyTitle": "இந்த வாரம் செயல்பாடு இல்லை",
+  "digestEmptyBody": "உங்கள் வார கதையை உருவாக்க ஸ்கேன் செய்யத் தொடங்குங்கள்.",
+  "digestErrorTitle": "வாராந்திர சுருக்கத்தை ஏற்ற முடியவில்லை",
+
+  "settingsTitle": "அமைப்புகள்",
+  "settingsNotifications": "அறிவிப்புகள்",
+  "settingsPushNotifications": "புஷ் அறிவிப்புகள்",
+  "settingsPushNotificationsHint": "உங்கள் ஃபோனில் எச்சரிக்கைகள் பெறுங்கள்",
+  "settingsRecallAlerts": "ரிகால் எச்சரிக்கைகள்",
+  "settingsRecallAlertsHint": "ஸ்கேன் செய்த தயாரிப்பு திரும்பப் பெறப்படும்போது அறியுங்கள்",
+  "settingsWeeklyDigest": "வாராந்திர சுருக்கம்",
+  "settingsWeeklyDigestHint": "ஞாயிறு உங்கள் ஸ்கேன்களின் சுருக்கம்",
+  "settingsAppearance": "தோற்றம்",
+  "settingsTheme": "தீம்",
+  "settingsThemeSystem": "சிஸ்டம்",
+  "settingsThemeLight": "ஒளி",
+  "settingsThemeDark": "இருள்",
+  "settingsLanguage": "மொழி",
+  "settingsTextSize": "உரை அளவு",
+  "settingsTextSizeSmall": "சிறிய",
+  "settingsTextSizeStandard": "வழக்கமான",
+  "settingsTextSizeLarge": "பெரிய",
+  "settingsDataPrivacy": "தரவு மற்றும் தனியுரிமை",
+  "settingsAllergens": "ஒவ்வாமை சுயவிவரம்",
+  "settingsAllergensHint": "எச்சரிக்க வேண்டிய பொருட்களைத் தேர்ந்தெடுக்கவும்",
+  "settingsSignOutAll": "அனைத்து சாதனங்களிலிருந்தும் வெளியேறு",
+  "settingsSignOutAllConfirmTitle": "எல்லா இடத்திலும் வெளியேற?",
+  "settingsSignOutAllConfirmBody": "இந்தக் கணக்கைப் பயன்படுத்தும் ஒவ்வொரு சாதனத்திலும் மீண்டும் உள்நுழைய வேண்டும்.",
+  "settingsDeleteAccount": "கணக்கை நீக்கு",
+  "settingsDeleteAccountTitle": "கணக்கை நீக்கு",
+  "settingsDeleteAccountBody": "இது உங்கள் தரவை நிரந்தரமாக நீக்கும். உறுதிப்படுத்த DELETE எனத் தட்டச்சிடவும்.",
+  "settingsDeleteAccountConfirm": "DELETE",
+  "settingsDeleteAccountUnavailable": "உங்கள் கணக்கை நீக்க ஆதரவைத் தொடர்புகொள்ளவும்.",
+  "settingsDeleteAccountContact": "ஆதரவைத் தொடர்புகொள்ளவும்",
+  "settingsAbout": "பற்றி",
+  "settingsTerms": "சேவை விதிமுறைகள்",
+  "settingsPrivacyPolicy": "தனியுரிமைக் கொள்கை",
+  "settingsVersion": "ஆப் பதிப்பு",
+  "settingsVersionValue": "பதிப்பு {version} ({build})",
+  "@settingsVersionValue": {
+    "placeholders": {
+      "version": { "type": "String" },
+      "build": { "type": "String" }
+    }
+  },
+  "settingsSupport": "ஆதரவு",
+  "settingsSupportHint": "உதவி பெறுங்கள், பிழையைப் புகாரளிக்கவும், கருத்துப் பகிரவும்",
+  "settingsLinkOpenFailed": "இணைப்பைத் திறக்க முடியவில்லை",
+
+  "conflictBannerCount": "{count, plural, =1{1 முரண்பாடு கவனம் தேவை} other{{count} முரண்பாடுகள் கவனம் தேவை}}",
+  "@conflictBannerCount": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "conflictBannerCta": "தீர்க்க",
+  "conflictBannerDismiss": "மூடு",
+  "conflictResolveTitle": "ஒத்திசைவு முரண்பாடுகளைத் தீர்க்கவும்",
+  "conflictResolveSubtitle": "ஒவ்வொரு உருப்படிக்கும் எந்தப் பதிப்பை வைத்திருக்க வேண்டும் எனத் தேர்வு செய்யவும்.",
+  "conflictUseMine": "என் பதிப்பைப் பயன்படுத்து",
+  "conflictUseServer": "சர்வர் பதிப்பைப் பயன்படுத்து",
+  "conflictResolved": "முரண்பாடு தீர்ந்தது",
+  "conflictResolvedAll": "அனைத்து முரண்பாடுகளும் தீர்க்கப்பட்டன",
+  "conflictAttempts": "{count, plural, =1{1 முறை முயற்சித்தது} other{{count} முறை முயற்சித்தது}}",
+  "@conflictAttempts": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "conflictResourceTask": "பணி",
+  "conflictResourceExpiry": "காலாவதி பதிவு",
+  "conflictResourceScan": "ஸ்கேன்",
+  "conflictResourceInventory": "சரக்கு சரிசெய்தல்",
+  "conflictResourceGrn": "GRN உள்ளீடு",
+  "conflictResourceShoppingList": "ஷாப்பிங் பட்டியல் உருப்படி",
+  "conflictResourceGeneric": "ஒத்திசைவு மாற்றம்",
+  "conflictLocalChangeSummary": "உங்கள் மாற்றம்: {summary}",
+  "@conflictLocalChangeSummary": {
+    "placeholders": {
+      "summary": { "type": "String" }
+    }
+  },
+
+  "supportTitle": "ஆதரவு",
+  "supportContactUs": "எங்களைத் தொடர்புகொள்ளுங்கள்",
+  "supportEmailUs": "மின்னஞ்சல் அனுப்பு",
+  "supportEmailUsHint": "support@radha.app",
+  "supportCallUs": "ஆதரவை அழைக்கவும்",
+  "supportCallUsHint": "திங்கள்–வெள்ளி, காலை 9 – மாலை 6 IST",
+  "supportReportBug": "பிழையைப் புகாரளிக்கவும்",
+  "supportBugDescription": "என்ன நடந்தது?",
+  "supportBugDescriptionHint": "பிழை நிகழ்ந்தபோது நீங்கள் என்ன செய்து கொண்டிருந்தீர்கள் என விளக்கவும்.",
+  "supportAttachScreenshot": "ஸ்கிரீன்ஷாட்டை இணைக்கவும்",
+  "supportScreenshotAttached": "ஸ்கிரீன்ஷாட் இணைக்கப்பட்டது",
+  "supportRemoveScreenshot": "அகற்று",
+  "supportSubmit": "அறிக்கையை அனுப்பு",
+  "supportSubmitted": "நன்றி — உங்கள் அறிக்கையைப் பெற்றோம்.",
+  "supportSubmitFailed": "அனுப்ப முடியவில்லை. தயவு செய்து எங்களுக்கு மின்னஞ்சல் அனுப்புங்கள்.",
+  "supportBugDescriptionRequired": "என்ன நடந்தது என்பதை விளக்கவும்.",
+  "supportFaq": "அடிக்கடி கேட்கப்படும் கேள்விகள்",
+  "supportFaqQ1": "பார்கோடை எவ்வாறு ஸ்கேன் செய்வது?",
+  "supportFaqA1": "ஸ்கேன் தாவலைத் திறக்கவும், கேமராவை பார்கோடில் வைத்து நிலையாக வைத்திருங்கள். தெளிவான குறியீட்டைப் படிக்கும் தருணத்தில் தயாரிப்பு தோன்றும்.",
+  "supportFaqQ2": "தயாரிப்பு தரவுத்தளத்தில் இல்லாவிட்டால் என்ன?",
+  "supportFaqA2": "காணப்படவில்லை திரையில் \"தயாரிப்பைச் சேர்\" எனத் தட்டவும். உங்கள் ஸ்டோருடன் இணைக்கப்பட்ட புதிய பதிவை உருவாக்கும்.",
+  "supportFaqQ3": "என் சந்தாவை எப்படி ரத்துசெய்வது?",
+  "supportFaqA3": "சுயவிவரம் → சந்தா-வுக்குச் செல்லுங்கள். எப்போது வேண்டுமானாலும் ரத்துசெய்யலாம்; அடுத்த பில்லிங் சுழற்சிக்குப் பிறகு கட்டணம் இல்லை.",
+  "supportFaqQ4": "எனக்கு ரிகால் எச்சரிக்கை ஏன் தோன்றுகிறது?",
+  "supportFaqA4": "ஒவ்வொரு ஸ்கேனையும் FSSAI ரிகால் ஃபீடுடன் ஒப்பிடுகிறோம். விற்ற பேட்ச் பட்டியலில் இருந்தால் உங்களுக்கு அறிவிக்கிறோம்.",
+  "supportFaqQ5": "என் ஒவ்வாமை சுயவிவரத்தைக் குடும்பத்துடன் எப்படி பகிர்வது?",
+  "supportFaqA5": "ஒவ்வாமை சுயவிவரம் தற்போது ஒவ்வொரு கணக்குக்கும் தனியானது. ஒரே குடும்பக் கணக்கில் உள்நுழையவும் அல்லது ஒவ்வொரு ஃபோனிலும் அதே ஒவ்வாமைகளைத் தேர்ந்தெடுக்கவும்.",
+  "reportsTitle": "Reports & exports",
+  "reportsTabAvailable": "Available",
+  "reportsTabScheduled": "Scheduled",
+  "reportsTabHistory": "History",
+  "reportsQuickExportsHeader": "Quick exports",
+  "reportsInventorySnapshot": "Inventory snapshot",
+  "reportsExpiringItems": "Expiring items",
+  "reportsSalesSummary": "Sales summary",
+  "reportsAuditLog": "Audit log",
+  "reportsGenerate": "Generate",
+  "reportsGenerateSuccess": "Report ready",
+  "reportsGenerateQueued": "Generation started — we'll notify you when it's ready",
+  "reportsGenerateFailed": "Could not start the report",
+  "reportsDownloadFailed": "Could not open the download",
+  "reportsScheduleNew": "New schedule",
+  "reportsScheduleCreate": "Create schedule",
+  "reportsScheduleSuccess": "Schedule created",
+  "reportsScheduleReportLabel": "Report",
+  "reportsScheduleDayOfWeek": "Day of week",
+  "reportsScheduleDayOfMonth": "Day of month",
+  "reportsScheduleTime": "Time",
+  "reportsScheduleFormat": "Format",
+  "reportsScheduleActionsTooltip": "Schedule actions",
+  "reportsFrequency": "Frequency",
+  "reportsFrequencyDaily": "Daily",
+  "reportsFrequencyWeekly": "Weekly",
+  "reportsFrequencyMonthly": "Monthly",
+  "reportsPause": "Pause",
+  "reportsResume": "Resume",
+  "reportsDelete": "Delete",
+  "reportsDeleteScheduleTitle": "Delete schedule?",
+  "reportsDeleteScheduleBody": "This recurring schedule will stop firing. Past runs stay in your history.",
+  "reportsLastRun": "Last run {when}",
+  "@reportsLastRun": {
+    "placeholders": {
+      "when": { "type": "String" }
+    }
+  },
+  "reportsLastRunNever": "Hasn't run yet",
+  "reportsNextRun": "Next run {when}",
+  "@reportsNextRun": {
+    "placeholders": {
+      "when": { "type": "String" }
+    }
+  },
+  "reportsDownload": "Download",
+  "reportsStatusCompleted": "Ready",
+  "reportsStatusGenerating": "Generating",
+  "reportsStatusFailed": "Failed",
+  "reportsStatusCancelled": "Cancelled",
+  "reportsStatusExpired": "Expired",
+  "reportsEmptyTitle": "No exports yet",
+  "reportsEmptyBody": "Generate a report from the Available tab and it'll show up here.",
+  "reportsScheduledEmptyTitle": "No scheduled reports",
+  "reportsScheduledEmptyBody": "Tap New schedule to have a report run automatically.",
+  "reportsErrorTitle": "Could not load reports",
+  "ohsTitle": "Operational health",
+  "ohsScoreCaption": "OHS score",
+  "ohsScore": "{score}",
+  "@ohsScore": {
+    "placeholders": {
+      "score": { "type": "int" }
+    }
+  },
+  "ohsDeltaUp": "+{value} from last week",
+  "@ohsDeltaUp": {
+    "placeholders": {
+      "value": { "type": "int" }
+    }
+  },
+  "ohsDeltaDown": "-{value} from last week",
+  "@ohsDeltaDown": {
+    "placeholders": {
+      "value": { "type": "int" }
+    }
+  },
+  "ohsDeltaSame": "No change from last week",
+  "ohsDeltaUnavailable": "Not enough data for a week-over-week comparison yet",
+  "ohsCompliance": "Compliance",
+  "ohsInventoryHygiene": "Inventory hygiene",
+  "ohsAuditCompletion": "Audit completion",
+  "ohsActionItemsHeader": "Action items",
+  "ohsActionExpiry": "{count, plural, =1{1 expiry alert needs a review} other{{count} expiry alerts need a review}}",
+  "@ohsActionExpiry": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "ohsActionLowStock": "{count, plural, =1{1 low-stock alert is unresolved} other{{count} low-stock alerts are unresolved}}",
+  "@ohsActionLowStock": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "ohsActionTasks": "Review open tasks for your store",
+  "ohsActionNoneBody": "Everything looks good — keep scanning to maintain your score.",
+  "ohsTrendHeader": "Trend",
+  "ohsViewDetailedReports": "View detailed reports",
+  "ohsEmptyTitle": "Build your operational health score",
+  "ohsEmptyBody": "Start scanning to build your OHS score.",
+  "ohsErrorTitle": "Could not load your dashboard"
+}

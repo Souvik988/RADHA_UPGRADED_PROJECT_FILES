@@ -1,0 +1,150 @@
+00:00 +0: loading C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/core/auth/auth_repository_test.dart
+00:00 +0: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/core/auth/auth_repository_test.dart: (setUpAll)
+00:00 +0: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/core/auth/auth_repository_test.dart: requestOtp returns the server-issued requestId and cooldown
+00:00 +1: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/core/auth/auth_repository_test.dart: verifyOtp calls the API, fetches /me, and persists the resulting session
+00:00 +2: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/core/auth/auth_repository_test.dart: refresh rotates tokens via /auth/refresh and persists new pair
+00:00 +3: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/core/auth/auth_repository_test.dart: refresh throws UnauthorizedException when no session is on disk
+00:00 +4: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/core/auth/auth_repository_test.dart: logout clears storage even when the server call fails
+00:00 +5: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/core/auth/auth_repository_test.dart: logout clears storage on the happy path
+00:00 +6: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/core/auth/auth_repository_test.dart: isLoggedIn returns true when an access token is present
+00:00 +7: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/core/auth/auth_repository_test.dart: isLoggedIn returns false when no access token exists
+00:00 +8: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/core/auth/auth_repository_test.dart: selectStore persists the selection and returns the updated session
+00:00 +9: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/core/auth/auth_repository_test.dart: (tearDownAll)
+00:00 +9: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/core/entitlements/entitlement_provider_test.dart: EntitlementState canAccess returns true for included features
+00:00 +10: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/core/entitlements/entitlement_provider_test.dart: EntitlementState canAccess returns false for excluded features
+00:00 +11: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/core/entitlements/entitlement_provider_test.dart: EntitlementState UsageInfo.exceeded is true when current >= limit
+00:00 +12: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/core/entitlements/entitlement_provider_test.dart: EntitlementState requiredPlanFor returns correct plan name
+00:00 +13: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/core/entitlements/entitlement_provider_test.dart: LockedFeature widget shows overlay when feature is denied
+00:00 +14: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/core/entitlements/entitlement_provider_test.dart: LockedFeature widget shows overlay when feature is denied
+00:00 +15: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/core/entitlements/entitlement_provider_test.dart: LockedFeature widget shows overlay when feature is denied
+00:00 +16: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/core/entitlements/entitlement_provider_test.dart: LockedFeature widget shows overlay when feature is denied
+00:00 +17: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/core/entitlements/entitlement_provider_test.dart: LockedFeature widget shows overlay when feature is denied
+00:00 +18: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/core/entitlements/entitlement_provider_test.dart: LockedFeature widget shows overlay when feature is denied
+00:00 +19: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/core/entitlements/entitlement_provider_test.dart: LockedFeature widget shows overlay when feature is denied
+00:00 +20: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/core/entitlements/entitlement_provider_test.dart: LockedFeature widget shows overlay when feature is denied
+00:00 +21: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/core/entitlements/entitlement_provider_test.dart: LockedFeature widget shows overlay when feature is denied
+00:00 +22: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/core/entitlements/entitlement_provider_test.dart: LockedFeature widget shows overlay when feature is denied
+00:01 +23: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/core/entitlements/entitlement_provider_test.dart: LockedFeature widget shows overlay when feature is denied
+00:01 +24: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/core/offline/sync_service_test.dart: enqueue persists to pending_writes when the device is offline
+00:01 +25: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/core/entitlements/entitlement_provider_test.dart: LockedFeature widget renders child normally when feature is allowed
+00:01 +26: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/core/entitlements/entitlement_provider_test.dart: LockedFeature widget renders child normally when feature is allowed
+00:01 +27: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/core/entitlements/entitlement_provider_test.dart: LockedFeature widget renders child normally when feature is allowed
+00:01 +28: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/core/offline/sync_service_test.dart: processQueue removes successfully synced writes
+00:01 +29: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/core/offline/sync_service_test.dart: processQueue bumps retry counter and schedules backoff on 5xx
+00:01 +30: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/core/offline/sync_service_test.dart: processQueue exponential backoff capped at 60s after 6 retries
+00:01 +31: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/core/offline/sync_service_test.dart: processQueue skips rows whose backoff window has not elapsed
+00:01 +32: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/core/offline/sync_service_test.dart: processQueue returns immediately when offline
+00:01 +33: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/core/offline/sync_service_test.dart: evictExpiredProductCache drops rows older than the TTL
+00:01 +34: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/core/router/app_router_test.dart: (setUpAll)
+00:01 +34: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/core/router/app_router_test.dart: app_router redirect routes a fresh install to /onboarding
+00:02 +35: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/core/router/app_router_test.dart: app_router redirect routes a fresh install to /onboarding
+00:02 +36: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/core/router/app_router_test.dart: app_router redirect routes a fresh install to /onboarding
+00:02 +37: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/core/router/app_router_test.dart: app_router redirect routes a fresh install to /onboarding
+00:03 +38: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/core/router/app_router_test.dart: app_router redirect routes a fresh install to /onboarding
+00:03 +39: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/core/router/app_router_test.dart: app_router redirect routes a fresh install to /onboarding
+00:03 +40: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/allergen/allergen_test.dart: AllergenProfileScreen renders all canonical allergen chips
+00:03 +41: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/allergen/allergen_test.dart: AllergenProfileScreen renders all canonical allergen chips
+00:03 +42: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/allergen/allergen_test.dart: AllergenProfileScreen renders all canonical allergen chips
+00:03 +43: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/allergen/allergen_test.dart: AllergenProfileScreen renders all canonical allergen chips
+00:04 +44: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/auth/otp_screens_test.dart: OtpRequestScreen validates 10-digit Indian mobile
+00:04 +45: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/auth/otp_screens_test.dart: OtpRequestScreen validates 10-digit Indian mobile
+00:04 +46: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/auth/otp_screens_test.dart: OtpRequestScreen validates 10-digit Indian mobile
+00:04 +47: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/expiry/expiry_list_screen_test.dart: Renders 3 tabs
+00:04 +48: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/expiry/expiry_list_screen_test.dart: Renders 3 tabs
+00:04 +49: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/expiry/expiry_list_screen_test.dart: Renders 3 tabs
+00:04 +50: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/expiry/expiry_list_screen_test.dart: Renders 3 tabs
+00:04 +51: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/expiry/expiry_list_screen_test.dart: Renders 3 tabs
+00:04 +52: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/grn/grn_test.dart: GRN List Screen renders filter chips for Draft, Pending Review, Posted
+00:05 +53: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/grn/grn_test.dart: GRN List Screen renders filter chips for Draft, Pending Review, Posted
+00:05 +54: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/grn/grn_test.dart: GRN List Screen renders filter chips for Draft, Pending Review, Posted
+00:05 +55: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/grn/grn_test.dart: GRN List Screen renders filter chips for Draft, Pending Review, Posted
+00:05 +56: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/grn/grn_test.dart: GRN List Screen renders filter chips for Draft, Pending Review, Posted
+00:05 +57: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/grn/grn_test.dart: GRN List Screen renders filter chips for Draft, Pending Review, Posted
+00:05 +58: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/grn/grn_test.dart: GRN List Screen renders filter chips for Draft, Pending Review, Posted
+00:06 +59: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/grn/grn_test.dart: GRN List Screen renders filter chips for Draft, Pending Review, Posted
+00:06 +60: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/grn/grn_test.dart: GRN List Screen renders filter chips for Draft, Pending Review, Posted
+00:06 +61: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/inventory/inventory_test.dart: InventoryListScreen renders product items returned by the backend
+00:06 +62: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/inventory/inventory_test.dart: InventoryListScreen renders product items returned by the backend
+00:06 +63: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/inventory/inventory_test.dart: InventoryListScreen renders product items returned by the backend
+00:06 +64: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/inventory/inventory_test.dart: InventoryListScreen renders product items returned by the backend
+00:06 +65: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/inventory/inventory_test.dart: InventoryListScreen renders product items returned by the backend
+00:06 +66: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/inventory/inventory_test.dart: InventoryListScreen renders product items returned by the backend
+00:06 +67: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/inventory/inventory_test.dart: InventoryListScreen renders product items returned by the backend
+00:07 +68: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/onboarding/onboarding_screen_test.dart: OnboardingScreen Page 1 renders the headline and a Continue CTA
+00:08 +69: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/product/product_detail_screen_test.dart: ProductDetailScreen renders product name, brand, and category
+00:08 +70: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/inventory/inventory_test.dart: StockMovementScreen stock out rejects negative resulting quantity client-side
+00:08 +71: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/inventory/inventory_test.dart: StockMovementScreen stock out rejects negative resulting quantity client-side
+00:08 +72: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/inventory/inventory_test.dart: StockMovementScreen stock out rejects negative resulting quantity client-side
+00:08 +73: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/inventory/inventory_test.dart: StockMovementScreen stock out rejects negative resulting quantity client-side
+00:08 +74: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/inventory/inventory_test.dart: StockMovementScreen stock out rejects negative resulting quantity client-side
+00:08 +75: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/inventory/inventory_test.dart: StockMovementScreen stock out rejects negative resulting quantity client-side
+00:08 +76: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/inventory/inventory_test.dart: StockMovementScreen stock out rejects negative resulting quantity client-side
+00:08 +77: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/inventory/inventory_test.dart: StockMovementScreen stock out rejects negative resulting quantity client-side
+00:08 +78: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/inventory/inventory_test.dart: StockMovementScreen stock out rejects negative resulting quantity client-side
+00:08 +79: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/inventory/inventory_test.dart: StockMovementScreen stock out rejects negative resulting quantity client-side
+00:08 +80: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/inventory/inventory_test.dart: StockMovementScreen stock out rejects negative resulting quantity client-side
+00:08 +81: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/inventory/inventory_test.dart: StockMovementScreen stock out rejects negative resulting quantity client-side
+00:08 +82: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/inventory/inventory_test.dart: StockMovementScreen stock out rejects negative resulting quantity client-side
+00:08 +83: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/inventory/inventory_test.dart: StockMovementScreen stock out rejects negative resulting quantity client-side
+00:08 +84: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/inventory/inventory_test.dart: StockMovementScreen stock out rejects negative resulting quantity client-side
+00:08 +85: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/inventory/inventory_test.dart: StockMovementScreen stock out rejects negative resulting quantity client-side
+00:08 +86: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/recall/recall_test.dart: RecallAlertsScreen renders recall items returned by the backend
+00:09 +87: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/recall/recall_test.dart: RecallAlertsScreen renders recall items returned by the backend
+00:09 +88: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/referrals/referrals_test.dart: ReferralsScreen renders referral code and stats from API
+00:09 +89: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/referrals/referrals_test.dart: ReferralsScreen renders referral code and stats from API
+00:09 +90: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/referrals/referrals_test.dart: ReferralsScreen renders referral code and stats from API
+00:09 +91: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/referrals/referrals_test.dart: ReferralsScreen renders referral code and stats from API
+00:09 +92: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/referrals/referrals_test.dart: ReferralsScreen renders referral code and stats from API
+00:09 +93: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/referrals/referrals_test.dart: ReferralsScreen renders referral code and stats from API
+00:09 +94: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/referrals/referrals_test.dart: ReferralsScreen renders referral code and stats from API
+00:09 +95: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/referrals/referrals_test.dart: ReferralsScreen renders referral code and stats from API
+00:09 +96: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/referrals/referrals_test.dart: ReferralsScreen renders referral code and stats from API
+00:09 +97: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/referrals/referrals_test.dart: ReferralsScreen renders referral code and stats from API
+00:10 +98: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/shopping_list/shopping_list_test.dart: ShoppingListScreen Renders shopping list items
+00:10 +99: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/shopping_list/shopping_list_test.dart: ShoppingListScreen Renders shopping list items
+00:10 +100: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/shopping_list/shopping_list_test.dart: ShoppingListScreen Renders shopping list items
+00:10 +101: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/shopping_list/shopping_list_test.dart: ShoppingListScreen Renders shopping list items
+00:11 +102: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/splash/splash_screen_test.dart: SplashScreen renders the RADHA wordmark and a progress indicator
+00:11 +103: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/tasks/tasks_list_screen_test.dart: TasksListScreen Renders 3 filter tabs
+00:11 +104: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/tasks/tasks_list_screen_test.dart: TasksListScreen Renders 3 filter tabs
+00:11 +105: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/tasks/tasks_list_screen_test.dart: TasksListScreen Renders 3 filter tabs
+00:11 +106: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/tasks/tasks_list_screen_test.dart: TasksListScreen Renders 3 filter tabs
+00:12 +107: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/tasks/tasks_list_screen_test.dart: TasksListScreen Renders 3 filter tabs
+00:12 +108: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/features/tasks/tasks_list_screen_test.dart: TasksListScreen Renders 3 filter tabs
+00:12 +109: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/integration_smoke/auth_flow_smoke_test.dart: OTP request → verify → land on /home
+00:12 +110: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/integration_smoke/auth_flow_smoke_test.dart: OTP request → verify → land on /home
+00:12 +111: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/integration_smoke/auth_flow_smoke_test.dart: OTP request → verify → land on /home
+00:12 +112: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/integration_smoke/auth_flow_smoke_test.dart: OTP request → verify → land on /home
+00:14 +113: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/integration_smoke/expiry_flow_smoke_test.dart: creating an expiry record posts to backend and returns to list
+00:14 +114: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/integration_smoke/expiry_flow_smoke_test.dart: creating an expiry record posts to backend and returns to list
+00:14 +115: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/integration_smoke/expiry_flow_smoke_test.dart: creating an expiry record posts to backend and returns to list
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following TestFailure was thrown running a test:
+Expected: exactly one matching candidate
+  Actual: _TextWidgetFinder:<Found 0 widgets with text "Expiry Tracking": []>
+   Which: means none were found but one was expected
+
+When the exception was thrown, this was the stack:
+#4      main.<anonymous closure> (file:///C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES%20new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/integration_smoke/expiry_flow_smoke_test.dart:136:7)
+<asynchronous suspension>
+#5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1952:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+This was caught by the test expectation on the following line:
+  file:///C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES%20new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/integration_smoke/expiry_flow_smoke_test.dart line 136
+The test description was:
+  creating an expiry record posts to backend and returns to list
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:15 +115 -1: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/integration_smoke/expiry_flow_smoke_test.dart: creating an expiry record posts to backend and returns to list [E]
+  Test failed. See exception logs above.
+  The test description was: creating an expiry record posts to backend and returns to list
+  
+00:15 +115 -1: C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/integration_smoke/expiry_flow_smoke_test.dart: (tearDownAll)
+00:16 +115 -1: Some tests failed.
+
+Failing tests:
+  C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/apps/mobile/test/integration_smoke/expiry_flow_smoke_test.dart: creating an expiry record posts to backend and returns to list

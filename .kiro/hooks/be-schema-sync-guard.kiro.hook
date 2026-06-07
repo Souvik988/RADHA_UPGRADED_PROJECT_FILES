@@ -1,0 +1,16 @@
+{
+  "enabled": true,
+  "name": "Schema Sync Guard",
+  "description": "When a Drizzle schema file is saved, verify a matching numbered migration exists in db/migrations, that DATABASE_ARCHITECTURE.md documents the table, that the table has tenant_id (or a documented exception), required timestamps, and indexes leading with tenant_id. Generates the missing migration filename and the doc entry to add — does not modify files automatically.",
+  "version": "1",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "**/server/src/db/schema/**/*.ts"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "A Drizzle schema file was just saved. Validate the schema-migration-docs triangle. Do not modify files — output a remediation plan.\n\nSteps:\n1. Read the saved schema file. Extract every `pgTable(...)` definition and its columns/indexes.\n2. List existing migrations in server/src/db/migrations/ (sorted). Determine whether the most recent migration covers this schema change. If the schema has tables/columns/indexes that no migration creates, report the exact next migration number (NNN) and the SQL DDL that should go in `NNN_<purpose>.sql`.\n3. Check DATABASE_ARCHITECTURE.md for a row describing each table in this file. If missing or stale, output the exact markdown row to insert and the section it belongs in.\n4. For each table, enforce schema conventions:\n   - id: uuid primary key, default uuidv4\n   - timestamps: created_at, updated_at; deleted_at if mutable/soft-delete\n   - tenant_id: present on every business table (flag exceptions: tenants, subscription_plans, plan_entitlements, public/global lookup tables)\n   - store_id: present on operational tables (scans, expiry, tasks, inventory, grn, stock_movements, etc.)\n   - composite index leading with tenant_id (or store_id) for the most common query pattern\n   - snake_case column names\n5. If `packages/shared-types` exposes types that mirror this table, list any column drift between schema and shared-types.\n6. If any column added looks like it could store PII (phone, email, address, name, ip, device id), flag it and recommend it be added to the log redaction list.\n\nOutput format:\n- Section \"Migration\": either \"matched by NNN_xxx.sql\" or \"MISSING — create server/src/db/migrations/NNN_<name>.sql with: \\`\\`\\`sql ... \\`\\`\\`\".\n- Section \"Docs\": either \"DATABASE_ARCHITECTURE.md up to date\" or \"ADD this row: ...\".\n- Section \"Convention violations\": list each with severity.\n- One-line \"Schema sync status: PASS/FAIL\"."
+  }
+}

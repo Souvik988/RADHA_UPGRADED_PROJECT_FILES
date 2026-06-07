@@ -1,0 +1,24 @@
+{
+  "name": "radha",
+  "version": "1.0.0",
+  "private": true,
+  "description": "RADHA — Retail Assistant for Data, Health & Audits (monorepo root)",
+  "engines": {
+    "node": ">=18.17.0",
+    "pnpm": ">=8.10.0"
+  },
+  "scripts": {
+    "build": "pnpm -r --filter ./packages/* build && pnpm --filter @radha/server build",
+    "lint": "pnpm -r lint",
+    "test": "pnpm -r test",
+    "format": "pnpm -r format",
+    "server:dev": "pnpm --filter @radha/server start:dev",
+    "server:worker": "pnpm --filter @radha/server start:worker",
+    "server:scheduler": "pnpm --filter @radha/server start:scheduler"
+  },
+  "devDependencies": {
+    "prettier": "^3.1.1",
+    "typescript": "^5.3.3"
+  },
+  "packageManager": "pnpm@8.15.0"
+}

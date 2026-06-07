@@ -1,0 +1,349 @@
+{
+  "@@locale": "te",
+  "appName": "RADHA",
+  "tagline": "డేటా, ఆరోగ్యం మరియు ఆడిట్‌ల కోసం రిటైల్ అసిస్టెంట్.",
+  "continueLabel": "కొనసాగించు",
+  "getStarted": "ప్రారంభించండి",
+  "skip": "దాటవేయి",
+  "next": "తదుపరి",
+  "back": "వెనుకకు",
+  "cancel": "రద్దు చేయి",
+  "save": "సేవ్ చేయి",
+  "delete": "తొలగించు",
+  "edit": "సవరించు",
+  "add": "జోడించు",
+  "search": "వెతుకు",
+  "loading": "లోడ్ అవుతోంది",
+  "error": "ఏదో తప్పు జరిగింది",
+  "tryAgain": "మళ్ళీ ప్రయత్నించండి",
+  "done": "పూర్తయింది",
+  "close": "మూసివేయి",
+  "signIn": "సైన్ ఇన్ చేయండి",
+  "signOut": "సైన్ అవుట్ చేయండి",
+  "mobileNumber": "మొబైల్ నంబర్",
+  "enterOtp": "OTP నమోదు చేయండి",
+  "verifyOtp": "OTP ధృవీకరించండి",
+  "resendOtp": "OTP మళ్ళీ పంపండి",
+  "otpSent": "మేము మీకు 6-అంకెల కోడ్ పంపాము",
+  "home": "హోమ్",
+  "scan": "స్కాన్",
+  "expiry": "గడువు",
+  "tasks": "పనులు",
+  "profile": "ప్రొఫైల్",
+  "settings": "సెట్టింగ్‌లు",
+  "language": "భాష",
+  "scanProduct": "ఉత్పత్తిని స్కాన్ చేయండి",
+  "pointAtBarcode": "మీ కెమెరాను బార్‌కోడ్ వద్ద ఉంచండి",
+  "scanAgain": "మళ్ళీ స్కాన్ చేయండి",
+  "productNotFound": "ఉత్పత్తి కనుగొనబడలేదు",
+  "expiryTracker": "గడువు ట్రాకర్",
+  "addExpiry": "గడువు జోడించు",
+  "expiringSoon": "త్వరలో గడువు ముగుస్తుంది",
+  "expired": "గడువు ముగిసింది",
+  "yourTasks": "మీ పనులు",
+  "noTasks": "ఇంకా పనులు లేవు",
+  "completeTask": "పనిని పూర్తి చేయండి",
+  "welcome": "స్వాగతం",
+  "welcomeMessage": "స్ప్రెడ్‌షీట్‌లు లేకుండా మీ స్టాక్‌ను స్కాన్, ట్రాక్, ఆడిట్ చేయండి.",
+  "referrals": "రిఫరల్‌లు",
+  "shareYourCode": "మీ కోడ్‌ను షేర్ చేయండి",
+  "yourReferralCode": "మీ రిఫరల్ కోడ్",
+  "invitees": "ఆహ్వానితులు",
+  "rewardsEarned": "సంపాదించిన బహుమతులు",
+  "redeemCode": "కోడ్ రీడీమ్ చేయండి",
+  "enterReferralCode": "రిఫరల్ కోడ్ నమోదు చేయండి",
+  "chooseLanguage": "భాషను ఎంచుకోండి",
+  "languageUpdated": "భాష నవీకరించబడింది",
+  "errorGeneric": "ఏదో తప్పు జరిగింది. దయచేసి మళ్ళీ ప్రయత్నించండి.",
+  "errorRateLimitOtp": "చాలా ఎక్కువ OTP అభ్యర్థనలు. {seconds} సెకన్లలో మళ్ళీ ప్రయత్నించండి.",
+  "@errorRateLimitOtp": {
+    "placeholders": {
+      "seconds": { "type": "int" }
+    }
+  },
+  "errorOtpInvalid": "OTP తప్పు. దయచేసి మళ్ళీ ప్రయత్నించండి.",
+  "errorOtpExpired": "OTP గడువు ముగిసింది. కొత్తదాన్ని అభ్యర్థించండి.",
+  "errorAuthRequired": "కొనసాగించడానికి సైన్ ఇన్ చేయండి.",
+  "errorNotFound": "కనుగొనబడలేదు.",
+  "ingredientExplainerErrorTitle": "వివరణను లోడ్ చేయలేకపోయాము",
+  "ingredientExplainerHealthConsiderations": "ఆరోగ్య పరిగణనలు",
+  "healthyAlternativesTitle": "{productName} కంటే మంచి ఎంపికలు",
+  "@healthyAlternativesTitle": {
+    "placeholders": {
+      "productName": { "type": "String" }
+    }
+  },
+  "healthyAlternativesGenericTitle": "మంచి ఎంపికలు",
+  "healthyAlternativesEmptyTitle": "ఆరోగ్యకరమైన ప్రత్యామ్నాయాలు ఇంకా లేవు",
+  "healthyAlternativesEmptyBody": "ఇదే వర్గంలో ఇంకా ఆరోగ్యకరమైన ప్రత్యామ్నాయాలు దొరకలేదు.",
+  "healthyAlternativesErrorTitle": "ప్రత్యామ్నాయాలను లోడ్ చేయలేకపోయాము",
+  "healthyAlternativesAddToList": "షాపింగ్ జాబితాకు జోడించు",
+  "healthyAlternativesView": "చూడు",
+  "healthyAlternativesAddedToList": "షాపింగ్ జాబితాకు జోడించబడింది",
+  "healthyAlternativesAddFailed": "షాపింగ్ జాబితాకు జోడించడం సాధ్యం కాలేదు",
+  "savedProductsTitle": "సేవ్ చేసిన ఉత్పత్తులు",
+  "savedProductsEmptyTitle": "సేవ్ చేసిన ఉత్పత్తులు",
+  "savedProductsEmptyBody": "స్కాన్ ఫలితం స్క్రీన్ నుండి ఉత్పత్తులను సేవ్ చేయండి, అవి ఇక్కడ కనిపిస్తాయి.",
+  "savedProductsErrorTitle": "సేవ్ చేసిన ఉత్పత్తులను లోడ్ చేయలేకపోయాము",
+  "savedProductsSavedOn": "{date} న సేవ్ చేయబడింది",
+  "@savedProductsSavedOn": {
+    "placeholders": {
+      "date": { "type": "String" }
+    }
+  },
+
+  "digestTitle": "RADHA తో మీ వారం",
+  "digestWeekRange": "{start} – {end}",
+  "@digestWeekRange": {
+    "placeholders": {
+      "start": { "type": "String" },
+      "end": { "type": "String" }
+    }
+  },
+  "digestSavingsHero": "₹{amount} ఆదా",
+  "@digestSavingsHero": {
+    "placeholders": {
+      "amount": { "type": "String" }
+    }
+  },
+  "digestScansHero": "{count, plural, =1{1 స్కాన్} other{{count} స్కాన్‌లు}}",
+  "@digestScansHero": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "digestHeroEmptyHeadline": "ప్రశాంత వారం",
+  "digestScans": "స్కాన్‌లు",
+  "digestSavedProducts": "సేవ్ చేసినవి",
+  "digestExpiringSoon": "త్వరలో గడువు",
+  "digestRecallAlerts": "{count, plural, =1{1 రీకాల్ అలర్ట్} other{{count} రీకాల్ అలర్ట్‌లు}}",
+  "@digestRecallAlerts": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "digestRecallAlertsBody": "ఈ వారం మీరు స్కాన్ చేసిన ఉత్పత్తులకు కొత్త భద్రతా సూచనలు ఉన్నాయి.",
+  "digestRecallAlertsCta": "సమీక్షించండి",
+  "digestTopCategoriesHeader": "మీరు ఏం స్కాన్ చేస్తున్నారు",
+  "digestHighlightsHeader": "ముఖ్యాంశాలు",
+  "digestContinueScanning": "స్కాన్ కొనసాగించండి",
+  "digestShare": "నా వారాన్ని షేర్ చేయండి",
+  "digestShareTemplate": "ఈ వారం నేను {scans} ఉత్పత్తులను స్కాన్ చేసి RADHA తో ₹{savings} ఆదా చేశాను. మీరు కూడా ప్రయత్నించండి: https://radha.app",
+  "@digestShareTemplate": {
+    "placeholders": {
+      "scans": { "type": "int" },
+      "savings": { "type": "String" }
+    }
+  },
+  "digestEmptyTitle": "ఈ వారం ఏ కార్యకలాపం లేదు",
+  "digestEmptyBody": "మీ వారపు కథను నిర్మించడానికి స్కాన్ చేయడం ప్రారంభించండి.",
+  "digestErrorTitle": "వారపు సారాంశాన్ని లోడ్ చేయలేకపోయాము",
+
+  "settingsTitle": "సెట్టింగ్‌లు",
+  "settingsNotifications": "నోటిఫికేషన్‌లు",
+  "settingsPushNotifications": "పుష్ నోటిఫికేషన్‌లు",
+  "settingsPushNotificationsHint": "మీ ఫోన్‌లో అలర్ట్‌లను పొందండి",
+  "settingsRecallAlerts": "రీకాల్ అలర్ట్‌లు",
+  "settingsRecallAlertsHint": "మీరు స్కాన్ చేసిన ఉత్పత్తి రీకాల్ అయితే తెలియజేస్తాం",
+  "settingsWeeklyDigest": "వారపు సారాంశం",
+  "settingsWeeklyDigestHint": "ఆదివారం మీ స్కాన్‌లు మరియు పొదుపుల సారాంశం",
+  "settingsAppearance": "రూపం",
+  "settingsTheme": "థీమ్",
+  "settingsThemeSystem": "సిస్టమ్",
+  "settingsThemeLight": "లైట్",
+  "settingsThemeDark": "డార్క్",
+  "settingsLanguage": "భాష",
+  "settingsTextSize": "టెక్స్ట్ పరిమాణం",
+  "settingsTextSizeSmall": "చిన్న",
+  "settingsTextSizeStandard": "ప్రామాణికం",
+  "settingsTextSizeLarge": "పెద్ద",
+  "settingsDataPrivacy": "డేటా & గోప్యత",
+  "settingsAllergens": "అలెర్జీ ప్రొఫైల్",
+  "settingsAllergensHint": "మనం హెచ్చరించాల్సిన పదార్థాలను ఎంచుకోండి",
+  "settingsSignOutAll": "అన్ని పరికరాల నుండి సైన్ అవుట్ చేయండి",
+  "settingsSignOutAllConfirmTitle": "ప్రతిచోటి నుంచీ సైన్ అవుట్?",
+  "settingsSignOutAllConfirmBody": "ఈ ఖాతాను ఉపయోగించే ప్రతి పరికరంలోనూ మళ్లీ సైన్ ఇన్ చేయాలి.",
+  "settingsDeleteAccount": "ఖాతాను తొలగించండి",
+  "settingsDeleteAccountTitle": "ఖాతాను తొలగించండి",
+  "settingsDeleteAccountBody": "ఇది మీ డేటాను శాశ్వతంగా తొలగిస్తుంది. ధృవీకరించడానికి DELETE అని టైప్ చేయండి.",
+  "settingsDeleteAccountConfirm": "DELETE",
+  "settingsDeleteAccountUnavailable": "మీ ఖాతాను తొలగించడానికి సహాయాన్ని సంప్రదించండి.",
+  "settingsDeleteAccountContact": "సహాయాన్ని సంప్రదించండి",
+  "settingsAbout": "గురించి",
+  "settingsTerms": "సేవా నిబంధనలు",
+  "settingsPrivacyPolicy": "గోప్యతా విధానం",
+  "settingsVersion": "యాప్ సంస్కరణ",
+  "settingsVersionValue": "సంస్కరణ {version} ({build})",
+  "@settingsVersionValue": {
+    "placeholders": {
+      "version": { "type": "String" },
+      "build": { "type": "String" }
+    }
+  },
+  "settingsSupport": "సహాయం",
+  "settingsSupportHint": "సహాయం పొందండి, బగ్‌ను నివేదించండి, లేదా ఫీడ్‌బ్యాక్ ఇవ్వండి",
+  "settingsLinkOpenFailed": "లింక్‌ను తెరవలేకపోయాము",
+
+  "conflictBannerCount": "{count, plural, =1{1 వైరుధ్యానికి మీ దృష్టి అవసరం} other{{count} వైరుధ్యాలకు మీ దృష్టి అవసరం}}",
+  "@conflictBannerCount": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "conflictBannerCta": "పరిష్కరించండి",
+  "conflictBannerDismiss": "మూసివేయి",
+  "conflictResolveTitle": "సింక్ వైరుధ్యాలను పరిష్కరించండి",
+  "conflictResolveSubtitle": "ప్రతి అంశానికి ఏ సంస్కరణను ఉంచాలో ఎంచుకోండి.",
+  "conflictUseMine": "నా సంస్కరణను ఉంచు",
+  "conflictUseServer": "సర్వర్ సంస్కరణను ఉంచు",
+  "conflictResolved": "వైరుధ్యం పరిష్కరించబడింది",
+  "conflictResolvedAll": "అన్ని వైరుధ్యాలు పరిష్కరించబడ్డాయి",
+  "conflictAttempts": "{count, plural, =1{1 సారి ప్రయత్నించబడింది} other{{count} సార్లు ప్రయత్నించబడింది}}",
+  "@conflictAttempts": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "conflictResourceTask": "పని",
+  "conflictResourceExpiry": "గడువు రికార్డ్",
+  "conflictResourceScan": "స్కాన్",
+  "conflictResourceInventory": "స్టాక్ సర్దుబాటు",
+  "conflictResourceGrn": "GRN ఎంట్రీ",
+  "conflictResourceShoppingList": "షాపింగ్ జాబితా అంశం",
+  "conflictResourceGeneric": "సింక్ మార్పు",
+  "conflictLocalChangeSummary": "మీ మార్పు: {summary}",
+  "@conflictLocalChangeSummary": {
+    "placeholders": {
+      "summary": { "type": "String" }
+    }
+  },
+
+  "supportTitle": "సహాయం",
+  "supportContactUs": "మమ్మల్ని సంప్రదించండి",
+  "supportEmailUs": "ఇమెయిల్ పంపండి",
+  "supportEmailUsHint": "support@radha.app",
+  "supportCallUs": "సహాయానికి కాల్ చేయండి",
+  "supportCallUsHint": "సోమ–శుక్ర, ఉదయం 9 – సాయంత్రం 6 IST",
+  "supportReportBug": "బగ్‌ను నివేదించండి",
+  "supportBugDescription": "ఏం జరిగింది?",
+  "supportBugDescriptionHint": "సమస్య ఏర్పడినప్పుడు మీరు ఏం చేస్తున్నారో వివరించండి.",
+  "supportAttachScreenshot": "స్క్రీన్‌షాట్‌ను జతచేయండి",
+  "supportScreenshotAttached": "స్క్రీన్‌షాట్ జతచేయబడింది",
+  "supportRemoveScreenshot": "తొలగించు",
+  "supportSubmit": "నివేదికను పంపు",
+  "supportSubmitted": "ధన్యవాదాలు — మీ నివేదికను అందుకున్నాము.",
+  "supportSubmitFailed": "పంపలేకపోయాము. దయచేసి మాకు ఇమెయిల్ పంపండి.",
+  "supportBugDescriptionRequired": "ఏమి జరిగిందో వివరించండి.",
+  "supportFaq": "తరచుగా అడిగే ప్రశ్నలు",
+  "supportFaqQ1": "బార్‌కోడ్‌ను ఎలా స్కాన్ చేయాలి?",
+  "supportFaqA1": "స్కాన్ ట్యాబ్‌ను తెరవండి, కెమెరాను బార్‌కోడ్‌పై ఉంచి స్థిరంగా ఉంచండి. స్పష్టంగా చదివిన క్షణంలో ఉత్పత్తి కనిపిస్తుంది.",
+  "supportFaqQ2": "ఉత్పత్తి డేటాబేస్‌లో లేకపోతే ఏమి?",
+  "supportFaqA2": "కనుగొనబడలేదు స్క్రీన్‌లో \"ఉత్పత్తి జోడించు\" నొక్కండి. మీ స్టోర్‌తో అనుసంధానించబడిన కొత్త ఎంట్రీని సృష్టిస్తుంది.",
+  "supportFaqQ3": "నా సబ్‌స్క్రిప్షన్‌ను ఎలా రద్దు చేయాలి?",
+  "supportFaqA3": "ప్రొఫైల్ → సబ్‌స్క్రిప్షన్‌కి వెళ్లండి. ఎప్పుడైనా రద్దు చేయవచ్చు; తదుపరి బిల్లింగ్ చక్రం తర్వాత ఛార్జీలు ఉండవు.",
+  "supportFaqQ4": "నాకు రీకాల్ అలర్ట్ ఎందుకు కనిపిస్తుంది?",
+  "supportFaqA4": "ప్రతి స్కాన్‌ను FSSAI రీకాల్ ఫీడ్‌తో పోలుస్తాము. మీరు అమ్మిన బ్యాచ్ జాబితాలో ఉంటే మీకు తెలియజేస్తాము.",
+  "supportFaqQ5": "నా అలెర్జీ ప్రొఫైల్‌ను కుటుంబంతో ఎలా షేర్ చేయాలి?",
+  "supportFaqA5": "ప్రస్తుతం అలెర్జీ ప్రొఫైల్ ప్రతి ఖాతాకు ఒకటే. ఒకే గృహ ఖాతాలో సైన్ ఇన్ చేయండి లేదా ప్రతి ఫోన్‌లో ఒకే అలెర్జీలను ఎంచుకోండి.",
+  "reportsTitle": "Reports & exports",
+  "reportsTabAvailable": "Available",
+  "reportsTabScheduled": "Scheduled",
+  "reportsTabHistory": "History",
+  "reportsQuickExportsHeader": "Quick exports",
+  "reportsInventorySnapshot": "Inventory snapshot",
+  "reportsExpiringItems": "Expiring items",
+  "reportsSalesSummary": "Sales summary",
+  "reportsAuditLog": "Audit log",
+  "reportsGenerate": "Generate",
+  "reportsGenerateSuccess": "Report ready",
+  "reportsGenerateQueued": "Generation started — we'll notify you when it's ready",
+  "reportsGenerateFailed": "Could not start the report",
+  "reportsDownloadFailed": "Could not open the download",
+  "reportsScheduleNew": "New schedule",
+  "reportsScheduleCreate": "Create schedule",
+  "reportsScheduleSuccess": "Schedule created",
+  "reportsScheduleReportLabel": "Report",
+  "reportsScheduleDayOfWeek": "Day of week",
+  "reportsScheduleDayOfMonth": "Day of month",
+  "reportsScheduleTime": "Time",
+  "reportsScheduleFormat": "Format",
+  "reportsScheduleActionsTooltip": "Schedule actions",
+  "reportsFrequency": "Frequency",
+  "reportsFrequencyDaily": "Daily",
+  "reportsFrequencyWeekly": "Weekly",
+  "reportsFrequencyMonthly": "Monthly",
+  "reportsPause": "Pause",
+  "reportsResume": "Resume",
+  "reportsDelete": "Delete",
+  "reportsDeleteScheduleTitle": "Delete schedule?",
+  "reportsDeleteScheduleBody": "This recurring schedule will stop firing. Past runs stay in your history.",
+  "reportsLastRun": "Last run {when}",
+  "@reportsLastRun": {
+    "placeholders": {
+      "when": { "type": "String" }
+    }
+  },
+  "reportsLastRunNever": "Hasn't run yet",
+  "reportsNextRun": "Next run {when}",
+  "@reportsNextRun": {
+    "placeholders": {
+      "when": { "type": "String" }
+    }
+  },
+  "reportsDownload": "Download",
+  "reportsStatusCompleted": "Ready",
+  "reportsStatusGenerating": "Generating",
+  "reportsStatusFailed": "Failed",
+  "reportsStatusCancelled": "Cancelled",
+  "reportsStatusExpired": "Expired",
+  "reportsEmptyTitle": "No exports yet",
+  "reportsEmptyBody": "Generate a report from the Available tab and it'll show up here.",
+  "reportsScheduledEmptyTitle": "No scheduled reports",
+  "reportsScheduledEmptyBody": "Tap New schedule to have a report run automatically.",
+  "reportsErrorTitle": "Could not load reports",
+  "ohsTitle": "Operational health",
+  "ohsScoreCaption": "OHS score",
+  "ohsScore": "{score}",
+  "@ohsScore": {
+    "placeholders": {
+      "score": { "type": "int" }
+    }
+  },
+  "ohsDeltaUp": "+{value} from last week",
+  "@ohsDeltaUp": {
+    "placeholders": {
+      "value": { "type": "int" }
+    }
+  },
+  "ohsDeltaDown": "-{value} from last week",
+  "@ohsDeltaDown": {
+    "placeholders": {
+      "value": { "type": "int" }
+    }
+  },
+  "ohsDeltaSame": "No change from last week",
+  "ohsDeltaUnavailable": "Not enough data for a week-over-week comparison yet",
+  "ohsCompliance": "Compliance",
+  "ohsInventoryHygiene": "Inventory hygiene",
+  "ohsAuditCompletion": "Audit completion",
+  "ohsActionItemsHeader": "Action items",
+  "ohsActionExpiry": "{count, plural, =1{1 expiry alert needs a review} other{{count} expiry alerts need a review}}",
+  "@ohsActionExpiry": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "ohsActionLowStock": "{count, plural, =1{1 low-stock alert is unresolved} other{{count} low-stock alerts are unresolved}}",
+  "@ohsActionLowStock": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "ohsActionTasks": "Review open tasks for your store",
+  "ohsActionNoneBody": "Everything looks good — keep scanning to maintain your score.",
+  "ohsTrendHeader": "Trend",
+  "ohsViewDetailedReports": "View detailed reports",
+  "ohsEmptyTitle": "Build your operational health score",
+  "ohsEmptyBody": "Start scanning to build your OHS score.",
+  "ohsErrorTitle": "Could not load your dashboard"
+}

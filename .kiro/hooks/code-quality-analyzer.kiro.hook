@@ -1,0 +1,35 @@
+{
+  "enabled": true,
+  "name": "Code Quality Analyzer",
+  "description": "When source code files are saved, analyze the modified code for potential improvements including code smells, design patterns, and best practices. Suggestions focus on readability, maintainability, and performance while preserving existing functionality.",
+  "version": "1",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "**/*.ts",
+      "**/*.tsx",
+      "**/*.js",
+      "**/*.jsx",
+      "**/*.py",
+      "**/*.java",
+      "**/*.go",
+      "**/*.rs",
+      "**/*.cpp",
+      "**/*.c",
+      "**/*.h",
+      "**/*.hpp",
+      "**/*.cs",
+      "**/*.rb",
+      "**/*.php",
+      "**/*.swift",
+      "**/*.kt",
+      "**/*.scala",
+      "**/*.vue",
+      "**/*.svelte"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "A source code file was just saved. Review the modified file and analyze it for potential improvements without changing existing functionality.\n\nYour analysis should cover:\n\n1. **Code Smells**: Identify long methods, large classes, duplicated code, dead code, magic numbers, deeply nested conditionals, primitive obsession, feature envy, and inappropriate intimacy.\n\n2. **Design Patterns**: Suggest applicable patterns (Strategy, Factory, Observer, Decorator, etc.) where they would simplify the code, and flag anti-patterns or misapplied patterns.\n\n3. **Best Practices**: Check for SOLID principles, DRY/KISS/YAGNI adherence, proper error handling, input validation, separation of concerns, naming conventions, and consistency with the rest of the codebase.\n\n4. **Readability**: Comment on naming clarity, function/class size, abstraction levels, comment quality, and code organization.\n\n5. **Maintainability**: Assess testability, coupling, cohesion, dependency management, and how easy the code is to extend or modify.\n\n6. **Performance**: Highlight inefficient algorithms, unnecessary allocations, redundant computations, N+1 patterns, blocking operations, and missed caching/memoization opportunities, but only when the impact is meaningful.\n\nOutput format:\n- Group findings under the categories above. Skip categories with no findings.\n- For each finding: cite the line number or symbol, explain the issue briefly, and provide a concrete suggestion or short code snippet showing the improvement.\n- Prioritize findings as High / Medium / Low based on impact.\n- Keep functionality identical. Do not propose behavioral changes.\n- If the file looks clean, say so plainly instead of inventing issues.\n\nDo not modify any files. This is a review only."
+  }
+}

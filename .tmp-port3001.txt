@@ -1,0 +1,11 @@
+  TCP    0.0.0.0:3001           0.0.0.0:0              LISTENING       18740
+  TCP    [::]:3001              [::]:0                 LISTENING       18740
+  TCP    [::1]:3001             [::1]:58109            TIME_WAIT       0
+  TCP    [::1]:3001             [::1]:58113            TIME_WAIT       0
+  TCP    [::1]:3001             [::1]:58122            TIME_WAIT       0
+  TCP    [::1]:3001             [::1]:58139            TIME_WAIT       0
+  TCP    [::1]:3001             [::1]:58170            TIME_WAIT       0
+  TCP    [::1]:3001             [::1]:58193            TIME_WAIT       0
+  TCP    [::1]:3001             [::1]:65105            TIME_WAIT       0
+  TCP    [::1]:3001             [::1]:65106            TIME_WAIT       0
+  TCP    [::1]:58144            [::1]:3001             TIME_WAIT       0

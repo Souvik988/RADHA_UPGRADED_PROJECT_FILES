@@ -1,0 +1,2 @@
+Web devices are not supported for integration tests yet.
+EXITCODE=0 

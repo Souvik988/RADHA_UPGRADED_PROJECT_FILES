@@ -1,0 +1,19 @@
+  Generating the build script.
+  Reading the asset graph.
+  Checking for updates.
+  Updating the asset graph.
+  Building, incremental build.
+  0s retrofit_generator on 11 inputs; lib/design/theme.dart
+  0s retrofit_generator on 11 inputs: 1 skipped; lib/design/tokens.dart
+  0s retrofit_generator on 11 inputs: 11 skipped
+  0s freezed on 11 inputs; lib/design/theme.dart
+  0s freezed on 11 inputs: 11 skipped
+  0s json_serializable on 22 inputs; lib/design/theme.dart
+  0s json_serializable on 22 inputs: 22 skipped
+  0s drift_dev on 88 inputs; lib/design/theme.dart
+  0s drift_dev on 88 inputs: 88 skipped
+  0s source_gen:combining_builder on 44 inputs; lib/design/theme.dart
+  0s source_gen:combining_builder on 44 inputs: 44 skipped
+  Running the post build.
+  Writing the asset graph.
+  Built with build_runner in 2s; wrote 0 outputs.

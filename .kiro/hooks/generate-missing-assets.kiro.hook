@@ -1,0 +1,19 @@
+{
+  "name": "Generate missing assets on save",
+  "version": "1.0.0",
+  "description": "When a UI source file is saved, scan it for static image references whose files do not yet exist under assets/, and generate the missing images via kiro-gpt-bridge with enhance_prompt: true.",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "**/*.tsx",
+      "**/*.jsx",
+      "**/*.vue",
+      "**/*.svelte",
+      "**/*.html"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "A UI source file was just saved. Open it and scan for static image references — `<img src=...>`, JSX `src={...}` literals, CSS `url(...)`, `background-image`, `<source srcSet=...>`, Vue `:src` literals, and any `import xxx from '.../assets/...'` lines.\n\nFor each reference:\n1. SKIP it if the URL starts with `http://`, `https://`, `data:`, `//`, or any other remote / inline scheme.\n2. SKIP it if the path resolves to an existing file on disk relative to the workspace root.\n3. For every remaining reference whose target path does NOT exist on disk under `assets/`:\n   a. Read the surrounding component (200 lines of context max) to infer subject, mood, and style.\n   b. Pick the matching kiro-gpt-bridge tool: `generate_logo` for logo paths, `generate_hero` for hero/banner paths, `generate_icon_set` when the file references a folder of related icons (≥3 in the same component), `generate_ui_mockup` for full-screen mocks, otherwise `generate_image`.\n   c. Build a brief that follows `.kiro/steering/visual-assets.md` (200–600 chars, concrete style anchors, hex colours from the Brand palette, negative anchors).\n   d. Call the tool with `enhance_prompt: true` and an output path under `assets/{category}/{kebab-case-name}.{ext}` matching what the source file expects.\n\nDo not generate images for references that already resolve to a real file. Do not touch remote URLs. Do not invent new categories outside the allowed list (logo, hero, icon, illustration, background, mockup, other).\n\nIf no missing references are found, output exactly: `assets-hook: no missing references` and stop."
+  }
+}

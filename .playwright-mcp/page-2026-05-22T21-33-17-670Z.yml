@@ -1,0 +1,227 @@
+- generic [ref=e2]:
+  - region "Notifications (F8)":
+    - list
+  - region "Notifications alt+T"
+  - generic [ref=e3]:
+    - banner [ref=e4]:
+      - generic [ref=e6]:
+        - navigation [ref=e7]:
+          - link "Mobile Next Home" [ref=e8] [cursor=pointer]:
+            - /url: /
+            - img "Mobile Next" [ref=e9]
+            - text: Home
+          - link "Products" [ref=e10] [cursor=pointer]:
+            - /url: /#products
+          - link "Docs" [ref=e11] [cursor=pointer]:
+            - /url: https://docs.mobilenexthq.com
+          - link "Contact Us" [ref=e12] [cursor=pointer]:
+            - /url: mailto:hello@mobilenexthq.com
+        - generic [ref=e13]:
+          - link "5.5k" [ref=e14] [cursor=pointer]:
+            - /url: https://github.com/mobile-next
+            - img [ref=e15]
+            - generic [ref=e18]: 5.5k
+          - link "68k" [ref=e19] [cursor=pointer]:
+            - /url: https://www.npmjs.com/package/@mobilenext/mobile-mcp
+            - img [ref=e20]
+            - generic [ref=e22]: 68k
+          - link "Join Slack" [ref=e23] [cursor=pointer]:
+            - /url: https://join.slack.com/t/mobile-next/shared_invite/zt-37fdhc001-CjZkz8QIZB8dSi486~F0uA
+            - img [ref=e24]
+            - generic [ref=e26]: Join Slack
+          - link "Sign in" [ref=e27] [cursor=pointer]:
+            - /url: https://app.mobilenexthq.com/
+    - generic [ref=e29]:
+      - heading "Build Mobile Apps 10x Faster with AI-Powered Development" [level=1] [ref=e30]:
+        - text: Build Mobile Apps 10x Faster with
+        - text: AI-Powered Development
+      - paragraph [ref=e31]:
+        - text: Making mobile development accessible to everyone.
+        - text: Build cross-platform applications, across any device without complicated setup.
+    - generic [ref=e34]: Your browser does not support the video tag.
+    - generic [ref=e37]:
+      - heading "Starred by amazing engineers at" [level=2] [ref=e38]
+      - generic [ref=e40]:
+        - img "Company 1" [ref=e42]
+        - img "Company 2" [ref=e44]
+        - img "Company 3" [ref=e46]
+        - img "Company 4" [ref=e48]
+        - img "Company 5" [ref=e50]
+        - img "Company 6" [ref=e52]
+        - img "Company 7" [ref=e54]
+        - img "Company 8" [ref=e56]
+        - img "Company 9" [ref=e58]
+        - img "Company 10" [ref=e60]
+        - img "Company 1" [ref=e62]
+        - img "Company 2" [ref=e64]
+        - img "Company 3" [ref=e66]
+        - img "Company 4" [ref=e68]
+        - img "Company 5" [ref=e70]
+        - img "Company 6" [ref=e72]
+        - img "Company 7" [ref=e74]
+        - img "Company 8" [ref=e76]
+        - img "Company 9" [ref=e78]
+        - img "Company 10" [ref=e80]
+        - img "Company 1" [ref=e82]
+        - img "Company 2" [ref=e84]
+        - img "Company 3" [ref=e86]
+        - img "Company 4" [ref=e88]
+        - img "Company 5" [ref=e90]
+        - img "Company 6" [ref=e92]
+        - img "Company 7" [ref=e94]
+        - img "Company 8" [ref=e96]
+        - img "Company 9" [ref=e98]
+        - img "Company 10" [ref=e100]
+        - img "Company 1" [ref=e102]
+        - img "Company 2" [ref=e104]
+        - img "Company 3" [ref=e106]
+        - img "Company 4" [ref=e108]
+        - img "Company 5" [ref=e110]
+        - img "Company 6" [ref=e112]
+        - img "Company 7" [ref=e114]
+        - img "Company 8" [ref=e116]
+        - img "Company 9" [ref=e118]
+        - img "Company 10" [ref=e120]
+    - generic [ref=e122]:
+      - heading "Check out what we have built" [level=2] [ref=e123]
+      - generic [ref=e124]:
+        - generic [ref=e125]:
+          - img [ref=e127]
+          - heading "Mobile MCP" [level=3] [ref=e130]
+          - paragraph [ref=e131]: "Mobile MCP Server: Scalable Automation for iOS & Android"
+          - button "mobile-mcp" [ref=e132] [cursor=pointer]:
+            - img
+            - text: mobile-mcp
+        - generic [ref=e133]:
+          - img [ref=e135]
+          - heading "Mobile CLI" [level=3] [ref=e138]
+          - paragraph [ref=e139]: Universal command-line tool for managing iOS and Android devices, simulators, emulators and apps
+          - button "mobile-cli" [ref=e140] [cursor=pointer]:
+            - img
+            - text: mobile-cli
+        - generic [ref=e141]:
+          - img [ref=e143]
+          - heading "Mobilewright" [level=3] [ref=e145]
+          - paragraph [ref=e146]: Platform and framework agnostic end-to-end automation and test framework for iOS/Android apps
+          - button "mobilewright" [ref=e148] [cursor=pointer]:
+            - img
+            - text: mobilewright
+    - generic [ref=e151]:
+      - generic [ref=e152]:
+        - generic [ref=e153]:
+          - text: Installation and Configuration
+          - heading "Works with any IDE and AI agent" [level=2] [ref=e154]
+        - generic [ref=e155]:
+          - generic [ref=e156]:
+            - paragraph [ref=e157]: "Standard config works in most tools:"
+            - img [ref=e158] [cursor=pointer]
+          - generic [ref=e161]: "{ \"mcpServers\": { \"mobile-mcp\": { \"command\": \"npx\", \"args\": [\"-y\", \"@mobilenext/mobile-mcp@latest\"] } } }"
+        - generic [ref=e162]:
+          - paragraph [ref=e163]: "Supported IDEs and AI Agents:"
+          - generic [ref=e164]:
+            - generic [ref=e165]:
+              - img "Claude Code" [ref=e166]
+              - generic [ref=e167]: Claude Code
+            - generic [ref=e168]:
+              - img "Cursor" [ref=e169]
+              - generic [ref=e170]: Cursor
+            - generic [ref=e171]:
+              - img "VSCode" [ref=e172]
+              - generic [ref=e173]: VSCode
+            - generic [ref=e174]:
+              - img "Jetbrains IntellIJ IDEA" [ref=e175]
+              - generic [ref=e176]: IntelliJ
+            - generic [ref=e177]:
+              - img "OpenAI" [ref=e178]
+              - generic [ref=e179]: OpenAI
+            - generic [ref=e180]:
+              - img "Github Copilot" [ref=e181]
+              - generic [ref=e182]: Copilot
+            - generic [ref=e183]:
+              - img "Gemini CLI" [ref=e184]
+              - generic [ref=e185]: Gemini CLI
+            - generic [ref=e186]:
+              - img "Cline" [ref=e187]
+              - generic [ref=e188]: Cline
+            - generic [ref=e189]:
+              - img "Goose" [ref=e190]
+              - generic [ref=e191]: Goose
+            - generic [ref=e192]:
+              - img "Qodo Gen" [ref=e193]
+              - generic [ref=e194]: Qodo Gen
+            - generic [ref=e195]:
+              - img "Windsurf" [ref=e196]
+              - generic [ref=e197]: Windsurf
+            - generic [ref=e198]:
+              - img [ref=e199]
+              - generic [ref=e203]: "& more..."
+      - generic [ref=e204]:
+        - generic [ref=e205]:
+          - generic [ref=e207]: ✓
+          - paragraph [ref=e208]: Connect it to ANY agent through MCP protocol for iOS & Android automation, development.
+        - generic [ref=e209]:
+          - generic [ref=e211]: ✓
+          - paragraph [ref=e212]: Works with real devices, simulators, and emulators without platform-specific knowledge
+        - generic [ref=e213]:
+          - generic [ref=e215]: ✓
+          - paragraph [ref=e216]: Universal command-line tool for device management across iOS and Android
+        - generic [ref=e217]:
+          - generic [ref=e219]: ✓
+          - paragraph [ref=e220]: IDE extension for viewing and controlling devices without leaving your workspace
+        - button "Learn about MCP" [ref=e222] [cursor=pointer]
+    - generic [ref=e224]:
+      - heading "What lovely humans say about us" [level=2] [ref=e225]
+      - generic [ref=e227]:
+        - generic [ref=e228]:
+          - heading "\"it's amazing what you've built\"" [level=2] [ref=e229]
+          - heading "\"using it now and it's being like NO WAY\"" [level=2] [ref=e230]:
+            - text: "\"using it now and it's being like"
+            - text: NO WAY"
+        - generic [ref=e231]: — Real feedback from developers
+      - generic [ref=e232]:
+        - img "Testimonial 1" [ref=e234]
+        - img "Testimonial 2" [ref=e236]
+        - img "Testimonial 3" [ref=e238]
+        - img "Testimonial 4" [ref=e240]
+        - img "Testimonial 5" [ref=e242]
+        - img "Testimonial 6" [ref=e244]
+        - img "Testimonial 7" [ref=e246]
+        - img "Testimonial 8" [ref=e248]
+        - img "Testimonial 9" [ref=e250]
+    - generic [ref=e252]:
+      - heading "Ready to Transform Mobile Development?" [level=2] [ref=e253]
+      - paragraph [ref=e254]: Join us in making mobile development accessible to everyone.
+      - button "JOIN SLACK" [ref=e256] [cursor=pointer]:
+        - img
+        - text: JOIN SLACK
+    - contentinfo [ref=e257]:
+      - generic [ref=e259]:
+        - generic [ref=e260]:
+          - link [ref=e261] [cursor=pointer]:
+            - /url: https://twitter.com/mobilenexthq
+            - img [ref=e262]
+          - link [ref=e264] [cursor=pointer]:
+            - /url: https://youtube.com/@mobilenexthq
+            - img [ref=e265]
+          - link [ref=e268] [cursor=pointer]:
+            - /url: https://linkedin.com/company/mobilenexthq
+            - img [ref=e269]
+          - link "Contact Us" [ref=e273] [cursor=pointer]:
+            - /url: mailto:hello@mobilenexthq.com
+            - img [ref=e274]
+            - generic [ref=e277]: Contact Us
+        - generic [ref=e278]:
+          - link "Privacy Policy" [ref=e279] [cursor=pointer]:
+            - /url: /privacy
+          - generic [ref=e280]: ·
+          - link "Terms of Service" [ref=e281] [cursor=pointer]:
+            - /url: /terms
+        - paragraph [ref=e283]: © 2026 Mobile Next HQ, Inc. All rights reserved.
+  - generic [ref=e285]:
+    - generic [ref=e286]:
+      - paragraph [ref=e287]: 🍪 We use cookies to improve your experience and analyze site usage. You can always withdraw your consent by clicking on the decline button
+      - generic [ref=e288]:
+        - button "Accept 🍪" [ref=e289] [cursor=pointer]
+        - button "Decline All" [ref=e290] [cursor=pointer]
+    - button [ref=e291] [cursor=pointer]:
+      - img

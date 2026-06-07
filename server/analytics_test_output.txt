@@ -1,0 +1,105 @@
+﻿
+> @radha/server@1.0.0 test C:\Users\sayan\Downloads\RADHA_UPGRADED_PROJECT_FILES new\RADHA_UPGRADED_PROJECT_FILES\server
+> jest "--testPathPattern=modules/analytics"
+
+cmd : PASS src/mod
+ules/analytics/__t
+ests__/analytics-h
+ash.util.spec.ts 
+(47.949 s)
+At line:1 char:102
++ ... S\server" ; 
+cmd /c pnpm test 
+-- --testPathPatte
+rn="modules/analyt
+ics" ...
++                 
+~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~
+~~~
+    + CategoryInf 
+   o          :   
+  NotSpecified:   
+  (PASS src/mo    
+dule...c.ts (    
+47.949 s):Str    
+ing) [], Remo    
+teException
+    + FullyQualif 
+   iedErrorId :   
+  NativeCommand   
+ Error
+ 
+PASS src/modules/a
+nalytics/__tests__
+/analytics.dto.spe
+c.ts (49.86 s)
+PASS src/modules/a
+nalytics/__tests__
+/public-rate-limit
+.guard.spec.ts 
+(51.736 s)
+PASS src/modules/a
+nalytics/__tests__
+/website-analytics
+.service.spec.ts 
+(51.773 s)
+PASS src/modules/a
+nalytics/__tests__
+/funnel.service.sp
+ec.ts (53.476 s)
+PASS src/modules/a
+nalytics/__tests__
+/app-analytics.ser
+vice.spec.ts 
+(53.268 s)
+[31m[Nest] 18916 
+ - 
+[39m05/18/2026, 
+6:04:13 AM [31m  
+ERROR[39m [38;5;
+3m[OwnerMetricsAgg
+regationCron] [39
+m[31mcron.owner-m
+etrics-aggregation
+.failed[39m
+[31m[Nest] 18916 
+ - 
+[39m05/18/2026, 
+6:04:13 AM [31m  
+ERROR[39m [38;5;
+3m[OwnerMetricsAgg
+regationCron] 
+[39m[31mError: 
+db boom[39m
+PASS src/modules/a
+nalytics/__tests__
+/owner-metrics-agg
+regation.cron.spec
+.ts (53.728 s)
+[32m[Nest] 18916  - [39m05/18/2026, 6:04:13 AM [32m    LOG[39m [38;5;3m[OwnerMetricsAggregationCron] [39m[32mowner-metrics-aggregation: starting for 2026-05-17T00:34:13.839Z[39m
+[32m[Nest] 18916  - [39m05/18/2026, 6:04:13 AM [32m    LOG[39m [38;5;3m[OwnerMetricsAggregationCron] [39m[32mowner-metrics-aggregation: starting for 2026-05-17T00:34:13.852Z[39m
+PASS src/modules/a
+nalytics/__tests__
+/leads.service.spe
+c.ts (53.164 s)
+PASS src/modules/a
+nalytics/__tests__
+/owner-metrics-agg
+regator.service.sp
+ec.ts (54.21 s)
+
+Test Suites: 9 
+passed, 9 total
+Tests:       75 
+passed, 75 total
+Snapshots:   0 
+total
+Time:        
+59.862 s, 
+estimated 248 s
+Ran all test 
+suites matching /m
+odules\\analytics/
+i.

@@ -1,0 +1,349 @@
+{
+  "@@locale": "bn",
+  "appName": "RADHA",
+  "tagline": "ডেটা, স্বাস্থ্য এবং অডিটের জন্য খুচরা সহকারী।",
+  "continueLabel": "চালিয়ে যান",
+  "getStarted": "শুরু করুন",
+  "skip": "এড়িয়ে যান",
+  "next": "পরবর্তী",
+  "back": "পিছনে",
+  "cancel": "বাতিল",
+  "save": "সংরক্ষণ",
+  "delete": "মুছুন",
+  "edit": "সম্পাদনা",
+  "add": "যোগ করুন",
+  "search": "অনুসন্ধান",
+  "loading": "লোড হচ্ছে",
+  "error": "কিছু ভুল হয়েছে",
+  "tryAgain": "আবার চেষ্টা করুন",
+  "done": "সম্পন্ন",
+  "close": "বন্ধ করুন",
+  "signIn": "সাইন ইন",
+  "signOut": "সাইন আউট",
+  "mobileNumber": "মোবাইল নম্বর",
+  "enterOtp": "OTP লিখুন",
+  "verifyOtp": "OTP যাচাই করুন",
+  "resendOtp": "OTP পুনরায় পাঠান",
+  "otpSent": "আমরা আপনাকে একটি 6-অঙ্কের কোড পাঠিয়েছি",
+  "home": "হোম",
+  "scan": "স্ক্যান",
+  "expiry": "মেয়াদ",
+  "tasks": "কাজ",
+  "profile": "প্রোফাইল",
+  "settings": "সেটিংস",
+  "language": "ভাষা",
+  "scanProduct": "পণ্য স্ক্যান করুন",
+  "pointAtBarcode": "আপনার ক্যামেরা বারকোডে রাখুন",
+  "scanAgain": "আবার স্ক্যান করুন",
+  "productNotFound": "পণ্য পাওয়া যায়নি",
+  "expiryTracker": "মেয়াদ ট্র্যাকার",
+  "addExpiry": "মেয়াদ যোগ করুন",
+  "expiringSoon": "শীঘ্রই মেয়াদ শেষ হবে",
+  "expired": "মেয়াদ শেষ",
+  "yourTasks": "আপনার কাজ",
+  "noTasks": "কোনো কাজ নেই",
+  "completeTask": "কাজ সম্পূর্ণ করুন",
+  "welcome": "স্বাগতম",
+  "welcomeMessage": "স্প্রেডশিট ছাড়াই আপনার স্টক স্ক্যান, ট্র্যাক ও অডিট করুন।",
+  "referrals": "রেফারাল",
+  "shareYourCode": "আপনার কোড শেয়ার করুন",
+  "yourReferralCode": "আপনার রেফারাল কোড",
+  "invitees": "আমন্ত্রিত",
+  "rewardsEarned": "অর্জিত পুরস্কার",
+  "redeemCode": "কোড রিডিম করুন",
+  "enterReferralCode": "রেফারাল কোড লিখুন",
+  "chooseLanguage": "ভাষা নির্বাচন করুন",
+  "languageUpdated": "ভাষা আপডেট হয়েছে",
+  "errorGeneric": "কিছু ভুল হয়েছে। আবার চেষ্টা করুন।",
+  "errorRateLimitOtp": "অনেক বেশি OTP অনুরোধ। {seconds} সেকেন্ডে আবার চেষ্টা করুন।",
+  "@errorRateLimitOtp": {
+    "placeholders": {
+      "seconds": { "type": "int" }
+    }
+  },
+  "errorOtpInvalid": "OTP ভুল। আবার চেষ্টা করুন।",
+  "errorOtpExpired": "OTP-এর মেয়াদ শেষ। নতুন একটি অনুরোধ করুন।",
+  "errorAuthRequired": "চালিয়ে যেতে সাইন ইন করুন।",
+  "errorNotFound": "পাওয়া যায়নি।",
+  "ingredientExplainerErrorTitle": "ব্যাখ্যা লোড করা যায়নি",
+  "ingredientExplainerHealthConsiderations": "স্বাস্থ্য বিবেচনা",
+  "healthyAlternativesTitle": "{productName} এর চেয়ে ভালো বিকল্প",
+  "@healthyAlternativesTitle": {
+    "placeholders": {
+      "productName": { "type": "String" }
+    }
+  },
+  "healthyAlternativesGenericTitle": "ভালো বিকল্প",
+  "healthyAlternativesEmptyTitle": "এখনও স্বাস্থ্যকর বিকল্প নেই",
+  "healthyAlternativesEmptyBody": "একই বিভাগে এখনও স্বাস্থ্যকর বিকল্প পাওয়া যায়নি।",
+  "healthyAlternativesErrorTitle": "বিকল্প লোড করা যায়নি",
+  "healthyAlternativesAddToList": "শপিং তালিকায় যোগ করুন",
+  "healthyAlternativesView": "দেখুন",
+  "healthyAlternativesAddedToList": "শপিং তালিকায় যোগ করা হয়েছে",
+  "healthyAlternativesAddFailed": "শপিং তালিকায় যোগ করা যায়নি",
+  "savedProductsTitle": "সংরক্ষিত পণ্য",
+  "savedProductsEmptyTitle": "সংরক্ষিত পণ্য",
+  "savedProductsEmptyBody": "স্ক্যান ফলাফল স্ক্রিন থেকে পণ্য সংরক্ষণ করলে সেগুলো এখানে দেখা যাবে।",
+  "savedProductsErrorTitle": "সংরক্ষিত পণ্য লোড করা যায়নি",
+  "savedProductsSavedOn": "{date}-এ সংরক্ষিত",
+  "@savedProductsSavedOn": {
+    "placeholders": {
+      "date": { "type": "String" }
+    }
+  },
+
+  "digestTitle": "RADHA-এর সঙ্গে আপনার সপ্তাহ",
+  "digestWeekRange": "{start} – {end}",
+  "@digestWeekRange": {
+    "placeholders": {
+      "start": { "type": "String" },
+      "end": { "type": "String" }
+    }
+  },
+  "digestSavingsHero": "₹{amount} সাশ্রয়",
+  "@digestSavingsHero": {
+    "placeholders": {
+      "amount": { "type": "String" }
+    }
+  },
+  "digestScansHero": "{count, plural, =1{1টি স্ক্যান} other{{count}টি স্ক্যান}}",
+  "@digestScansHero": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "digestHeroEmptyHeadline": "একটি শান্ত সপ্তাহ",
+  "digestScans": "স্ক্যান",
+  "digestSavedProducts": "সংরক্ষিত",
+  "digestExpiringSoon": "শীঘ্রই মেয়াদ শেষ",
+  "digestRecallAlerts": "{count, plural, =1{1টি রিকল অ্যালার্ট} other{{count}টি রিকল অ্যালার্ট}}",
+  "@digestRecallAlerts": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "digestRecallAlertsBody": "এই সপ্তাহে স্ক্যান করা পণ্যগুলির নতুন সুরক্ষা পরামর্শ আছে।",
+  "digestRecallAlertsCta": "দেখুন",
+  "digestTopCategoriesHeader": "আপনি কী স্ক্যান করছেন",
+  "digestHighlightsHeader": "মুখ্য বিষয়",
+  "digestContinueScanning": "স্ক্যান চালিয়ে যান",
+  "digestShare": "আমার সপ্তাহ শেয়ার করুন",
+  "digestShareTemplate": "আমি এই সপ্তাহে {scans}টি পণ্য স্ক্যান করেছি এবং RADHA দিয়ে ₹{savings} সাশ্রয় করেছি। চেষ্টা করুন: https://radha.app",
+  "@digestShareTemplate": {
+    "placeholders": {
+      "scans": { "type": "int" },
+      "savings": { "type": "String" }
+    }
+  },
+  "digestEmptyTitle": "এই সপ্তাহে কোনো কার্যকলাপ নেই",
+  "digestEmptyBody": "আপনার সাপ্তাহিক গল্প গড়তে স্ক্যান শুরু করুন।",
+  "digestErrorTitle": "সাপ্তাহিক সারাংশ লোড করা যায়নি",
+
+  "settingsTitle": "সেটিংস",
+  "settingsNotifications": "নোটিফিকেশন",
+  "settingsPushNotifications": "পুশ নোটিফিকেশন",
+  "settingsPushNotificationsHint": "আপনার ফোনে অ্যালার্ট পান",
+  "settingsRecallAlerts": "রিকল অ্যালার্ট",
+  "settingsRecallAlertsHint": "স্ক্যান করা পণ্য রিকল হলে জানিয়ে দেব",
+  "settingsWeeklyDigest": "সাপ্তাহিক সারাংশ",
+  "settingsWeeklyDigestHint": "রবিবার আপনার স্ক্যান ও সাশ্রয়ের সারাংশ",
+  "settingsAppearance": "চেহারা",
+  "settingsTheme": "থিম",
+  "settingsThemeSystem": "সিস্টেম",
+  "settingsThemeLight": "লাইট",
+  "settingsThemeDark": "ডার্ক",
+  "settingsLanguage": "ভাষা",
+  "settingsTextSize": "টেক্সট আকার",
+  "settingsTextSizeSmall": "ছোট",
+  "settingsTextSizeStandard": "মান",
+  "settingsTextSizeLarge": "বড়",
+  "settingsDataPrivacy": "ডেটা ও গোপনীয়তা",
+  "settingsAllergens": "অ্যালার্জি প্রোফাইল",
+  "settingsAllergensHint": "যে উপাদানের ব্যাপারে সতর্ক করতে হবে তা বাছুন",
+  "settingsSignOutAll": "সব ডিভাইস থেকে সাইন আউট",
+  "settingsSignOutAllConfirmTitle": "সর্বত্র সাইন আউট?",
+  "settingsSignOutAllConfirmBody": "এই অ্যাকাউন্ট ব্যবহার করা প্রতিটি ডিভাইসে আবার সাইন ইন করতে হবে।",
+  "settingsDeleteAccount": "অ্যাকাউন্ট মুছুন",
+  "settingsDeleteAccountTitle": "অ্যাকাউন্ট মুছুন",
+  "settingsDeleteAccountBody": "এটি আপনার ডেটা স্থায়ীভাবে মুছে ফেলবে। নিশ্চিত করতে DELETE টাইপ করুন।",
+  "settingsDeleteAccountConfirm": "DELETE",
+  "settingsDeleteAccountUnavailable": "অ্যাকাউন্ট মুছতে সাপোর্টের সাথে যোগাযোগ করুন।",
+  "settingsDeleteAccountContact": "সাপোর্টের সাথে যোগাযোগ করুন",
+  "settingsAbout": "সম্পর্কে",
+  "settingsTerms": "পরিষেবার শর্তাবলি",
+  "settingsPrivacyPolicy": "গোপনীয়তা নীতি",
+  "settingsVersion": "অ্যাপ সংস্করণ",
+  "settingsVersionValue": "সংস্করণ {version} ({build})",
+  "@settingsVersionValue": {
+    "placeholders": {
+      "version": { "type": "String" },
+      "build": { "type": "String" }
+    }
+  },
+  "settingsSupport": "সাপোর্ট",
+  "settingsSupportHint": "সাহায্য পান, বাগ রিপোর্ট করুন, বা মতামত দিন",
+  "settingsLinkOpenFailed": "লিঙ্ক খোলা যায়নি",
+
+  "conflictBannerCount": "{count, plural, =1{1টি দ্বন্দ্বে আপনার মনোযোগ দরকার} other{{count}টি দ্বন্দ্বে আপনার মনোযোগ দরকার}}",
+  "@conflictBannerCount": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "conflictBannerCta": "সমাধান করুন",
+  "conflictBannerDismiss": "বন্ধ করুন",
+  "conflictResolveTitle": "সিঙ্ক দ্বন্দ্ব সমাধান করুন",
+  "conflictResolveSubtitle": "প্রতিটি আইটেমের জন্য কোন সংস্করণ রাখবেন তা বাছাই করুন।",
+  "conflictUseMine": "আমার সংস্করণ রাখুন",
+  "conflictUseServer": "সার্ভারের সংস্করণ রাখুন",
+  "conflictResolved": "দ্বন্দ্ব সমাধান হয়েছে",
+  "conflictResolvedAll": "সব দ্বন্দ্ব সমাধান হয়েছে",
+  "conflictAttempts": "{count, plural, =1{1 বার চেষ্টা করা হয়েছে} other{{count} বার চেষ্টা করা হয়েছে}}",
+  "@conflictAttempts": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "conflictResourceTask": "কাজ",
+  "conflictResourceExpiry": "মেয়াদ রেকর্ড",
+  "conflictResourceScan": "স্ক্যান",
+  "conflictResourceInventory": "স্টক সমন্বয়",
+  "conflictResourceGrn": "GRN এন্ট্রি",
+  "conflictResourceShoppingList": "শপিং তালিকা আইটেম",
+  "conflictResourceGeneric": "সিঙ্ক পরিবর্তন",
+  "conflictLocalChangeSummary": "আপনার পরিবর্তন: {summary}",
+  "@conflictLocalChangeSummary": {
+    "placeholders": {
+      "summary": { "type": "String" }
+    }
+  },
+
+  "supportTitle": "সাপোর্ট",
+  "supportContactUs": "আমাদের সাথে যোগাযোগ করুন",
+  "supportEmailUs": "ইমেইল করুন",
+  "supportEmailUsHint": "support@radha.app",
+  "supportCallUs": "সাপোর্টে কল করুন",
+  "supportCallUsHint": "সোম–শুক্র, সকাল ৯ – সন্ধ্যা ৬ IST",
+  "supportReportBug": "বাগ রিপোর্ট করুন",
+  "supportBugDescription": "কী হয়েছিল?",
+  "supportBugDescriptionHint": "যখন সমস্যা হয়েছিল তখন আপনি কী করছিলেন বর্ণনা করুন।",
+  "supportAttachScreenshot": "স্ক্রিনশট সংযুক্ত করুন",
+  "supportScreenshotAttached": "স্ক্রিনশট সংযুক্ত হয়েছে",
+  "supportRemoveScreenshot": "সরান",
+  "supportSubmit": "রিপোর্ট পাঠান",
+  "supportSubmitted": "ধন্যবাদ — আপনার রিপোর্ট পেয়েছি।",
+  "supportSubmitFailed": "পাঠানো যায়নি। দয়া করে আমাদের ইমেইল করুন।",
+  "supportBugDescriptionRequired": "অনুগ্রহ করে কী হয়েছিল বর্ণনা করুন।",
+  "supportFaq": "সাধারণ জিজ্ঞাসা",
+  "supportFaqQ1": "বারকোড কীভাবে স্ক্যান করব?",
+  "supportFaqA1": "স্ক্যান ট্যাব খুলে ক্যামেরা বারকোডে রাখুন এবং স্থির রাখুন। পরিষ্কার কোড পড়ার সাথে সাথে পণ্যটি দেখা যাবে।",
+  "supportFaqQ2": "পণ্যটি ডেটাবেসে না থাকলে কী?",
+  "supportFaqA2": "পাওয়া-যায়নি স্ক্রিনে \"পণ্য যোগ করুন\" ট্যাপ করুন। এটি আপনার স্টোরের সাথে যুক্ত নতুন এন্ট্রি তৈরি করবে।",
+  "supportFaqQ3": "আমি আমার সাবস্ক্রিপশন কীভাবে বাতিল করব?",
+  "supportFaqA3": "প্রোফাইল → সাবস্ক্রিপশনে যান। যেকোনো সময় বাতিল করতে পারেন; পরবর্তী বিলিং চক্রের পরে চার্জ নেই।",
+  "supportFaqQ4": "আমি কেন রিকল অ্যালার্ট দেখছি?",
+  "supportFaqA4": "প্রতিটি স্ক্যানকে FSSAI রিকল ফিডের সাথে মিলিয়ে দেখি। আপনি যে ব্যাচ বিক্রি করেছেন তা তালিকায় থাকলে আপনাকে জানিয়ে দিই।",
+  "supportFaqQ5": "আমার অ্যালার্জি প্রোফাইল পরিবারের সাথে কীভাবে শেয়ার করব?",
+  "supportFaqA5": "অ্যালার্জি প্রোফাইল এখন প্রতি অ্যাকাউন্টে আলাদা। একই পরিবারের অ্যাকাউন্টে সাইন ইন করুন বা প্রতিটি ফোনে একই অ্যালার্জি বেছে নিন।",
+  "reportsTitle": "Reports & exports",
+  "reportsTabAvailable": "Available",
+  "reportsTabScheduled": "Scheduled",
+  "reportsTabHistory": "History",
+  "reportsQuickExportsHeader": "Quick exports",
+  "reportsInventorySnapshot": "Inventory snapshot",
+  "reportsExpiringItems": "Expiring items",
+  "reportsSalesSummary": "Sales summary",
+  "reportsAuditLog": "Audit log",
+  "reportsGenerate": "Generate",
+  "reportsGenerateSuccess": "Report ready",
+  "reportsGenerateQueued": "Generation started — we'll notify you when it's ready",
+  "reportsGenerateFailed": "Could not start the report",
+  "reportsDownloadFailed": "Could not open the download",
+  "reportsScheduleNew": "New schedule",
+  "reportsScheduleCreate": "Create schedule",
+  "reportsScheduleSuccess": "Schedule created",
+  "reportsScheduleReportLabel": "Report",
+  "reportsScheduleDayOfWeek": "Day of week",
+  "reportsScheduleDayOfMonth": "Day of month",
+  "reportsScheduleTime": "Time",
+  "reportsScheduleFormat": "Format",
+  "reportsScheduleActionsTooltip": "Schedule actions",
+  "reportsFrequency": "Frequency",
+  "reportsFrequencyDaily": "Daily",
+  "reportsFrequencyWeekly": "Weekly",
+  "reportsFrequencyMonthly": "Monthly",
+  "reportsPause": "Pause",
+  "reportsResume": "Resume",
+  "reportsDelete": "Delete",
+  "reportsDeleteScheduleTitle": "Delete schedule?",
+  "reportsDeleteScheduleBody": "This recurring schedule will stop firing. Past runs stay in your history.",
+  "reportsLastRun": "Last run {when}",
+  "@reportsLastRun": {
+    "placeholders": {
+      "when": { "type": "String" }
+    }
+  },
+  "reportsLastRunNever": "Hasn't run yet",
+  "reportsNextRun": "Next run {when}",
+  "@reportsNextRun": {
+    "placeholders": {
+      "when": { "type": "String" }
+    }
+  },
+  "reportsDownload": "Download",
+  "reportsStatusCompleted": "Ready",
+  "reportsStatusGenerating": "Generating",
+  "reportsStatusFailed": "Failed",
+  "reportsStatusCancelled": "Cancelled",
+  "reportsStatusExpired": "Expired",
+  "reportsEmptyTitle": "No exports yet",
+  "reportsEmptyBody": "Generate a report from the Available tab and it'll show up here.",
+  "reportsScheduledEmptyTitle": "No scheduled reports",
+  "reportsScheduledEmptyBody": "Tap New schedule to have a report run automatically.",
+  "reportsErrorTitle": "Could not load reports",
+  "ohsTitle": "Operational health",
+  "ohsScoreCaption": "OHS score",
+  "ohsScore": "{score}",
+  "@ohsScore": {
+    "placeholders": {
+      "score": { "type": "int" }
+    }
+  },
+  "ohsDeltaUp": "+{value} from last week",
+  "@ohsDeltaUp": {
+    "placeholders": {
+      "value": { "type": "int" }
+    }
+  },
+  "ohsDeltaDown": "-{value} from last week",
+  "@ohsDeltaDown": {
+    "placeholders": {
+      "value": { "type": "int" }
+    }
+  },
+  "ohsDeltaSame": "No change from last week",
+  "ohsDeltaUnavailable": "Not enough data for a week-over-week comparison yet",
+  "ohsCompliance": "Compliance",
+  "ohsInventoryHygiene": "Inventory hygiene",
+  "ohsAuditCompletion": "Audit completion",
+  "ohsActionItemsHeader": "Action items",
+  "ohsActionExpiry": "{count, plural, =1{1 expiry alert needs a review} other{{count} expiry alerts need a review}}",
+  "@ohsActionExpiry": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "ohsActionLowStock": "{count, plural, =1{1 low-stock alert is unresolved} other{{count} low-stock alerts are unresolved}}",
+  "@ohsActionLowStock": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "ohsActionTasks": "Review open tasks for your store",
+  "ohsActionNoneBody": "Everything looks good — keep scanning to maintain your score.",
+  "ohsTrendHeader": "Trend",
+  "ohsViewDetailedReports": "View detailed reports",
+  "ohsEmptyTitle": "Build your operational health score",
+  "ohsEmptyBody": "Start scanning to build your OHS score.",
+  "ohsErrorTitle": "Could not load your dashboard"
+}

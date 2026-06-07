@@ -1,0 +1,840 @@
+// ignore: unused_import
+import 'package:intl/intl.dart' as intl;
+import 'app_localizations.dart';
+
+// ignore_for_file: type=lint
+
+/// The translations for Marathi (`mr`).
+class AppLocalizationsMr extends AppLocalizations {
+  AppLocalizationsMr([String locale = 'mr']) : super(locale);
+
+  @override
+  String get appName => 'RADHA';
+
+  @override
+  String get tagline => 'डेटा, आरोग्य आणि ऑडिटसाठी रिटेल असिस्टंट.';
+
+  @override
+  String get continueLabel => 'सुरू ठेवा';
+
+  @override
+  String get getStarted => 'सुरू करा';
+
+  @override
+  String get skip => 'वगळा';
+
+  @override
+  String get next => 'पुढे';
+
+  @override
+  String get back => 'मागे';
+
+  @override
+  String get cancel => 'रद्द करा';
+
+  @override
+  String get save => 'जतन करा';
+
+  @override
+  String get delete => 'हटवा';
+
+  @override
+  String get edit => 'संपादन';
+
+  @override
+  String get add => 'जोडा';
+
+  @override
+  String get search => 'शोधा';
+
+  @override
+  String get loading => 'लोड होत आहे';
+
+  @override
+  String get error => 'काहीतरी चूक झाली';
+
+  @override
+  String get tryAgain => 'पुन्हा प्रयत्न करा';
+
+  @override
+  String get done => 'पूर्ण';
+
+  @override
+  String get close => 'बंद करा';
+
+  @override
+  String get signIn => 'साइन इन';
+
+  @override
+  String get signOut => 'साइन आउट';
+
+  @override
+  String get mobileNumber => 'मोबाइल नंबर';
+
+  @override
+  String get enterOtp => 'OTP प्रविष्ट करा';
+
+  @override
+  String get verifyOtp => 'OTP सत्यापित करा';
+
+  @override
+  String get resendOtp => 'OTP पुन्हा पाठवा';
+
+  @override
+  String get otpSent => 'आम्ही तुम्हाला 6 अंकी कोड पाठवला आहे';
+
+  @override
+  String get home => 'होम';
+
+  @override
+  String get scan => 'स्कॅन';
+
+  @override
+  String get expiry => 'एक्स्पायरी';
+
+  @override
+  String get tasks => 'कामे';
+
+  @override
+  String get profile => 'प्रोफाइल';
+
+  @override
+  String get settings => 'सेटिंग्ज';
+
+  @override
+  String get language => 'भाषा';
+
+  @override
+  String get scanProduct => 'उत्पादन स्कॅन करा';
+
+  @override
+  String get pointAtBarcode => 'तुमचा कॅमेरा बारकोडवर ठेवा';
+
+  @override
+  String get scanAgain => 'पुन्हा स्कॅन करा';
+
+  @override
+  String get productNotFound => 'उत्पादन सापडले नाही';
+
+  @override
+  String get expiryTracker => 'एक्स्पायरी ट्रॅकर';
+
+  @override
+  String get addExpiry => 'एक्स्पायरी जोडा';
+
+  @override
+  String get expiringSoon => 'लवकरच एक्स्पायर होईल';
+
+  @override
+  String get expired => 'एक्स्पायर झाले';
+
+  @override
+  String get yourTasks => 'तुमची कामे';
+
+  @override
+  String get noTasks => 'कोणतीही कामे नाहीत';
+
+  @override
+  String get completeTask => 'काम पूर्ण करा';
+
+  @override
+  String get welcome => 'स्वागत आहे';
+
+  @override
+  String get welcomeMessage =>
+      'स्प्रेडशीटशिवाय तुमचा साठा स्कॅन, ट्रॅक आणि ऑडिट करा.';
+
+  @override
+  String get referrals => 'रेफरल';
+
+  @override
+  String get shareYourCode => 'तुमचा कोड शेअर करा';
+
+  @override
+  String get yourReferralCode => 'तुमचा रेफरल कोड';
+
+  @override
+  String get invitees => 'आमंत्रित';
+
+  @override
+  String get rewardsEarned => 'मिळवलेले पुरस्कार';
+
+  @override
+  String get redeemCode => 'कोड रिडीम करा';
+
+  @override
+  String get enterReferralCode => 'रेफरल कोड प्रविष्ट करा';
+
+  @override
+  String get chooseLanguage => 'भाषा निवडा';
+
+  @override
+  String get languageUpdated => 'भाषा अद्यतनित केली';
+
+  @override
+  String get errorGeneric => 'काहीतरी चूक झाली. कृपया पुन्हा प्रयत्न करा.';
+
+  @override
+  String errorRateLimitOtp(int seconds) {
+    return 'खूप जास्त OTP विनंत्या. $seconds सेकंदात पुन्हा प्रयत्न करा.';
+  }
+
+  @override
+  String get errorOtpInvalid => 'OTP चुकीचा आहे. कृपया पुन्हा प्रयत्न करा.';
+
+  @override
+  String get errorOtpExpired => 'OTP ची मुदत संपली. नवीन विनंती करा.';
+
+  @override
+  String get errorAuthRequired => 'सुरू ठेवण्यासाठी साइन इन करा.';
+
+  @override
+  String get errorNotFound => 'सापडले नाही.';
+
+  @override
+  String get ingredientExplainerErrorTitle => 'स्पष्टीकरण लोड होऊ शकले नाही';
+
+  @override
+  String get ingredientExplainerHealthConsiderations => 'आरोग्य विचार';
+
+  @override
+  String healthyAlternativesTitle(String productName) {
+    return '$productName पेक्षा चांगले पर्याय';
+  }
+
+  @override
+  String get healthyAlternativesGenericTitle => 'चांगले पर्याय';
+
+  @override
+  String get healthyAlternativesEmptyTitle => 'अद्याप आरोग्यकारक पर्याय नाहीत';
+
+  @override
+  String get healthyAlternativesEmptyBody =>
+      'त्याच श्रेणीत अद्याप आरोग्यकारक पर्याय सापडलेले नाहीत.';
+
+  @override
+  String get healthyAlternativesErrorTitle => 'पर्याय लोड होऊ शकले नाहीत';
+
+  @override
+  String get healthyAlternativesAddToList => 'खरेदी यादीत जोडा';
+
+  @override
+  String get healthyAlternativesView => 'पहा';
+
+  @override
+  String get healthyAlternativesAddedToList => 'खरेदी यादीत जोडले';
+
+  @override
+  String get healthyAlternativesAddFailed => 'खरेदी यादीत जोडता आले नाही';
+
+  @override
+  String get savedProductsTitle => 'जतन केलेली उत्पादने';
+
+  @override
+  String get savedProductsEmptyTitle => 'जतन केलेली उत्पादने';
+
+  @override
+  String get savedProductsEmptyBody =>
+      'स्कॅन निकाल स्क्रीनवरून उत्पादने जतन करा म्हणजे ती येथे दिसतील.';
+
+  @override
+  String get savedProductsErrorTitle =>
+      'जतन केलेली उत्पादने लोड करता आली नाहीत';
+
+  @override
+  String savedProductsSavedOn(String date) {
+    return '$date रोजी जतन केले';
+  }
+
+  @override
+  String get digestTitle => 'RADHA सोबत तुमचा आठवडा';
+
+  @override
+  String digestWeekRange(String start, String end) {
+    return '$start – $end';
+  }
+
+  @override
+  String digestSavingsHero(String amount) {
+    return '₹$amount वाचवले';
+  }
+
+  @override
+  String digestScansHero(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count स्कॅन्स',
+      one: '1 स्कॅन',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get digestHeroEmptyHeadline => 'एक शांत आठवडा';
+
+  @override
+  String get digestScans => 'स्कॅन्स';
+
+  @override
+  String get digestSavedProducts => 'जतन केलेले';
+
+  @override
+  String get digestExpiringSoon => 'लवकरच एक्स्पायर';
+
+  @override
+  String digestRecallAlerts(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count रिकॉल अलर्ट्स',
+      one: '1 रिकॉल अलर्ट',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get digestRecallAlertsBody =>
+      'या आठवड्यात तुम्ही स्कॅन केलेल्या उत्पादनांसाठी नवीन सुरक्षा सूचना आहेत.';
+
+  @override
+  String get digestRecallAlertsCta => 'पाहा';
+
+  @override
+  String get digestTopCategoriesHeader => 'तुम्ही काय स्कॅन करत आहात';
+
+  @override
+  String get digestHighlightsHeader => 'ठळक मुद्दे';
+
+  @override
+  String get digestContinueScanning => 'स्कॅन सुरू ठेवा';
+
+  @override
+  String get digestShare => 'माझा आठवडा शेअर करा';
+
+  @override
+  String digestShareTemplate(int scans, String savings) {
+    return 'या आठवड्यात मी $scans उत्पादने स्कॅन केली आणि RADHA सोबत ₹$savings वाचवले. तुम्हीही करून पहा: https://radha.app';
+  }
+
+  @override
+  String get digestEmptyTitle => 'या आठवड्यात कोणतीही क्रिया नाही';
+
+  @override
+  String get digestEmptyBody =>
+      'तुमची साप्ताहिक कथा तयार करण्यासाठी स्कॅन सुरू करा.';
+
+  @override
+  String get digestErrorTitle => 'साप्ताहिक सारांश लोड करू शकलो नाही';
+
+  @override
+  String get settingsTitle => 'सेटिंग्ज';
+
+  @override
+  String get settingsNotifications => 'सूचना';
+
+  @override
+  String get settingsPushNotifications => 'पुश सूचना';
+
+  @override
+  String get settingsPushNotificationsHint => 'तुमच्या फोनवर अलर्ट मिळवा';
+
+  @override
+  String get settingsRecallAlerts => 'रिकॉल अलर्ट';
+
+  @override
+  String get settingsRecallAlertsHint =>
+      'तुम्ही स्कॅन केलेले उत्पादन रिकॉल झाल्यावर कळवा';
+
+  @override
+  String get settingsWeeklyDigest => 'साप्ताहिक सारांश';
+
+  @override
+  String get settingsWeeklyDigestHint =>
+      'रविवारी तुमचे स्कॅन्स आणि बचतीचा सारांश';
+
+  @override
+  String get settingsAppearance => 'स्वरूप';
+
+  @override
+  String get settingsTheme => 'थीम';
+
+  @override
+  String get settingsThemeSystem => 'सिस्टम';
+
+  @override
+  String get settingsThemeLight => 'लाइट';
+
+  @override
+  String get settingsThemeDark => 'डार्क';
+
+  @override
+  String get settingsLanguage => 'भाषा';
+
+  @override
+  String get settingsTextSize => 'टेक्स्ट आकार';
+
+  @override
+  String get settingsTextSizeSmall => 'लहान';
+
+  @override
+  String get settingsTextSizeStandard => 'मानक';
+
+  @override
+  String get settingsTextSizeLarge => 'मोठा';
+
+  @override
+  String get settingsDataPrivacy => 'डेटा आणि गोपनीयता';
+
+  @override
+  String get settingsAllergens => 'अॅलर्जी प्रोफाइल';
+
+  @override
+  String get settingsAllergensHint => 'ज्या घटकांची सावधगिरी हवी ती निवडा';
+
+  @override
+  String get settingsSignOutAll => 'सर्व डिव्हाइसमधून साइन आउट करा';
+
+  @override
+  String get settingsSignOutAllConfirmTitle => 'सर्वत्र साइन आउट?';
+
+  @override
+  String get settingsSignOutAllConfirmBody =>
+      'हे खाते वापरणाऱ्या प्रत्येक डिव्हाइसवर तुम्हाला पुन्हा साइन इन करावे लागेल.';
+
+  @override
+  String get settingsDeleteAccount => 'खाते हटवा';
+
+  @override
+  String get settingsDeleteAccountTitle => 'खाते हटवा';
+
+  @override
+  String get settingsDeleteAccountBody =>
+      'हे तुमचा डेटा कायमचा हटवेल. पुष्टी करण्यासाठी DELETE टाइप करा.';
+
+  @override
+  String get settingsDeleteAccountConfirm => 'DELETE';
+
+  @override
+  String get settingsDeleteAccountUnavailable =>
+      'खाते हटवण्यासाठी सपोर्टशी संपर्क साधा.';
+
+  @override
+  String get settingsDeleteAccountContact => 'सपोर्टशी संपर्क साधा';
+
+  @override
+  String get settingsAbout => 'बद्दल';
+
+  @override
+  String get settingsTerms => 'सेवेच्या अटी';
+
+  @override
+  String get settingsPrivacyPolicy => 'गोपनीयता धोरण';
+
+  @override
+  String get settingsVersion => 'अॅप आवृत्ती';
+
+  @override
+  String settingsVersionValue(String version, String build) {
+    return 'आवृत्ती $version ($build)';
+  }
+
+  @override
+  String get settingsSupport => 'सपोर्ट';
+
+  @override
+  String get settingsSupportHint => 'मदत मिळवा, बग नोंदवा किंवा अभिप्राय द्या';
+
+  @override
+  String get settingsLinkOpenFailed => 'लिंक उघडता आली नाही';
+
+  @override
+  String conflictBannerCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count विरोधांना तुमचे लक्ष हवे आहे',
+      one: '1 विरोधाला तुमचे लक्ष हवे आहे',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get conflictBannerCta => 'सोडवा';
+
+  @override
+  String get conflictBannerDismiss => 'बंद करा';
+
+  @override
+  String get conflictResolveTitle => 'सिंक विरोध सोडवा';
+
+  @override
+  String get conflictResolveSubtitle =>
+      'प्रत्येक आयटमसाठी कोणती आवृत्ती ठेवायची ते निवडा.';
+
+  @override
+  String get conflictUseMine => 'माझी आवृत्ती ठेवा';
+
+  @override
+  String get conflictUseServer => 'सर्व्हर आवृत्ती ठेवा';
+
+  @override
+  String get conflictResolved => 'विरोध सोडवला';
+
+  @override
+  String get conflictResolvedAll => 'सर्व विरोध सोडवले';
+
+  @override
+  String conflictAttempts(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count वेळा प्रयत्न केला',
+      one: '1 वेळा प्रयत्न केला',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get conflictResourceTask => 'कार्य';
+
+  @override
+  String get conflictResourceExpiry => 'एक्स्पायरी रेकॉर्ड';
+
+  @override
+  String get conflictResourceScan => 'स्कॅन';
+
+  @override
+  String get conflictResourceInventory => 'स्टॉक समायोजन';
+
+  @override
+  String get conflictResourceGrn => 'GRN नोंद';
+
+  @override
+  String get conflictResourceShoppingList => 'खरेदी यादी आयटम';
+
+  @override
+  String get conflictResourceGeneric => 'सिंक बदल';
+
+  @override
+  String conflictLocalChangeSummary(String summary) {
+    return 'तुमचा बदल: $summary';
+  }
+
+  @override
+  String get supportTitle => 'सपोर्ट';
+
+  @override
+  String get supportContactUs => 'आमच्याशी संपर्क साधा';
+
+  @override
+  String get supportEmailUs => 'ईमेल करा';
+
+  @override
+  String get supportEmailUsHint => 'support@radha.app';
+
+  @override
+  String get supportCallUs => 'सपोर्टला कॉल करा';
+
+  @override
+  String get supportCallUsHint => 'सोम–शुक्र, सकाळी 9 – संध्याकाळी 6 IST';
+
+  @override
+  String get supportReportBug => 'बग नोंदवा';
+
+  @override
+  String get supportBugDescription => 'काय झाले?';
+
+  @override
+  String get supportBugDescriptionHint =>
+      'जेव्हा अडचण आली तेव्हा तुम्ही काय करत होता ते सांगा.';
+
+  @override
+  String get supportAttachScreenshot => 'स्क्रीनशॉट जोडा';
+
+  @override
+  String get supportScreenshotAttached => 'स्क्रीनशॉट जोडला';
+
+  @override
+  String get supportRemoveScreenshot => 'काढा';
+
+  @override
+  String get supportSubmit => 'अहवाल पाठवा';
+
+  @override
+  String get supportSubmitted => 'धन्यवाद — तुमचा अहवाल मिळाला.';
+
+  @override
+  String get supportSubmitFailed => 'पाठवू शकलो नाही. कृपया आम्हाला ईमेल करा.';
+
+  @override
+  String get supportBugDescriptionRequired => 'कृपया काय झाले ते सांगा.';
+
+  @override
+  String get supportFaq => 'वारंवार विचारले जाणारे प्रश्न';
+
+  @override
+  String get supportFaqQ1 => 'बारकोड कसा स्कॅन करावा?';
+
+  @override
+  String get supportFaqA1 =>
+      'स्कॅन टॅब उघडा, कॅमेरा बारकोडवर ठेवा आणि स्थिर ठेवा. स्पष्ट कोड वाचताच उत्पादन दिसेल.';
+
+  @override
+  String get supportFaqQ2 => 'उत्पादन डेटाबेसमध्ये नसल्यास?';
+
+  @override
+  String get supportFaqA2 =>
+      'सापडले-नाही स्क्रीनवर \"उत्पादन जोडा\" टॅप करा. हे तुमच्या स्टोअरशी जोडलेली नवीन नोंद तयार करेल.';
+
+  @override
+  String get supportFaqQ3 => 'मी माझे सबस्क्रिप्शन कसे रद्द करू?';
+
+  @override
+  String get supportFaqA3 =>
+      'प्रोफाइल → सबस्क्रिप्शनवर जा. कधीही रद्द करू शकता; पुढील बिलिंग चक्रानंतर शुल्क नाही.';
+
+  @override
+  String get supportFaqQ4 => 'मला रिकॉल अलर्ट का दिसत आहे?';
+
+  @override
+  String get supportFaqA4 =>
+      'प्रत्येक स्कॅन FSSAI रिकॉल फीडशी जुळवतो. विकलेला बॅच यादीत असेल तर आम्ही कळवतो.';
+
+  @override
+  String get supportFaqQ5 => 'माझी अॅलर्जी प्रोफाइल कुटुंबासह कशी शेअर करू?';
+
+  @override
+  String get supportFaqA5 =>
+      'अॅलर्जी प्रोफाइल सध्या प्रत्येक खात्यासाठी असते. एकाच घराच्या खात्यावर साइन इन करा किंवा प्रत्येक फोनवर तीच अॅलर्जी निवडा.';
+
+  @override
+  String get reportsTitle => 'Reports & exports';
+
+  @override
+  String get reportsTabAvailable => 'Available';
+
+  @override
+  String get reportsTabScheduled => 'Scheduled';
+
+  @override
+  String get reportsTabHistory => 'History';
+
+  @override
+  String get reportsQuickExportsHeader => 'Quick exports';
+
+  @override
+  String get reportsInventorySnapshot => 'Inventory snapshot';
+
+  @override
+  String get reportsExpiringItems => 'Expiring items';
+
+  @override
+  String get reportsSalesSummary => 'Sales summary';
+
+  @override
+  String get reportsAuditLog => 'Audit log';
+
+  @override
+  String get reportsGenerate => 'Generate';
+
+  @override
+  String get reportsGenerateSuccess => 'Report ready';
+
+  @override
+  String get reportsGenerateQueued =>
+      'Generation started — we\'ll notify you when it\'s ready';
+
+  @override
+  String get reportsGenerateFailed => 'Could not start the report';
+
+  @override
+  String get reportsDownloadFailed => 'Could not open the download';
+
+  @override
+  String get reportsScheduleNew => 'New schedule';
+
+  @override
+  String get reportsScheduleCreate => 'Create schedule';
+
+  @override
+  String get reportsScheduleSuccess => 'Schedule created';
+
+  @override
+  String get reportsScheduleReportLabel => 'Report';
+
+  @override
+  String get reportsScheduleDayOfWeek => 'Day of week';
+
+  @override
+  String get reportsScheduleDayOfMonth => 'Day of month';
+
+  @override
+  String get reportsScheduleTime => 'Time';
+
+  @override
+  String get reportsScheduleFormat => 'Format';
+
+  @override
+  String get reportsScheduleActionsTooltip => 'Schedule actions';
+
+  @override
+  String get reportsFrequency => 'Frequency';
+
+  @override
+  String get reportsFrequencyDaily => 'Daily';
+
+  @override
+  String get reportsFrequencyWeekly => 'Weekly';
+
+  @override
+  String get reportsFrequencyMonthly => 'Monthly';
+
+  @override
+  String get reportsPause => 'Pause';
+
+  @override
+  String get reportsResume => 'Resume';
+
+  @override
+  String get reportsDelete => 'Delete';
+
+  @override
+  String get reportsDeleteScheduleTitle => 'Delete schedule?';
+
+  @override
+  String get reportsDeleteScheduleBody =>
+      'This recurring schedule will stop firing. Past runs stay in your history.';
+
+  @override
+  String reportsLastRun(String when) {
+    return 'Last run $when';
+  }
+
+  @override
+  String get reportsLastRunNever => 'Hasn\'t run yet';
+
+  @override
+  String reportsNextRun(String when) {
+    return 'Next run $when';
+  }
+
+  @override
+  String get reportsDownload => 'Download';
+
+  @override
+  String get reportsStatusCompleted => 'Ready';
+
+  @override
+  String get reportsStatusGenerating => 'Generating';
+
+  @override
+  String get reportsStatusFailed => 'Failed';
+
+  @override
+  String get reportsStatusCancelled => 'Cancelled';
+
+  @override
+  String get reportsStatusExpired => 'Expired';
+
+  @override
+  String get reportsEmptyTitle => 'No exports yet';
+
+  @override
+  String get reportsEmptyBody =>
+      'Generate a report from the Available tab and it\'ll show up here.';
+
+  @override
+  String get reportsScheduledEmptyTitle => 'No scheduled reports';
+
+  @override
+  String get reportsScheduledEmptyBody =>
+      'Tap New schedule to have a report run automatically.';
+
+  @override
+  String get reportsErrorTitle => 'Could not load reports';
+
+  @override
+  String get ohsTitle => 'Operational health';
+
+  @override
+  String get ohsScoreCaption => 'OHS score';
+
+  @override
+  String ohsScore(int score) {
+    return '$score';
+  }
+
+  @override
+  String ohsDeltaUp(int value) {
+    return '+$value from last week';
+  }
+
+  @override
+  String ohsDeltaDown(int value) {
+    return '-$value from last week';
+  }
+
+  @override
+  String get ohsDeltaSame => 'No change from last week';
+
+  @override
+  String get ohsDeltaUnavailable =>
+      'Not enough data for a week-over-week comparison yet';
+
+  @override
+  String get ohsCompliance => 'Compliance';
+
+  @override
+  String get ohsInventoryHygiene => 'Inventory hygiene';
+
+  @override
+  String get ohsAuditCompletion => 'Audit completion';
+
+  @override
+  String get ohsActionItemsHeader => 'Action items';
+
+  @override
+  String ohsActionExpiry(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count expiry alerts need a review',
+      one: '1 expiry alert needs a review',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String ohsActionLowStock(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count low-stock alerts are unresolved',
+      one: '1 low-stock alert is unresolved',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get ohsActionTasks => 'Review open tasks for your store';
+
+  @override
+  String get ohsActionNoneBody =>
+      'Everything looks good — keep scanning to maintain your score.';
+
+  @override
+  String get ohsTrendHeader => 'Trend';
+
+  @override
+  String get ohsViewDetailedReports => 'View detailed reports';
+
+  @override
+  String get ohsEmptyTitle => 'Build your operational health score';
+
+  @override
+  String get ohsEmptyBody => 'Start scanning to build your OHS score.';
+
+  @override
+  String get ohsErrorTitle => 'Could not load your dashboard';
+}

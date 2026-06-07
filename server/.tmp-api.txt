@@ -1,0 +1,420 @@
+
+> @radha/server@1.0.0 start:dev
+> nest start --watch
+
+[2J[3J[H[[90m4:40:34 AM[0m] Starting compilation in watch mode...
+
+[[90m4:41:09 AM[0m] Found 0 errors. Watching for file changes.
+
+(node:20556) [DEP0190] DeprecationWarning: Passing args to a child process with shell option true can lead to security vulnerabilities, as the arguments are not escaped, only concatenated.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+{"level":30,"time":1780355474099,"pid":26124,"hostname":"MSI","context":"NestFactory","msg":"Starting Nest application..."}
+[api] RADHA API listening on http://localhost:3000/api/v1 (development)
+{"level":30,"time":1780355474099,"pid":26124,"hostname":"MSI","context":"InstanceLoader","msg":"AppModule dependencies initialized"}
+{"level":30,"time":1780355474099,"pid":26124,"hostname":"MSI","context":"InstanceLoader","msg":"I18nModule dependencies initialized"}
+{"level":30,"time":1780355474099,"pid":26124,"hostname":"MSI","context":"InstanceLoader","msg":"ConfigHostModule dependencies initialized"}
+{"level":30,"time":1780355474099,"pid":26124,"hostname":"MSI","context":"InstanceLoader","msg":"ClsModule dependencies initialized"}
+{"level":30,"time":1780355474099,"pid":26124,"hostname":"MSI","context":"InstanceLoader","msg":"RequestContextModule dependencies initialized"}
+{"level":30,"time":1780355474099,"pid":26124,"hostname":"MSI","context":"InstanceLoader","msg":"ConfigModule dependencies initialized"}
+{"level":30,"time":1780355474099,"pid":26124,"hostname":"MSI","context":"ConfigService","msg":"Configuration loaded for NODE_ENV=development"}
+{"level":30,"time":1780355474099,"pid":26124,"hostname":"MSI","context":"InstanceLoader","msg":"AppConfigModule dependencies initialized"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RazorpayService","msg":"Razorpay provider resolved: live"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"SmsService","msg":"SMS provider resolved: mock (cfg=mock, isDev=true)"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"EmailService","msg":"Email provider: mock"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"InstanceLoader","msg":"RazorpayModule dependencies initialized"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"InstanceLoader","msg":"FcmModule dependencies initialized"}
+{"level":50,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"BullMqBootstrapService","msg":"bullmq.init.failed"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"InstanceLoader","msg":"SmsModule dependencies initialized"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"InstanceLoader","msg":"EmailModule dependencies initialized"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"InstanceLoader","msg":"AwsModule dependencies initialized"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"InstanceLoader","msg":"JwtModule dependencies initialized"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"InstanceLoader","msg":"LoggerModule dependencies initialized"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"InstanceLoader","msg":"LoggerModule dependencies initialized"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"InstanceLoader","msg":"CommonModule dependencies initialized"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"InstanceLoader","msg":"DbModule dependencies initialized"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"InstanceLoader","msg":"HealthModule dependencies initialized"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"InstanceLoader","msg":"ObservabilityModule dependencies initialized"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"InstanceLoader","msg":"OffModule dependencies initialized"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"InstanceLoader","msg":"VoiceModule dependencies initialized"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"InstanceLoader","msg":"IngredientExplainerModule dependencies initialized"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"InstanceLoader","msg":"FeatureFlagsModule dependencies initialized"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"InstanceLoader","msg":"PublicProductModule dependencies initialized"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"InstanceLoader","msg":"RateLimitingModule dependencies initialized"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"InstanceLoader","msg":"AiModule dependencies initialized"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"InstanceLoader","msg":"AllergenModule dependencies initialized"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"InstanceLoader","msg":"ExpiryCalendarModule dependencies initialized"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"InstanceLoader","msg":"ImageFallbackModule dependencies initialized"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"InstanceLoader","msg":"ShoppingListModule dependencies initialized"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"InstanceLoader","msg":"SavedProductsModule dependencies initialized"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"InstanceLoader","msg":"OnboardingModule dependencies initialized"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"InstanceLoader","msg":"UserLanguageModule dependencies initialized"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"InstanceLoader","msg":"WeeklyDigestModule dependencies initialized"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"InstanceLoader","msg":"AffiliateModule dependencies initialized"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"InstanceLoader","msg":"SyncModule dependencies initialized"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"InstanceLoader","msg":"SuppliersModule dependencies initialized"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"InstanceLoader","msg":"TenantsModule dependencies initialized"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"InstanceLoader","msg":"ReferralsModule dependencies initialized"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"InstanceLoader","msg":"ExpiryModule dependencies initialized"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"InstanceLoader","msg":"StoresModule dependencies initialized"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"InstanceLoader","msg":"EanListsModule dependencies initialized"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"InstanceLoader","msg":"BarcodeLearningModule dependencies initialized"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"InstanceLoader","msg":"VerifiedBadgeModule dependencies initialized"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"InstanceLoader","msg":"AuthModule dependencies initialized"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"InstanceLoader","msg":"MediaModule dependencies initialized"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"InstanceLoader","msg":"AdminImpersonationModule dependencies initialized"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"InstanceLoader","msg":"TasksModule dependencies initialized"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"InstanceLoader","msg":"WebhooksModule dependencies initialized"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"InstanceLoader","msg":"NotificationsModule dependencies initialized"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"InstanceLoader","msg":"SubscriptionsModule dependencies initialized"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"InstanceLoader","msg":"AnalyticsModule dependencies initialized"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"InstanceLoader","msg":"PaymentsModule dependencies initialized"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"InstanceLoader","msg":"HealthScoringModule dependencies initialized"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"InstanceLoader","msg":"GrnModule dependencies initialized"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"InstanceLoader","msg":"BusinessActivationModule dependencies initialized"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"InstanceLoader","msg":"ProductsModule dependencies initialized"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"InstanceLoader","msg":"RecallModule dependencies initialized"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"InstanceLoader","msg":"ScansModule dependencies initialized"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"InstanceLoader","msg":"AiModule dependencies initialized"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"InstanceLoader","msg":"JobsModule dependencies initialized"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"InstanceLoader","msg":"ReportsModule dependencies initialized"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RoutesResolver","msg":"AuthController {/api/auth} (version: 1):"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/auth/otp/request, POST} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/auth/otp/verify, POST} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/auth/token/refresh, POST} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/auth/me, GET} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RoutesResolver","msg":"AdminAuthController {/api/auth} (version: 1):"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/auth/admin/login, POST} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/auth/password/reset/request, POST} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/auth/password/reset/complete, POST} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/auth/email/verify, POST} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/auth/admin/invitations/accept, POST} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RoutesResolver","msg":"TenantsController {/api/tenants} (version: 1):"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/tenants/onboard, POST} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/tenants/me, GET} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RoutesResolver","msg":"StoresController {/api/stores} (version: 1):"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/stores, POST} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/stores, GET} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/stores/:storeId, GET} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/stores/:storeId/access, POST} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/stores/:storeId/access/:userId, DELETE} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RoutesResolver","msg":"ProductsController {/api/products} (version: 1):"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/products/lookup/:ean, GET} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/products/lookup/batch, POST} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/products, GET} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/products/:id, GET} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/products, POST} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/products/:id, PATCH} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/products/:id, DELETE} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RoutesResolver","msg":"ScanController {/api/products} (version: 1):"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/products/:ean/scan, GET} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/products/scan-mode-preference, PUT} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RoutesResolver","msg":"SearchController {/api/products} (version: 1):"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/products/search, GET} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/products/autocomplete, GET} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/products/facets, GET} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/products/popular, GET} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/products/:id/similar, GET} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RoutesResolver","msg":"HealthScoringController {/api} (version: 1):"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/products/:productId/health, GET} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/products/:productId/health/recompute, POST} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/products/health/bulk-recompute, POST} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/products/health/filter, GET} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/health-scoring/rules, GET} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/health-scoring/stats, GET} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RoutesResolver","msg":"MediaController {/api/media} (version: 1):"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/media/presign, POST} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/media/:id/confirm, POST} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/media/:id, GET} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/media, GET} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/media/:id, DELETE} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/media/migrate-from-url, POST} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/media/:id/reprocess, POST} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/media/:id/invalidate, POST} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/media/:id/variants, GET} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RoutesResolver","msg":"EanListsController {/api/ean-lists} (version: 1):"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/ean-lists, POST} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/ean-lists, GET} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/ean-lists/validate, POST} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/ean-lists/validate/batch, POST} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/ean-lists/imports/:batchId, GET} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/ean-lists/imports/:batchId/errors, GET} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/ean-lists/imports/:batchId/errors/csv, GET} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/ean-lists/imports/:batchId/cancel, POST} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/ean-lists/:id, GET} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/ean-lists/:id, PATCH} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/ean-lists/:id, DELETE} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/ean-lists/:id/activate, POST} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/ean-lists/:id/deactivate, POST} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/ean-lists/:id/import, POST} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/ean-lists/:id/items, GET} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RoutesResolver","msg":"ScansController {/api/scan-sessions} (version: 1):"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/scan-sessions/sync-batches, GET} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/scan-sessions/sync-batches/:batchId, GET} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/scan-sessions/sync-batches/:batchId/cancel, POST} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/scan-sessions, POST} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/scan-sessions, GET} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/scan-sessions/active, GET} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/scan-sessions/:id, GET} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/scan-sessions/:id/summary, GET} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/scan-sessions/:id/end, POST} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/scan-sessions/:id/abandon, POST} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/scan-sessions/:id/items, POST} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/scan-sessions/:id/items/batch, POST} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/scan-sessions/:id/bulk-sync, POST} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/scan-sessions/:id/items, GET} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/scan-sessions/:id/items/:itemId, DELETE} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RoutesResolver","msg":"ExpiryController {/api} (version: 1):"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/expiry-records, POST} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/expiry-records/near-expiry, GET} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/expiry-records/expired, GET} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/expiry-records/forecast, GET} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/expiry-records/stats, GET} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/expiry-records/stats/by-category, GET} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/expiry-records/recalculate, POST} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/expiry-records/:id, GET} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/expiry-records, GET} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/expiry-thresholds, GET} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/expiry-thresholds, PUT} (version: 1) route"}
+{"level":30,"time":1780355474100,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/expiry-alerts, GET} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/expiry-alerts/:id/acknowledge, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/expiry-alerts/:id/resolve, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/expiry/ocr/validate, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RoutesResolver","msg":"TasksController {/api} (version: 1):"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/task-templates, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/task-templates, GET} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/task-templates/:id, GET} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/task-templates/:id, PATCH} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/task-templates/:id, DELETE} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/task-templates/:id/instantiate, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/tasks/my, GET} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/tasks/stats, GET} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/tasks/auto-from-alert, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/tasks, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/tasks, GET} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/tasks/:id, GET} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/tasks/:id, PATCH} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/tasks/:id, DELETE} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/tasks/:id/start, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/tasks/:id/complete, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/tasks/:id/reject, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/tasks/:id/cancel, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/tasks/:id/reassign, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/tasks/:id/evidence, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/tasks/evidence/:evidenceId, DELETE} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RoutesResolver","msg":"ReportsController {/api} (version: 1):"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/reports/export, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/reports/:id/export, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/reports/:id/files, GET} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/reports/:id/download/:format, GET} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/report-files/:id/download, GET} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RoutesResolver","msg":"ReportGenerationController {/api} (version: 1):"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/dashboard/summary, GET} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/reports/generate, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/reports/aggregate, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/reports/schedule, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/reports/scheduled, GET} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/reports/scheduled/:id, GET} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/reports/scheduled/:id/pause, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/reports/scheduled/:id/resume, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/reports/scheduled/:id, DELETE} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/reports, GET} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/reports/:id/cancel, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/reports/:id, GET} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RoutesResolver","msg":"AiController {/api/ai} (version: 1):"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/ai/ocr/expiry, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/ai/ocr/batch, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/ai/ocr/text, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/ai/label/analyze, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/ai/image-fallback, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/ai/report/summary, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/ai/usage, GET} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/ai/limits, GET} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/ai/ingredients/:slug/explanation, GET} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RoutesResolver","msg":"NotificationsController {/api/notifications} (version: 1):"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/notifications, GET} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/notifications/preferences, GET} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/notifications/preferences, PATCH} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/notifications/read-all, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/notifications/test, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/notifications/fcm-token, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/notifications/fcm-token, DELETE} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/notifications/:id/read, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RoutesResolver","msg":"OnboardingController {/api/onboarding} (version: 1):"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/onboarding/segment, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RoutesResolver","msg":"SuppliersController {/api/suppliers} (version: 1):"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/suppliers, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/suppliers, GET} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/suppliers/search, GET} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/suppliers/import, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/suppliers/export, GET} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/suppliers/contacts/:contactId, DELETE} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/suppliers/:id, GET} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/suppliers/:id, PATCH} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/suppliers/:id, DELETE} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/suppliers/:id/activate, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/suppliers/:id/deactivate, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/suppliers/:id/blacklist, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/suppliers/:id/contacts, GET} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/suppliers/:id/contacts, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/suppliers/:id/performance, GET} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RoutesResolver","msg":"GrnController {/api/grn} (version: 1):"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/grn/stats, GET} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/grn, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/grn, GET} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/grn/:id, GET} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/grn/:id, PATCH} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/grn/:id/items, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/grn/:id/items/:itemId, PATCH} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/grn/:id/items/:itemId, DELETE} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/grn/:id/validate, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/grn/:id/post, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/grn/:id/cancel, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/grn/:id/reverse, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RoutesResolver","msg":"HealthController {/api/health} (version: 1):"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/health, GET} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/health/ready, GET} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RoutesResolver","msg":"ConfigHealthController {/api/health/config} (version: 1):"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/health/config, GET} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RoutesResolver","msg":"AdminImpersonationController {/api} (version: 1):"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/admin/impersonate, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/admin/impersonate, DELETE} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/admin/impersonations/audit, GET} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RoutesResolver","msg":"AlternativesController {/api/products} (version: 1):"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/products/:ean/alternatives, GET} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RoutesResolver","msg":"AffiliateController {/api/affiliate} (version: 1):"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/affiliate/clicks, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/affiliate/revenue, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RoutesResolver","msg":"AllergenController {/api/allergen/profiles} (version: 1):"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/allergen/profiles, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/allergen/profiles/:id, PUT} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/allergen/profiles, GET} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/allergen/profiles/:id, DELETE} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/allergen/profiles/:id/activate, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RoutesResolver","msg":"ConsumerSubmissionController {/api/products} (version: 1):"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/products/learn, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/products/:ean/flag, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RoutesResolver","msg":"AdminSubmissionController {/api/admin/learn} (version: 1):"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/admin/learn/queue, GET} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/admin/learn/:id/approve, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/admin/learn/:id/reject, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RoutesResolver","msg":"BusinessActivationController {/api/api/v1/account} (version: 1):"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/api/v1/account/activate-business, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/api/v1/account/touchpoints, GET} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RoutesResolver","msg":"SubscriptionsController {/api/subscriptions} (version: 1):"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/subscriptions/plans, GET} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/subscriptions/status, GET} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/subscriptions/usage, GET} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/subscriptions/upgrade, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/subscriptions/cancel, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/subscriptions/reactivate, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RoutesResolver","msg":"AnalyticsController {/api} (version: 1):"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/analytics/app/events, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/analytics/app/events/batch, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/analytics/app/me, GET} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/analytics/app/tenant, GET} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/analytics/website/stats, GET} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/analytics/website/funnel, GET} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/analytics/funnel, GET} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/marketing/leads, GET} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/marketing/leads/:id, GET} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/marketing/leads/:id, PATCH} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/marketing/leads/:id/convert, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RoutesResolver","msg":"PublicAnalyticsController {/api} (version: 1):"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/analytics/website/events, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/marketing/leads, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RoutesResolver","msg":"ExpiryCalendarController {/api/consumer/expiry-calendar} (version: 1):"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/consumer/expiry-calendar, GET} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/consumer/expiry-calendar/saved-products/:id/consumed, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/consumer/expiry-calendar/saved-products/:id, DELETE} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RoutesResolver","msg":"FeatureFlagsController {/api/feature-flags} (version: 1):"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/feature-flags/me, GET} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RoutesResolver","msg":"ImageFallbackController {/api/scan} (version: 1):"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/scan/image-fallback, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RoutesResolver","msg":"IngredientExplainerController {/api/ingredients} (version: 1):"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/ingredients/:slug/explanation, GET} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RoutesResolver","msg":"PublicProductController {/api/public/products} (version: 1):"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/public/products/sitemap.xml, GET} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/public/products/:slug, GET} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RoutesResolver","msg":"RecallController {/api/recall} (version: 1):"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/recall/alerts, GET} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/recall/alerts/:id/acknowledge, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RoutesResolver","msg":"ReferralsController {/api/referrals} (version: 1):"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/referrals/me, GET} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/referrals/apply, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RoutesResolver","msg":"SavedProductsController {/api/saved-products} (version: 1):"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/saved-products, GET} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/saved-products, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/saved-products/:id, DELETE} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RoutesResolver","msg":"ShoppingListController {/api/shopping-lists} (version: 1):"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/shopping-lists, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/shopping-lists, GET} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/shopping-lists/:id, GET} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/shopping-lists/:id, PATCH} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/shopping-lists/:id/items, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/shopping-lists/:id/items/:itemId, PATCH} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/shopping-lists/:id/items/:itemId, DELETE} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/shopping-lists/:id/whatsapp-format, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RoutesResolver","msg":"SyncController {/api/sync} (version: 1):"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/sync/scans, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/sync/saved-products, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/sync/allergen-profiles, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/sync/changes, GET} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RoutesResolver","msg":"PaymentsController {/api/payments} (version: 1):"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/payments/checkout, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/payments/verify, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/payments/refund, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/payments/webhooks/razorpay, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RoutesResolver","msg":"UserLanguageController {/api/users/me} (version: 1):"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/users/me/language, PUT} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RoutesResolver","msg":"VerifiedBadgeController {/api} (version: 1):"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/badges/me, GET} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/verify/:tenantSlug, GET} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RoutesResolver","msg":"VoicePlaceholderController {/api/voice} (version: 1):"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/voice/*, ALL} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RoutesResolver","msg":"WebhooksController {/api/webhooks} (version: 1):"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/webhooks/endpoints, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/webhooks/endpoints, GET} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/webhooks/endpoints/:id, DELETE} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/webhooks/deliveries, GET} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"RouterExplorer","msg":"Mapped {/api/webhooks/deliveries/:id/replay, POST} (version: 1) route"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"SentryService","msg":"Sentry DSN not configured; error tracking disabled."}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"DbService","msg":"Database connected: localhost:5433/radha_dev"}
+{"level":30,"time":1780355474101,"pid":26124,"hostname":"MSI","context":"NestApplication","msg":"Nest application successfully started"}
+{"level":30,"time":1780355644413,"pid":26124,"hostname":"MSI","context":"Http","msg":"request.in","requestId":"unknown","method":"GET","path":"/api/v1/expiry?limit=1&status=near_expiry","userAgent":"Dart/3.12 (dart:io)"}
+{"level":40,"time":1780355644430,"pid":26124,"hostname":"MSI","req":{"id":1,"method":"GET","url":"/api/v1/expiry?limit=1&status=near_expiry","userAgent":"Dart/3.12 (dart:io)"},"service":"RADHA","context":"GlobalExceptionFilter","requestId":"unknown","path":"/api/v1/expiry?limit=1&status=near_expiry","method":"GET","status":404,"code":"E5000"}
+{"level":40,"time":1780355644436,"pid":26124,"hostname":"MSI","req":{"id":1,"method":"GET","url":"/api/v1/expiry?limit=1&status=near_expiry","userAgent":"Dart/3.12 (dart:io)"},"service":"RADHA","context":"Http","msg":"request.out","requestId":"unknown","method":"GET","path":"/api/v1/expiry?limit=1&status=near_expiry","status":404,"durationMs":13}
+{"level":30,"time":1780355644436,"pid":26124,"hostname":"MSI","req":{"id":1,"method":"GET","url":"/api/v1/expiry?limit=1&status=near_expiry","userAgent":"Dart/3.12 (dart:io)"},"service":"RADHA","res":{"statusCode":404},"responseTime":14,"msg":"request completed"}
+{"level":30,"time":1780355644459,"pid":26124,"hostname":"MSI","context":"Http","msg":"request.in","requestId":"unknown","method":"GET","path":"/api/v1/auth/me","userAgent":"Dart/3.12 (dart:io)"}
+{"level":30,"time":1780355644608,"pid":26124,"hostname":"MSI","req":{"id":2,"method":"GET","url":"/api/v1/auth/me","userAgent":"Dart/3.12 (dart:io)"},"service":"RADHA","context":"Http","msg":"request.out","requestId":"unknown","method":"GET","path":"/api/v1/auth/me","status":200,"durationMs":148}
+{"level":30,"time":1780355644608,"pid":26124,"hostname":"MSI","req":{"id":2,"method":"GET","url":"/api/v1/auth/me","userAgent":"Dart/3.12 (dart:io)"},"service":"RADHA","res":{"statusCode":200},"responseTime":148,"msg":"request completed"}
+{"level":30,"time":1780355644803,"pid":26124,"hostname":"MSI","context":"Http","msg":"request.in","requestId":"unknown","method":"GET","path":"/api/v1/tasks?limit=1&status=open","userAgent":"Dart/3.12 (dart:io)"}
+{"level":40,"time":1780355644810,"pid":26124,"hostname":"MSI","req":{"id":3,"method":"GET","url":"/api/v1/tasks?limit=1&status=open","userAgent":"Dart/3.12 (dart:io)"},"service":"RADHA","context":"GlobalExceptionFilter","requestId":"unknown","path":"/api/v1/tasks?limit=1&status=open","method":"GET","status":403,"code":"E4004"}
+{"level":40,"time":1780355644811,"pid":26124,"hostname":"MSI","req":{"id":3,"method":"GET","url":"/api/v1/tasks?limit=1&status=open","userAgent":"Dart/3.12 (dart:io)"},"service":"RADHA","context":"Http","msg":"request.out","requestId":"unknown","method":"GET","path":"/api/v1/tasks?limit=1&status=open","status":403,"durationMs":7}
+{"level":30,"time":1780355644811,"pid":26124,"hostname":"MSI","req":{"id":3,"method":"GET","url":"/api/v1/tasks?limit=1&status=open","userAgent":"Dart/3.12 (dart:io)"},"service":"RADHA","res":{"statusCode":403},"responseTime":7,"msg":"request completed"}
+{"level":30,"time":1780355645424,"pid":26124,"hostname":"MSI","context":"Http","msg":"request.in","requestId":"unknown","method":"GET","path":"/api/v1/inventory?limit=1","userAgent":"Dart/3.12 (dart:io)"}
+{"level":40,"time":1780355645426,"pid":26124,"hostname":"MSI","req":{"id":4,"method":"GET","url":"/api/v1/inventory?limit=1","userAgent":"Dart/3.12 (dart:io)"},"service":"RADHA","context":"GlobalExceptionFilter","requestId":"unknown","path":"/api/v1/inventory?limit=1","method":"GET","status":404,"code":"E5000"}
+{"level":40,"time":1780355645427,"pid":26124,"hostname":"MSI","req":{"id":4,"method":"GET","url":"/api/v1/inventory?limit=1","userAgent":"Dart/3.12 (dart:io)"},"service":"RADHA","context":"Http","msg":"request.out","requestId":"unknown","method":"GET","path":"/api/v1/inventory?limit=1","status":404,"durationMs":2}
+{"level":30,"time":1780355645427,"pid":26124,"hostname":"MSI","req":{"id":4,"method":"GET","url":"/api/v1/inventory?limit=1","userAgent":"Dart/3.12 (dart:io)"},"service":"RADHA","res":{"statusCode":404},"responseTime":2,"msg":"request completed"}
+{"level":30,"time":1780356119541,"pid":26124,"hostname":"MSI","context":"Http","msg":"request.in","requestId":"unknown","method":"GET","path":"/api/v1/tasks?status=pending","userAgent":"Dart/3.12 (dart:io)"}
+{"level":40,"time":1780356119586,"pid":26124,"hostname":"MSI","req":{"id":5,"method":"GET","url":"/api/v1/tasks?status=pending","userAgent":"Dart/3.12 (dart:io)"},"service":"RADHA","context":"GlobalExceptionFilter","requestId":"unknown","path":"/api/v1/tasks?status=pending","method":"GET","status":403,"code":"E4004"}
+{"level":40,"time":1780356119587,"pid":26124,"hostname":"MSI","req":{"id":5,"method":"GET","url":"/api/v1/tasks?status=pending","userAgent":"Dart/3.12 (dart:io)"},"service":"RADHA","context":"Http","msg":"request.out","requestId":"unknown","method":"GET","path":"/api/v1/tasks?status=pending","status":403,"durationMs":44}
+{"level":30,"time":1780356119587,"pid":26124,"hostname":"MSI","req":{"id":5,"method":"GET","url":"/api/v1/tasks?status=pending","userAgent":"Dart/3.12 (dart:io)"},"service":"RADHA","res":{"statusCode":403},"responseTime":44,"msg":"request completed"}
+{"level":30,"time":1780356121136,"pid":26124,"hostname":"MSI","context":"Http","msg":"request.in","requestId":"unknown","method":"GET","path":"/api/v1/tasks?status=completed","userAgent":"Dart/3.12 (dart:io)"}
+{"level":40,"time":1780356121144,"pid":26124,"hostname":"MSI","req":{"id":6,"method":"GET","url":"/api/v1/tasks?status=completed","userAgent":"Dart/3.12 (dart:io)"},"service":"RADHA","context":"GlobalExceptionFilter","requestId":"unknown","path":"/api/v1/tasks?status=completed","method":"GET","status":403,"code":"E4004"}
+{"level":40,"time":1780356121145,"pid":26124,"hostname":"MSI","req":{"id":6,"method":"GET","url":"/api/v1/tasks?status=completed","userAgent":"Dart/3.12 (dart:io)"},"service":"RADHA","context":"Http","msg":"request.out","requestId":"unknown","method":"GET","path":"/api/v1/tasks?status=completed","status":403,"durationMs":8}
+{"level":30,"time":1780356121145,"pid":26124,"hostname":"MSI","req":{"id":6,"method":"GET","url":"/api/v1/tasks?status=completed","userAgent":"Dart/3.12 (dart:io)"},"service":"RADHA","res":{"statusCode":403},"responseTime":8,"msg":"request completed"}
+{"level":30,"time":1780356157204,"pid":26124,"hostname":"MSI","context":"Http","msg":"request.in","requestId":"unknown","method":"GET","path":"/api/v1/tasks?status=pending","userAgent":"Dart/3.12 (dart:io)"}
+{"level":40,"time":1780356157248,"pid":26124,"hostname":"MSI","req":{"id":7,"method":"GET","url":"/api/v1/tasks?status=pending","userAgent":"Dart/3.12 (dart:io)"},"service":"RADHA","context":"GlobalExceptionFilter","requestId":"unknown","path":"/api/v1/tasks?status=pending","method":"GET","status":403,"code":"E4004"}
+{"level":40,"time":1780356157249,"pid":26124,"hostname":"MSI","req":{"id":7,"method":"GET","url":"/api/v1/tasks?status=pending","userAgent":"Dart/3.12 (dart:io)"},"service":"RADHA","context":"Http","msg":"request.out","requestId":"unknown","method":"GET","path":"/api/v1/tasks?status=pending","status":403,"durationMs":43}
+{"level":30,"time":1780356157249,"pid":26124,"hostname":"MSI","req":{"id":7,"method":"GET","url":"/api/v1/tasks?status=pending","userAgent":"Dart/3.12 (dart:io)"},"service":"RADHA","res":{"statusCode":403},"responseTime":43,"msg":"request completed"}
+{"level":30,"time":1780356163755,"pid":26124,"hostname":"MSI","context":"Http","msg":"request.in","requestId":"unknown","method":"GET","path":"/api/v1/subscription","userAgent":"Dart/3.12 (dart:io)"}
+{"level":40,"time":1780356163757,"pid":26124,"hostname":"MSI","req":{"id":8,"method":"GET","url":"/api/v1/subscription","userAgent":"Dart/3.12 (dart:io)"},"service":"RADHA","context":"GlobalExceptionFilter","requestId":"unknown","path":"/api/v1/subscription","method":"GET","status":404,"code":"E5000"}
+{"level":40,"time":1780356163758,"pid":26124,"hostname":"MSI","req":{"id":8,"method":"GET","url":"/api/v1/subscription","userAgent":"Dart/3.12 (dart:io)"},"service":"RADHA","context":"Http","msg":"request.out","requestId":"unknown","method":"GET","path":"/api/v1/subscription","status":404,"durationMs":2}
+{"level":30,"time":1780356163758,"pid":26124,"hostname":"MSI","req":{"id":8,"method":"GET","url":"/api/v1/subscription","userAgent":"Dart/3.12 (dart:io)"},"service":"RADHA","res":{"statusCode":404},"responseTime":3,"msg":"request completed"}
+{"level":30,"time":1780356164256,"pid":26124,"hostname":"MSI","context":"Http","msg":"request.in","requestId":"unknown","method":"GET","path":"/api/v1/inventory?limit=30","userAgent":"Dart/3.12 (dart:io)"}
+{"level":40,"time":1780356164257,"pid":26124,"hostname":"MSI","req":{"id":9,"method":"GET","url":"/api/v1/inventory?limit=30","userAgent":"Dart/3.12 (dart:io)"},"service":"RADHA","context":"GlobalExceptionFilter","requestId":"unknown","path":"/api/v1/inventory?limit=30","method":"GET","status":404,"code":"E5000"}
+{"level":40,"time":1780356164257,"pid":26124,"hostname":"MSI","req":{"id":9,"method":"GET","url":"/api/v1/inventory?limit=30","userAgent":"Dart/3.12 (dart:io)"},"service":"RADHA","context":"Http","msg":"request.out","requestId":"unknown","method":"GET","path":"/api/v1/inventory?limit=30","status":404,"durationMs":1}
+{"level":30,"time":1780356164257,"pid":26124,"hostname":"MSI","req":{"id":9,"method":"GET","url":"/api/v1/inventory?limit=30","userAgent":"Dart/3.12 (dart:io)"},"service":"RADHA","res":{"statusCode":404},"responseTime":1,"msg":"request completed"}
+{"level":30,"time":1780359707331,"pid":26124,"hostname":"MSI","context":"app","requestId":"unknown","msg":"database.connection.closed"}
+{"level":50,"time":1780359707437,"pid":26124,"hostname":"MSI","context":"NestApplicationContext","err":{"type":"Error","message":"Error happened during shutdown","stack":"Error: kill ENOSYS\n    at process.kill (node:internal/process/per_thread:277:13)\n    at process.cleanup (C:\\Users\\sayan\\Downloads\\RADHA_UPGRADED_PROJECT_FILES new\\RADHA_UPGRADED_PROJECT_FILES\\node_modules\\.pnpm\\@nestjs+core@10.4.22_@nestjs+common@10.4.22_@nestjs+platform-express@10.4.22_reflect-metadata@0.2.2_rxjs@7.8.2\\node_modules\\@nestjs\\core\\nest-application-context.js:203:25)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)"},"msg":"Error happened during shutdown"}
+^C

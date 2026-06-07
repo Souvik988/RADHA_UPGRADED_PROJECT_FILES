@@ -1,0 +1,50 @@
+{
+  "mcpServers": {
+    "mobile-mcp": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@mobilenext/mobile-mcp@latest"
+      ]
+    },
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@playwright/mcp@latest"
+      ],
+      "env": {},
+      "disabled": false,
+      "autoApprove": [
+        "browser_snapshot",
+        "browser_navigate",
+        "browser_take_screenshot",
+        "browser_console_messages",
+        "browser_resize",
+        "browser_evaluate"
+      ]
+    },
+    "kiro-gpt-bridge": {
+      "command": "node",
+      "args": [
+        "C:\\Users\\sayan\\Desktop\\image-gpt\\mcp-server\\dist\\index.js"
+      ],
+      "env": {
+        "KIRO_GPT_MCP_SECRET": "LWhPTNAqhbK5hXHF0rrHzh9O_fSotQxp",
+        "KIRO_GPT_MCP_RELAY_URL": "ws://localhost:3001",
+        "KIRO_GPT_MCP_WORKSPACE": "c:\\Users\\sayan\\Downloads\\RADHA_UPGRADED_PROJECT_FILES new\\RADHA_UPGRADED_PROJECT_FILES",
+        "KIRO_GPT_MCP_PROMPT_REWRITE": "true",
+        "KIRO_GPT_MCP_RESPAWN": "6"
+      },
+      "disabled": false,
+      "autoApprove": [
+        "generate_image",
+        "generate_logo",
+        "generate_hero",
+        "generate_icon_set",
+        "generate_ui_mockup"
+      ],
+      "disabledTools": []
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "enabled": true,
+  "name": "Post-Task Verify",
+  "description": "After any spec task completes, run a fast, scoped verification on the touched server code: lint changed files with zero warnings, typecheck the server workspace, and run unit tests for the affected modules. On failure, fix the obvious issues and re-run. Keeps every task green so phase closeout is never a surprise.",
+  "version": "1",
+  "when": {
+    "type": "postTaskExecution"
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "A spec task just completed. Run fast verification before moving on. Stay scoped — do not run the entire test suite.\n\n1. Identify what changed in this task. Check `git status` and `git diff --name-only` for files under `server/src/**` and `packages/shared-types/**`. If nothing changed in those paths, skip and report \"No backend code touched\".\n\n2. Lint the changed TypeScript files with zero-warnings:\n   - `pnpm -C server exec eslint --max-warnings 0 <changed files under server/>`\n   If any warnings/errors, fix them in place and re-run. Stop after 2 fix attempts and surface remaining issues.\n\n3. Typecheck the server workspace once:\n   - `pnpm -C server exec tsc --noEmit`\n   Surface the first error and fix it; re-run. Stop after 2 attempts.\n\n4. Run targeted unit tests for affected modules. For each changed file under `server/src/modules/<domain>/`, run:\n   - `pnpm -C server test -- --testPathPattern=modules/<domain>` (Jest)\n   For changed schema/repository files, also run their `__tests__` siblings if present.\n\n5. If a service or controller changed, also verify:\n   - The matching shared-types export still compiles (`pnpm -C packages/shared-types build`).\n   - API_CONTRACTS.md mentions every changed route (flag drift, do not auto-edit unless trivial).\n\n6. Output a 6-line summary at the end:\n   - Files touched: N\n   - Lint: PASS/FAIL\n   - Typecheck: PASS/FAIL\n   - Targeted tests: X/Y modules PASS\n   - Shared-types build: PASS/SKIPPED\n   - Verdict: READY / NEEDS REVIEW\n\nDo not run watch-mode commands. Do not start dev servers. Stay under ~90 seconds total wall time when possible — if a step would clearly take longer, skip it and note it as SKIPPED with the reason."
+  }
+}

@@ -1,0 +1,18 @@
+[31m[Nest] 23052  - [39m05/18/2026, 9:16:53 AM [31m  ERROR[39m [38;5;3m[OwnerMetricsAggregationCron] [39m[31mcron.owner-metrics-aggregation.failed[39m
+[31m[Nest] 23052  - [39m05/18/2026, 9:16:53 AM [31m  ERROR[39m [38;5;3m[OwnerMetricsAggregationCron] [39m[31mError: db boom[39m
+PASS src/modules/analytics/__tests__/owner-metrics-aggregation.cron.spec.ts (52.497 s)
+PASS src/modules/analytics/__tests__/analytics-hash.util.spec.ts (53.041 s)
+PASS src/modules/analytics/__tests__/public-rate-limit.guard.spec.ts (55.475 s)
+PASS src/modules/analytics/__tests__/funnel.service.spec.ts (61.127 s)
+PASS src/modules/analytics/__tests__/analytics.dto.spec.ts (89.034 s)
+PASS src/modules/analytics/__tests__/leads.service.spec.ts (100.748 s)
+PASS src/modules/analytics/__tests__/website-analytics.service.spec.ts (103.313 s)
+PASS src/modules/analytics/__tests__/app-analytics.service.spec.ts (106.973 s)
+PASS src/modules/analytics/__tests__/owner-metrics-aggregator.service.spec.ts (114.175 s)
+A worker process has failed to exit gracefully and has been force exited. This is likely caused by tests leaking due to improper teardown. Try running with --detectOpenHandles to find leaks. Active timers can also cause this, ensure that .unref() was called on them.
+
+Test Suites: 9 passed, 9 total
+Tests:       75 passed, 75 total
+Snapshots:   0 total
+Time:        117.719 s
+Ran all test suites matching /modules\\analytics/i.
