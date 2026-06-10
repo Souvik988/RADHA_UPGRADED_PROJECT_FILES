@@ -68,11 +68,13 @@ class _TaskDetailScreenState extends ConsumerState<TaskDetailScreen> {
           ),
         );
       }
-    } catch (e) {
+    } catch (_) {
       if (mounted) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text('Failed to update task: $e')));
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Could not update the task. Please try again.'),
+          ),
+        );
       }
     } finally {
       if (mounted) setState(() => _isUpdating = false);

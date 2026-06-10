@@ -65,9 +65,16 @@ class AuthInterceptor extends Interceptor {
         data: {'refreshToken': refreshToken},
       );
 
-      final data = refreshResponse.data!;
-      final newAccess = data['accessToken'] as String;
-      final newRefresh = data['refreshToken'] as String;
+      // The refresh Dio has no interceptors (to avoid loops), so the response
+      // arrives as the raw RADHA envelope `{ success, data: {...} }`. Unwrap it
+      // before reading the rotated tokens — `accessToken` at the envelope's top
+      // level is null. Falls back to a bare body if the route isn't enveloped.
+      final body = refreshResponse.data!;
+      final inner = body['data'] is Map<String, dynamic>
+          ? body['data'] as Map<String, dynamic>
+          : body;
+      final newAccess = inner['accessToken'] as String;
+      final newRefresh = inner['refreshToken'] as String;
 
       await _tokenStore.persistTokens(access: newAccess, refresh: newRefresh);
 
@@ -76,6 +83,14 @@ class AuthInterceptor extends Interceptor {
       options.headers[_retryHeader] = 'true';
 
       final retryResponse = await _refreshDio.fetch(options);
+      // The retry also bypassed the envelope interceptor; unwrap so the
+      // original caller (which expects the inner payload) deserialises cleanly.
+      final retryBody = retryResponse.data;
+      if (retryBody is Map<String, dynamic> &&
+          retryBody['success'] == true &&
+          retryBody.containsKey('data')) {
+        retryResponse.data = retryBody['data'];
+      }
       return handler.resolve(retryResponse);
     } on DioException {
       // Refresh failed — propagate original 401.

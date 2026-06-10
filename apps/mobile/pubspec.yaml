@@ -45,6 +45,8 @@ dependencies:
   # Camera + on-device ML
   mobile_scanner: ^5.2.3
   google_mlkit_text_recognition: ^0.13.1
+  # Live-preview camera for auto-capture-when-steady label scanning.
+  camera: ^0.11.0
 
   # Utilities
   intl: ^0.20.2
@@ -67,14 +69,10 @@ dependencies:
 
   # Payments — Razorpay Standard Checkout (UPI / cards / netbanking).
   # Plugin auto-registers its activity on Android; needs INTERNET permission
-  # (already declared by the Flutter framework).
-  # 1.4.5 declares an android `namespace` and drops the legacy Registrar API,
-  # BUT it pulls in two com.razorpay native modules (standard-core 1.7.12 +
-  # core 1.0.13) that share the `com.razorpay` namespace — AGP's manifest
-  # merger rejects that. Temporarily disabled for an on-device demo build;
-  # checkout sheet is stubbed (see razorpay_checkout_sheet.dart). Re-enable +
-  # resolve the transitive namespace clash before shipping.
-  # razorpay_flutter: ^1.4.5
+  # (declared in AndroidManifest). Real flow lives in
+  # razorpay_checkout_sheet.dart; the Key ID is provided by the server's
+  # /payments/checkout response, so no Razorpay key is compiled into the app.
+  razorpay_flutter: ^1.4.5
 
 dev_dependencies:
   flutter_test:
@@ -109,21 +107,61 @@ flutter:
   uses-material-design: true
   generate: true
   assets:
-    # ── v1 — original assets (preserved, do not delete) ──────────────────
-    - assets/v1/brand/
-    # ── v2 — upgraded RADHA visual system (Bible v2.1) ───────────────────
-    - assets/v2/character/mor/
-    - assets/v2/character/mor/parts/
-    - assets/v2/character/mor/static/
-    - assets/v2/character/humans/
-    - assets/v2/icons/
-    - assets/v2/illustration/
-    - assets/v2/illustrations/
-    - assets/v2/mockup/
-    - assets/v2/lottie/
-    - assets/v2/rive/
-    # ── legacy flat paths (kept for backward compat with existing code) ──
-    - assets/brand/
+    # Explicit ship-list: ONLY the assets actually rendered at runtime (every
+    # entry traces to a `RadhaAssets.*` constant referenced in lib/). Directory
+    # globs were replaced with per-file entries on 2026-06-09 because the globs
+    # were bundling ~74 MB of design-reference material into the APK — mockup
+    # boards, unused mascot turnaround/expression sheets + hero scenes, the
+    # human cast, 13 unreferenced icons, and unused illustrations. Those files
+    # are preserved on disk (and in assets/_fullres_backup/) — re-add a path
+    # here when a new screen starts rendering it. The brand/ + v1/ dirs are
+    # build-time only (flutter_launcher_icons / flutter_native_splash read them
+    # off the filesystem) so they no longer need to ship in the bundle.
+    #
+    # Mor mascot — the nine static mood frames (MorCompanion / morMoodFrame).
+    - assets/v2/character/mor/static/idle.png
+    - assets/v2/character/mor/static/greet.png
+    - assets/v2/character/mor/static/think.png
+    - assets/v2/character/mor/static/work.png
+    - assets/v2/character/mor/static/celebrate.png
+    - assets/v2/character/mor/static/shelter.png
+    - assets/v2/character/mor/static/concern.png
+    - assets/v2/character/mor/static/guard.png
+    - assets/v2/character/mor/static/sleep.png
+    # Health-flag icons (scan result chips).
+    - assets/v2/icons/sugar-drop.png
+    - assets/v2/icons/salt-shaker.png
+    - assets/v2/icons/fat-droplet.png
+    - assets/v2/icons/processed-factory.png
+    - assets/v2/icons/child-star.png
+    # Home illustrations + v3 promo banners.
+    - assets/v2/illustration/home-storefront.png
+    - assets/v2/illustration/home-mission-v3.jpg
+    - assets/v2/illustration/home-promo-consumer-v3.jpg
+    # "Shop by category" cutouts (already optimized to ~256²).
+    - assets/v2/illustrations/cat-biscuits.png
+    - assets/v2/illustrations/cat-breakfast.png
+    - assets/v2/illustrations/cat-dairy.png
+    - assets/v2/illustrations/cat-beverages.png
+    - assets/v2/illustrations/cat-staples.png
+    - assets/v2/illustrations/cat-personal-care.png
+    - assets/v2/illustrations/cat-household.png
+    - assets/v2/illustrations/cat-frozen.png
+    # Curated launch-catalog product pack-shots (29 WebP, ~0.8 MB total — every
+    # file is rendered by the browse/detail flow via `kLaunchCatalog`). Directory
+    # entry is intentional here: unlike the design-reference dirs above, all of
+    # these ship and are used. See lib/features/catalog/data/launch_catalog.dart.
+    - assets/v2/products/
+    # v3 generated premium art (Mor scenes, state illustrations, banners,
+    # onboarding, illustrated health badges, paywall hero, splash lockup).
+    # ~0.94 MB total across all dirs (WebP, see lib/design/app_assets.dart v3).
+    - assets/v2/character/mor/scenes/
+    - assets/v2/states/
+    - assets/v2/icons/health/
+    - assets/v2/banners/
+    - assets/v2/onboarding/
+    - assets/v2/plus/
+    - assets/v2/brand/
 
 # ---------------------------------------------------------------------------
 # Brand asset generators (Task 21)

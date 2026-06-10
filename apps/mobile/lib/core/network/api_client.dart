@@ -11,6 +11,7 @@ import 'package:radha_mobile/core/network/dio_provider.dart';
 import 'package:radha_mobile/core/network/dto/ai_dto.dart';
 import 'package:radha_mobile/core/network/dto/allergen_profile_dto.dart';
 import 'package:radha_mobile/core/network/dto/auth_dto.dart';
+import 'package:radha_mobile/core/network/dto/catalog_dto.dart';
 import 'package:radha_mobile/core/network/dto/ean_dto.dart';
 import 'package:radha_mobile/core/network/dto/expiry_dto.dart';
 import 'package:radha_mobile/core/network/dto/grn_dto.dart';
@@ -19,6 +20,7 @@ import 'package:radha_mobile/core/network/dto/misc_dto.dart';
 import 'package:radha_mobile/core/network/dto/onboarding_dto.dart';
 import 'package:radha_mobile/core/network/dto/payment_dto.dart';
 import 'package:radha_mobile/core/network/dto/product_dto.dart';
+import 'package:radha_mobile/core/network/dto/product_lookup_dto.dart';
 import 'package:radha_mobile/core/network/dto/reports_dto.dart';
 import 'package:radha_mobile/core/network/dto/saved_product_dto.dart';
 import 'package:radha_mobile/core/network/dto/scan_dto.dart';
@@ -68,6 +70,26 @@ abstract class ApiClient {
 
   @GET('/api/v1/products/ean/{ean}')
   Future<ProductResponse> getProductByEan(@Path('ean') String ean);
+
+  /// Rich lookup with real nutrition (drives the catalog product detail).
+  @GET('/api/v1/products/lookup/{ean}')
+  Future<ProductLookupResult> getProductLookup(
+    @Path('ean') String ean, {
+    @Query('includeNutrition') bool includeNutrition = true,
+  });
+
+  // ─── Consumer catalog (browse-without-scan) ──────────────────────────────
+  @GET('/api/v1/catalog/categories')
+  Future<List<CatalogCategory>> getCatalogCategories();
+
+  @GET('/api/v1/catalog/products')
+  Future<CatalogBrowsePage> getCatalogProducts({
+    @Query('category') String? category,
+    @Query('q') String? q,
+    @Query('sort') String? sort,
+    @Query('cursor') String? cursor,
+    @Query('limit') int? limit,
+  });
 
   // ─── Scan sessions ────────────────────────────────────────────────────────
   @POST('/api/v1/scan-sessions')

@@ -32,6 +32,13 @@ export interface OtpRequestResult {
   requestId: string;
   expiresIn: number;
   attemptsRemaining: number;
+  /**
+   * Dev/test ONLY — the plaintext OTP, surfaced so local testing doesn't
+   * require tailing the server console (the mock SMS provider only logs it).
+   * Strictly gated in `AuthService.requestOtp`: never populated in staging or
+   * production, where the real 2Factor.in provider delivers the code.
+   */
+  devOtp?: string;
 }
 
 export interface TokenPair {

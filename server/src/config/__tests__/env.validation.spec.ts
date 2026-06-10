@@ -18,11 +18,14 @@ const baseProductionConfig = {
   AWS_ACCESS_KEY_ID: 'AKIAEXAMPLE1234',
   AWS_SECRET_ACCESS_KEY: 'secret-key-data',
   AWS_S3_BUCKET: 'radha-prod-media',
-  SMS_PROVIDER: 'msg91',
-  MSG91_API_KEY: 'real-key',
-  MSG91_TEMPLATE_ID: 'tpl-1',
+  SMS_PROVIDER: '2factor',
+  TWO_FACTOR_API_KEY: 'real-key',
+  TWO_FACTOR_TEMPLATE: 'tpl-1',
   JWT_ACCESS_SECRET: 'X'.repeat(64),
   JWT_REFRESH_SECRET: 'Y'.repeat(64),
+  RAZORPAY_KEY_ID: 'rzp_live_example1234',
+  RAZORPAY_KEY_SECRET: 'z'.repeat(24),
+  RAZORPAY_WEBHOOK_SECRET: 'w'.repeat(24),
   CORS_ORIGINS: 'https://radha.app,https://admin.radha.app',
 };
 
@@ -62,7 +65,7 @@ describe('validateEnv', () => {
     const result = validateEnv({ ...baseProductionConfig });
     expect(result.NODE_ENV).toBe('production');
     expect(result.DB_SSL).toBe(true);
-    expect(result.SMS_PROVIDER).toBe('msg91');
+    expect(result.SMS_PROVIDER).toBe('2factor');
   });
 
   it('rejects production when DB_SSL=false', () => {

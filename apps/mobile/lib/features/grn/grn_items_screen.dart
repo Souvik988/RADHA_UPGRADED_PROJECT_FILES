@@ -5,7 +5,9 @@ import 'package:go_router/go_router.dart';
 
 import '../../core/auth/auth_controller.dart';
 import '../../core/network/api_client.dart';
+import '../../core/network/api_exception.dart';
 import '../../core/network/dto/grn_dto.dart';
+import '../../core/offline/sync_service.dart';
 import '../../design/app_assets.dart';
 import '../../design/theme.dart';
 import '../../design/tokens.dart';
@@ -56,31 +58,59 @@ class _GrnItemsScreenState extends ConsumerState<GrnItemsScreen> {
         user.roles.contains('super_admin');
   }
 
+  /// Serialise a local item into the backend `GrnItemSchema` shape.
+  Map<String, dynamic> _itemToJson(_GrnItemLocal item) => {
+    'ean': item.ean,
+    'productName': item.productName,
+    // GRN quantities are whole received units; the backend requires an int.
+    'quantity': item.quantity.round(),
+    'unit': 'pcs',
+    if (item.batchNumber != null && item.batchNumber!.isNotEmpty)
+      'batchNumber': item.batchNumber,
+    if (item.mfgDate != null) 'manufactureDate': item.mfgDate!.toIso8601String(),
+    if (item.expDate != null) 'expiryDate': item.expDate!.toIso8601String(),
+    'unitPrice': item.unitPrice,
+  };
+
   Future<void> _showAddItemSheet() async {
     final item = await showModalBottomSheet<_GrnItemLocal>(
       context: context,
       isScrollControlled: true,
       builder: (ctx) => const _AddItemSheet(),
     );
-    if (item != null) {
-      setState(() => _items.add(item));
-    }
-  }
+    if (item == null || !mounted) return;
 
-  Future<void> _moveToPendingReview() async {
-    if (_items.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Add at least one item before review')),
-      );
-      return;
-    }
+    // Persist the item to the GRN immediately (offline-first via the sync
+    // queue) — no more local-only items that silently vanish.
     setState(() => _isLoading = true);
     try {
-      // Placeholder: no dedicated endpoint — log action.
-      debugPrint('[GRN] Moving GRN ${widget.grnId} to pending_review');
+      final result = await ref.read(syncServiceProvider).enqueue<void>(
+        endpoint: '/api/v1/grn/${widget.grnId}/items',
+        method: 'POST',
+        body: {
+          'items': [_itemToJson(item)],
+        },
+      );
+      if (!mounted) return;
+      setState(() => _items.add(item));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            result.synced
+                ? 'Item added'
+                : "Saved offline — it'll sync when you're back online",
+          ),
+        ),
+      );
+    } on ApiException catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(e.message)));
+    } catch (_) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('GRN moved to Pending Review')),
+        const SnackBar(content: Text('Could not add item. Please try again.')),
       );
     } finally {
       if (mounted) setState(() => _isLoading = false);
@@ -88,28 +118,42 @@ class _GrnItemsScreenState extends ConsumerState<GrnItemsScreen> {
   }
 
   Future<void> _postGrn() async {
+    if (_items.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Add at least one item before posting')),
+      );
+      return;
+    }
     setState(() => _isLoading = true);
     try {
-      // Placeholder: no dedicated POST endpoint — log action.
-      debugPrint('[GRN] Posting GRN ${widget.grnId}');
+      // Real post: finalises the GRN, updates stock, resolves low-stock
+      // alerts (server-side). Offline-first via the sync queue.
+      final result = await ref.read(syncServiceProvider).enqueue<void>(
+        endpoint: '/api/v1/grn/${widget.grnId}/post',
+        method: 'POST',
+        body: const <String, dynamic>{},
+      );
       if (!mounted) return;
-      showDialog(
-        context: context,
-        builder: (ctx) => AlertDialog(
-          title: const Text('GRN Posted'),
+      ref.invalidate(_grnDetailProvider(widget.grnId));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
           content: Text(
-            'GRN posted successfully.\n${_items.length} low-stock alerts resolved.',
+            result.synced
+                ? 'GRN posted — stock updated'
+                : "Queued — it'll post when you're back online",
           ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(ctx).pop();
-                context.go('/grn');
-              },
-              child: const Text('OK'),
-            ),
-          ],
         ),
+      );
+      context.go('/grn');
+    } on ApiException catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(e.message)));
+    } catch (_) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Could not post GRN. Please try again.')),
       );
     } finally {
       if (mounted) setState(() => _isLoading = false);
@@ -232,32 +276,21 @@ class _GrnItemsScreenState extends ConsumerState<GrnItemsScreen> {
                     label: 'Add Item',
                     icon: Icons.add,
                     expand: true,
-                    onPressed: _showAddItemSheet,
+                    onPressed: _isLoading ? null : _showAddItemSheet,
                   ),
-                  const SizedBox(height: RadhaSpacing.space12),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: SecondaryButton(
-                          label: 'Pending Review',
-                          expand: true,
-                          onPressed: _isLoading ? null : _moveToPendingReview,
-                        ),
-                      ),
-                      // Post button — only visible for authorized users.
-                      if (canPost) ...[
-                        const SizedBox(width: RadhaSpacing.space12),
-                        Expanded(
-                          child: PrimaryButton(
-                            label: 'Post',
-                            expand: true,
-                            onPressed: _isLoading ? null : _postGrn,
-                          ),
-                        ),
-                      ],
-                    ],
-                  ),
+                  // Post finalises the GRN (manager/admin only). Staff add
+                  // received items; a manager posts. There is no user-facing
+                  // "pending review" transition in the backend, so we don't
+                  // surface a button that can't do anything.
                   if (canPost) ...[
+                    const SizedBox(height: RadhaSpacing.space12),
+                    PrimaryButton(
+                      label: 'Post GRN',
+                      icon: Icons.check_circle_outline,
+                      expand: true,
+                      loading: _isLoading,
+                      onPressed: _isLoading ? null : _postGrn,
+                    ),
                     const SizedBox(height: RadhaSpacing.space8),
                     Text(
                       'Posting updates stock & resolves low-stock alerts.',
@@ -432,6 +465,7 @@ class _AddItemSheet extends StatefulWidget {
 
 class _AddItemSheetState extends State<_AddItemSheet> {
   final _formKey = GlobalKey<FormState>();
+  final _eanController = TextEditingController();
   final _productController = TextEditingController();
   final _quantityController = TextEditingController();
   final _batchController = TextEditingController();
@@ -443,6 +477,7 @@ class _AddItemSheetState extends State<_AddItemSheet> {
 
   @override
   void dispose() {
+    _eanController.dispose();
     _productController.dispose();
     _quantityController.dispose();
     _batchController.dispose();
@@ -492,6 +527,7 @@ class _AddItemSheetState extends State<_AddItemSheet> {
     if (_dateError != null) return;
 
     final item = _GrnItemLocal(
+      ean: _eanController.text.trim(),
       productName: _productController.text.trim(),
       quantity: double.parse(_quantityController.text.trim()),
       batchNumber: _batchController.text.trim(),
@@ -520,7 +556,30 @@ class _AddItemSheetState extends State<_AddItemSheet> {
               Text('Add Item', style: Theme.of(context).textTheme.titleMedium),
               const SizedBox(height: RadhaSpacing.space24),
 
-              // Product picker.
+              // Barcode (EAN) — required so the backend can resolve/create the
+              // product. Scan it off the carton when receiving goods.
+              TextFormField(
+                controller: _eanController,
+                decoration: const InputDecoration(
+                  labelText: 'Barcode (EAN / UPC)',
+                  hintText: '8–13 digits',
+                  prefixIcon: Icon(Icons.qr_code_2),
+                ),
+                keyboardType: TextInputType.number,
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly,
+                  LengthLimitingTextInputFormatter(13),
+                ],
+                validator: (v) {
+                  final t = v?.trim() ?? '';
+                  if (t.isEmpty) return 'Required';
+                  if (t.length < 8 || t.length > 13) return '8–13 digits';
+                  return null;
+                },
+              ),
+              const SizedBox(height: RadhaSpacing.space24),
+
+              // Product name.
               TextFormField(
                 controller: _productController,
                 decoration: const InputDecoration(
@@ -532,22 +591,18 @@ class _AddItemSheetState extends State<_AddItemSheet> {
               ),
               const SizedBox(height: RadhaSpacing.space24),
 
-              // Quantity.
+              // Quantity — whole received units (backend stores an integer).
               TextFormField(
                 controller: _quantityController,
                 decoration: const InputDecoration(
                   labelText: 'Quantity',
                   prefixIcon: Icon(Icons.numbers),
                 ),
-                keyboardType: const TextInputType.numberWithOptions(
-                  decimal: true,
-                ),
-                inputFormatters: [
-                  FilteringTextInputFormatter.allow(RegExp(r'[\d.]')),
-                ],
+                keyboardType: TextInputType.number,
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 validator: (v) {
                   if (v == null || v.trim().isEmpty) return 'Required';
-                  final n = double.tryParse(v.trim());
+                  final n = int.tryParse(v.trim());
                   if (n == null || n <= 0) return 'Must be > 0';
                   return null;
                 },
@@ -667,6 +722,7 @@ class _DatePickerField extends StatelessWidget {
 /// Local model for a GRN item before it's persisted.
 class _GrnItemLocal {
   const _GrnItemLocal({
+    required this.ean,
     required this.productName,
     required this.quantity,
     this.batchNumber,
@@ -675,6 +731,8 @@ class _GrnItemLocal {
     required this.unitPrice,
   });
 
+  /// Product barcode — required by the backend to resolve/create the product.
+  final String ean;
   final String productName;
   final double quantity;
   final String? batchNumber;

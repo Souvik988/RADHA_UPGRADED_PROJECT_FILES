@@ -110,10 +110,12 @@ class _EanAuditScreenState extends ConsumerState<EanAuditScreen> {
       if (!mounted) return;
       _insertResult(result);
       _eanController.clear();
-    } catch (e) {
+    } catch (_) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Could not record scan: $e')),
+        const SnackBar(
+          content: Text('Could not record the scan. Please try again.'),
+        ),
       );
     } finally {
       if (mounted) setState(() => _submitting = false);
@@ -153,11 +155,13 @@ class _EanAuditScreenState extends ConsumerState<EanAuditScreen> {
         ),
       );
       context.pop();
-    } catch (e) {
+    } catch (_) {
       if (!mounted) return;
       setState(() => _ending = false);
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Could not end audit: $e')),
+        const SnackBar(
+          content: Text('Could not end the audit. Please try again.'),
+        ),
       );
     }
   }

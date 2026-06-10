@@ -32,6 +32,8 @@ import {
   IngredientSlugSchema,
   LabelAnalyzeRequestDto,
   LabelAnalyzeRequestSchema,
+  LabelTextAnalyzeRequestDto,
+  LabelTextAnalyzeRequestSchema,
   LimitCheckQueryDto,
   LimitCheckQuerySchema,
   OcrRequestDto,
@@ -140,6 +142,23 @@ export class AiController {
     @Body(new ZodValidationPipe(ImageFallbackRequestSchema)) dto: ImageFallbackRequestDto,
   ): Promise<unknown> {
     return this.ai.imageFallbackScan(dto.mediaId);
+  }
+
+  /**
+   * Consumer "scan the label" fallback — analyze an on-device OCR transcript.
+   * Used when a barcode lookup misses: the mobile reads the label with ML Kit
+   * and posts the text here for a cheap LLM (Gemini) structured analysis.
+   */
+  @Post('label/analyze-text')
+  @Version('1')
+  @HttpCode(200)
+  @Roles('owner', 'manager', 'staff', 'admin', 'consumer')
+  @RequirePermissions('consumer:scan')
+  @RequireTenant()
+  analyzeLabelText(
+    @Body(new ZodValidationPipe(LabelTextAnalyzeRequestSchema)) dto: LabelTextAnalyzeRequestDto,
+  ): Promise<unknown> {
+    return this.ai.analyzeLabelText(dto.transcript, dto.locale);
   }
 
   /* ─────────────────── LLM ─────────────────── */

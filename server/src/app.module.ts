@@ -20,6 +20,7 @@ import { AllergenModule } from './modules/allergen/allergen.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { BarcodeLearningModule } from './modules/barcode-learning/barcode-learning.module';
 import { BusinessActivationModule } from './modules/business-activation/business-activation.module';
+import { CatalogImportModule } from './modules/catalog-import/catalog-import.module';
 import { EanListsModule } from './modules/ean-lists/ean-lists.module';
 import { ExpiryModule } from './modules/expiry/expiry.module';
 import { ExpiryCalendarModule } from './modules/expiry-calendar/expiry-calendar.module';
@@ -107,6 +108,7 @@ import { ObservabilityModule } from './observability/observability.module';
     AllergenModule,
     BarcodeLearningModule,
     BusinessActivationModule,
+    CatalogImportModule,
     ExpiryCalendarModule,
     FeatureFlagsModule,
     I18nModule,

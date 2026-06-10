@@ -125,8 +125,16 @@ void main() {
         await tester.pumpWidget(_buildApp(api));
         await tester.pumpAndSettle();
 
+        // The error state is the branded design: a Mor "concern" mascot
+        // (semanticLabel 'Could not load'), the localised title, and an
+        // outlined retry button with a refresh icon. (The old generic
+        // Icons.error_outline was replaced by the mascot in the redesign.)
         expect(find.text('Could not load saved products'), findsOneWidget);
-        expect(find.byIcon(Icons.error_outline), findsOneWidget);
+        expect(
+          find.bySemanticsLabel('Could not load'),
+          findsOneWidget,
+        );
+        expect(find.byIcon(Icons.refresh), findsOneWidget);
         expect(find.text('Try again'), findsOneWidget);
       },
     );

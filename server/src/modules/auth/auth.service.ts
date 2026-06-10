@@ -21,7 +21,7 @@ import { UsersRepository } from './repositories/users.repository';
 import { AuthJwtService } from './services/jwt.service';
 import { AuthRateLimiterService } from './services/rate-limiter.service';
 import { SessionService } from './services/session.service';
-import { AuthResult, OtpRequestResult, TokenPair, UserMeResponse } from './types/auth.types';
+import { AuthResult, OtpRequestResult, UserMeResponse } from './types/auth.types';
 import { maskMobile, normaliseMobile } from './utils/mobile.utils';
 import { generateOtp, hashOtp, verifyOtp } from './utils/otp.utils';
 
@@ -99,6 +99,10 @@ export class AuthService {
       requestId,
       expiresIn: this.config.sms.otpExpirySeconds,
       attemptsRemaining: 3,
+      // Dev/test convenience: hand the OTP straight back so local testing
+      // doesn't require tailing server logs. Strictly gated — staging and
+      // production (real 2Factor + ProductionEnvSchema) never hit this branch.
+      ...(this.config.isProduction || this.config.isStaging ? {} : { devOtp: otp }),
     };
   }
 
@@ -199,7 +203,7 @@ export class AuthService {
 
   /* ─────────── Refresh ─────────── */
 
-  async refreshTokens(dto: RefreshTokenDto): Promise<TokenPair> {
+  async refreshTokens(dto: RefreshTokenDto): Promise<AuthResult> {
     const payload = await this.jwt.verifyRefreshToken(dto.refreshToken);
     const session = await this.sessions.findActive(payload.sessionId);
     if (!session) {
@@ -241,6 +245,10 @@ export class AuthService {
       accessToken: newAccess,
       refreshToken: newRefresh,
       expiresIn: this.config.jwt.accessTokenExpirySeconds,
+      // Include the user so the mobile `LoginResponse` (which requires `user`)
+      // deserialises a refresh exactly like a fresh login. The repository
+      // ignores it — it re-reads /me — but the typed contract needs it present.
+      user: this.toMeResponse(user, false),
     };
   }
 

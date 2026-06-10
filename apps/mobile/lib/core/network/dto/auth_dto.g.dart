@@ -31,6 +31,7 @@ OtpRequestResponse _$OtpRequestResponseFromJson(Map<String, dynamic> json) =>
       requestId: json['requestId'] as String,
       expiresIn: (json['expiresIn'] as num).toInt(),
       rateLimitRemaining: (json['rateLimitRemaining'] as num?)?.toInt(),
+      devOtp: json['devOtp'] as String?,
     );
 
 LoginResponse _$LoginResponseFromJson(Map<String, dynamic> json) =>

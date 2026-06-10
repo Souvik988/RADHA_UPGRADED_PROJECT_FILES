@@ -60,8 +60,21 @@ void main() {
     when(() => mockApiClient.getTasks(status: 'open', limit: 1)).thenAnswer(
       (_) async => PaginatedTasks(items: const [], total: openTasks),
     );
-    when(() => mockApiClient.getInventory(limit: 1)).thenAnswer(
-      (_) async => PaginatedInventory(items: const [], total: lowStock),
+    // lowStockCountProvider now fetches a bounded inventory page and counts
+    // items at/below threshold, so stub the page with `lowStock` such items.
+    when(() => mockApiClient.getInventory(limit: 200)).thenAnswer(
+      (_) async => PaginatedInventory(
+        items: List.generate(
+          lowStock,
+          (i) => InventoryItemResponse(
+            id: 'inv-$i',
+            productId: 'p-$i',
+            quantity: 0,
+            lowStockThreshold: 5,
+          ),
+        ),
+        total: lowStock,
+      ),
     );
 
     return [

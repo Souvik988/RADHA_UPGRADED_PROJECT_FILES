@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../core/network/api_client.dart';
 
@@ -25,59 +26,30 @@ class OcrDateHelper {
   static const double _confidenceThreshold = 0.6;
 
   /// Launches the camera, performs OCR, and returns parsed dates.
-  /// Returns `null` if the user cancels.
+  /// Returns `null` if the user cancels or no date could be read.
   static Future<OcrDateResult?> extractDates(
     BuildContext context,
     WidgetRef ref,
   ) async {
-    // For now we take a photo through a simple image picker approach.
-    // In production this would use a dedicated capture UI with live preview.
-    // To keep this implementation focused on the OCR logic we use a file path
-    // placeholder — the real capture flow can be wired in a follow-up.
-    final imagePath = await _captureImage(context);
-    if (imagePath == null) return null;
+    final imagePath = await captureAndExtractPath();
+    if (imagePath == null || !context.mounted) return null;
 
-    // Try on-device recognition first.
+    // On-device recognition first (free, offline). Cloud fallback on a miss.
     final localResult = await _runLocalOcr(imagePath);
     if (localResult != null) return localResult;
-
-    // Fallback to cloud endpoint.
     return _runCloudFallback(imagePath, ref);
   }
 
-  /// Stub for image capture. In production, replace with camera plugin flow.
-  static Future<String?> _captureImage(BuildContext context) async {
-    // Use a dialog to inform the user. A real implementation would open
-    // camera_android / camera_ios.
-    // For the skeleton we show a file picker or cancel.
-    if (!context.mounted) return null;
-
-    final confirmed = await showDialog<bool>(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        title: const Text('Capture expiry label'),
-        content: const Text(
-          'Point your camera at the manufacturing and expiry dates on '
-          'the product label.',
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(ctx, false),
-            child: const Text('Cancel'),
-          ),
-          FilledButton(
-            onPressed: () => Navigator.pop(ctx, true),
-            child: const Text('Open camera'),
-          ),
-        ],
-      ),
+  /// Opens the native camera and returns the captured file path (or null if
+  /// cancelled). The OS camera handles autofocus + automatic flash in low
+  /// light, so a date on a glossy/dim pack still captures cleanly.
+  static Future<String?> captureAndExtractPath() async {
+    final XFile? file = await ImagePicker().pickImage(
+      source: ImageSource.camera,
+      imageQuality: 85,
+      maxWidth: 1600,
     );
-
-    if (confirmed != true) return null;
-
-    // Placeholder: in a real build this would return the captured file path.
-    // Returning null here means OCR won't run without a real camera capture.
-    return null;
+    return file?.path;
   }
 
   /// Runs Google ML Kit text recognition on a captured image file.

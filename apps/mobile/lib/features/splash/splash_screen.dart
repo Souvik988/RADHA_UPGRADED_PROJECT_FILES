@@ -33,6 +33,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../design/app_assets.dart';
 import '../../design/tokens.dart';
+import '../../design/widgets/brand_illustration.dart';
 import '../../design/widgets/mor_companion.dart';
 import 'bootstrap_controller.dart';
 
@@ -47,7 +48,8 @@ class SplashScreen extends ConsumerWidget {
     // on it so the user gets a visible "we're working" cue.
     final bootstrap = ref.watch(bootstrapControllerProvider);
     final theme = Theme.of(context);
-    final reduceMotion = MediaQuery.maybeOf(context)?.disableAnimations ?? false;
+    final reduceMotion =
+        MediaQuery.maybeOf(context)?.disableAnimations ?? false;
 
     return Scaffold(
       backgroundColor: theme.colorScheme.surface,
@@ -144,15 +146,13 @@ class _SplashHeroState extends State<_SplashHero>
       parent: ctrl,
       curve: const Interval(0.35, 0.80, curve: Curves.easeOut),
     );
-    _wordSlide = Tween<Offset>(
-      begin: const Offset(0, 0.5),
-      end: Offset.zero,
-    ).animate(
-      CurvedAnimation(
-        parent: ctrl,
-        curve: const Interval(0.35, 0.80, curve: Curves.easeOutCubic),
-      ),
-    );
+    _wordSlide = Tween<Offset>(begin: const Offset(0, 0.5), end: Offset.zero)
+        .animate(
+          CurvedAnimation(
+            parent: ctrl,
+            curve: const Interval(0.35, 0.80, curve: Curves.easeOutCubic),
+          ),
+        );
 
     // Underline: 70–100% — wipes in from 0 to full width.
     _underline = CurvedAnimation(
@@ -171,15 +171,22 @@ class _SplashHeroState extends State<_SplashHero>
 
   @override
   Widget build(BuildContext context) {
-    // Mor (greet) is the splash hero — the companion welcomes the owner in.
-    final mark = MorCompanion(
-      mood: MorMood.greet,
-      size: widget.markSize * 1.35,
-      animate: false,
+    // Mor (full hero scene) welcomes the owner in; falls back to the static
+    // greet frame if the illustration can't decode.
+    final mark = BrandIllustration(
+      RadhaAssets.morSceneSplash,
+      size: widget.markSize * 1.6,
       semanticLabel: 'RADHA',
+      fallback: MorCompanion(
+        mood: MorMood.greet,
+        size: widget.markSize * 1.35,
+        animate: false,
+      ),
     );
     final wordmark = _Wordmark();
-    final underline = _ComplementUnderline(progress: widget.reduceMotion ? 1.0 : null);
+    final underline = _ComplementUnderline(
+      progress: widget.reduceMotion ? 1.0 : null,
+    );
 
     if (widget.reduceMotion || _ctrl == null) {
       return Column(

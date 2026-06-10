@@ -13,6 +13,8 @@ import '../../core/entitlements/entitlement_provider.dart';
 import '../../design/app_assets.dart';
 import '../../design/theme.dart';
 import '../../design/tokens.dart';
+import '../../design/widgets/brand_illustration.dart';
+import '../../design/widgets/error_state.dart';
 import '../../design/widgets/mor_companion.dart';
 import '../../design/widgets/primary_button.dart';
 import 'razorpay_checkout_sheet.dart';
@@ -70,7 +72,12 @@ const List<_PlanInfo> _plans = [
     name: 'Standard',
     price: 99,
     tagline: '+ Inventory & tasks',
-    highlights: ['Everything in Basic', 'GRN inward', 'Advanced reports', 'Bulk scan'],
+    highlights: [
+      'Everything in Basic',
+      'GRN inward',
+      'Advanced reports',
+      'Bulk scan',
+    ],
     features: {
       Feature.inventory,
       Feature.grn,
@@ -83,7 +90,12 @@ const List<_PlanInfo> _plans = [
     name: 'Premium',
     price: 199,
     tagline: '+ GRN, analytics & allergen',
-    highlights: ['Everything in Standard', 'Allergen & recall alerts', 'Multi-store', 'Weekly digest'],
+    highlights: [
+      'Everything in Standard',
+      'Allergen & recall alerts',
+      'Multi-store',
+      'Weekly digest',
+    ],
     features: {
       Feature.inventory,
       Feature.grn,
@@ -121,26 +133,14 @@ class SubscriptionScreen extends ConsumerWidget {
         ),
       ),
       body: entitlement.when(
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (e, _) => Center(
-          child: Padding(
-            padding: const EdgeInsets.all(RadhaSpacing.space24),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const MorCompanion(
-                  mood: MorMood.concern,
-                  size: 96,
-                  semanticLabel: 'Could not load',
-                ),
-                const SizedBox(height: RadhaSpacing.space16),
-                Text(
-                  'Unable to load subscription info.',
-                  style: theme.textTheme.bodyMedium,
-                  textAlign: TextAlign.center,
-                ),
-              ],
-            ),
+        loading: () => const Center(
+          child: CircularProgressIndicator(color: RadhaColors.primary),
+        ),
+        error: (_, _) => Center(
+          child: ErrorState(
+            title: "Couldn't load your subscription",
+            body: 'Check your connection and try again.',
+            onRetry: () => ref.invalidate(entitlementProvider),
           ),
         ),
         data: (state) => _SubscriptionBody(state: state),
@@ -176,20 +176,30 @@ class _SubscriptionBodyState extends ConsumerState<_SubscriptionBody> {
         RadhaSpacing.space48,
       ),
       children: [
+        // Premium paywall hero — sets the "RADHA Plus" aspiration before plans.
+        Center(
+          child: BrandIllustration(
+            RadhaAssets.paywallHero,
+            size: 196,
+            fallback: const MorCompanion(mood: MorMood.guard, size: 120),
+          ),
+        ),
+        const SizedBox(height: RadhaSpacing.space8),
+        Text(
+          'Unlock RADHA’s full picture',
+          textAlign: TextAlign.center,
+          style: theme.textTheme.headlineSmall?.copyWith(
+            fontWeight: FontWeight.w800,
+          ),
+        ),
+        const SizedBox(height: RadhaSpacing.space24),
         _CurrentPlanCard(state: state),
         const SizedBox(height: RadhaSpacing.space24),
-        Row(
-          children: [
-            Expanded(
-              child: Text(
-                'Choose a plan',
-                style: theme.textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            ),
-            const MorCompanion(mood: MorMood.guard, size: 52),
-          ],
+        Text(
+          'Choose a plan',
+          style: theme.textTheme.titleMedium?.copyWith(
+            fontWeight: FontWeight.w700,
+          ),
         ),
         const SizedBox(height: RadhaSpacing.space12),
         for (final plan in _plans)

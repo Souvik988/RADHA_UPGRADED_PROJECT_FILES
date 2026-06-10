@@ -48,6 +48,23 @@ export const ImageFallbackRequestSchema = z
   .strict();
 export type ImageFallbackRequestDto = z.infer<typeof ImageFallbackRequestSchema>;
 
+/**
+ * Text-transcript label analysis — the consumer "scan the label" fallback.
+ * The mobile sends an on-device OCR transcript (not an image), which the LLM
+ * parses into a structured product analysis.
+ */
+export const LabelTextAnalyzeRequestSchema = z
+  .object({
+    transcript: z
+      .string()
+      .trim()
+      .min(1, 'transcript is required')
+      .max(PRE_EXTRACTED_TEXT_MAX, `must be ≤ ${PRE_EXTRACTED_TEXT_MAX} characters`),
+    locale: z.string().regex(LOCALE_RE, 'invalid locale').optional().default('en'),
+  })
+  .strict();
+export type LabelTextAnalyzeRequestDto = z.infer<typeof LabelTextAnalyzeRequestSchema>;
+
 /* ─────────────────── Report summary ─────────────────── */
 
 export const ReportSummaryRequestSchema = z

@@ -1,7 +1,7 @@
 export interface SmsResult {
   success: boolean;
   messageId?: string;
-  provider: 'msg91' | 'mock' | 'twilio';
+  provider: '2factor' | 'mock';
   cost?: number;
   error?: string;
 }

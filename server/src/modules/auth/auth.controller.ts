@@ -53,6 +53,32 @@ export class AuthController {
     return this.auth.refreshTokens(dto);
   }
 
+  /**
+   * Canonical refresh path used by the mobile client + the Dio auth
+   * interceptor (`/api/v1/auth/refresh`). `token/refresh` above is kept as a
+   * backward-compatible alias; both rotate the refresh token via the same
+   * service call.
+   */
+  @Post('refresh')
+  @Version('1')
+  @HttpCode(200)
+  refreshAlias(@Body(new ZodValidationPipe(RefreshTokenSchema)) dto: RefreshTokenDto) {
+    return this.auth.refreshTokens(dto);
+  }
+
+  /**
+   * Revokes the caller's current session server-side. The mobile client calls
+   * this on sign-out; it also wipes local credentials regardless of the
+   * result, so a failure here never traps the user signed-in. Returns 204.
+   */
+  @Post('logout')
+  @Version('1')
+  @HttpCode(204)
+  @UseGuards(JwtAuthGuard)
+  logout(@CurrentUser('sessionId') sessionId: string): Promise<void> {
+    return this.auth.logout(sessionId);
+  }
+
   @Get('me')
   @Version('1')
   @UseGuards(JwtAuthGuard)

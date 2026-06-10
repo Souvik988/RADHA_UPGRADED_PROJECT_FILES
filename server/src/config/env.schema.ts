@@ -102,11 +102,15 @@ export const EnvSchema = z.object({
     .optional()
     .transform((v) => (v === '' ? undefined : v)),
 
-  // ───── SMS (used in BE-06) ────────────────────────────────────────
-  SMS_PROVIDER: z.enum(['msg91', 'twilio', 'mock']).default('mock'),
-  MSG91_API_KEY: z.string().default(''),
-  MSG91_SENDER_ID: z.string().min(1).default('RADHA1'),
-  MSG91_TEMPLATE_ID: z.string().default(''),
+  // ───── SMS / OTP (2Factor.in — BE-06) ─────────────────────────────
+  SMS_PROVIDER: z.enum(['2factor', 'mock']).default('mock'),
+  // 2Factor.in transactional OTP API key. Blank (or a `dev-*` placeholder)
+  // in non-production ⇒ the deterministic mock provider, so local OTP flows
+  // work without a real account or spending SMS credits.
+  TWO_FACTOR_API_KEY: z.string().default(''),
+  // DLT-approved template name registered in the 2Factor dashboard. Optional —
+  // when blank the provider falls back to 2Factor's default OTP template.
+  TWO_FACTOR_TEMPLATE: z.string().default(''),
   OTP_LENGTH: z.coerce.number().int().min(4).max(8).default(6),
   OTP_EXPIRY_SECONDS: z.coerce.number().int().min(60).max(3600).default(600),
   OTP_MAX_ATTEMPTS_PER_HOUR: z.coerce.number().int().min(1).max(20).default(3),
@@ -195,7 +199,7 @@ export const EnvSchema = z.object({
  *   - Real DB password (≥ 16 chars)
  *   - TLS to DB
  *   - Real JWT secrets (≥ 64 chars)
- *   - Real AWS + MSG91 credentials
+ *   - Real AWS + 2Factor credentials
  *   - No CORS wildcard
  *
  * The merged shape is checked when `NODE_ENV` is `production` or `staging`.
@@ -230,10 +234,9 @@ export const ProductionEnvSchema = EnvSchema.extend({
   AWS_ACCESS_KEY_ID: z.string().min(1, 'AWS_ACCESS_KEY_ID is required in production'),
   AWS_SECRET_ACCESS_KEY: z.string().min(1, 'AWS_SECRET_ACCESS_KEY is required in production'),
   AWS_S3_BUCKET: z.string().min(1, 'AWS_S3_BUCKET is required in production'),
-  MSG91_API_KEY: z.string().min(1, 'MSG91_API_KEY is required in production'),
-  MSG91_TEMPLATE_ID: z.string().min(1, 'MSG91_TEMPLATE_ID is required in production'),
+  TWO_FACTOR_API_KEY: z.string().min(1, 'TWO_FACTOR_API_KEY is required in production'),
   SMS_PROVIDER: z
-    .enum(['msg91', 'twilio', 'mock'])
+    .enum(['2factor', 'mock'])
     .refine((v) => v !== 'mock', 'SMS_PROVIDER cannot be "mock" in production'),
   JWT_ACCESS_SECRET: requireRealSecret('JWT_ACCESS_SECRET', 64),
   JWT_REFRESH_SECRET: requireRealSecret('JWT_REFRESH_SECRET', 64),

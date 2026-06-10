@@ -55,8 +55,12 @@ describe('DbService', () => {
     };
   };
 
-  it('throws DATABASE_CONNECTION_FAILED when getDb runs before init', () => {
+  it('throws DATABASE_CONNECTION_FAILED when there is no active connection', () => {
     const { svc } = buildService();
+    // The constructor now eagerly creates the (lazy) pool, so getDb() works
+    // after construction. Simulate a failed/closed connection to exercise the
+    // typed-error guard in getDb().
+    (svc as unknown as { connection: unknown }).connection = null;
     expect(() => svc.getDb()).toThrow(BusinessException);
     try {
       svc.getDb();

@@ -142,6 +142,43 @@ export class AiOrchestratorService implements IAiOrchestratorService {
     }
   }
 
+  /**
+   * Analyze an OCR'd label **transcript** (text, not an image) via the LLM.
+   *
+   * This is the free-first consumer fallback: the mobile does on-device ML Kit
+   * OCR and sends the transcript here, so we pay only for a cheap text
+   * completion instead of an image-vision call. Quota-gated under the existing
+   * `label-analysis` operation and persisted to the audit trail.
+   */
+  async analyzeLabelText(
+    transcript: string,
+    options: LlmOptions = {},
+  ): Promise<LabelAnalysisResult> {
+    if (!transcript || typeof transcript !== 'string') {
+      throw new BusinessException(ErrorCode.VALIDATION_ERROR, 'transcript is required');
+    }
+    const tenantId = this.tenantId();
+    await this.assertLimit(tenantId, 'label-analysis');
+
+    const result = await this.llmService.analyzeLabelText(transcript, options);
+    await this.persistAndTrackLabelText(tenantId, result);
+    await this.audit.logAction({
+      action: 'CREATE',
+      resourceType: 'AiExtraction',
+      resourceId: 'label-text',
+      userId: this.contextService.getUserId() ?? 'system',
+      tenantId,
+      success: Boolean(result.productName),
+      metadata: {
+        operation: 'label-analysis',
+        provider: result.provider,
+        confidence: result.confidence,
+        source: 'text',
+      },
+    });
+    return result;
+  }
+
   async imageFallbackScan(mediaId: string): Promise<ImageFallbackResult> {
     const tenantId = this.tenantId();
     await this.assertLimit(tenantId, 'image-fallback');
@@ -438,6 +475,48 @@ export class AiOrchestratorService implements IAiOrchestratorService {
         ingredients: result.ingredients,
         allergens: result.allergens,
         nutritionalInfo: result.nutritionalInfo,
+      },
+      confidence: String(result.confidence),
+      durationMs: result.durationMs,
+      cost: String(result.cost),
+      userId: this.contextService.getUserId() ?? null,
+      requestId: this.contextService.getRequestId(),
+      metadata: result.warnings && result.warnings.length > 0 ? { warnings: result.warnings } : {},
+    });
+  }
+
+  private async persistAndTrackLabelText(
+    tenantId: string,
+    result: LabelAnalysisResult,
+  ): Promise<void> {
+    await this.usageTracker.trackUsage({
+      tenantId,
+      operation: 'label-analysis',
+      provider: result.provider,
+      cost: result.cost,
+      durationMs: result.durationMs,
+      success: !!result.productName,
+      userId: this.contextService.getUserId(),
+    });
+    await this.extractionsRepo.recordSafely({
+      tenantId,
+      operation: 'label-analysis',
+      provider: result.provider,
+      sourceType: 'text',
+      success: result.productName ? 'true' : 'false',
+      extractedText: truncateForStorage(
+        [result.productName, result.brand, result.summary].filter(Boolean).join('\n'),
+        AI_EXTRACTED_TEXT_MAX,
+      ),
+      extractedData: {
+        productName: result.productName,
+        brand: result.brand,
+        category: result.category,
+        ingredients: result.ingredients,
+        allergens: result.allergens,
+        nutritionalInfo: result.nutritionalInfo,
+        healthFlags: result.healthFlags,
+        summary: result.summary,
       },
       confidence: String(result.confidence),
       durationMs: result.durationMs,

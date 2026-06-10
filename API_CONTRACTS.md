@@ -21,6 +21,8 @@
 |GET|/api/v1/auth/me|bearer|all|`-`|`{user,roles,storeAccess}`|users,stores|AppBootstrap|AuthController.me|BE-05|
 |GET|/api/v1/products/lookup/{ean}|bearer|staff+|`-`|`{product,source,found}`|products,product_nutrition,product_health_assessments|ScannerScreen|ProductsController.lookup|BE-07|
 |POST|/api/v1/products|bearer|manager/admin|`ProductCreateDto`|`{product}`|products,product_sources|ProductCreateForm|ProductsController.create|BE-07|
+|GET|/api/v1/catalog/categories|bearer|consumer+|`-`|`CatalogCategory[]`|product_categories|BrowseHome/CategoryGrid|ConsumerCatalogController.categories|browse-flow|
+|GET|/api/v1/catalog/products|bearer|consumer+|`query category?,q?,sort=health\|name,cursor?,limit`|`{items:CatalogProductItem[],nextCursor}`|products,product_health_assessments|CategoryListScreen|ConsumerCatalogController.products|browse-flow|
 |POST|/api/v1/ean-lists/import|bearer|manager/admin|`multipart xlsx/csv`|`{listId,validRows,invalidRows}`|ean_lists,ean_list_items,ean_import_errors|AdminEANImport|EanListsController.import|BE-09|
 |POST|/api/v1/ean-lists/{id}/validate|bearer|staff+|`{ean,storeId}`|`{exists,status,matchedItem}`|ean_list_items|BulkScanScreen|EanListsController.validate|BE-09|
 |POST|/api/v1/scan-sessions|bearer|staff+|`{type,storeId,taskId?}`|`{session}`|scan_sessions|ScannerScreen|ScanController.createSession|BE-10|
@@ -33,6 +35,7 @@
 |GET|/api/v1/reports/{id}/download|bearer|manager/admin/auditor|`format=xlsx/pdf`|`signed url`|reports,report_files|ReportsScreen|ReportsController.download|BE-13|
 |POST|/api/v1/media/presign|bearer|staff+|`{assetType,mime,size}`|`{mediaId,uploadUrl,key}`|media_assets|Photo/OCRUpload|MediaController.presign|BE-14|
 |POST|/api/v1/ai/ocr/expiry|bearer|staff+|`{mediaId}`|`{suggestedDates,confidence}`|media_assets,ai_extractions|ExpiryEntryScreen|AiController.ocrExpiry|BE-15|
+|POST|/api/v1/ai/label/analyze-text|bearer|consumer+|`{transcript,locale?}`|`{productName?,brand?,ingredients[],allergens[],nutritionalInfo,healthFlags[],summary?,confidence}`|ai_extractions,ai_usage|LabelScanFallback|AiController.analyzeLabelText|scanner-ocr|
 |POST|/api/v1/ai/report-summary|bearer|manager/admin|`{reportId}`|`{summary}`|reports,ai_extractions|ReportDetail|AiController.reportSummary|BE-15|
 |GET|/api/v1/dashboard/summary|bearer|manager/admin|`query storeId,dateRange`|`{totals,charts}`|daily_store_metrics,scan_items,tasks|Dashboard|DashboardController.summary|BE-16|
 

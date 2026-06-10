@@ -33,7 +33,8 @@ class RadhaAssets {
   static const String morExpressions =
       '$_v2/character/mor/sheet-expressions.png';
   static const String morGlyph = '$_v2/character/mor/glyph.png';
-  static const String morPartsSheet = '$_v2/character/mor/parts/parts-sheet.png';
+  static const String morPartsSheet =
+      '$_v2/character/mor/parts/parts-sheet.png';
 
   // Hero scenes (full illustrated moments).
   static const String morHeroSplash = '$_v2/character/mor/hero-splash.png';
@@ -95,6 +96,26 @@ class RadhaAssets {
   static const String illoSpotStoreHealth =
       '$_v2/illustrations/spot-storehealth.png';
 
+  // --- Home promo banners (v3 — cinematic editorial scenes) --------------
+  // Full-bleed 1:1 photographic banners; rendered with a bottom gradient
+  // scrim so overlaid copy stays legible. See `home_screen.dart`.
+  static const String bannerHomeMission =
+      '$_v2/illustration/home-mission-v3.jpg';
+  static const String bannerHomePromoConsumer =
+      '$_v2/illustration/home-promo-consumer-v3.jpg';
+
+  // --- Category cutouts (v3 — image-led "shop by category" rail) ---------
+  // Square product pack-shots on white; sit inside rounded tiles via cover.
+  static const String catBiscuits = '$_v2/illustrations/cat-biscuits.png';
+  static const String catBreakfast = '$_v2/illustrations/cat-breakfast.png';
+  static const String catDairy = '$_v2/illustrations/cat-dairy.png';
+  static const String catBeverages = '$_v2/illustrations/cat-beverages.png';
+  static const String catPersonalCare =
+      '$_v2/illustrations/cat-personal-care.png';
+  static const String catHousehold = '$_v2/illustrations/cat-household.png';
+  static const String catStaples = '$_v2/illustrations/cat-staples.png';
+  static const String catFrozen = '$_v2/illustrations/cat-frozen.png';
+
   // --- Lottie scenes ------------------------------------------------------
   // NOTE: the current `.json` files are lightweight placeholders. Real
   // hand-authored Lottie lands with the motion pass (loader / scan-success /
@@ -103,4 +124,52 @@ class RadhaAssets {
   static const String lottieScanSuccess = '$_v2/lottie/scan-success.json';
   static const String lottieOfflineSync = '$_v2/lottie/offline-sync.json';
   static const String lottieWinBeatPetals = '$_v2/lottie/win-beat-petals.json';
+
+  // ── v3 — generated premium art (Mor scenes, state illos, banners, etc.) ──
+  // High-res hand-illustrated set (2026-06-09), optimized to WebP. Mor here is
+  // the full peacock companion (richer than the static mood frames above).
+
+  // Mor scenes (full-figure companion moments).
+  static const String morSceneSplash =
+      '$_v2/character/mor/scenes/hero-splash.webp';
+  static const String morSceneOffline =
+      '$_v2/character/mor/scenes/hero-offline.webp';
+  static const String morSceneWin = '$_v2/character/mor/scenes/hero-win.webp';
+  static const String morSceneSearch =
+      '$_v2/character/mor/scenes/search-think.webp';
+  static const String morSceneScanning =
+      '$_v2/character/mor/scenes/scanning.webp';
+
+  // Designed empty / error states (Mor-based; used by EmptyState/ErrorState).
+  static const String stateNoResults = '$_v2/states/no-results.webp';
+  static const String stateEmptyList = '$_v2/states/empty-list.webp';
+  static const String stateErrorRetry = '$_v2/states/error-retry.webp';
+  static const String stateOffline = '$_v2/states/offline.webp';
+
+  // Home promo carousel banners (editorial photos with a built-in text scrim).
+  static const String bannerHealthMission = '$_v2/banners/health-mission.webp';
+  static const String bannerExpiryMission = '$_v2/banners/expiry-mission.webp';
+  static const String bannerFestive = '$_v2/banners/festive-store-pride.webp';
+
+  // Onboarding scenes (consumer + business).
+  static const String onboardScan = '$_v2/onboarding/scan.webp';
+  static const String onboardHealth = '$_v2/onboarding/health.webp';
+  static const String onboardAudit = '$_v2/onboarding/audit.webp';
+  static const String onboardGrowth = '$_v2/onboarding/growth.webp';
+
+  // Illustrated health-flag badges (scan result / ingredient deep-dive).
+  static const String hiSugarHigh = '$_v2/icons/health/sugar-high.webp';
+  static const String hiFatHigh = '$_v2/icons/health/fat-high.webp';
+  static const String hiSodiumHigh = '$_v2/icons/health/sodium-high.webp';
+  static const String hiFiberGood = '$_v2/icons/health/fiber-good.webp';
+  static const String hiProteinGood = '$_v2/icons/health/protein-good.webp';
+  static const String hiAdditiveWarning =
+      '$_v2/icons/health/additive-warning.webp';
+  static const String hiAllergenFlag = '$_v2/icons/health/allergen-flag.webp';
+  static const String hiUltraProcessed =
+      '$_v2/icons/health/ultra-processed.webp';
+
+  // RADHA Plus paywall hero + brand splash lockup.
+  static const String paywallHero = '$_v2/plus/paywall-hero.webp';
+  static const String splashLockup = '$_v2/brand/splash-lockup.webp';
 }

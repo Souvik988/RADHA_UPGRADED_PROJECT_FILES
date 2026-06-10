@@ -24,3 +24,18 @@ export const OFF_CB_SUCCESS_THRESHOLD = 2;
 
 /** Time the circuit stays `open` before allowing a probe request. */
 export const OFF_CB_OPEN_DURATION_MS = 60_000;
+
+/**
+ * Field projection for the OFF category-search endpoint. Restricting to the
+ * fields the mapper actually consumes keeps each search page small (OFF rows
+ * carry hundreds of keys) so the bulk catalog import stays fast and within the
+ * request timeout.
+ */
+export const OFF_SEARCH_FIELDS: string =
+  'code,product_name,product_name_en,brands,categories,categories_tags,' +
+  'image_url,image_front_url,image_small_url,ingredients_text,allergens,' +
+  'allergens_tags,nova_group,nutrition_grades,quantity,nutriments,' +
+  'countries_tags,manufacturing_places';
+
+/** Hard cap on OFF search page size (the API itself rejects larger pages). */
+export const OFF_SEARCH_MAX_PAGE_SIZE = 100;

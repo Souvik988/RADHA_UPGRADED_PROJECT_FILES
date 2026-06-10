@@ -7,7 +7,6 @@ import 'package:radha_mobile/core/network/api_client.dart';
 import 'package:radha_mobile/core/network/dto/misc_dto.dart';
 import 'package:radha_mobile/core/network/dto/product_dto.dart';
 import 'package:radha_mobile/features/product/product_detail_screen.dart';
-import 'package:radha_mobile/features/product/widgets/health_label_chip.dart';
 
 class MockApiClient extends Mock implements ApiClient {}
 
@@ -46,7 +45,7 @@ void main() {
       expect(find.text('Cereals'), findsOneWidget);
     });
 
-    testWidgets('shows health label chip with correct color', (tester) async {
+    testWidgets('shows honest assessment-pending health state', (tester) async {
       when(() => mockClient.getProductByEan('1234567890123')).thenAnswer(
         (_) async => const ProductResponse(
           id: 'prod-1',
@@ -61,8 +60,13 @@ void main() {
       await tester.pumpWidget(buildSubject('1234567890123'));
       await tester.pumpAndSettle();
 
-      // The health assessment section renders a HealthLabelChip
-      expect(find.byType(HealthLabelChip), findsAtLeastNWidgets(1));
+      // Honest-data: the V1 ProductResponse carries no health score, so the
+      // section must show an "Assessment pending" state — never a fabricated
+      // "Moderate" label. (The HealthLabelChip is only used later, with real
+      // backend scores, in the healthy-alternatives section.)
+      expect(find.text('Health Assessment'), findsOneWidget);
+      expect(find.text('Assessment pending'), findsOneWidget);
+      expect(find.text('Moderate'), findsNothing);
     });
 
     testWidgets('explain ingredients button opens bottom sheet', (

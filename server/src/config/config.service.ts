@@ -135,9 +135,8 @@ export class ConfigService implements IConfigService {
   get sms(): SmsConfig {
     return {
       provider: this.read('SMS_PROVIDER'),
-      apiKey: this.read('MSG91_API_KEY'),
-      senderId: this.read('MSG91_SENDER_ID'),
-      templateId: this.read('MSG91_TEMPLATE_ID'),
+      apiKey: this.read('TWO_FACTOR_API_KEY'),
+      templateId: this.read('TWO_FACTOR_TEMPLATE'),
       otpLength: this.read('OTP_LENGTH'),
       otpExpirySeconds: this.read('OTP_EXPIRY_SECONDS'),
       maxAttemptsPerHour: this.read('OTP_MAX_ATTEMPTS_PER_HOUR'),

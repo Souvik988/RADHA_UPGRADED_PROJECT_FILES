@@ -5,7 +5,7 @@ import { ErrorCode } from '@/common/errors/error-codes';
 import { ConfigService } from '@/config/config.service';
 
 import { MockSmsProvider } from './providers/mock-sms.provider';
-import { Msg91SmsProvider } from './providers/msg91.provider';
+import { TwoFactorSmsProvider } from './providers/twofactor.provider';
 import type { ISmsProvider, SmsResult } from './sms.types';
 
 const RETRY_SCHEDULE_MS = [0, 2_000, 4_000] as const;
@@ -26,20 +26,18 @@ export class SmsService {
 
   constructor(
     config: ConfigService,
-    private readonly msg91: Msg91SmsProvider,
+    private readonly twoFactor: TwoFactorSmsProvider,
     private readonly mock: MockSmsProvider,
   ) {
-    // Dev hard-override: in development, never call the real MSG91 endpoint
-    // even if the env says otherwise. Hardens against env precedence quirks
-    // (cached config, mis-loaded .env file, accidental SMS_PROVIDER=msg91 in
-    // local shells) and keeps the local OTP flow working.
-    const isDev = (process.env.NODE_ENV ?? 'development') !== 'production';
+    // Respect SMS_PROVIDER. `2factor` ⇒ the real 2Factor.in provider (which
+    // itself short-circuits to a logged success when the API key is a `dev-*`
+    // placeholder, so local flows never accidentally spend credits); anything
+    // else ⇒ the mock provider. Production validation forces SMS_PROVIDER=2factor
+    // with a real key, so live OTP delivery is guaranteed in prod.
     const cfgProvider = config.sms.provider;
-    const useMock = isDev || cfgProvider !== 'msg91';
-    this.provider = useMock ? this.mock : this.msg91;
-    this.logger.log(
-      `SMS provider resolved: ${useMock ? 'mock' : 'msg91'} (cfg=${cfgProvider}, isDev=${isDev})`,
-    );
+    const useMock = cfgProvider !== '2factor';
+    this.provider = useMock ? this.mock : this.twoFactor;
+    this.logger.log(`SMS provider resolved: ${useMock ? 'mock' : '2factor'} (cfg=${cfgProvider})`);
   }
 
   async sendOtp(mobile: string, otp: string): Promise<SmsResult> {

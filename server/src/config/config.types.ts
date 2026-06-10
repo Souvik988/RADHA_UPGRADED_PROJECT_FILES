@@ -58,9 +58,9 @@ export interface AwsConfig {
 }
 
 export interface SmsConfig {
-  provider: 'msg91' | 'twilio' | 'mock';
+  provider: '2factor' | 'mock';
   apiKey: string;
-  senderId: string;
+  /** 2Factor DLT template name; '' ⇒ the provider uses 2Factor's default template. */
   templateId: string;
   otpLength: number;
   otpExpirySeconds: number;

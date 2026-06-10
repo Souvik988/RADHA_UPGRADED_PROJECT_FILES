@@ -8,9 +8,11 @@ import {
   OFF_API_VERSION,
   OFF_BASE_URL,
   OFF_REQUEST_TIMEOUT_MS,
+  OFF_SEARCH_FIELDS,
+  OFF_SEARCH_MAX_PAGE_SIZE,
   OFF_USER_AGENT,
 } from './off.constants';
-import type { OffApiResponse, OffProduct, OffStats } from './off.types';
+import type { OffApiResponse, OffProduct, OffSearchResponse, OffStats } from './off.types';
 
 /**
  * RADHA's only entry point into the Open Food Facts API.
@@ -77,6 +79,149 @@ export class OpenFoodFactsService {
         error: { name: (err as Error).name, message: (err as Error).message },
       });
       return null;
+    }
+  }
+
+  /**
+   * Fetch a page of products in an OFF category, optionally scoped to a
+   * country. Powers the BE catalog bulk-import (browse-without-scan data) — the
+   * single-EAN {@link lookupByEan} path is unsuitable for bulk seeding.
+   *
+   * Respects the circuit breaker and never throws: a failed/short-circuited
+   * fetch returns `[]` so the importer simply moves to the next page/category.
+   * Every fetched product is written to the OFF cache so later single lookups
+   * are warm.
+   */
+  async searchByCategory(
+    category: string,
+    options: { page?: number; pageSize?: number; country?: string } = {},
+  ): Promise<OffProduct[]> {
+    const page = Math.max(1, options.page ?? 1);
+    const pageSize = Math.min(options.pageSize ?? 50, OFF_SEARCH_MAX_PAGE_SIZE);
+    const country = options.country ?? 'india';
+
+    this.totalRequests += 1;
+
+    if (!this.breaker.isAllowed()) {
+      this.logger.warn('off.search.circuit.short_circuit', { category, page });
+      return [];
+    }
+
+    const params = new URLSearchParams({
+      action: 'process',
+      json: '1',
+      page: String(page),
+      page_size: String(pageSize),
+      sort_by: 'unique_scans_n',
+      tagtype_0: 'categories',
+      tag_contains_0: 'contains',
+      tag_0: category,
+      tagtype_1: 'countries',
+      tag_contains_1: 'contains',
+      tag_1: country,
+      fields: OFF_SEARCH_FIELDS,
+    });
+    const url = `${OFF_BASE_URL}/cgi/search.pl?${params.toString()}`;
+
+    const start = Date.now();
+    try {
+      const res = await this.request(url);
+      if (!res.ok) throw new Error(`OFF search returned ${res.status}`);
+      const body = (await res.json()) as OffSearchResponse;
+
+      this.responseTimes.push(Date.now() - start);
+      if (this.responseTimes.length > 100) this.responseTimes.shift();
+      this.breaker.recordSuccess();
+      this.apiSuccess += 1;
+
+      const products = Array.isArray(body.products) ? body.products : [];
+      // Warm the cache so a later single lookup of the same EAN is a hit.
+      for (const product of products) {
+        if (product.code) {
+          await this.cache.setHit(product.code, product).catch(() => undefined);
+        }
+      }
+      return products;
+    } catch (err) {
+      this.breaker.recordFailure();
+      this.apiFailures += 1;
+      this.logger.error('off.search.failed', {
+        category,
+        page,
+        error: { name: (err as Error).name, message: (err as Error).message },
+      });
+      return [];
+    }
+  }
+
+  /**
+   * Free-text product search (OFF `search_terms`), optionally scoped to a
+   * country. Used by the **curated** catalog seed to resolve a real market
+   * barcode for a known product (brand + name) instead of guessing one.
+   *
+   * Mirrors {@link searchByCategory}'s robustness: respects the circuit
+   * breaker, never throws (returns `[]`), and warms the EAN cache for every
+   * row so a later single lookup is a hit.
+   */
+  async searchByText(
+    terms: string,
+    options: { page?: number; pageSize?: number; country?: string } = {},
+  ): Promise<OffProduct[]> {
+    const query = terms.trim();
+    if (query.length === 0) return [];
+
+    const page = Math.max(1, options.page ?? 1);
+    const pageSize = Math.min(options.pageSize ?? 20, OFF_SEARCH_MAX_PAGE_SIZE);
+    const country = options.country ?? 'india';
+
+    this.totalRequests += 1;
+
+    if (!this.breaker.isAllowed()) {
+      this.logger.warn('off.text_search.circuit.short_circuit', { query, page });
+      return [];
+    }
+
+    const params = new URLSearchParams({
+      action: 'process',
+      json: '1',
+      page: String(page),
+      page_size: String(pageSize),
+      sort_by: 'unique_scans_n',
+      search_terms: query,
+      tagtype_0: 'countries',
+      tag_contains_0: 'contains',
+      tag_0: country,
+      fields: OFF_SEARCH_FIELDS,
+    });
+    const url = `${OFF_BASE_URL}/cgi/search.pl?${params.toString()}`;
+
+    const start = Date.now();
+    try {
+      const res = await this.request(url);
+      if (!res.ok) throw new Error(`OFF text search returned ${res.status}`);
+      const body = (await res.json()) as OffSearchResponse;
+
+      this.responseTimes.push(Date.now() - start);
+      if (this.responseTimes.length > 100) this.responseTimes.shift();
+      this.breaker.recordSuccess();
+      this.apiSuccess += 1;
+
+      const products = Array.isArray(body.products) ? body.products : [];
+      for (const product of products) {
+        if (product.code) {
+          await this.cache.setHit(product.code, product).catch(() => undefined);
+        }
+      }
+      return products;
+    } catch (err) {
+      this.breaker.recordFailure();
+      this.apiFailures += 1;
+      this.logger.error('off.text_search.failed', {
+        query,
+        page,
+        error: { name: (err as Error).name, message: (err as Error).message },
+      });
+      return [];
     }
   }
 

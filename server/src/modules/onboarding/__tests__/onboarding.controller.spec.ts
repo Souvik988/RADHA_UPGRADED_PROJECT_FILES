@@ -1,5 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
+import { JwtAuthGuard } from '@/modules/auth/guards/jwt-auth.guard';
+
 import { OnboardingController } from '../controllers/onboarding.controller';
 import type { OnboardingRoutingDto } from '../dto/onboarding-routing.dto';
 import { OnboardingService } from '../services/onboarding.service';
@@ -16,7 +18,13 @@ describe('OnboardingController', () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [OnboardingController],
       providers: [{ provide: OnboardingService, useValue: mockService }],
-    }).compile();
+    })
+      // The controller is `@UseGuards(JwtAuthGuard)`; this is a unit test of the
+      // controller logic, so bypass the guard (its real auth deps belong in the
+      // guard's own spec / e2e, not here).
+      .overrideGuard(JwtAuthGuard)
+      .useValue({ canActivate: () => true })
+      .compile();
 
     controller = module.get<OnboardingController>(OnboardingController);
     service = module.get(OnboardingService) as jest.Mocked<OnboardingService>;

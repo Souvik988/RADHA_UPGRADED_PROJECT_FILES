@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:radha_mobile/design/app_assets.dart';
 import 'package:radha_mobile/design/tokens.dart';
+import 'package:radha_mobile/design/widgets/brand_illustration.dart';
 import 'package:radha_mobile/design/widgets/mor_companion.dart';
 
 /// A one-shot celebration beat: Mor in the `celebrate` pose with a burst of
@@ -97,12 +98,17 @@ class _MorCelebrationState extends State<MorCelebration>
 
   @override
   Widget build(BuildContext context) {
-    final mor = MorCompanion(
-      mood: MorMood.celebrate,
+    final mor = BrandIllustration(
+      RadhaAssets.morSceneWin,
       size: widget.size,
-      // The breathing idle would fight the burst; keep Mor still here.
-      animate: false,
       semanticLabel: 'Success',
+      // The breathing idle would fight the burst; the static frame is the
+      // fallback if the win illustration can't decode.
+      fallback: MorCompanion(
+        mood: MorMood.celebrate,
+        size: widget.size,
+        animate: false,
+      ),
     );
 
     if (_reduceMotion) {
@@ -131,9 +137,12 @@ class _MorCelebrationState extends State<MorCelebration>
               ),
               // A small pop-in on Mor himself: 0.92 → 1.0 with the burst.
               Transform.scale(
-                scale: 0.92 + 0.08 * Curves.easeOutBack.transform(
-                  _controller.value.clamp(0.0, 1.0),
-                ),
+                scale:
+                    0.92 +
+                    0.08 *
+                        Curves.easeOutBack.transform(
+                          _controller.value.clamp(0.0, 1.0),
+                        ),
                 child: child,
               ),
             ],

@@ -13,6 +13,7 @@ import { MockAiProvider } from '../providers/mock-ai.provider';
 import {
   ILlmProvider,
   IngredientExplanationResult,
+  LabelAnalysisResult,
   LLM_PROVIDER_TOKEN,
   LlmOptions,
   LlmResult,
@@ -195,6 +196,132 @@ export class LlmService {
     }
 
     return payload;
+  }
+
+  /**
+   * Parse an OCR'd product-label transcript into a structured analysis via the
+   * LLM (Gemini Flash). This backs the consumer "scan the label" fallback: when
+   * a barcode lookup misses, the mobile does on-device ML Kit OCR and sends the
+   * raw transcript here — far cheaper than uploading the image for vision.
+   *
+   * Never throws: an unconfigured/failed provider degrades to the mock via
+   * {@link complete}, and an unparseable response degrades to a warning-bearing
+   * low-confidence result so the UI always has something honest to render.
+   */
+  async analyzeLabelText(
+    transcript: string,
+    options: LlmOptions = {},
+  ): Promise<LabelAnalysisResult> {
+    const locale = options.locale ?? 'en';
+    const cleaned = transcript.trim();
+    if (cleaned.length === 0) {
+      return {
+        confidence: 0,
+        provider: 'mock',
+        cost: 0,
+        durationMs: 0,
+        warnings: ['Empty transcript — nothing to analyze'],
+      };
+    }
+
+    const prompt = this.buildLabelPrompt(cleaned, locale);
+    const llm = await this.complete(prompt, {
+      ...options,
+      timeoutMs: options.timeoutMs ?? AI_LLM_DEFAULT_TIMEOUT_MS,
+    });
+    return this.parseLabelResponse(llm);
+  }
+
+  private buildLabelPrompt(transcript: string, locale: string): string {
+    return [
+      'You are a food-label analyst. You are given the raw OCR transcript of a',
+      'packaged food/grocery product label. The text may be noisy, partial, or',
+      'mixed-language (English + an Indian language).',
+      `Respond in ${locale === 'en' ? 'English' : locale}.`,
+      'Extract what you can and return STRICT JSON with these keys:',
+      '  productName (string or null), brand (string or null),',
+      '  category (string or null), ingredients (array of strings),',
+      '  allergens (array of strings), nutritionalInfo (object mapping nutrient',
+      '  name to a number per 100g, or empty object),',
+      '  healthFlags (array of short concern strings like "high sugar",',
+      '  "ultra-processed", "high sodium"),',
+      '  summary (one plain, non-alarmist sentence under 200 characters).',
+      'Never invent values that are not supported by the transcript — use null or',
+      'empty arrays when unknown. Do not include any text outside the JSON object.',
+      '',
+      'LABEL TRANSCRIPT:',
+      transcript.slice(0, 4000),
+    ].join('\n');
+  }
+
+  private parseLabelResponse(llm: LlmResult): LabelAnalysisResult {
+    const base: Pick<LabelAnalysisResult, 'provider' | 'cost' | 'durationMs'> = {
+      provider: llm.provider,
+      cost: llm.cost,
+      durationMs: llm.durationMs,
+    };
+    try {
+      const cleaned = llm.text
+        .trim()
+        .replace(/^```(?:json)?/i, '')
+        .replace(/```$/i, '')
+        .trim();
+      const parsed = JSON.parse(cleaned) as {
+        productName?: string | null;
+        brand?: string | null;
+        category?: string | null;
+        ingredients?: unknown;
+        allergens?: unknown;
+        nutritionalInfo?: unknown;
+        healthFlags?: unknown;
+        summary?: string | null;
+      };
+
+      const productName = this.shortString(parsed.productName ?? undefined);
+      const result: LabelAnalysisResult = {
+        ...base,
+        productName,
+        brand: this.shortString(parsed.brand ?? undefined),
+        category: this.shortString(parsed.category ?? undefined),
+        ingredients: this.stringArray(parsed.ingredients),
+        allergens: this.stringArray(parsed.allergens),
+        nutritionalInfo: this.numberRecord(parsed.nutritionalInfo),
+        healthFlags: this.stringArray(parsed.healthFlags),
+        summary: this.shortString(parsed.summary ?? undefined),
+        // Confidence heuristic: a parsed name + some ingredients is a solid read.
+        confidence: productName ? 0.7 : 0.35,
+      };
+      if (llm.truncated) {
+        result.warnings = ['AI service degraded — result may be incomplete'];
+        result.confidence = Math.min(result.confidence, 0.3);
+      }
+      return result;
+    } catch {
+      return {
+        ...base,
+        confidence: 0,
+        warnings: ['Could not parse label analysis — try a clearer photo'],
+      };
+    }
+  }
+
+  private stringArray(value: unknown): string[] {
+    if (!Array.isArray(value)) return [];
+    return value
+      .filter((v): v is string => typeof v === 'string')
+      .map((s) => s.trim())
+      .filter((s) => s.length > 0)
+      .slice(0, 50);
+  }
+
+  private numberRecord(value: unknown): Record<string, number> {
+    if (value === null || typeof value !== 'object') return {};
+    const out: Record<string, number> = {};
+    for (const [k, v] of Object.entries(value as Record<string, unknown>)) {
+      const n = typeof v === 'number' ? v : Number(v);
+      if (Number.isFinite(n)) out[k.slice(0, 50)] = n;
+    }
+    return out;
   }
 
   private buildSummaryPrompt(input: SummaryInput): string {

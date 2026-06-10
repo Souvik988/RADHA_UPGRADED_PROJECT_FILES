@@ -4,41 +4,55 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:radha_mobile/core/auth/auth_controller.dart';
+import 'package:radha_mobile/core/entitlements/entitlement_provider.dart';
+import 'package:radha_mobile/core/mode/app_mode_provider.dart';
+import 'package:radha_mobile/core/network/dto/task_dto.dart';
 import 'package:radha_mobile/core/router/app_router.dart';
 import 'package:radha_mobile/design/app_assets.dart';
 import 'package:radha_mobile/design/theme.dart';
 import 'package:radha_mobile/design/tokens.dart';
+import 'package:radha_mobile/design/widgets/branded_image.dart';
 import 'package:radha_mobile/design/widgets/mor_companion.dart';
 import 'package:radha_mobile/design/widgets/skeleton_loader.dart';
+import 'package:radha_mobile/features/catalog/catalog_search_screen.dart';
+import 'package:radha_mobile/features/catalog/featured_rail.dart';
 
+import 'data/home_catalog.dart';
 import 'providers/home_summary_providers.dart';
 
 /// Home dashboard — the anchor screen (VISUAL_SCREENS/08_home.md).
 ///
-/// A breathable, content-heavy bento told as a story: a warm storefront
-/// greeting band (the human beat), three KPI tiles (mono numbers, functional
-/// tints), the **Hero Story Banner** where Mor hands the owner today's mission,
-/// a quick-actions row, and a recent-tasks list (the next action).
-///
-/// Wiring is preserved 1:1 from the prior build — same providers, same routes,
-/// same `_Stagger` / `_PressableCard` primitives. Only the visual layer grew.
+/// Single shell, two faces. Mode is resolved from auth roles + selected store
+/// (see `appModeProvider`). Consumer mode shows the food-health engagement
+/// loop; business mode shows the retail-ops command center. Same 5-tab
+/// navigation, same wiring — only the content set changes.
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
   Future<void> _refresh(WidgetRef ref) async {
+    // Invalidate all home providers — both modes.
     ref.invalidate(nearExpiryCountProvider);
     ref.invalidate(openTasksCountProvider);
     ref.invalidate(lowStockCountProvider);
+    ref.invalidate(savedProductsCountProvider);
+    ref.invalidate(recallAlertsCountProvider);
+    ref.invalidate(recentTasksProvider);
     await Future.wait<void>([
       ref.read(nearExpiryCountProvider.future).catchError((_) => 0),
       ref.read(openTasksCountProvider.future).catchError((_) => 0),
       ref.read(lowStockCountProvider.future).catchError((_) => 0),
+      ref.read(savedProductsCountProvider.future).catchError((_) => 0),
+      ref.read(recallAlertsCountProvider.future).catchError((_) => 0),
     ]);
   }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(currentUserProvider);
+    final mode = ref.watch(appModeProvider);
+    final entitlement = ref.watch(entitlementProvider);
+
+    final trialDaysLeft = entitlement.valueOrNull?.trialDaysRemaining;
 
     return SafeArea(
       bottom: false,
@@ -57,14 +71,31 @@ class HomeScreen extends ConsumerWidget {
           ),
           children: [
             _Stagger(index: 0, child: _HeroGreeting(user: user)),
+            if (mode == AppMode.business && trialDaysLeft != null) ...[
+              const SizedBox(height: RadhaSpacing.space12),
+              _Stagger(index: 1, child: _TrialRibbon(daysLeft: trialDaysLeft)),
+            ] else if (mode == AppMode.consumer) ...[
+              const SizedBox(height: RadhaSpacing.space16),
+              _Stagger(index: 1, child: const CatalogSearchBar()),
+            ],
             const SizedBox(height: RadhaSpacing.space20),
-            _Stagger(index: 1, child: const _KpiRow()),
+            _Stagger(index: 2, child: _KpiRow(mode: mode)),
             const SizedBox(height: RadhaSpacing.space20),
-            _Stagger(index: 2, child: const _StoryBanner()),
+            _Stagger(index: 3, child: _StoryBanner(mode: mode)),
             const SizedBox(height: RadhaSpacing.space24),
-            _Stagger(index: 3, child: const _QuickActionsSection()),
+            _Stagger(index: 4, child: _QuickActionsSection(mode: mode)),
             const SizedBox(height: RadhaSpacing.space24),
-            _Stagger(index: 4, child: const _RecentTasksSection()),
+            _Stagger(index: 5, child: _PromoBannerCarousel(mode: mode)),
+            const SizedBox(height: RadhaSpacing.space24),
+            _Stagger(index: 6, child: const _CategoriesSection()),
+            const SizedBox(height: RadhaSpacing.space24),
+            if (mode == AppMode.business)
+              _Stagger(index: 7, child: const _RecentTasksSection())
+            else ...[
+              _Stagger(index: 7, child: const FeaturedProductsRail()),
+              const SizedBox(height: RadhaSpacing.space24),
+              _Stagger(index: 8, child: const _ConsumerEngagementSection()),
+            ],
           ],
         ),
       ),
@@ -88,7 +119,8 @@ class _Stagger extends StatefulWidget {
   State<_Stagger> createState() => _StaggerState();
 }
 
-class _StaggerState extends State<_Stagger> with SingleTickerProviderStateMixin {
+class _StaggerState extends State<_Stagger>
+    with SingleTickerProviderStateMixin {
   late final AnimationController _c = AnimationController(
     vsync: this,
     duration: const Duration(milliseconds: 600),
@@ -144,9 +176,8 @@ class _StaggerState extends State<_Stagger> with SingleTickerProviderStateMixin 
 // ─── Hero greeting band ──────────────────────────────────────────────────────
 
 /// The authored "human beat": a warm storefront band with a personalised
-/// greeting, the store-picker chip, and the avatar. The storefront
-/// illustration sits in the top-right (its left third is intentionally clear),
-/// behind a soft warm wash.
+/// greeting, the store-picker chip (business), and the avatar. Renders
+/// identically in both modes — mode content starts at the KPI row.
 class _HeroGreeting extends StatelessWidget {
   const _HeroGreeting({required this.user});
 
@@ -162,14 +193,12 @@ class _HeroGreeting extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    // Personalised greeting derived from the user id. We keep the raw first
-    // segment (no forced capitalisation) so the greeting always contains the
-    // user identifier verbatim.
     final rawName = user?.userId.split('-').first ?? 'there';
     final name = rawName.isEmpty ? 'there' : rawName;
     final storeName = user?.selectedStoreName;
 
     return Container(
+      clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(RadhaRadii.radiusXl),
         gradient: LinearGradient(
@@ -184,21 +213,33 @@ class _HeroGreeting extends StatelessWidget {
       padding: const EdgeInsets.all(RadhaSpacing.space16),
       child: Stack(
         children: [
-          // Storefront motif, top-right, subtle and behind the content.
+          // Storefront motif, top-right. The source illustration is a
+          // landscape scene with a solid warm background, so we (a) clip it to
+          // the card's rounded rect via the parent's `clipBehavior`, and
+          // (b) dissolve its hard left/bottom edges with a diagonal alpha mask
+          // so it melts into the band instead of reading as a pasted box.
           Positioned(
             right: -10,
             top: -10,
             child: IgnorePointer(
-              child: Opacity(
-                opacity: 0.85,
-                child: Image.asset(
-                  RadhaAssets.illoHomeStorefront,
-                  height: 104,
-                  fit: BoxFit.contain,
-                  filterQuality: FilterQuality.medium,
-                  // Decode small (the source is ~1.6 MB) to stay jank-free.
-                  cacheHeight: 312,
-                  errorBuilder: (_, _, _) => const SizedBox.shrink(),
+              child: ShaderMask(
+                shaderCallback: (rect) => const LinearGradient(
+                  begin: Alignment.topRight,
+                  end: Alignment.bottomLeft,
+                  colors: [Colors.white, Colors.transparent],
+                  stops: [0.38, 1.0],
+                ).createShader(rect),
+                blendMode: BlendMode.dstIn,
+                child: Opacity(
+                  opacity: 0.7,
+                  child: Image.asset(
+                    RadhaAssets.illoHomeStorefront,
+                    height: 104,
+                    fit: BoxFit.contain,
+                    filterQuality: FilterQuality.medium,
+                    cacheHeight: 312,
+                    errorBuilder: (_, _, _) => const SizedBox.shrink(),
+                  ),
                 ),
               ),
             ),
@@ -340,13 +381,121 @@ class _AvatarTile extends StatelessWidget {
   }
 }
 
+// ─── Trial ribbon (business mode only) ───────────────────────────────────────
+
+/// A subtle warm strip shown above the KPI row during the free trial period.
+/// Routes to /subscription with a single tap. Disappears when the trial ends
+/// or the user upgrades (entitlementProvider no longer has trialDaysRemaining).
+class _TrialRibbon extends StatelessWidget {
+  const _TrialRibbon({required this.daysLeft});
+
+  final int daysLeft;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final text = daysLeft <= 0
+        ? 'Free trial ended — upgrade to keep access'
+        : 'Free trial · $daysLeft ${daysLeft == 1 ? 'day' : 'days'} left';
+
+    return GestureDetector(
+      onTap: () {
+        HapticFeedback.selectionClick();
+        context.push(AppRoute.subscription);
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(
+          horizontal: RadhaSpacing.space16,
+          vertical: RadhaSpacing.space8,
+        ),
+        decoration: BoxDecoration(
+          color: RadhaColors.primaryTint.withValues(alpha: 0.35),
+          borderRadius: BorderRadius.circular(RadhaRadii.radiusLg),
+          border: Border.all(
+            color: RadhaColors.primary.withValues(alpha: 0.25),
+          ),
+        ),
+        child: Row(
+          children: [
+            const Icon(
+              Icons.workspace_premium_outlined,
+              size: 16,
+              color: RadhaColors.primaryDeep,
+            ),
+            const SizedBox(width: RadhaSpacing.space8),
+            Expanded(
+              child: Text(
+                text,
+                style: theme.textTheme.labelMedium?.copyWith(
+                  color: RadhaColors.primaryDeep,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+            Text(
+              'Upgrade →',
+              style: theme.textTheme.labelMedium?.copyWith(
+                color: RadhaColors.primary,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 // ─── KPI row ─────────────────────────────────────────────────────────────────
 
 class _KpiRow extends ConsumerWidget {
-  const _KpiRow();
+  const _KpiRow({required this.mode});
+
+  final AppMode mode;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    if (mode == AppMode.consumer) {
+      final saved = ref.watch(savedProductsCountProvider);
+      final nearExpiry = ref.watch(nearExpiryCountProvider);
+      final recalls = ref.watch(recallAlertsCountProvider);
+
+      return Row(
+        children: [
+          Expanded(
+            child: _KpiTile(
+              value: saved,
+              label: 'Saved',
+              icon: Icons.bookmark_border_rounded,
+              tint: RadhaColors.complement,
+              onTap: () => context.push(AppRoute.savedProducts),
+            ),
+          ),
+          const SizedBox(width: RadhaSpacing.space12),
+          Expanded(
+            child: _KpiTile(
+              value: nearExpiry,
+              label: 'Near expiry',
+              icon: Icons.schedule_rounded,
+              tint: RadhaColors.warning,
+              onTap: () => context.push(AppRoute.expiryCalendar),
+            ),
+          ),
+          const SizedBox(width: RadhaSpacing.space12),
+          Expanded(
+            child: _KpiTile(
+              value: recalls,
+              label: 'Recall alerts',
+              icon: Icons.warning_amber_rounded,
+              tint: RadhaColors.primary,
+              onTap: () => context.push(AppRoute.recallAlerts),
+            ),
+          ),
+        ],
+      );
+    }
+
+    // Business mode — ops KPIs.
     final nearExpiry = ref.watch(nearExpiryCountProvider);
     final openTasks = ref.watch(openTasksCountProvider);
     final lowStock = ref.watch(lowStockCountProvider);
@@ -399,8 +548,6 @@ class _KpiTile extends StatelessWidget {
   final AsyncValue<int> value;
   final String label;
   final IconData icon;
-
-  /// Functional tint for the glyph well + number (warn/accent/teal).
   final Color tint;
   final VoidCallback onTap;
 
@@ -424,28 +571,7 @@ class _KpiTile extends StatelessWidget {
             child: Icon(icon, size: 18, color: tint),
           ),
           const SizedBox(height: RadhaSpacing.space12),
-          value.when(
-            data: (count) => Text(
-              '$count',
-              style: radhaMonoStyle(
-                fontSize: 28,
-                weight: FontWeight.w700,
-                color: tint,
-              ),
-            ),
-            loading: () => const Padding(
-              padding: EdgeInsets.symmetric(vertical: RadhaSpacing.space4),
-              child: SkeletonLoader(width: 36, height: 24),
-            ),
-            error: (_, _) => Text(
-              '–',
-              style: radhaMonoStyle(
-                fontSize: 28,
-                weight: FontWeight.w700,
-                color: theme.colorScheme.onSurfaceVariant,
-              ),
-            ),
-          ),
+          _KpiValue(value: value, tint: tint),
           const SizedBox(height: RadhaSpacing.space4),
           Text(
             label,
@@ -463,56 +589,102 @@ class _KpiTile extends StatelessWidget {
 
 // ─── Hero Story Banner (Mor's daily mission) ─────────────────────────────────
 
-/// The showpiece (VISUAL_SCREENS/08_home.md Z2). Mor hands the owner today's
-/// real, backend-driven mission. **No scan-to-earn / rewards** — the headline
-/// is derived from live KPI providers and routes to a real screen.
+/// The showpiece (VISUAL_SCREENS/08_home.md Z2). Mor hands the user today's
+/// real, backend-driven mission. No scan-to-earn / rewards.
+///
+/// Consumer mode: food-health missions (recall → near-expiry → scan CTA).
+/// Business mode: ops missions (expiry → tasks → low-stock → audit CTA).
 class _StoryBanner extends ConsumerWidget {
-  const _StoryBanner();
+  const _StoryBanner({required this.mode});
+
+  final AppMode mode;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
-    final nearExpiry = ref.watch(nearExpiryCountProvider).valueOrNull;
-    final openTasks = ref.watch(openTasksCountProvider).valueOrNull;
-    final lowStock = ref.watch(lowStockCountProvider).valueOrNull;
 
-    final loading =
-        nearExpiry == null && openTasks == null && lowStock == null;
+    String eyebrow;
+    String headline;
+    String cta;
+    VoidCallback onTap;
+    MorMood mood;
 
-    String eyebrow = 'AAJ KA KAAM · TODAY';
-    final String headline;
-    final String cta;
-    final VoidCallback onTap;
-    final MorMood mood;
+    if (mode == AppMode.consumer) {
+      // Consumer missions — priority: recall > near-expiry > scan CTA.
+      final recalls = ref.watch(recallAlertsCountProvider).valueOrNull;
+      final nearExpiry = ref.watch(nearExpiryCountProvider).valueOrNull;
+      final loading = recalls == null && nearExpiry == null;
 
-    if ((nearExpiry ?? 0) > 0) {
-      headline = '$nearExpiry items near expiry — clear the shelf';
-      cta = 'Open expiry';
-      onTap = () => context.push(AppRoute.expiry);
-      mood = MorMood.guard;
-    } else if ((openTasks ?? 0) > 0) {
-      headline = openTasks == 1
-          ? '1 task needs you today'
-          : '$openTasks tasks need you today';
-      cta = 'View tasks';
-      onTap = () => context.push(AppRoute.tasks);
-      mood = MorMood.work;
-    } else if ((lowStock ?? 0) > 0) {
-      headline = '$lowStock items running low on stock';
-      cta = 'Check inventory';
-      onTap = () => context.push(AppRoute.inventory);
-      mood = MorMood.think;
-    } else if (loading) {
-      headline = "Here's your store today";
-      cta = 'Open tasks';
-      onTap = () => context.push(AppRoute.tasks);
-      mood = MorMood.greet;
+      if ((recalls ?? 0) > 0) {
+        eyebrow = 'FOOD SAFETY ALERT';
+        headline = recalls == 1
+            ? '1 recalled product — check what you have at home'
+            : '$recalls recalled products — check what you have at home';
+        cta = 'View recall alerts';
+        onTap = () => context.push(AppRoute.recallAlerts);
+        mood = MorMood.concern;
+      } else if ((nearExpiry ?? 0) > 0) {
+        eyebrow = 'AAJ KA KAAM · TODAY';
+        headline = nearExpiry == 1
+            ? '1 saved item expires this week — use it up'
+            : '$nearExpiry saved items expire this week — use them up';
+        cta = 'Check expiry';
+        onTap = () => context.push(AppRoute.expiryCalendar);
+        mood = MorMood.guard;
+      } else if (loading) {
+        eyebrow = 'YOUR HEALTH SCAN';
+        headline = 'Know what you eat';
+        cta = 'Scan a product';
+        onTap = () => context.go(AppRoute.scan);
+        mood = MorMood.greet;
+      } else {
+        eyebrow = 'SCAN TO LEARN';
+        headline = 'Point your camera at any food barcode — see what\'s inside';
+        cta = 'Scan a product';
+        onTap = () => context.go(AppRoute.scan);
+        mood = MorMood.greet;
+      }
     } else {
-      eyebrow = 'ALL CLEAR';
-      headline = "Shabaash! Your store's in great shape today";
-      cta = 'Run a quick audit';
-      onTap = () => context.go(AppRoute.scan);
-      mood = MorMood.celebrate;
+      // Business mode — ops missions.
+      final nearExpiry = ref.watch(nearExpiryCountProvider).valueOrNull;
+      final openTasks = ref.watch(openTasksCountProvider).valueOrNull;
+      final lowStock = ref.watch(lowStockCountProvider).valueOrNull;
+      final loading =
+          nearExpiry == null && openTasks == null && lowStock == null;
+
+      if ((nearExpiry ?? 0) > 0) {
+        eyebrow = 'AAJ KA KAAM · TODAY';
+        headline = '$nearExpiry items near expiry — clear the shelf';
+        cta = 'Open expiry';
+        onTap = () => context.push(AppRoute.expiry);
+        mood = MorMood.guard;
+      } else if ((openTasks ?? 0) > 0) {
+        headline = openTasks == 1
+            ? '1 task needs you today'
+            : '$openTasks tasks need you today';
+        eyebrow = 'AAJ KA KAAM · TODAY';
+        cta = 'View tasks';
+        onTap = () => context.push(AppRoute.tasks);
+        mood = MorMood.work;
+      } else if ((lowStock ?? 0) > 0) {
+        eyebrow = 'AAJ KA KAAM · TODAY';
+        headline = '$lowStock items running low on stock';
+        cta = 'Check inventory';
+        onTap = () => context.push(AppRoute.inventory);
+        mood = MorMood.think;
+      } else if (loading) {
+        eyebrow = 'AAJ KA KAAM · TODAY';
+        headline = "Here's your store today";
+        cta = 'Open tasks';
+        onTap = () => context.push(AppRoute.tasks);
+        mood = MorMood.greet;
+      } else {
+        eyebrow = 'ALL CLEAR';
+        headline = "Shabaash! Your store's in great shape today";
+        cta = 'Run a quick audit';
+        onTap = () => context.go(AppRoute.scan);
+        mood = MorMood.celebrate;
+      }
     }
 
     return Container(
@@ -610,11 +782,68 @@ class _WhiteCtaPill extends StatelessWidget {
 // ─── Quick actions section ───────────────────────────────────────────────────
 
 class _QuickActionsSection extends StatelessWidget {
-  const _QuickActionsSection();
+  const _QuickActionsSection({required this.mode});
+
+  final AppMode mode;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+
+    final actions = mode == AppMode.consumer
+        ? <_QuickActionData>[
+            _QuickActionData(
+              icon: Icons.qr_code_scanner_rounded,
+              label: 'Scan',
+              accent: true,
+              onTap: () {
+                HapticFeedback.lightImpact();
+                context.go(AppRoute.scan);
+              },
+            ),
+            _QuickActionData(
+              icon: Icons.bookmark_border_rounded,
+              label: 'Saved',
+              onTap: () => context.push(AppRoute.savedProducts),
+            ),
+            _QuickActionData(
+              icon: Icons.event_available_outlined,
+              label: 'Expiry',
+              onTap: () => context.push(AppRoute.expiryCalendar),
+            ),
+            _QuickActionData(
+              icon: Icons.shopping_cart_outlined,
+              label: 'Shopping',
+              onTap: () => context.push(AppRoute.shoppingList),
+            ),
+          ]
+        : <_QuickActionData>[
+            _QuickActionData(
+              icon: Icons.qr_code_scanner_rounded,
+              label: 'Scan',
+              accent: true,
+              onTap: () {
+                HapticFeedback.lightImpact();
+                context.go(AppRoute.scan);
+              },
+            ),
+            _QuickActionData(
+              icon: Icons.event_available_outlined,
+              label: 'Add Expiry',
+              onTap: () => context.push(AppRoute.expiryNew),
+            ),
+            _QuickActionData(
+              icon: Icons.add_task_outlined,
+              label: 'New Task',
+              onTap: () => context.push(AppRoute.taskCreate),
+            ),
+            _QuickActionData(
+              icon: Icons.inventory_2_outlined,
+              label: 'Inventory',
+              onTap: () => context.push(AppRoute.inventory),
+            ),
+          ];
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -627,47 +856,37 @@ class _QuickActionsSection extends StatelessWidget {
         const SizedBox(height: RadhaSpacing.space12),
         Row(
           children: [
-            Expanded(
-              child: _QuickAction(
-                icon: Icons.qr_code_scanner_rounded,
-                label: 'Scan',
-                accent: true,
-                onTap: () {
-                  HapticFeedback.lightImpact();
-                  // Scan is a bottom-nav branch — switch tabs rather than push.
-                  context.go(AppRoute.scan);
-                },
+            for (var i = 0; i < actions.length; i++) ...[
+              Expanded(
+                child: _QuickAction(
+                  icon: actions[i].icon,
+                  label: actions[i].label,
+                  accent: actions[i].accent,
+                  onTap: actions[i].onTap,
+                ),
               ),
-            ),
-            const SizedBox(width: RadhaSpacing.space12),
-            Expanded(
-              child: _QuickAction(
-                icon: Icons.event_available_outlined,
-                label: 'Add Expiry',
-                onTap: () => context.push(AppRoute.expiryNew),
-              ),
-            ),
-            const SizedBox(width: RadhaSpacing.space12),
-            Expanded(
-              child: _QuickAction(
-                icon: Icons.add_task_outlined,
-                label: 'New Task',
-                onTap: () => context.push(AppRoute.taskCreate),
-              ),
-            ),
-            const SizedBox(width: RadhaSpacing.space12),
-            Expanded(
-              child: _QuickAction(
-                icon: Icons.inventory_2_outlined,
-                label: 'Inventory',
-                onTap: () => context.push(AppRoute.inventory),
-              ),
-            ),
+              if (i < actions.length - 1)
+                const SizedBox(width: RadhaSpacing.space12),
+            ],
           ],
         ),
       ],
     );
   }
+}
+
+class _QuickActionData {
+  const _QuickActionData({
+    required this.icon,
+    required this.label,
+    required this.onTap,
+    this.accent = false,
+  });
+
+  final IconData icon;
+  final String label;
+  final VoidCallback onTap;
+  final bool accent;
 }
 
 class _QuickAction extends StatelessWidget {
@@ -726,34 +945,17 @@ class _QuickAction extends StatelessWidget {
   }
 }
 
-// ─── Recent tasks ────────────────────────────────────────────────────────────
+// ─── Recent tasks (business mode) ────────────────────────────────────────────
 
-class _RecentTasksSection extends StatelessWidget {
+/// Fetches and renders the top-3 open tasks from the live backend.
+/// No hardcoded placeholder data — every row is a real task or an empty state.
+class _RecentTasksSection extends ConsumerWidget {
   const _RecentTasksSection();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
-    // Lightweight placeholder rows — the live tasks list lives on the Tasks
-    // tab. These mirror that surface's visual language so the home preview
-    // and the full list read as one system.
-    final items = <_RecentTask>[
-      const _RecentTask(
-        title: 'Check dairy fridge temps',
-        meta: 'Due today · 6 PM',
-        status: _TaskDotStatus.dueSoon,
-      ),
-      const _RecentTask(
-        title: 'Restock front shelf',
-        meta: 'Assigned to you',
-        status: _TaskDotStatus.open,
-      ),
-      const _RecentTask(
-        title: 'Audit approved EANs — aisle 3',
-        meta: 'Completed · 2h ago',
-        status: _TaskDotStatus.done,
-      ),
-    ];
+    final tasks = ref.watch(recentTasksProvider);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -781,45 +983,152 @@ class _RecentTasksSection extends StatelessWidget {
           ],
         ),
         const SizedBox(height: RadhaSpacing.space12),
-        for (var i = 0; i < items.length; i++) ...[
-          _RecentTaskRow(task: items[i]),
-          if (i != items.length - 1)
-            const SizedBox(height: RadhaSpacing.space8),
-        ],
+        tasks.when(
+          loading: () => Column(
+            children: [
+              for (var i = 0; i < 3; i++) ...[
+                _TaskRowSkeleton(),
+                if (i < 2) const SizedBox(height: RadhaSpacing.space8),
+              ],
+            ],
+          ),
+          error: (_, _) =>
+              _TasksEmptyState(onTap: () => context.push(AppRoute.taskCreate)),
+          data: (items) {
+            if (items.isEmpty) {
+              return _TasksEmptyState(
+                onTap: () => context.push(AppRoute.taskCreate),
+              );
+            }
+            return Column(
+              children: [
+                for (var i = 0; i < items.length; i++) ...[
+                  _LiveTaskRow(task: items[i]),
+                  if (i != items.length - 1)
+                    const SizedBox(height: RadhaSpacing.space8),
+                ],
+              ],
+            );
+          },
+        ),
       ],
     );
   }
 }
 
-enum _TaskDotStatus { done, dueSoon, open }
-
-class _RecentTask {
-  const _RecentTask({
-    required this.title,
-    required this.meta,
-    required this.status,
-  });
-
-  final String title;
-  final String meta;
-  final _TaskDotStatus status;
+class _TaskRowSkeleton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(RadhaSpacing.space16),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surfaceContainer,
+        borderRadius: BorderRadius.circular(RadhaRadii.radiusLg),
+        border: Border.all(color: Theme.of(context).colorScheme.outline),
+      ),
+      child: Row(
+        children: [
+          const SkeletonLoader(width: 10, height: 10, shape: BoxShape.circle),
+          const SizedBox(width: RadhaSpacing.space12),
+          const Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SkeletonLoader(width: double.infinity, height: 14),
+                SizedBox(height: RadhaSpacing.space4),
+                SkeletonLoader(width: 120, height: 12),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
 
-class _RecentTaskRow extends StatelessWidget {
-  const _RecentTaskRow({required this.task});
+class _TasksEmptyState extends StatelessWidget {
+  const _TasksEmptyState({required this.onTap});
 
-  final _RecentTask task;
-
-  Color _dotColor() => switch (task.status) {
-    _TaskDotStatus.done => RadhaColors.success,
-    _TaskDotStatus.dueSoon => RadhaColors.warning,
-    _TaskDotStatus.open => RadhaColors.inkMuted,
-  };
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final done = task.status == _TaskDotStatus.done;
+    return _PressableCard(
+      onTap: onTap,
+      padding: const EdgeInsets.all(RadhaSpacing.space16),
+      child: Row(
+        children: [
+          Container(
+            width: 32,
+            height: 32,
+            decoration: BoxDecoration(
+              color: RadhaColors.primaryTint.withValues(alpha: 0.45),
+              borderRadius: BorderRadius.circular(RadhaRadii.radiusSm),
+            ),
+            alignment: Alignment.center,
+            child: const Icon(
+              Icons.add_task_outlined,
+              size: 18,
+              color: RadhaColors.primaryDeep,
+            ),
+          ),
+          const SizedBox(width: RadhaSpacing.space12),
+          Expanded(
+            child: Text(
+              'No open tasks — create one',
+              style: theme.textTheme.bodyMedium?.copyWith(
+                color: theme.colorScheme.onSurfaceVariant,
+              ),
+            ),
+          ),
+          Icon(
+            Icons.chevron_right_rounded,
+            color: theme.colorScheme.onSurfaceVariant,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _LiveTaskRow extends StatelessWidget {
+  const _LiveTaskRow({required this.task});
+
+  final TaskResponse task;
+
+  Color _dotColor(BuildContext context) {
+    final status = task.status ?? '';
+    if (status == 'done' || status == 'completed') return RadhaColors.success;
+    if (task.dueDate != null) {
+      final due = DateTime.tryParse(task.dueDate!);
+      if (due != null && due.isBefore(DateTime.now())) {
+        return RadhaColors.warning;
+      }
+    }
+    return RadhaColors.primary;
+  }
+
+  String get _metaText {
+    if (task.assigneeName != null) return 'Assigned to ${task.assigneeName}';
+    if (task.dueDate != null) {
+      final due = DateTime.tryParse(task.dueDate!);
+      if (due != null) {
+        final diff = due.difference(DateTime.now()).inDays;
+        if (diff < 0) return 'Overdue';
+        if (diff == 0) return 'Due today';
+        if (diff == 1) return 'Due tomorrow';
+        return 'Due in $diff days';
+      }
+      return 'Due ${task.dueDate}';
+    }
+    return task.status ?? 'Open';
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDone = task.status == 'done' || task.status == 'completed';
     return _PressableCard(
       onTap: () {
         HapticFeedback.selectionClick();
@@ -832,7 +1141,7 @@ class _RecentTaskRow extends StatelessWidget {
             width: 10,
             height: 10,
             decoration: BoxDecoration(
-              color: _dotColor(),
+              color: _dotColor(context),
               shape: BoxShape.circle,
             ),
           ),
@@ -847,13 +1156,13 @@ class _RecentTaskRow extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   style: theme.textTheme.titleSmall?.copyWith(
                     color: theme.colorScheme.onSurface,
-                    decoration: done ? TextDecoration.lineThrough : null,
+                    decoration: isDone ? TextDecoration.lineThrough : null,
                     decorationColor: theme.colorScheme.onSurfaceVariant,
                   ),
                 ),
                 const SizedBox(height: RadhaSpacing.space2),
                 Text(
-                  task.meta,
+                  _metaText,
                   style: theme.textTheme.bodySmall?.copyWith(
                     color: theme.colorScheme.onSurfaceVariant,
                   ),
@@ -867,6 +1176,132 @@ class _RecentTaskRow extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+// ─── Consumer engagement section ─────────────────────────────────────────────
+
+/// Replaces the tasks section in consumer mode. A prominent scan CTA card
+/// that drives the core scan → health card → learn loop. No fake data.
+class _ConsumerEngagementSection extends StatelessWidget {
+  const _ConsumerEngagementSection();
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'How RADHA helps you',
+          style: theme.textTheme.titleMedium?.copyWith(
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+        const SizedBox(height: RadhaSpacing.space12),
+        _PressableCard(
+          onTap: () {
+            HapticFeedback.lightImpact();
+            context.go(AppRoute.scan);
+          },
+          padding: const EdgeInsets.all(RadhaSpacing.space16),
+          child: Row(
+            children: [
+              Container(
+                width: 52,
+                height: 52,
+                decoration: BoxDecoration(
+                  color: RadhaColors.primaryTint,
+                  borderRadius: BorderRadius.circular(RadhaRadii.radiusMd),
+                ),
+                alignment: Alignment.center,
+                child: const Icon(
+                  Icons.qr_code_scanner_rounded,
+                  size: 28,
+                  color: RadhaColors.primaryDeep,
+                ),
+              ),
+              const SizedBox(width: RadhaSpacing.space16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Scan any food barcode',
+                      style: theme.textTheme.titleSmall?.copyWith(
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    const SizedBox(height: RadhaSpacing.space2),
+                    Text(
+                      'See the health rating, ingredients, and what to watch out for.',
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color: theme.colorScheme.onSurfaceVariant,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: RadhaSpacing.space8),
+              const Icon(
+                Icons.arrow_forward_rounded,
+                color: RadhaColors.primary,
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: RadhaSpacing.space8),
+        _PressableCard(
+          onTap: () => context.push(AppRoute.recallAlerts),
+          padding: const EdgeInsets.all(RadhaSpacing.space16),
+          child: Row(
+            children: [
+              Container(
+                width: 52,
+                height: 52,
+                decoration: BoxDecoration(
+                  color: RadhaColors.primaryTint.withValues(alpha: 0.45),
+                  borderRadius: BorderRadius.circular(RadhaRadii.radiusMd),
+                ),
+                alignment: Alignment.center,
+                child: const Icon(
+                  Icons.shield_outlined,
+                  size: 28,
+                  color: RadhaColors.primaryDeep,
+                ),
+              ),
+              const SizedBox(width: RadhaSpacing.space16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Safety recall alerts',
+                      style: theme.textTheme.titleSmall?.copyWith(
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    const SizedBox(height: RadhaSpacing.space2),
+                    Text(
+                      'Stay informed about recalled food products.',
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color: theme.colorScheme.onSurfaceVariant,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: RadhaSpacing.space8),
+              Icon(
+                Icons.chevron_right_rounded,
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
@@ -928,3 +1363,452 @@ class _PressableCardState extends State<_PressableCard> {
     );
   }
 }
+
+// ─── KPI value (last-known-value resilient) ──────────────────────────────────
+
+/// Renders a KPI count that survives backend hiccups. Once a real value has
+/// loaded it stays on screen through any later refresh or error — Riverpod
+/// retains the previous value across reloads, and we read it via
+/// `valueOrNull`, so the tile never flickers back to a dash mid-session. The
+/// skeleton shows only on the genuine first load; a dash appears only if that
+/// very first fetch fails with nothing cached yet.
+class _KpiValue extends StatelessWidget {
+  const _KpiValue({required this.value, required this.tint});
+
+  final AsyncValue<int> value;
+  final Color tint;
+
+  @override
+  Widget build(BuildContext context) {
+    final lastKnown = value.valueOrNull;
+    if (lastKnown != null) {
+      return Text(
+        '$lastKnown',
+        style: radhaMonoStyle(
+          fontSize: 28,
+          weight: FontWeight.w700,
+          color: tint,
+        ),
+      );
+    }
+    if (value.isLoading) {
+      return const Padding(
+        padding: EdgeInsets.symmetric(vertical: RadhaSpacing.space4),
+        child: SkeletonLoader(width: 36, height: 24),
+      );
+    }
+    return Text(
+      '–',
+      style: radhaMonoStyle(
+        fontSize: 28,
+        weight: FontWeight.w700,
+        color: Theme.of(context).colorScheme.onSurfaceVariant,
+      ),
+    );
+  }
+}
+
+// ─── Pressable scale (chrome-less press feel) ────────────────────────────────
+
+/// Scale-on-press wrapper for image-led surfaces (banners, category tiles) that
+/// want the same tactile feel as `_PressableCard` without its card background.
+class _PressableScale extends StatefulWidget {
+  const _PressableScale({required this.child, required this.onTap});
+
+  final Widget child;
+  final VoidCallback onTap;
+
+  @override
+  State<_PressableScale> createState() => _PressableScaleState();
+}
+
+class _PressableScaleState extends State<_PressableScale> {
+  bool _pressed = false;
+
+  void _set(bool v) {
+    if (_pressed == v) return;
+    setState(() => _pressed = v);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTapDown: (_) => _set(true),
+      onTapUp: (_) => _set(false),
+      onTapCancel: () => _set(false),
+      onTap: widget.onTap,
+      behavior: HitTestBehavior.opaque,
+      child: AnimatedScale(
+        scale: _pressed ? 0.97 : 1.0,
+        duration: RadhaMotion.fast,
+        curve: RadhaMotion.spring,
+        child: widget.child,
+      ),
+    );
+  }
+}
+
+// ─── Promo banner carousel ───────────────────────────────────────────────────
+
+/// Evergreen, image-led promo banners (the owner's v3 hero art). Distinct from
+/// the dynamic `_StoryBanner` above: these are brand/marketing moments, not the
+/// data-driven "today" mission. Manual-swipe (no auto-advance timer — keeps the
+/// widget tree free of pending timers for tests and battery-cheap at rest).
+class _PromoBannerCarousel extends StatefulWidget {
+  const _PromoBannerCarousel({required this.mode});
+
+  final AppMode mode;
+
+  @override
+  State<_PromoBannerCarousel> createState() => _PromoBannerCarouselState();
+}
+
+class _PromoBannerCarouselState extends State<_PromoBannerCarousel> {
+  final PageController _controller = PageController();
+  int _page = 0;
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  List<_PromoBanner> _banners(BuildContext context) {
+    if (widget.mode == AppMode.consumer) {
+      return [
+        _PromoBanner(
+          asset: RadhaAssets.bannerHealthMission,
+          eyebrow: 'KNOW YOUR FOOD',
+          headline: "Scan the label — see what's really inside",
+          cta: 'Scan & learn',
+          onTap: () => context.go(AppRoute.scan),
+        ),
+        _PromoBanner(
+          asset: RadhaAssets.bannerExpiryMission,
+          eyebrow: 'NEVER MISS A DATE',
+          headline: 'Catch every expiry before it slips away',
+          cta: 'Track expiry',
+          onTap: () => context.push(AppRoute.expiryCalendar),
+        ),
+        _PromoBanner(
+          asset: RadhaAssets.bannerFestive,
+          eyebrow: 'FESTIVE PICKS',
+          headline: 'Shop the season, the healthy way',
+          cta: 'Browse products',
+          onTap: () => context.push(AppRoute.catalogSearch),
+        ),
+      ];
+    }
+    return [
+      _PromoBanner(
+        asset: RadhaAssets.bannerHomeMission,
+        eyebrow: 'AAJ KA BAZAAR',
+        headline: 'Audit your shelves in minutes',
+        cta: 'Start an audit',
+        onTap: () => context.go(AppRoute.scan),
+      ),
+    ];
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final banners = _banners(context);
+    final width = MediaQuery.sizeOf(context).width - RadhaSpacing.space20 * 2;
+    final height = width * 9 / 16;
+    final cacheW = (width * MediaQuery.devicePixelRatioOf(context)).round();
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(
+          height: height,
+          child: PageView.builder(
+            controller: _controller,
+            itemCount: banners.length,
+            physics: banners.length > 1
+                ? const BouncingScrollPhysics()
+                : const NeverScrollableScrollPhysics(),
+            onPageChanged: (i) => setState(() => _page = i),
+            itemBuilder: (context, i) => RepaintBoundary(
+              child: _PromoBannerCard(banner: banners[i], cacheWidth: cacheW),
+            ),
+          ),
+        ),
+        if (banners.length > 1) ...[
+          const SizedBox(height: RadhaSpacing.space12),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              for (var i = 0; i < banners.length; i++) _Dot(active: i == _page),
+            ],
+          ),
+        ],
+      ],
+    );
+  }
+}
+
+class _PromoBanner {
+  const _PromoBanner({
+    required this.asset,
+    required this.eyebrow,
+    required this.headline,
+    required this.cta,
+    required this.onTap,
+  });
+
+  final String asset;
+  final String eyebrow;
+  final String headline;
+  final String cta;
+  final VoidCallback onTap;
+}
+
+class _PromoBannerCard extends StatelessWidget {
+  const _PromoBannerCard({required this.banner, required this.cacheWidth});
+
+  final _PromoBanner banner;
+  final int cacheWidth;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return _PressableScale(
+      onTap: () {
+        HapticFeedback.lightImpact();
+        banner.onTap();
+      },
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(RadhaRadii.radiusXl),
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            // Editorial art, downscaled at decode. Degrades to a calm branded
+            // tile (never a red error box) if the asset is ever missing.
+            BrandedImage(
+              asset: banner.asset,
+              cacheWidth: cacheWidth,
+              fallbackIcon: Icons.photo_size_select_actual_outlined,
+            ),
+            // Bottom-up ink scrim so overlaid copy stays legible on any frame.
+            DecoratedBox(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.topCenter,
+                  colors: [
+                    RadhaColors.ink.withValues(alpha: 0.82),
+                    RadhaColors.ink.withValues(alpha: 0.0),
+                  ],
+                  stops: const [0.0, 0.72],
+                ),
+              ),
+            ),
+            Positioned(
+              left: RadhaSpacing.space16,
+              right: RadhaSpacing.space16,
+              bottom: RadhaSpacing.space16,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    banner.eyebrow,
+                    style: theme.textTheme.labelSmall?.copyWith(
+                      color: RadhaColors.primaryTint,
+                      fontWeight: FontWeight.w700,
+                      letterSpacing: 0.8,
+                    ),
+                  ),
+                  const SizedBox(height: RadhaSpacing.space4),
+                  Text(
+                    banner.headline,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: theme.textTheme.titleMedium?.copyWith(
+                      color: RadhaColors.onPrimary,
+                      fontWeight: FontWeight.w800,
+                      height: 1.2,
+                    ),
+                  ),
+                  const SizedBox(height: RadhaSpacing.space12),
+                  _BannerCtaPill(label: banner.cta),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Non-interactive CTA pill — the whole banner is the tap target, so this is
+/// purely a visual affordance (avoids nested gesture arenas).
+class _BannerCtaPill extends StatelessWidget {
+  const _BannerCtaPill({required this.label});
+
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: RadhaSpacing.space16,
+        vertical: RadhaSpacing.space8,
+      ),
+      decoration: BoxDecoration(
+        color: RadhaColors.onPrimary,
+        borderRadius: BorderRadius.circular(RadhaRadii.radiusFull),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            label,
+            style: theme.textTheme.labelLarge?.copyWith(
+              color: RadhaColors.primaryDeep,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          const SizedBox(width: RadhaSpacing.space4),
+          const Icon(
+            Icons.arrow_forward_rounded,
+            size: 16,
+            color: RadhaColors.primaryDeep,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _Dot extends StatelessWidget {
+  const _Dot({required this.active});
+
+  final bool active;
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedContainer(
+      duration: RadhaMotion.medium,
+      curve: RadhaMotion.easeOut,
+      margin: const EdgeInsets.symmetric(horizontal: 3),
+      width: active ? 18 : 6,
+      height: 6,
+      decoration: BoxDecoration(
+        color: active
+            ? RadhaColors.primary
+            : RadhaColors.primary.withValues(alpha: 0.25),
+        borderRadius: BorderRadius.circular(RadhaRadii.radiusFull),
+      ),
+    );
+  }
+}
+
+// ─── Shop by category ────────────────────────────────────────────────────────
+
+/// Image-led category rail. Backed by static bundled cutouts (`kRadhaCategories`),
+/// so it paints on the first frame with zero network dependency. Tapping a tile
+/// opens a quick-view sheet (scan CTA today; product browse lands with the
+/// catalog endpoint).
+class _CategoriesSection extends StatelessWidget {
+  const _CategoriesSection();
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Shop by category',
+          style: theme.textTheme.titleMedium?.copyWith(
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+        const SizedBox(height: RadhaSpacing.space4),
+        Text(
+          'Tap an aisle to scan or browse its products',
+          style: theme.textTheme.bodySmall?.copyWith(
+            color: theme.colorScheme.onSurfaceVariant,
+          ),
+        ),
+        const SizedBox(height: RadhaSpacing.space16),
+        SizedBox(
+          height: 112,
+          child: RepaintBoundary(
+            child: ListView.separated(
+              scrollDirection: Axis.horizontal,
+              physics: const BouncingScrollPhysics(),
+              clipBehavior: Clip.none,
+              padding: EdgeInsets.zero,
+              itemCount: kRadhaCategories.length,
+              separatorBuilder: (_, _) =>
+                  const SizedBox(width: RadhaSpacing.space12),
+              itemBuilder: (context, i) =>
+                  _CategoryTile(category: kRadhaCategories[i]),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _CategoryTile extends StatelessWidget {
+  const _CategoryTile({required this.category});
+
+  final RadhaCategory category;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final cacheW = (64 * MediaQuery.devicePixelRatioOf(context)).round();
+    return _PressableScale(
+      onTap: () {
+        HapticFeedback.selectionClick();
+        context.push('/catalog/${category.id}');
+      },
+      child: SizedBox(
+        width: 72,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              width: 64,
+              height: 64,
+              clipBehavior: Clip.antiAlias,
+              decoration: BoxDecoration(
+                color: theme.colorScheme.surface,
+                borderRadius: BorderRadius.circular(RadhaRadii.radiusLg),
+                border: Border.all(color: theme.colorScheme.outline),
+              ),
+              child: BrandedImage(
+                asset: category.asset,
+                cacheWidth: cacheW,
+                label: category.label,
+                fallbackIcon: Icons.category_outlined,
+              ),
+            ),
+            const SizedBox(height: RadhaSpacing.space8),
+            Text(
+              category.label,
+              maxLines: 2,
+              textAlign: TextAlign.center,
+              overflow: TextOverflow.ellipsis,
+              style: theme.textTheme.labelSmall?.copyWith(
+                color: theme.colorScheme.onSurface,
+                height: 1.2,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// (Category tap now navigates to the full ProductBrowseScreen via
+// `/catalog/:category` — the earlier quick-view bottom sheet was removed.)

@@ -121,6 +121,7 @@ class _OtpRequestScreenState extends ConsumerState<OtpRequestScreen> {
         extra: <String, String>{
           'mobile': mobile,
           'requestId': result.requestId,
+          if (result.devOtp != null) 'devOtp': result.devOtp!,
         },
       );
     } on RateLimitException catch (e) {

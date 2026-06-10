@@ -370,29 +370,35 @@ class _StaggerIn extends StatefulWidget {
 
 class _StaggerInState extends State<_StaggerIn>
     with SingleTickerProviderStateMixin {
+  // Stagger is baked into an Interval on a single controller started in
+  // initState — never `Future.delayed` (steering §2.5/§12: delayed timers are
+  // timer-leaky under widget tests). The controller runs long enough to cover
+  // the per-index start offset plus the reveal.
   late final AnimationController _c = AnimationController(
     vsync: this,
-    duration: RadhaMotion.medium,
+    duration: const Duration(milliseconds: 700),
   );
-  late final Animation<double> _opacity = CurvedAnimation(
-    parent: _c,
-    curve: RadhaMotion.easeOut,
-  );
-  late final Animation<Offset> _offset = Tween<Offset>(
-    begin: const Offset(0, 0.08),
-    end: Offset.zero,
-  ).animate(CurvedAnimation(parent: _c, curve: RadhaMotion.easeOut));
+  late final Animation<double> _opacity;
+  late final Animation<Offset> _offset;
 
   @override
   void initState() {
     super.initState();
+    // Map index → a start fraction (0.0–0.46), then ease over the remainder.
+    final start = ((40 * widget.index).clamp(0, 320)) / 700;
+    final curve = CurvedAnimation(
+      parent: _c,
+      curve: Interval(start, 1, curve: RadhaMotion.easeOut),
+    );
+    _opacity = curve;
+    _offset = Tween<Offset>(
+      begin: const Offset(0, 0.08),
+      end: Offset.zero,
+    ).animate(curve);
     if (widget.reduceMotion) {
       _c.value = 1;
     } else {
-      final delay = (40 * widget.index).clamp(0, 320);
-      Future<void>.delayed(Duration(milliseconds: delay), () {
-        if (mounted) _c.forward();
-      });
+      _c.forward();
     }
   }
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../app_assets.dart';
 import '../tokens.dart';
+import 'brand_illustration.dart';
 import 'mor_companion.dart';
 import 'secondary_button.dart';
 
@@ -43,10 +44,12 @@ class ErrorState extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           illustration ??
-              const MorCompanion(
-                mood: MorMood.concern,
-                size: 96,
+              const BrandIllustration(
+                RadhaAssets.stateErrorRetry,
+                size: 156,
                 semanticLabel: 'Something went wrong',
+                // Falls back to the companion if the asset can't decode.
+                fallback: MorCompanion(mood: MorMood.concern, size: 96),
               ),
           const SizedBox(height: RadhaSpacing.space24),
           Text(

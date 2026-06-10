@@ -71,15 +71,26 @@ void main() {
     await tester.pumpWidget(
       UncontrolledProviderScope(container: container, child: const RadhaApp()),
     );
-    await tester.pumpAndSettle();
+    // The app boots to /home, which renders the Mor mascot's perpetual
+    // "breathing" idle animation — so `pumpAndSettle` would time out. Pump
+    // bounded fixed frames through the splash floor (600 ms) + redirect.
+    await tester.pump();
+    for (var i = 0; i < 12; i++) {
+      await tester.pump(const Duration(milliseconds: 100));
+    }
 
     // 1. Navigate to /expiry — empty state visible.
     container.read(appRouterProvider).go('/expiry');
-    await tester.pumpAndSettle();
+    // /expiry may also render Mor in its empty state; pump bounded frames
+    // instead of settling.
+    for (var i = 0; i < 12; i++) {
+      await tester.pump(const Duration(milliseconds: 100));
+    }
     expect(find.text('Expiry Tracking'), findsOneWidget);
     expect(find.text('No records in this category.'), findsOneWidget);
 
-    // 2. Tap FAB — create screen visible.
+    // 2. Tap FAB — create screen visible. The create form has no Mor, so it
+    // settles cleanly.
     await tester.tap(find.byType(FloatingActionButton));
     await tester.pumpAndSettle();
     expect(find.text('New Expiry Record'), findsOneWidget);

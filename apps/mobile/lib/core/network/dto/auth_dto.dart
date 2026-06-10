@@ -52,11 +52,18 @@ class OtpRequestResponse {
     required this.requestId,
     required this.expiresIn,
     this.rateLimitRemaining,
+    this.devOtp,
   });
 
   final String requestId;
   final int expiresIn;
   final int? rateLimitRemaining;
+
+  /// Dev/test only — the plaintext OTP echoed back by a development server so
+  /// the app can show/fill it without tailing server logs. The backend strips
+  /// this in staging/production (`AuthService.requestOtp` is strictly gated),
+  /// so it is `null` in any real environment.
+  final String? devOtp;
 
   factory OtpRequestResponse.fromJson(Map<String, dynamic> json) =>
       _$OtpRequestResponseFromJson(json);

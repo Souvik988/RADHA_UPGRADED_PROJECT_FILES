@@ -59,4 +59,60 @@ export class ProductsRepository extends BaseRepository<
       .limit(1);
     return (row as ProductRow | undefined) ?? null;
   }
+
+  /**
+   * Idempotent upsert of a **global catalog** product (tenant_id = NULL),
+   * keyed on EAN. Used by the Open Food Facts bulk importer that seeds the
+   * browse-without-scan catalog. When a global row already exists it is
+   * refreshed with the latest mapped fields; otherwise a new global row is
+   * created. Never touches tenant-private rows.
+   */
+  async upsertGlobalByEan(data: NewProduct): Promise<ProductRow> {
+    const existing = await this.findVisibleByEan(data.ean, null);
+    if (existing && existing.tenantId === null) {
+      const [updated] = await this.db
+        .update(products)
+        .set({
+          name: data.name,
+          brand: data.brand,
+          manufacturer: data.manufacturer,
+          categoryId: data.categoryId,
+          subCategory: data.subCategory,
+          imageUrl: data.imageUrl,
+          description: data.description,
+          packageSize: data.packageSize,
+          packageUnit: data.packageUnit,
+          dataSource: data.dataSource,
+          externalId: data.externalId,
+          metadata: data.metadata,
+          updatedAt: new Date(),
+        })
+        .where(eq(products.id, existing.id))
+        .returning();
+      return updated as ProductRow;
+    }
+    const [created] = await this.db
+      .insert(products)
+      .values({ ...data, tenantId: null })
+      .returning();
+    return created as ProductRow;
+  }
+
+  /**
+   * Point a **global catalog** product's `image_url` at a hosted URL (e.g. the
+   * CloudFront CDN URL for an uploaded curated pack-shot). Used by the Phase 3
+   * image-host CLI. Matches the global row by EAN; returns null when no global
+   * row exists for that EAN (the seed must run first). Never touches
+   * tenant-private rows.
+   */
+  async updateGlobalImageByEan(ean: string, imageUrl: string): Promise<ProductRow | null> {
+    const existing = await this.findVisibleByEan(ean, null);
+    if (!existing || existing.tenantId !== null) return null;
+    const [updated] = await this.db
+      .update(products)
+      .set({ imageUrl, updatedAt: new Date() })
+      .where(eq(products.id, existing.id))
+      .returning();
+    return (updated as ProductRow | undefined) ?? null;
+  }
 }

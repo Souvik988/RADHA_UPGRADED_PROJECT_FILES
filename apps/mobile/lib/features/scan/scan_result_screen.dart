@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../../core/auth/auth_controller.dart';
 import '../../core/network/api_client.dart';
@@ -89,7 +90,10 @@ class ScanResultScreen extends ConsumerWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.ios_share_rounded),
-            onPressed: () {},
+            tooltip: 'Share',
+            onPressed: () => Share.share(
+              'I checked this product on RADHA — barcode $ean.',
+            ),
           ),
         ],
       ),
@@ -163,7 +167,7 @@ class _ProductBodyState extends ConsumerState<_ProductBody> {
                   const SizedBox(height: RadhaSpacing.space24),
                   const _HealthSection(),
                   const SizedBox(height: RadhaSpacing.space16),
-                  const _ExplainIngredientsButton(),
+                  _ExplainIngredientsButton(productId: widget.product.id),
                   const SizedBox(height: RadhaSpacing.space16),
                   const _AllergenNote(),
                 ],
@@ -767,7 +771,20 @@ class _HealthChip extends StatelessWidget {
 // ─── Explain ingredients (AI) ────────────────────────────────────────────────
 
 class _ExplainIngredientsButton extends StatelessWidget {
-  const _ExplainIngredientsButton();
+  const _ExplainIngredientsButton({required this.productId});
+
+  final String productId;
+
+  /// Kebab-case slug derived from the product id for the `/ingredients/:slug`
+  /// route. The backend normalises again server-side.
+  String get _slug {
+    final s = productId
+        .toLowerCase()
+        .trim()
+        .replaceAll(RegExp(r'[^a-z0-9]+'), '-')
+        .replaceAll(RegExp(r'^-+|-+$'), '');
+    return s.isEmpty ? 'ingredient' : s;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -778,8 +795,7 @@ class _ExplainIngredientsButton extends StatelessWidget {
       child: InkWell(
         onTap: () {
           HapticFeedback.selectionClick();
-          // Wired to the ingredient-explainer route once a product slug is
-          // resolved from the catalog match.
+          context.push('/ingredients/$_slug');
         },
         borderRadius: BorderRadius.circular(RadhaRadii.radiusMd),
         child: Container(
@@ -1021,8 +1037,8 @@ class _ErrorBody extends StatelessWidget {
             Text('Product not found', style: theme.textTheme.titleMedium),
             const SizedBox(height: RadhaSpacing.space8),
             Text(
-              'No catalog match for EAN $ean. You can add it so the next '
-              'person finds it.',
+              'No catalog match for EAN $ean — but you can still read the label. '
+              'Snap the ingredients panel and we\'ll tell you what\'s inside.',
               style: theme.textTheme.bodyMedium?.copyWith(
                 color: theme.colorScheme.onSurfaceVariant,
               ),
@@ -1030,9 +1046,15 @@ class _ErrorBody extends StatelessWidget {
             ),
             const SizedBox(height: RadhaSpacing.space24),
             PrimaryButton(
-              label: 'Scan again',
+              label: 'Scan the label',
+              icon: Icons.document_scanner_outlined,
               expand: true,
+              onPressed: () => context.pushReplacement(AppRoute.labelScan),
+            ),
+            const SizedBox(height: RadhaSpacing.space12),
+            TextButton(
               onPressed: () => context.pop(),
+              child: const Text('Scan again'),
             ),
           ],
         ),

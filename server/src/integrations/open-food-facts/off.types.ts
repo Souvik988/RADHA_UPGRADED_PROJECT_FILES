@@ -53,6 +53,18 @@ export interface OffApiResponse {
   product?: OffProduct;
 }
 
+/**
+ * Response shape from the OFF category/search endpoint
+ * (`/cgi/search.pl?json=1`). Only the paging envelope + product list is typed;
+ * each entry is a partial {@link OffProduct} limited to `OFF_SEARCH_FIELDS`.
+ */
+export interface OffSearchResponse {
+  count?: number;
+  page?: number;
+  page_size?: number;
+  products?: OffProduct[];
+}
+
 /** Mapped product data ready to insert into `products`. */
 export interface MappedProductData {
   ean: string;

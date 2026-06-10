@@ -44,6 +44,10 @@ export class AiService {
     return this.orchestrator.analyzeProductLabel(mediaId);
   }
 
+  analyzeLabelText(transcript: string, locale = 'en'): Promise<LabelAnalysisResult> {
+    return this.orchestrator.analyzeLabelText(transcript, { locale });
+  }
+
   imageFallbackScan(mediaId: string): Promise<ImageFallbackResult> {
     return this.orchestrator.imageFallbackScan(mediaId);
   }

@@ -12,12 +12,95 @@ import '../../design/tokens.dart';
 import '../../design/widgets/empty_state.dart';
 import '../../design/widgets/mor_companion.dart';
 
-/// Provider that fetches tasks from the backend. Accepts a status filter.
-final _tasksProvider = FutureProvider.autoDispose
-    .family<PaginatedTasks, String?>((ref, status) async {
-      final client = ref.watch(apiClientProvider);
-      return client.getTasks(status: status);
-    });
+/// Paginated tasks state — loaded items + page cursor, per status filter.
+class _TasksListState {
+  const _TasksListState({
+    required this.items,
+    required this.cursor,
+    required this.hasMore,
+    required this.loadingMore,
+  });
+
+  final List<TaskResponse> items;
+  final String? cursor;
+  final bool hasMore;
+  final bool loadingMore;
+
+  _TasksListState copyWith({
+    List<TaskResponse>? items,
+    Object? cursor = _sentinel,
+    bool? hasMore,
+    bool? loadingMore,
+  }) {
+    return _TasksListState(
+      items: items ?? this.items,
+      cursor: identical(cursor, _sentinel) ? this.cursor : cursor as String?,
+      hasMore: hasMore ?? this.hasMore,
+      loadingMore: loadingMore ?? this.loadingMore,
+    );
+  }
+
+  static const _sentinel = Object();
+}
+
+/// Cursor-paginated tasks controller, keyed by status filter (one per tab).
+/// Mirrors the inventory list pattern so behaviour stays consistent.
+class _TasksListController
+    extends AutoDisposeFamilyAsyncNotifier<_TasksListState, String?> {
+  static const _pageSize = 30;
+
+  Future<_TasksListState> _fetch(String? status, {String? cursor}) async {
+    final client = ref.read(apiClientProvider);
+    final page = await client.getTasks(
+      status: status,
+      cursor: cursor,
+      limit: _pageSize,
+    );
+    return _TasksListState(
+      items: page.items,
+      cursor: page.cursor,
+      hasMore: page.cursor != null && page.items.length >= _pageSize,
+      loadingMore: false,
+    );
+  }
+
+  @override
+  Future<_TasksListState> build(String? status) async {
+    ref.watch(apiClientProvider);
+    return _fetch(status);
+  }
+
+  Future<void> refresh() async {
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() => _fetch(arg));
+  }
+
+  Future<void> loadMore() async {
+    final current = state.valueOrNull;
+    if (current == null) return;
+    if (!current.hasMore || current.loadingMore) return;
+
+    state = AsyncValue.data(current.copyWith(loadingMore: true));
+    try {
+      final next = await _fetch(arg, cursor: current.cursor);
+      state = AsyncValue.data(
+        _TasksListState(
+          items: [...current.items, ...next.items],
+          cursor: next.cursor,
+          hasMore: next.hasMore,
+          loadingMore: false,
+        ),
+      );
+    } catch (_) {
+      state = AsyncValue.data(current.copyWith(loadingMore: false));
+    }
+  }
+}
+
+final _tasksListControllerProvider = AsyncNotifierProvider.autoDispose
+    .family<_TasksListController, _TasksListState, String?>(
+      _TasksListController.new,
+    );
 
 /// Tasks list — filter tabs (My Tasks / All / Completed), a priority chip row,
 /// polished task cards (priority chip, status dot, assignee + due meta), and a
@@ -270,9 +353,10 @@ class _PriorityChips extends StatelessWidget {
   }
 }
 
-/// Task list that consumes the tasks provider and filters locally by
-/// priority and optionally by assigned user.
-class _TaskList extends ConsumerWidget {
+/// Task list that consumes the paginated tasks controller and filters locally
+/// by priority and optionally by assigned user. Infinite-scrolls across cursor
+/// pages so a busy store's full task list is reachable, not just page one.
+class _TaskList extends ConsumerStatefulWidget {
   const _TaskList({required this.status, this.priorityFilter, this.userId});
 
   final String? status;
@@ -280,27 +364,61 @@ class _TaskList extends ConsumerWidget {
   final String? userId;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final tasksAsync = ref.watch(_tasksProvider(status));
+  ConsumerState<_TaskList> createState() => _TaskListState();
+}
+
+class _TaskListState extends ConsumerState<_TaskList> {
+  final _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_onScroll);
+  }
+
+  @override
+  void dispose() {
+    _scrollController
+      ..removeListener(_onScroll)
+      ..dispose();
+    super.dispose();
+  }
+
+  void _onScroll() {
+    if (!_scrollController.hasClients) return;
+    final position = _scrollController.position;
+    if (position.pixels >= position.maxScrollExtent - 200) {
+      ref.read(_tasksListControllerProvider(widget.status).notifier).loadMore();
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final tasksAsync = ref.watch(_tasksListControllerProvider(widget.status));
 
     return tasksAsync.when(
       loading: () => const _TaskListSkeleton(),
       error: (err, _) => _TaskError(
-        onRetry: () => ref.invalidate(_tasksProvider(status)),
+        onRetry: () => ref
+            .read(_tasksListControllerProvider(widget.status).notifier)
+            .refresh(),
       ),
-      data: (paginated) {
-        var items = paginated.items;
-        if (priorityFilter != null) {
-          items = items.where((t) => t.priority == priorityFilter).toList();
+      data: (state) {
+        var items = state.items;
+        if (widget.priorityFilter != null) {
+          items =
+              items.where((t) => t.priority == widget.priorityFilter).toList();
         }
-        if (userId != null) {
-          items = items.where((t) => t.assigneeId == userId).toList();
+        if (widget.userId != null) {
+          items = items.where((t) => t.assigneeId == widget.userId).toList();
         }
 
         if (items.isEmpty) {
           return RefreshIndicator(
             color: RadhaColors.primary,
-            onRefresh: () async => ref.invalidate(_tasksProvider(status)),
+            onRefresh: () async => ref
+                .read(_tasksListControllerProvider(widget.status).notifier)
+                .refresh(),
             child: ListView(
               physics: const AlwaysScrollableScrollPhysics(
                 parent: BouncingScrollPhysics(),
@@ -322,10 +440,19 @@ class _TaskList extends ConsumerWidget {
           );
         }
 
+        // Only show the load-more footer when the full (unfiltered) list has
+        // more pages — a local priority/assignee filter shouldn't imply more.
+        final showFooter = state.loadingMore &&
+            widget.priorityFilter == null &&
+            widget.userId == null;
+
         return RefreshIndicator(
           color: RadhaColors.primary,
-          onRefresh: () async => ref.invalidate(_tasksProvider(status)),
+          onRefresh: () async => ref
+              .read(_tasksListControllerProvider(widget.status).notifier)
+              .refresh(),
           child: ListView.separated(
+            controller: _scrollController,
             physics: const AlwaysScrollableScrollPhysics(
               parent: BouncingScrollPhysics(),
             ),
@@ -335,10 +462,22 @@ class _TaskList extends ConsumerWidget {
               RadhaSpacing.space20,
               RadhaSpacing.space32 + 72,
             ),
-            itemCount: items.length,
+            itemCount: items.length + (showFooter ? 1 : 0),
             separatorBuilder: (_, _) =>
                 const SizedBox(height: RadhaSpacing.space12),
-            itemBuilder: (context, index) => _TaskTile(task: items[index]),
+            itemBuilder: (context, index) {
+              if (index >= items.length) {
+                return const Padding(
+                  padding: EdgeInsets.all(RadhaSpacing.space16),
+                  child: Center(
+                    child: CircularProgressIndicator(
+                      color: RadhaColors.primary,
+                    ),
+                  ),
+                );
+              }
+              return _TaskTile(task: items[index]);
+            },
           ),
         );
       },

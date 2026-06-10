@@ -76,7 +76,12 @@ void main() {
 
     await tester.enterText(find.byType(Pinput), '123456');
     await tester.pump();
-    await tester.pumpAndSettle(const Duration(seconds: 2));
+    // Verifying lands on /home, which renders the Mor mascot's perpetual
+    // "breathing" idle — so `pumpAndSettle` would time out. Pump bounded
+    // fixed frames to drain the verify call + redirect + entrance stagger.
+    for (var i = 0; i < 20; i++) {
+      await tester.pump(const Duration(milliseconds: 100));
+    }
 
     expect(find.text('Quick actions'), findsOneWidget);
 

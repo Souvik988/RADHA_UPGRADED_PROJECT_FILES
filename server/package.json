@@ -6,7 +6,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "prebuild": "rimraf dist",
-    "build": "pnpm --filter @radha/shared-types build && nest build",
+    "build": "pnpm --filter @radha/shared-types build && nest build && tsc-alias -p tsconfig.build.json",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
@@ -23,6 +23,9 @@
     "db:generate": "drizzle-kit generate:pg",
     "db:push": "drizzle-kit push:pg",
     "db:migrate": "tsx src/db/migrate.ts",
+    "db:import:catalog": "ts-node -r tsconfig-paths/register src/db/import-catalog.ts",
+    "db:import:curated": "ts-node -r tsconfig-paths/register src/db/import-curated-catalog.ts",
+    "db:host:images": "ts-node -r tsconfig-paths/register src/db/host-catalog-images.ts",
     "db:reset": "tsx src/db/reset.ts",
     "db:studio": "drizzle-kit studio"
   },
@@ -94,6 +97,7 @@
     "ts-jest": "^29.1.1",
     "ts-loader": "^9.5.1",
     "ts-node": "^10.9.2",
+    "tsc-alias": "^1.8.10",
     "tsconfig-paths": "^4.2.0",
     "tsx": "^4.7.0",
     "typescript": "^5.3.3"

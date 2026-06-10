@@ -50,6 +50,7 @@ import '../../core/onboarding/onboarding_flag_controller.dart';
 import '../../core/router/app_router.dart';
 import '../../design/app_assets.dart';
 import '../../design/tokens.dart';
+import '../../design/widgets/brand_illustration.dart';
 import '../../design/widgets/mor_companion.dart';
 import '../../design/widgets/primary_button.dart';
 
@@ -215,7 +216,11 @@ class _WelcomePage extends StatelessWidget {
           ),
           const Spacer(flex: 2),
           const Center(
-            child: MorCompanion(mood: MorMood.greet, size: 168),
+            child: BrandIllustration(
+              RadhaAssets.onboardScan,
+              size: 240,
+              fallback: MorCompanion(mood: MorMood.greet, size: 168),
+            ),
           ),
           const Spacer(flex: 2),
         ],

@@ -6,6 +6,10 @@ import 'package:go_router/go_router.dart';
 import '../../features/auth/otp_request_screen.dart';
 import '../../features/auth/otp_verify_screen.dart';
 import '../../features/ai/ingredient_explainer_screen.dart';
+import '../../features/catalog/catalog_search_screen.dart';
+import '../../features/catalog/product_browse_screen.dart';
+import '../../features/catalog/product_detail_screen.dart';
+import '../../features/catalog/providers/product_browse_providers.dart';
 import '../../features/allergen/allergen_profile_screen.dart';
 import '../../features/alternatives/healthy_alternatives_screen.dart';
 import '../../features/digest/weekly_digest_screen.dart';
@@ -25,6 +29,7 @@ import '../../features/recall/recall_alerts_screen.dart';
 import '../../features/referrals/referrals_screen.dart';
 import '../../features/saved_products/saved_products_screen.dart';
 import '../../features/scan/ean_audit_screen.dart';
+import '../../features/scan/label_scan_screen.dart';
 import '../../features/scan/scan_result_screen.dart';
 import '../../features/scan/scan_screen.dart';
 import '../../features/select_store/select_store_screen.dart';
@@ -44,6 +49,7 @@ import '../../features/tasks/tasks_list_screen.dart';
 import '../auth/auth_controller.dart';
 import '../onboarding/onboarding_flag_controller.dart';
 import 'go_router_refresh.dart';
+import 'not_found_screen.dart';
 import 'root_shell.dart';
 
 /// Symbolic constants for every named route the app understands. Avoids
@@ -61,6 +67,8 @@ class AppRoute {
   static const String scan = '/scan';
   static const String scanResult = '/scan/result/:ean';
   static const String eanAudit = '/scan/audit';
+  // Scanner-OCR fallback: read a product's label when the barcode misses.
+  static const String labelScan = '/scan/label';
   static const String expiry = '/expiry';
   static const String expiryNew = '/expiry/new';
   static const String tasks = '/tasks';
@@ -90,6 +98,19 @@ class AppRoute {
   static const String ingredientExplainer = '/ingredients/:slug';
   static const String healthyAlternatives = '/alternatives/:ean';
   static const String savedProducts = '/saved-products';
+
+  /// Search products across the catalog (consumer home search). MUST be routed
+  /// before [catalogCategory] so `/catalog/search` doesn't match `:category`.
+  static const String catalogSearch = '/catalog/search';
+
+  /// Browse products within a category (home "Shop by category" rail).
+  static const String catalogCategory = '/catalog/:category';
+
+  /// Rich product detail (browse tap). Path key is the real EAN when known,
+  /// else the launch-catalog slug. [catalogProductBase] is the prefix used to
+  /// build the push path.
+  static const String catalogProductBase = '/catalog/product';
+  static const String catalogProduct = '/catalog/product/:key';
 
   // FE-24 — Weekly Digest landing surface. `/digest` shows the most
   // recent week (Sunday push deep-link target). `/digest/:weekIso`
@@ -200,6 +221,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           return OtpVerifyScreen(
             mobile: extra['mobile'] ?? '',
             requestId: extra['requestId'] ?? '',
+            devOtp: extra['devOtp'],
           );
         },
       ),
@@ -286,6 +308,12 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         name: 'eanAudit',
         parentNavigatorKey: _rootNavigatorKey,
         builder: (context, state) => const EanAuditScreen(),
+      ),
+      GoRoute(
+        path: AppRoute.labelScan,
+        name: 'labelScan',
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => const LabelScanScreen(),
       ),
       GoRoute(
         path: AppRoute.expiryNew,
@@ -446,6 +474,35 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         parentNavigatorKey: _rootNavigatorKey,
         builder: (context, state) => const SavedProductsScreen(),
       ),
+      // Registered before `catalogCategory` so the literal `/catalog/search`
+      // wins over the `/catalog/:category` pattern.
+      GoRoute(
+        path: AppRoute.catalogSearch,
+        name: 'catalogSearch',
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => const CatalogSearchScreen(),
+      ),
+      GoRoute(
+        path: AppRoute.catalogCategory,
+        name: 'catalogCategory',
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) {
+          final category = state.pathParameters['category'] ?? '';
+          return ProductBrowseScreen(categoryId: category);
+        },
+      ),
+      GoRoute(
+        path: AppRoute.catalogProduct,
+        name: 'catalogProduct',
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) {
+          final key = state.pathParameters['key'] ?? '';
+          final initial = state.extra is BrowseProduct
+              ? state.extra as BrowseProduct
+              : null;
+          return CatalogProductDetailScreen(routeKey: key, initial: initial);
+        },
+      ),
 
       // ─── FE-24 — Weekly Digest landing ────────────────────────────────
       // `/digest` lands users from the Sunday "Your week with RADHA"
@@ -495,18 +552,8 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         ),
       ),
     ],
-    errorBuilder: (context, state) => Scaffold(
-      appBar: AppBar(title: const Text('Not found')),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(24),
-          child: Text(
-            'No route matches "${state.uri}"',
-            style: Theme.of(context).textTheme.bodyMedium,
-          ),
-        ),
-      ),
-    ),
+    errorBuilder: (context, state) =>
+        NotFoundScreen(location: state.uri.toString()),
   );
 });
 

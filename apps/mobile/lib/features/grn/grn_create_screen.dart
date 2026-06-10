@@ -85,11 +85,13 @@ class _GrnCreateScreenState extends ConsumerState<GrnCreateScreen> {
       if (!mounted) return;
       // Navigate to items screen with the new GRN ID.
       context.pushReplacement('/grn/${response.id}/items');
-    } catch (e) {
+    } catch (_) {
       if (!mounted) return;
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text('Failed to create GRN: $e')));
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Could not create the GRN. Please try again.'),
+        ),
+      );
     } finally {
       if (mounted) setState(() => _isSubmitting = false);
     }

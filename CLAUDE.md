@@ -258,10 +258,12 @@ require a Claude Code restart to connect):
 - **Not started:** Marketing website (`apps/marketing-web`), Owner Dashboard
   (`apps/owner-dashboard`), AWS production deploy (RDS/ElastiCache/S3/CloudFront, BE-49
   infra), RDS automated backups + restore tests.
-- **Known backend nits (non-blocking):** one test-setup failure (`onboarding.controller.spec.ts`
-  needs an `AuthJwtService` mock), `webhook-retry.job` cron timezone, a duplicated
-  `PRODUCTS_LOOKUP_PORT` symbol, and possible schema-barrel omissions. See
-  `TECHNICAL_DEBT_REGISTER.md`.
+- **Backend tests: GREEN as of 2026-06-09** — full `pnpm test` is **2059/2059 passing (213 suites)**.
+  The previously-listed nits were resolved/verified: `onboarding.controller.spec.ts` now
+  `.overrideGuard(JwtAuthGuard)`; `db.service.spec.ts` updated for the eager-constructor pool;
+  `bullmq-queue.provider.spec.ts` spies on the re-imported `Logger` graph. The `webhook-retry.job`
+  cron "timezone" and the two module-local `PRODUCTS_LOOKUP_PORT` symbols were confirmed **non-issues**
+  (left untouched). See `TECHNICAL_DEBT_REGISTER.md` for any remaining schema-barrel notes.
 
 ---
 

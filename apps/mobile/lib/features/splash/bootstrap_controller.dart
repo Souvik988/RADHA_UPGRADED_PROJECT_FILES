@@ -57,15 +57,21 @@ class BootstrapResult {
 class BootstrapController extends AsyncNotifier<BootstrapResult> {
   @override
   Future<BootstrapResult> build() async {
-    // Race the real work against a perceptible-but-not-laggy floor so the
-    // splash is always shown for at least [_kSplashFloor]. `Future.wait`
-    // resolves when *both* futures complete, so the actual dwell time is
-    // `max(actualWork, 600 ms)`.
-    final results = await Future.wait<Object?>(<Future<Object?>>[
-      _runBootstrap(),
-      Future<void>.delayed(_kSplashFloor),
-    ]);
-    return results[0]! as BootstrapResult;
+    // Enforce a perceptible-but-not-laggy splash floor by measuring how long
+    // the real work took and only sleeping for the *remaining* time. We
+    // deliberately avoid the old `Future.wait([work, Future.delayed(floor)])`
+    // pattern: if the work finished (or threw) before the floor elapsed, that
+    // standalone delayed future left an orphaned pending Timer, which trips
+    // `flutter_test`'s pending-timer guard and is a real teardown leak. By
+    // awaiting the remainder inline, the timer is always part of this future
+    // chain and can never outlive the bootstrap.
+    final stopwatch = Stopwatch()..start();
+    final result = await _runBootstrap();
+    final remaining = _kSplashFloor - stopwatch.elapsed;
+    if (remaining > Duration.zero) {
+      await Future<void>.delayed(remaining);
+    }
+    return result;
   }
 
   Future<BootstrapResult> _runBootstrap() async {

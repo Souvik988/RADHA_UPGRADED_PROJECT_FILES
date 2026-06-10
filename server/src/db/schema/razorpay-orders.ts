@@ -76,9 +76,4 @@ export const razorpayOrders = pgTable(
 export type RazorpayOrderRow = typeof razorpayOrders.$inferSelect;
 export type NewRazorpayOrder = typeof razorpayOrders.$inferInsert;
 
-export type RazorpayOrderStatus =
-  | 'created'
-  | 'authorised'
-  | 'captured'
-  | 'refunded'
-  | 'failed';
+export type RazorpayOrderStatus = 'created' | 'authorised' | 'captured' | 'refunded' | 'failed';

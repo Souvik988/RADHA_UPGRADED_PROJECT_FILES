@@ -78,6 +78,14 @@ export interface LabelAnalysisResult {
   ingredients?: string[];
   allergens?: string[];
   nutritionalInfo?: Record<string, number>;
+  /**
+   * Plain-language, non-alarmist health summary. Populated by the
+   * text-transcript analysis path (on-device OCR → Gemini) that backs the
+   * consumer "scan the label" fallback when a barcode lookup misses.
+   */
+  summary?: string;
+  /** Short health concern/flag chips, e.g. "high sugar", "ultra-processed". */
+  healthFlags?: string[];
   confidence: number;
   provider: AiProvider;
   cost: number;
@@ -115,7 +123,8 @@ export interface LlmOptions {
   locale?: string;
 }
 
-export interface LlmResult {  text: string;
+export interface LlmResult {
+  text: string;
   tokensUsed: number;
   cost: number;
   provider: AiProvider;
@@ -224,6 +233,7 @@ export interface IAiOrchestratorService {
   extractBatchNumber(mediaId: string, options?: OcrOptions): Promise<OcrResult>;
   extractText(mediaId: string, options?: OcrOptions): Promise<OcrResult>;
   analyzeProductLabel(mediaId: string): Promise<LabelAnalysisResult>;
+  analyzeLabelText(transcript: string, options?: LlmOptions): Promise<LabelAnalysisResult>;
   imageFallbackScan(mediaId: string): Promise<ImageFallbackResult>;
   generateReportSummary(reportData: unknown, options?: LlmOptions): Promise<LlmResult>;
   explainIngredient(slug: string, options?: LlmOptions): Promise<IngredientExplanationResult>;

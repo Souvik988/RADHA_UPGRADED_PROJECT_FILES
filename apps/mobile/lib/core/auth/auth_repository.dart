@@ -13,11 +13,16 @@ class OtpRequestResult {
     required this.requestId,
     required this.expiresIn,
     this.rateLimitRemaining,
+    this.devOtp,
   });
 
   final String requestId;
   final int expiresIn;
   final int? rateLimitRemaining;
+
+  /// Dev/test only — the OTP echoed back by a development server. Drives the
+  /// debug-only autofill banner on the verify screen; null in real builds.
+  final String? devOtp;
 }
 
 /// Single seam between the auth UI and the backend. Anything that needs to
@@ -41,6 +46,7 @@ class AuthRepository {
       requestId: res.requestId,
       expiresIn: res.expiresIn,
       rateLimitRemaining: res.rateLimitRemaining,
+      devOtp: res.devOtp,
     );
   }
 

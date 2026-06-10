@@ -141,7 +141,14 @@ void main() {
       ).thenAnswer((_) async => true);
 
       await tester.pumpWidget(_wrap(storage));
-      await tester.pumpAndSettle();
+      // Home renders the Mor companion mascot, whose gentle "breathing" idle
+      // is an intentional perpetual animation — so `pumpAndSettle` would time
+      // out waiting for it to stop. Pump fixed frames instead: enough to clear
+      // the bootstrap (600 ms splash floor) + the redirect + the staggered
+      // section entrance, then assert on a stable target.
+      await tester.pump(); // first frame
+      await tester.pump(const Duration(milliseconds: 700)); // splash floor
+      await tester.pump(const Duration(milliseconds: 700)); // entrance stagger
 
       // Home renders a "Quick actions" section header — a stable target
       // that doesn't depend on the summary providers settling. (The

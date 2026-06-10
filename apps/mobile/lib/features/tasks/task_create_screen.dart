@@ -95,11 +95,13 @@ class _TaskCreateScreenState extends ConsumerState<TaskCreateScreen> {
         ).showSnackBar(const SnackBar(content: Text('Task created')));
         context.pop();
       }
-    } catch (e) {
+    } catch (_) {
       if (mounted) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text('Failed to create task: $e')));
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Could not create the task. Please try again.'),
+          ),
+        );
       }
     } finally {
       if (mounted) setState(() => _isSubmitting = false);

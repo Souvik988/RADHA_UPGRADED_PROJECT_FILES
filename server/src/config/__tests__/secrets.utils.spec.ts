@@ -4,7 +4,7 @@ describe('secrets.utils', () => {
   describe('isSecretKey', () => {
     it.each([
       ['DB_PASSWORD', true],
-      ['MSG91_API_KEY', true],
+      ['TWO_FACTOR_API_KEY', true],
       ['JWT_ACCESS_SECRET', true],
       ['AWS_SECRET_ACCESS_KEY', true],
       ['AWS_ACCESS_KEY_ID', true],

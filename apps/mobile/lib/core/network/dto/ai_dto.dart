@@ -204,6 +204,81 @@ class IngredientExplanation {
   }
 }
 
+// ─── Label-text analysis — `POST /api/v1/ai/label/analyze-text` ──────────
+//
+// The consumer "scan the label" fallback. When a barcode lookup misses, the
+// mobile does on-device OCR (ML Kit) and posts the transcript here; the backend
+// runs it through Gemini and returns a structured product analysis. Every field
+// is optional/forgiving — the server only fills what the transcript supports
+// (honest-data: no fabricated values).
+class LabelTextAnalysis {
+  const LabelTextAnalysis({
+    required this.confidence,
+    this.productName,
+    this.brand,
+    this.category,
+    this.ingredients = const [],
+    this.allergens = const [],
+    this.nutritionalInfo = const {},
+    this.healthFlags = const [],
+    this.summary,
+    this.warnings = const [],
+  });
+
+  final String? productName;
+  final String? brand;
+  final String? category;
+  final List<String> ingredients;
+  final List<String> allergens;
+  final Map<String, num> nutritionalInfo;
+  final List<String> healthFlags;
+  final String? summary;
+
+  /// 0–1 confidence the analysis is trustworthy. Low values drive a
+  /// "try a clearer photo" hint rather than a confident card.
+  final double confidence;
+  final List<String> warnings;
+
+  /// True when there's anything worth rendering as a result card.
+  bool get hasContent =>
+      (productName != null && productName!.trim().isNotEmpty) ||
+      ingredients.isNotEmpty ||
+      (summary != null && summary!.trim().isNotEmpty);
+
+  factory LabelTextAnalysis.fromJson(Map<String, dynamic> json) {
+    List<String> strList(dynamic v) => (v is List)
+        ? v.whereType<String>().map((s) => s.trim()).where((s) => s.isNotEmpty).toList()
+        : const [];
+    Map<String, num> numMap(dynamic v) {
+      if (v is! Map) return const {};
+      final out = <String, num>{};
+      v.forEach((key, value) {
+        if (value is num) {
+          out[key.toString()] = value;
+        } else {
+          final parsed = num.tryParse(value.toString());
+          if (parsed != null) out[key.toString()] = parsed;
+        }
+      });
+      return out;
+    }
+
+    final conf = json['confidence'];
+    return LabelTextAnalysis(
+      productName: (json['productName'] as String?)?.trim(),
+      brand: (json['brand'] as String?)?.trim(),
+      category: (json['category'] as String?)?.trim(),
+      ingredients: strList(json['ingredients']),
+      allergens: strList(json['allergens']),
+      nutritionalInfo: numMap(json['nutritionalInfo']),
+      healthFlags: strList(json['healthFlags']),
+      summary: (json['summary'] as String?)?.trim(),
+      confidence: conf is num ? conf.toDouble() : 0.0,
+      warnings: strList(json['warnings']),
+    );
+  }
+}
+
 // ─── BE-41 — `GET /api/v1/products/:ean/alternatives` ────────────────────
 //
 // Each item is a healthier candidate in the same category as the source

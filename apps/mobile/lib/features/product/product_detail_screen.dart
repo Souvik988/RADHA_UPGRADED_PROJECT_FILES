@@ -6,9 +6,8 @@ import 'package:radha_mobile/core/auth/auth_controller.dart';
 import 'package:radha_mobile/core/network/api_client.dart';
 import 'package:radha_mobile/core/network/dto/misc_dto.dart';
 import 'package:radha_mobile/core/network/dto/product_dto.dart';
-import 'package:radha_mobile/design/app_assets.dart';
 import 'package:radha_mobile/design/tokens.dart';
-import 'package:radha_mobile/design/widgets/mor_companion.dart';
+import 'package:radha_mobile/design/widgets/error_state.dart';
 import 'package:radha_mobile/features/allergen/allergen_profile_screen.dart';
 import 'package:radha_mobile/features/product/widgets/health_label_chip.dart';
 
@@ -70,31 +69,16 @@ class ProductDetailScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Product Details')),
       body: productAsync.when(
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, _) => Center(
-          child: Padding(
-            padding: const EdgeInsets.all(RadhaSpacing.space24),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const MorCompanion(
-                  mood: MorMood.concern,
-                  size: 96,
-                  semanticLabel: 'Could not load',
-                ),
-                const SizedBox(height: RadhaSpacing.space16),
-                Text(
-                  'Failed to load product',
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
-                const SizedBox(height: RadhaSpacing.space8),
-                Text(
-                  error.toString(),
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.bodySmall,
-                ),
-              ],
-            ),
+        loading: () => const Center(
+          child: CircularProgressIndicator(color: RadhaColors.primary),
+        ),
+        error: (_, _) => Center(
+          child: ErrorState(
+            title: "Couldn't load this product",
+            body:
+                "We couldn't reach the product catalog just now. "
+                'Check your connection and try again.',
+            onRetry: () => ref.invalidate(productDetailProvider(ean)),
           ),
         ),
         data: (product) => _ProductDetailBody(product: product),
@@ -293,26 +277,55 @@ class _HealthAssessmentSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    // Derive health level from product — the API may not provide this yet,
-    // so we show a placeholder when the data isn't available.
+    // Honest-data: the V1 `ProductResponse` carries no health score or
+    // nutrition flags, so we must NOT fabricate a label. We render a clearly
+    // labelled "assessment pending" state instead. When the health endpoint
+    // is wired, swap this block for the real label + per-flag levels.
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Health Assessment', style: theme.textTheme.titleMedium),
+        Row(
+          children: [
+            Text('Health Assessment', style: theme.textTheme.titleMedium),
+            const Spacer(),
+            Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: RadhaSpacing.space12,
+                vertical: RadhaSpacing.space4,
+              ),
+              decoration: BoxDecoration(
+                color: theme.colorScheme.surfaceContainerLow,
+                borderRadius: BorderRadius.circular(RadhaRadii.radiusFull),
+              ),
+              child: Text(
+                'Assessment pending',
+                style: theme.textTheme.labelSmall?.copyWith(
+                  color: theme.colorScheme.onSurfaceVariant,
+                ),
+              ),
+            ),
+          ],
+        ),
         const SizedBox(height: RadhaSpacing.space12),
-        // Overall health label chip
-        const HealthLabelChip(label: 'Moderate', level: HealthLevel.moderate),
+        Text(
+          'Nutrition flags appear here once this product is matched in the '
+          'catalog. Scan more items to enrich the database.',
+          style: theme.textTheme.bodySmall?.copyWith(
+            color: RadhaColors.inkMuted,
+            height: 1.4,
+          ),
+        ),
         const SizedBox(height: RadhaSpacing.space12),
-        // Individual badges
+        // Flags render in a neutral "unknown" state — never a fabricated pass.
         Wrap(
           spacing: RadhaSpacing.space8,
           runSpacing: RadhaSpacing.space8,
           children: const [
-            _HealthBadge(label: 'Sugar', isFlag: false),
-            _HealthBadge(label: 'Salt', isFlag: false),
-            _HealthBadge(label: 'Fat', isFlag: false),
-            _HealthBadge(label: 'Processed', isFlag: false),
-            _HealthBadge(label: 'Child-suitable', isFlag: true),
+            _HealthBadge(label: 'Sugar'),
+            _HealthBadge(label: 'Salt'),
+            _HealthBadge(label: 'Fat'),
+            _HealthBadge(label: 'Processed'),
+            _HealthBadge(label: 'Child-suitable'),
           ],
         ),
       ],
@@ -321,22 +334,21 @@ class _HealthAssessmentSection extends StatelessWidget {
 }
 
 class _HealthBadge extends StatelessWidget {
-  const _HealthBadge({required this.label, required this.isFlag});
+  const _HealthBadge({required this.label});
 
   final String label;
-  final bool isFlag;
 
   @override
   Widget build(BuildContext context) {
+    // Neutral "unknown" chip — honest until real assessment data arrives.
+    final color = RadhaColors.inkMuted;
     return Container(
       padding: const EdgeInsets.symmetric(
         horizontal: RadhaSpacing.space8,
         vertical: RadhaSpacing.space4,
       ),
       decoration: BoxDecoration(
-        color: isFlag
-            ? RadhaColors.success.withValues(alpha: 0.1)
-            : RadhaColors.inkMuted.withValues(alpha: 0.08),
+        color: color.withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(RadhaRadii.radiusFull),
       ),
       child: Text(
@@ -344,7 +356,7 @@ class _HealthBadge extends StatelessWidget {
         style: TextStyle(
           fontSize: 11,
           fontWeight: FontWeight.w500,
-          color: isFlag ? RadhaColors.success : RadhaColors.inkMuted,
+          color: color,
         ),
       ),
     );
@@ -417,10 +429,10 @@ class _AllergenCheckSection extends ConsumerWidget {
         const SizedBox(height: RadhaSpacing.space8),
         allergenAsync.when(
           loading: () => const _SectionSkeleton(),
-          error: (error, _) => Text(
-            'Failed to check allergens: $error',
+          error: (_, _) => Text(
+            "We couldn't check allergens right now. Please try again.",
             style: theme.textTheme.bodySmall?.copyWith(
-              color: RadhaColors.danger,
+              color: theme.colorScheme.onSurfaceVariant,
             ),
           ),
           data: (allergens) {
@@ -557,11 +569,13 @@ class _IngredientExplainerSheet extends ConsumerWidget {
               Expanded(
                 child: explainerAsync.when(
                   loading: () => const _SectionSkeleton(),
-                  error: (error, _) => Center(
+                  error: (_, _) => Center(
                     child: Text(
-                      'Failed to explain ingredients: $error',
+                      "We couldn't explain these ingredients right now. "
+                      'Product details are still available.',
+                      textAlign: TextAlign.center,
                       style: theme.textTheme.bodySmall?.copyWith(
-                        color: RadhaColors.danger,
+                        color: theme.colorScheme.onSurfaceVariant,
                       ),
                     ),
                   ),
@@ -635,10 +649,10 @@ class _HealthyAlternativesSection extends ConsumerWidget {
         const SizedBox(height: RadhaSpacing.space8),
         altAsync.when(
           loading: () => const _SectionSkeleton(),
-          error: (error, _) => Text(
-            'Failed to load alternatives: $error',
+          error: (_, _) => Text(
+            "We couldn't load alternatives right now. Please try again.",
             style: theme.textTheme.bodySmall?.copyWith(
-              color: RadhaColors.danger,
+              color: theme.colorScheme.onSurfaceVariant,
             ),
           ),
           data: (result) {
@@ -718,9 +732,11 @@ class _HealthyAlternativesSection extends ConsumerWidget {
       messenger.showSnackBar(
         const SnackBar(content: Text('Added to shopping list')),
       );
-    } catch (e) {
+    } catch (_) {
       messenger.showSnackBar(
-        SnackBar(content: Text('Could not add to list: $e')),
+        const SnackBar(
+          content: Text('Could not add to shopping list. Please try again.'),
+        ),
       );
     }
   }

@@ -1,14 +1,24 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
 import '../../core/router/app_router.dart';
 import '../../design/theme.dart';
 import '../../design/tokens.dart';
 import 'utils/ean_validator.dart';
+
+/// Side length of the central scan window / reticle, in logical pixels.
+const double _kFrame = 260;
+
+/// After this long with no successful scan we surface the "trouble scanning?"
+/// helper (flash + scan-the-label fallback).
+const Duration _kHelpAfter = Duration(seconds: 8);
 
 /// Local session-scoped scan history. Resets when the app is killed.
 final _scanHistoryProvider = StateProvider<List<String>>((ref) => []);
@@ -30,6 +40,20 @@ class _ScanScreenState extends ConsumerState<ScanScreen> {
   bool _torchOn = false;
   bool _processing = false;
 
+  // Batch (continuous) scan mode — built for staff doing shelf audits.
+  bool _batchMode = false;
+  int _batchCount = 0;
+  String? _lastBatchCode;
+  DateTime? _lastBatchAt;
+
+  // Pinch-zoom state (mobile_scanner uses a normalised 0..1 zoom scale).
+  double _zoom = 0;
+  double _baseZoom = 0;
+
+  // Low-light / no-detection helper.
+  bool _showHelp = false;
+  Timer? _helpTimer;
+
   final TextEditingController _webEanController = TextEditingController();
 
   @override
@@ -37,29 +61,81 @@ class _ScanScreenState extends ConsumerState<ScanScreen> {
     super.initState();
     if (!kIsWeb) {
       _controller = MobileScannerController(
-        detectionSpeed: DetectionSpeed.normal,
+        // `noDuplicates` debounces repeated reads of the same code — better for
+        // both single and batch modes.
+        detectionSpeed: DetectionSpeed.noDuplicates,
         facing: CameraFacing.back,
+        // Restrict to retail barcode symbologies → faster lock-on, fewer
+        // false reads from QR/other codes on packaging.
+        formats: const [
+          BarcodeFormat.ean13,
+          BarcodeFormat.ean8,
+          BarcodeFormat.upcA,
+          BarcodeFormat.upcE,
+        ],
       );
+      _startHelpTimer();
     }
   }
 
   @override
   void dispose() {
+    _helpTimer?.cancel();
     _controller?.dispose();
     _webEanController.dispose();
     super.dispose();
   }
 
+  void _startHelpTimer() {
+    _helpTimer?.cancel();
+    if (mounted) setState(() => _showHelp = false);
+    _helpTimer = Timer(_kHelpAfter, () {
+      if (mounted && !_batchMode) setState(() => _showHelp = true);
+    });
+  }
+
+  /// First valid EAN/UPC in the capture, or null.
+  String? _firstValidCode(BarcodeCapture capture) {
+    for (final b in capture.barcodes) {
+      final v = b.rawValue;
+      if (v != null && isValidEan(v)) return v;
+    }
+    return null;
+  }
+
   void _onBarcodeDetected(BarcodeCapture capture) {
+    final code = _firstValidCode(capture);
+    if (code == null) return;
+
+    if (_batchMode) {
+      // Debounce the same code so a lingering item isn't counted repeatedly.
+      final now = DateTime.now();
+      if (_lastBatchCode == code &&
+          _lastBatchAt != null &&
+          now.difference(_lastBatchAt!).inMilliseconds < 2500) {
+        return;
+      }
+      _lastBatchCode = code;
+      _lastBatchAt = now;
+      HapticFeedback.lightImpact();
+      ref.read(_scanHistoryProvider.notifier).update((list) => [code, ...list]);
+      setState(() => _batchCount++);
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(
+          SnackBar(
+            duration: const Duration(milliseconds: 900),
+            behavior: SnackBarBehavior.floating,
+            content: Text('Added $code  ·  $_batchCount scanned'),
+          ),
+        );
+      return;
+    }
+
     if (_processing) return;
-    final barcode = capture.barcodes.firstOrNull;
-    if (barcode == null || barcode.rawValue == null) return;
-
-    final code = barcode.rawValue!;
-    if (!isValidEan(code)) return;
-
     _processing = true;
     HapticFeedback.mediumImpact();
+    _helpTimer?.cancel();
     _controller?.stop();
 
     ref.read(_scanHistoryProvider.notifier).update((list) => [code, ...list]);
@@ -68,8 +144,64 @@ class _ScanScreenState extends ConsumerState<ScanScreen> {
       if (mounted) {
         _processing = false;
         _controller?.start();
+        _startHelpTimer();
       }
     });
+  }
+
+  void _toggleBatchMode() {
+    HapticFeedback.selectionClick();
+    setState(() {
+      _batchMode = !_batchMode;
+      _batchCount = 0;
+      _lastBatchCode = null;
+      _showHelp = false;
+    });
+    if (_batchMode) {
+      _helpTimer?.cancel();
+    } else {
+      _startHelpTimer();
+    }
+  }
+
+  void _onZoomStart(ScaleStartDetails _) => _baseZoom = _zoom;
+
+  void _onZoomUpdate(ScaleUpdateDetails details) {
+    if (_controller == null) return;
+    final next = (_baseZoom + (details.scale - 1) * 0.6).clamp(0.0, 1.0);
+    if ((next - _zoom).abs() < 0.005) return;
+    setState(() => _zoom = next);
+    _controller!.setZoomScale(next);
+  }
+
+  void _openLabelScan() {
+    HapticFeedback.selectionClick();
+    context.push(AppRoute.labelScan);
+  }
+
+  Future<void> _galleryImport() async {
+    HapticFeedback.selectionClick();
+    final XFile? file = await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (file == null || !mounted) return;
+    final capture = await _controller?.analyzeImage(file.path);
+    final code = capture == null ? null : _firstValidCode(capture);
+    if (!mounted) return;
+    if (code != null) {
+      HapticFeedback.mediumImpact();
+      ref.read(_scanHistoryProvider.notifier).update((list) => [code, ...list]);
+      context.push('/scan/result/$code');
+    } else {
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(
+          const SnackBar(
+            behavior: SnackBarBehavior.floating,
+            content: Text(
+              "No barcode found. Tip: use 'Scan label' to read the ingredients.",
+            ),
+          ),
+        );
+    }
   }
 
   void _onWebLookup() {
@@ -127,16 +259,33 @@ class _ScanScreenState extends ConsumerState<ScanScreen> {
   }
 
   Widget _buildCameraScanner(BuildContext context) {
-    final topPad = MediaQuery.of(context).padding.top;
-    final bottomPad = MediaQuery.of(context).padding.bottom;
+    final media = MediaQuery.of(context);
+    final topPad = media.padding.top;
+    final bottomPad = media.padding.bottom;
+    // Restrict detection to the central reticle for faster, steadier lock-on.
+    final scanWindow = Rect.fromCenter(
+      center: Offset(media.size.width / 2, media.size.height / 2),
+      width: _kFrame,
+      height: _kFrame,
+    );
 
     return Scaffold(
       backgroundColor: RadhaColors.ink,
       body: Stack(
         fit: StackFit.expand,
         children: [
-          // Full-screen camera preview.
-          MobileScanner(controller: _controller!, onDetect: _onBarcodeDetected),
+          // Full-screen camera preview. Pinch to zoom; detection is limited to
+          // the central window so off-centre packaging codes don't mis-trigger.
+          GestureDetector(
+            onScaleStart: _onZoomStart,
+            onScaleUpdate: _onZoomUpdate,
+            child: MobileScanner(
+              controller: _controller!,
+              onDetect: _onBarcodeDetected,
+              scanWindow: scanWindow,
+              fit: BoxFit.cover,
+            ),
+          ),
 
           // Dimmed scrim with a clear centre cut-out + animated reticle.
           const Positioned.fill(child: _ScannerReticle()),
@@ -165,6 +314,14 @@ class _ScanScreenState extends ConsumerState<ScanScreen> {
                   ),
                 ),
                 _CircularIconButton(
+                  icon: _batchMode
+                      ? Icons.dynamic_feed_rounded
+                      : Icons.filter_none_rounded,
+                  active: _batchMode,
+                  onTap: _toggleBatchMode,
+                ),
+                const SizedBox(width: RadhaSpacing.space8),
+                _CircularIconButton(
                   icon: _torchOn
                       ? Icons.flash_on_rounded
                       : Icons.flash_off_rounded,
@@ -175,15 +332,25 @@ class _ScanScreenState extends ConsumerState<ScanScreen> {
             ),
           ),
 
-          // Helper pill below the frame.
-          const Positioned(
-            left: 0,
-            right: 0,
-            bottom: 188,
-            child: Center(child: _HelperPill()),
+          // Dynamic helper below the frame: a low-light/no-detection rescue
+          // card after a few idle seconds, a batch-mode hint, or the default
+          // alignment nudge.
+          Positioned(
+            left: RadhaSpacing.space24,
+            right: RadhaSpacing.space24,
+            bottom: 184,
+            child: Center(
+              child: _showHelp
+                  ? _TroubleCard(onFlash: _toggleTorch, onLabel: _openLabelScan)
+                  : _HelperPill(
+                      text: _batchMode
+                          ? 'Batch mode — keep scanning, items add automatically'
+                          : 'Align the barcode within the frame',
+                    ),
+            ),
           ),
 
-          // Bottom controls: manual entry + bulk audit + scan history.
+          // Bottom controls.
           Positioned(
             left: RadhaSpacing.space24,
             right: RadhaSpacing.space24,
@@ -193,6 +360,22 @@ class _ScanScreenState extends ConsumerState<ScanScreen> {
               spacing: RadhaSpacing.space12,
               runSpacing: RadhaSpacing.space12,
               children: [
+                if (_batchMode)
+                  _PillTextButton(
+                    icon: Icons.check_circle_rounded,
+                    label: 'Done · $_batchCount',
+                    onTap: _toggleBatchMode,
+                  ),
+                _PillTextButton(
+                  icon: Icons.document_scanner_outlined,
+                  label: 'Scan label',
+                  onTap: _openLabelScan,
+                ),
+                _PillTextButton(
+                  icon: Icons.photo_library_outlined,
+                  label: 'Gallery',
+                  onTap: _galleryImport,
+                ),
                 _PillTextButton(
                   icon: Icons.keyboard_rounded,
                   label: 'Enter manually',
@@ -401,7 +584,9 @@ class _ReticlePainter extends CustomPainter {
 // ─── Small UI pieces ─────────────────────────────────────────────────────────
 
 class _HelperPill extends StatelessWidget {
-  const _HelperPill();
+  const _HelperPill({required this.text});
+
+  final String text;
 
   @override
   Widget build(BuildContext context) {
@@ -415,10 +600,72 @@ class _HelperPill extends StatelessWidget {
         borderRadius: BorderRadius.circular(RadhaRadii.radiusFull),
       ),
       child: Text(
-        'Align the barcode within the frame',
+        text,
+        textAlign: TextAlign.center,
         style: Theme.of(context).textTheme.bodySmall?.copyWith(
           color: RadhaColors.onPrimary,
         ),
+      ),
+    );
+  }
+}
+
+/// Appears after a few seconds of no successful scan — the low-light / damaged
+/// barcode rescue. Offers the flash and the OCR "scan the label" fallback so
+/// the user is never stuck on a barcode that won't read.
+class _TroubleCard extends StatelessWidget {
+  const _TroubleCard({required this.onFlash, required this.onLabel});
+
+  final VoidCallback onFlash;
+  final VoidCallback onLabel;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Container(
+      padding: const EdgeInsets.all(RadhaSpacing.space16),
+      decoration: BoxDecoration(
+        color: RadhaColors.ink.withValues(alpha: 0.82),
+        borderRadius: BorderRadius.circular(RadhaRadii.radiusLg),
+        border: Border.all(color: RadhaColors.onPrimary.withValues(alpha: 0.12)),
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            'Trouble scanning?',
+            style: theme.textTheme.titleSmall?.copyWith(
+              color: RadhaColors.onPrimary,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          const SizedBox(height: RadhaSpacing.space4),
+          Text(
+            'Low light or a damaged barcode? Turn on the flash, or read the '
+            'label instead.',
+            textAlign: TextAlign.center,
+            style: theme.textTheme.bodySmall?.copyWith(
+              color: RadhaColors.onPrimary.withValues(alpha: 0.85),
+            ),
+          ),
+          const SizedBox(height: RadhaSpacing.space12),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _PillTextButton(
+                icon: Icons.flash_on_rounded,
+                label: 'Flash',
+                onTap: onFlash,
+              ),
+              const SizedBox(width: RadhaSpacing.space12),
+              _PillTextButton(
+                icon: Icons.document_scanner_outlined,
+                label: 'Scan label',
+                onTap: onLabel,
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

@@ -63,10 +63,18 @@ void main() {
     await tester.pumpWidget(
       UncontrolledProviderScope(container: container, child: const RadhaApp()),
     );
-    await tester.pumpAndSettle();
+    // Boots to /home (Mor mascot perpetual idle) — pump bounded frames
+    // instead of `pumpAndSettle` to avoid an animation timeout.
+    await tester.pump();
+    for (var i = 0; i < 12; i++) {
+      await tester.pump(const Duration(milliseconds: 100));
+    }
 
     container.read(appRouterProvider).go('/scan/result/$ean');
-    await tester.pumpAndSettle();
+    // The scan-result screen may render Mor in some states; bounded pump.
+    for (var i = 0; i < 12; i++) {
+      await tester.pump(const Duration(milliseconds: 100));
+    }
 
     expect(find.text('Scan Result'), findsOneWidget);
     expect(find.text('Britannia Marie Gold'), findsOneWidget);

@@ -85,7 +85,7 @@ class _ShoppingListScreenState extends ConsumerState<ShoppingListScreen> {
       ),
       body: listAsync.when(
         loading: () => const _ShoppingSkeleton(),
-        error: (error, _) => _buildError(context, error),
+        error: (_, _) => _buildError(context),
         data: (response) => _buildList(context, response),
       ),
     );
@@ -93,7 +93,7 @@ class _ShoppingListScreenState extends ConsumerState<ShoppingListScreen> {
 
   // ── Body builders ─────────────────────────────────────────────────────
 
-  Widget _buildError(BuildContext context, Object error) {
+  Widget _buildError(BuildContext context) {
     final theme = Theme.of(context);
     return Padding(
       padding: const EdgeInsets.all(RadhaSpacing.space24),
@@ -110,7 +110,8 @@ class _ShoppingListScreenState extends ConsumerState<ShoppingListScreen> {
           Text('Could not load your list', style: theme.textTheme.titleMedium),
           const SizedBox(height: RadhaSpacing.space8),
           Text(
-            error.toString(),
+            "We couldn't load your shopping list. Please try again.",
+            textAlign: TextAlign.center,
             style: theme.textTheme.bodySmall?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
             ),
@@ -227,9 +228,9 @@ class _ShoppingListScreenState extends ConsumerState<ShoppingListScreen> {
       );
       if (!mounted) return;
       ref.invalidate(shoppingListProvider);
-    } catch (e) {
+    } catch (_) {
       if (!mounted) return;
-      _showSnack('Could not update item: $e');
+      _showSnack('Could not update the item. Please try again.');
     } finally {
       if (mounted) {
         setState(() => _busyItemIds.remove(item.id));
@@ -245,9 +246,9 @@ class _ShoppingListScreenState extends ConsumerState<ShoppingListScreen> {
       await client.deleteShoppingListItem(item.id);
       if (!mounted) return;
       ref.invalidate(shoppingListProvider);
-    } catch (e) {
+    } catch (_) {
       if (!mounted) return;
-      _showSnack('Could not delete item: $e');
+      _showSnack('Could not delete the item. Please try again.');
     } finally {
       if (mounted) {
         setState(() => _busyItemIds.remove(item.id));
@@ -271,9 +272,9 @@ class _ShoppingListScreenState extends ConsumerState<ShoppingListScreen> {
       if (!mounted) return;
       HapticFeedback.lightImpact();
       ref.invalidate(shoppingListProvider);
-    } catch (e) {
+    } catch (_) {
       if (!mounted) return;
-      _showSnack('Could not add item: $e');
+      _showSnack('Could not add the item. Please try again.');
     }
   }
 

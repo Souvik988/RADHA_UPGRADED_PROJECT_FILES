@@ -1,7 +1,7 @@
 import { Global, Module } from '@nestjs/common';
 
 import { MockSmsProvider } from './providers/mock-sms.provider';
-import { Msg91SmsProvider } from './providers/msg91.provider';
+import { TwoFactorSmsProvider } from './providers/twofactor.provider';
 import { SmsService } from './sms.service';
 
 /**
@@ -14,7 +14,7 @@ import { SmsService } from './sms.service';
  */
 @Global()
 @Module({
-  providers: [MockSmsProvider, Msg91SmsProvider, SmsService],
-  exports: [SmsService, MockSmsProvider, Msg91SmsProvider],
+  providers: [MockSmsProvider, TwoFactorSmsProvider, SmsService],
+  exports: [SmsService, MockSmsProvider, TwoFactorSmsProvider],
 })
 export class SmsModule {}

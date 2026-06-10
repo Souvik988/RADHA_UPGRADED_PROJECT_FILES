@@ -12,11 +12,97 @@ import '../../design/tokens.dart';
 import '../../design/widgets/empty_state.dart';
 import '../../design/widgets/mor_companion.dart';
 
-/// Provider that fetches GRNs from the backend.
-final _grnsProvider = FutureProvider.autoDispose<PaginatedGrns>((ref) async {
-  final client = ref.watch(apiClientProvider);
-  return client.getGrns();
-});
+/// Paginated GRN list state — keeps loaded items + the page cursor so we can
+/// append more rows on scroll without rebuilding the whole list.
+class _GrnListState {
+  const _GrnListState({
+    required this.items,
+    required this.cursor,
+    required this.hasMore,
+    required this.loadingMore,
+  });
+
+  final List<GrnResponse> items;
+  final String? cursor;
+  final bool hasMore;
+  final bool loadingMore;
+
+  _GrnListState copyWith({
+    List<GrnResponse>? items,
+    Object? cursor = _sentinel,
+    bool? hasMore,
+    bool? loadingMore,
+  }) {
+    return _GrnListState(
+      items: items ?? this.items,
+      cursor: identical(cursor, _sentinel) ? this.cursor : cursor as String?,
+      hasMore: hasMore ?? this.hasMore,
+      loadingMore: loadingMore ?? this.loadingMore,
+    );
+  }
+
+  static const _sentinel = Object();
+}
+
+/// Cursor-paginated GRN list controller (mirrors the inventory list pattern).
+class _GrnListController extends AutoDisposeAsyncNotifier<_GrnListState> {
+  static const _pageSize = 30;
+
+  @override
+  Future<_GrnListState> build() async {
+    final client = ref.watch(apiClientProvider);
+    final page = await client.getGrns(limit: _pageSize);
+    return _GrnListState(
+      items: page.items,
+      cursor: page.cursor,
+      hasMore: page.cursor != null && page.items.length >= _pageSize,
+      loadingMore: false,
+    );
+  }
+
+  Future<void> refresh() async {
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() async {
+      final client = ref.read(apiClientProvider);
+      final page = await client.getGrns(limit: _pageSize);
+      return _GrnListState(
+        items: page.items,
+        cursor: page.cursor,
+        hasMore: page.cursor != null && page.items.length >= _pageSize,
+        loadingMore: false,
+      );
+    });
+  }
+
+  /// Append the next page when a cursor is available. Errors keep the
+  /// already-loaded rows in place (no data loss on a failed page).
+  Future<void> loadMore() async {
+    final current = state.valueOrNull;
+    if (current == null) return;
+    if (!current.hasMore || current.loadingMore) return;
+
+    state = AsyncValue.data(current.copyWith(loadingMore: true));
+    try {
+      final client = ref.read(apiClientProvider);
+      final page = await client.getGrns(cursor: current.cursor, limit: _pageSize);
+      state = AsyncValue.data(
+        _GrnListState(
+          items: [...current.items, ...page.items],
+          cursor: page.cursor,
+          hasMore: page.cursor != null && page.items.length >= _pageSize,
+          loadingMore: false,
+        ),
+      );
+    } catch (_) {
+      state = AsyncValue.data(current.copyWith(loadingMore: false));
+    }
+  }
+}
+
+final _grnListControllerProvider =
+    AsyncNotifierProvider.autoDispose<_GrnListController, _GrnListState>(
+      _GrnListController.new,
+    );
 
 /// GRN list — status filter tabs (Draft / Pending review / Posted), polished
 /// supplier cards with status pills, invoice meta, and a mono rupee total.
@@ -29,6 +115,7 @@ class GrnListScreen extends ConsumerStatefulWidget {
 
 class _GrnListScreenState extends ConsumerState<GrnListScreen> {
   String? _statusFilter;
+  final _scrollController = ScrollController();
 
   static const _filters = <(String?, String)>[
     (null, 'All'),
@@ -38,9 +125,31 @@ class _GrnListScreenState extends ConsumerState<GrnListScreen> {
   ];
 
   @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_onScroll);
+  }
+
+  @override
+  void dispose() {
+    _scrollController
+      ..removeListener(_onScroll)
+      ..dispose();
+    super.dispose();
+  }
+
+  void _onScroll() {
+    if (!_scrollController.hasClients) return;
+    final position = _scrollController.position;
+    if (position.pixels >= position.maxScrollExtent - 200) {
+      ref.read(_grnListControllerProvider.notifier).loadMore();
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final grnsAsync = ref.watch(_grnsProvider);
+    final grnsAsync = ref.watch(_grnListControllerProvider);
 
     return Scaffold(
       backgroundColor: theme.colorScheme.surface,
@@ -67,10 +176,11 @@ class _GrnListScreenState extends ConsumerState<GrnListScreen> {
             child: grnsAsync.when(
               loading: () => const _GrnSkeleton(),
               error: (err, _) => _GrnError(
-                onRetry: () => ref.invalidate(_grnsProvider),
+                onRetry: () =>
+                    ref.read(_grnListControllerProvider.notifier).refresh(),
               ),
-              data: (paginated) {
-                var items = [...paginated.items];
+              data: (state) {
+                var items = [...state.items];
                 if (_statusFilter != null) {
                   items = items
                       .where((g) => g.status == _statusFilter)
@@ -85,7 +195,9 @@ class _GrnListScreenState extends ConsumerState<GrnListScreen> {
                 if (items.isEmpty) {
                   return RefreshIndicator(
                     color: RadhaColors.primary,
-                    onRefresh: () async => ref.invalidate(_grnsProvider),
+                    onRefresh: () async => ref
+                        .read(_grnListControllerProvider.notifier)
+                        .refresh(),
                     child: ListView(
                       physics: const AlwaysScrollableScrollPhysics(
                         parent: BouncingScrollPhysics(),
@@ -110,10 +222,17 @@ class _GrnListScreenState extends ConsumerState<GrnListScreen> {
                   );
                 }
 
+                // Only show the load-more footer when the full (unfiltered)
+                // list has more pages — a client-side status filter shouldn't
+                // imply more rows are coming.
+                final showFooter = state.loadingMore && _statusFilter == null;
                 return RefreshIndicator(
                   color: RadhaColors.primary,
-                  onRefresh: () async => ref.invalidate(_grnsProvider),
+                  onRefresh: () async => ref
+                      .read(_grnListControllerProvider.notifier)
+                      .refresh(),
                   child: ListView.separated(
+                    controller: _scrollController,
                     physics: const AlwaysScrollableScrollPhysics(
                       parent: BouncingScrollPhysics(),
                     ),
@@ -123,11 +242,22 @@ class _GrnListScreenState extends ConsumerState<GrnListScreen> {
                       RadhaSpacing.space20,
                       RadhaSpacing.space32 + 72,
                     ),
-                    itemCount: items.length,
+                    itemCount: items.length + (showFooter ? 1 : 0),
                     separatorBuilder: (_, _) =>
                         const SizedBox(height: RadhaSpacing.space12),
-                    itemBuilder: (context, index) =>
-                        _GrnTile(grn: items[index]),
+                    itemBuilder: (context, index) {
+                      if (index >= items.length) {
+                        return const Padding(
+                          padding: EdgeInsets.all(RadhaSpacing.space16),
+                          child: Center(
+                            child: CircularProgressIndicator(
+                              color: RadhaColors.primary,
+                            ),
+                          ),
+                        );
+                      }
+                      return _GrnTile(grn: items[index]);
+                    },
                   ),
                 );
               },

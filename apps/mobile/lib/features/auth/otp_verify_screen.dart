@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -14,6 +15,7 @@ import '../../core/network/dto/onboarding_dto.dart';
 import '../../core/network/error_codes.dart';
 import '../../core/router/app_router.dart';
 import '../../design/app_assets.dart';
+import '../../design/theme.dart';
 import '../../design/tokens.dart';
 import '../../design/widgets/mor_celebration.dart';
 import '../../design/widgets/mor_companion.dart';
@@ -36,10 +38,16 @@ class OtpVerifyScreen extends ConsumerStatefulWidget {
     super.key,
     required this.mobile,
     required this.requestId,
+    this.devOtp,
   });
 
   final String mobile;
   final String requestId;
+
+  /// Dev/test only — the OTP echoed back by a development server, so the code
+  /// can be shown/filled in the app without tailing server logs. Surfaced only
+  /// in debug builds (gated by `kDebugMode`); always null in release.
+  final String? devOtp;
 
   @override
   ConsumerState<OtpVerifyScreen> createState() => _OtpVerifyScreenState();
@@ -331,6 +339,16 @@ class _OtpVerifyScreenState extends ConsumerState<OtpVerifyScreen> {
                           ),
                         ],
                       ),
+                      if (kDebugMode && widget.devOtp != null) ...[
+                        const SizedBox(height: RadhaSpacing.space16),
+                        _DevOtpBanner(
+                          otp: widget.devOtp!,
+                          onUse: () {
+                            _pinController.text = widget.devOtp!;
+                            _verify(widget.devOtp!);
+                          },
+                        ),
+                      ],
                       const SizedBox(height: RadhaSpacing.space32),
                       Pinput(
                         controller: _pinController,
@@ -421,6 +439,73 @@ class _OtpVerifyScreenState extends ConsumerState<OtpVerifyScreen> {
             );
           },
         ),
+      ),
+    );
+  }
+}
+
+/// Dev-only helper banner — shows the OTP a development server echoed back so
+/// testers don't have to read server logs. Gated by `kDebugMode` at the call
+/// site, so it never appears in release builds.
+class _DevOtpBanner extends StatelessWidget {
+  const _DevOtpBanner({required this.otp, required this.onUse});
+
+  final String otp;
+  final VoidCallback onUse;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: RadhaSpacing.space16,
+        vertical: RadhaSpacing.space12,
+      ),
+      decoration: BoxDecoration(
+        color: RadhaColors.complement.withValues(alpha: 0.08),
+        borderRadius: BorderRadius.circular(RadhaRadii.radiusMd),
+        border: Border.all(color: RadhaColors.complement.withValues(alpha: 0.5)),
+      ),
+      child: Row(
+        children: [
+          const Icon(
+            Icons.bug_report_outlined,
+            size: 18,
+            color: RadhaColors.complement,
+          ),
+          const SizedBox(width: RadhaSpacing.space8),
+          Expanded(
+            child: Text.rich(
+              TextSpan(
+                text: 'DEV · OTP ',
+                style: theme.textTheme.bodySmall?.copyWith(
+                  color: theme.colorScheme.onSurfaceVariant,
+                ),
+                children: [
+                  TextSpan(
+                    text: otp,
+                    style: radhaMonoStyle(
+                      fontSize: 14,
+                      weight: FontWeight.w700,
+                      color: RadhaColors.complement,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          TextButton(
+            onPressed: onUse,
+            style: TextButton.styleFrom(
+              padding: const EdgeInsets.symmetric(
+                horizontal: RadhaSpacing.space8,
+              ),
+              minimumSize: Size.zero,
+              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            ),
+            child: const Text('Use code'),
+          ),
+        ],
       ),
     );
   }

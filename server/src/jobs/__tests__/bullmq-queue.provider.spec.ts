@@ -1,7 +1,5 @@
 import { EventEmitter } from 'events';
 
-import { Logger } from '@nestjs/common';
-
 import type { ConfigService } from '@/config/config.service';
 
 /**
@@ -14,6 +12,12 @@ import type { ConfigService } from '@/config/config.service';
  *   2. ioredis emits repeated `'error'` events (Redis unreachable)
  *      → only ONE `bullmq.redis.error` warn fires across the
  *      lifetime of the process.
+ *
+ * NOTE: each case `jest.resetModules()` + dynamically imports the provider so
+ * the `bullmq`/`ioredis` mocks take effect. That means the provider resolves a
+ * FRESH `@nestjs/common` — so we must re-import `Logger` from that same fresh
+ * graph and spy on it there, otherwise the spy sits on a different `Logger`
+ * class and never sees the provider's calls.
  */
 
 const mkConfig = (): ConfigService =>
@@ -39,9 +43,17 @@ describe('BullMqBootstrapService', () => {
   });
 
   it('returns null and logs bullmq.disabled when bullmq/ioredis are unavailable', async () => {
-    jest.doMock('bullmq', () => null);
-    jest.doMock('ioredis', () => null);
+    // A module that fails to load → the provider's `import().catch(() => null)`
+    // yields `null`, taking the "disabled" path. (A factory returning `null`
+    // would still resolve to a truthy namespace, so it must reject.)
+    jest.doMock('bullmq', () => {
+      throw new Error('bullmq not installed');
+    });
+    jest.doMock('ioredis', () => {
+      throw new Error('ioredis not installed');
+    });
 
+    const { Logger } = await import('@nestjs/common');
     const warn = jest.spyOn(Logger.prototype, 'warn').mockImplementation(() => undefined);
 
     const { BullMqBootstrapService } = await import('../bullmq-queue.provider');
@@ -96,6 +108,7 @@ describe('BullMqBootstrapService', () => {
       Worker: FakeWorker,
     }));
 
+    const { Logger } = await import('@nestjs/common');
     const warn = jest.spyOn(Logger.prototype, 'warn').mockImplementation(() => undefined);
 
     const { BullMqBootstrapService } = await import('../bullmq-queue.provider');
