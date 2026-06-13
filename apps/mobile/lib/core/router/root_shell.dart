@@ -4,7 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../design/widgets/connectivity_banner.dart';
+import '../../design/widgets/radha_bottom_navigation.dart';
 import '../../features/sync/sync_status_banner.dart';
+import '../../l10n/generated/app_localizations.dart';
 import '../offline/sync_service.dart';
 
 /// Five-tab bottom-navigation shell that hosts the primary feature surfaces:
@@ -39,9 +41,10 @@ class RootShell extends ConsumerWidget {
           const ConnectivityBanner(),
         ],
       ),
-      bottomNavigationBar: _RootBottomNav(
+      bottomNavigationBar: RadhaBottomNavigation(
         currentIndex: navigationShell.currentIndex,
-        onTap: (index) {
+        destinations: _destinations(context),
+        onDestinationSelected: (index) {
           // Light selection haptic on tab switch — `selectionClick` is the
           // platform-recommended cue for low-priority discrete events.
           HapticFeedback.selectionClick();
@@ -54,54 +57,42 @@ class RootShell extends ConsumerWidget {
       ),
     );
   }
-}
 
-class _RootBottomNav extends StatelessWidget {
-  const _RootBottomNav({required this.currentIndex, required this.onTap});
-
-  final int currentIndex;
-  final ValueChanged<int> onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        border: Border(
-          top: BorderSide(color: theme.colorScheme.outline, width: 1),
-        ),
+  /// The five fixed branches: Home, Scan, Expiry, Tasks, Profile. Order matches
+  /// the `StatefulShellBranch` order in `app_router.dart` and must not change.
+  /// Labels are localized; Scan is the emphasized primary action.
+  ///
+  /// No `badgeCount` is supplied — counts are wired only when a real provider
+  /// exists, so the bar never shows a fabricated number.
+  List<RadhaNavDestination> _destinations(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    return [
+      RadhaNavDestination(
+        icon: Icons.home_outlined,
+        selectedIcon: Icons.home_rounded,
+        label: l10n.home,
       ),
-      child: NavigationBar(
-        selectedIndex: currentIndex,
-        onDestinationSelected: onTap,
-        destinations: const [
-          NavigationDestination(
-            icon: Icon(Icons.home_outlined),
-            selectedIcon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.qr_code_scanner_outlined),
-            selectedIcon: Icon(Icons.qr_code_scanner),
-            label: 'Scan',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.event_outlined),
-            selectedIcon: Icon(Icons.event),
-            label: 'Expiry',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.checklist_outlined),
-            selectedIcon: Icon(Icons.checklist),
-            label: 'Tasks',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.person_outline),
-            selectedIcon: Icon(Icons.person),
-            label: 'Profile',
-          ),
-        ],
+      RadhaNavDestination(
+        icon: Icons.qr_code_scanner_rounded,
+        selectedIcon: Icons.qr_code_scanner_rounded,
+        label: l10n.scan,
+        emphasized: true,
       ),
-    );
+      RadhaNavDestination(
+        icon: Icons.event_outlined,
+        selectedIcon: Icons.event_rounded,
+        label: l10n.expiry,
+      ),
+      RadhaNavDestination(
+        icon: Icons.checklist_outlined,
+        selectedIcon: Icons.checklist_rounded,
+        label: l10n.tasks,
+      ),
+      RadhaNavDestination(
+        icon: Icons.person_outline_rounded,
+        selectedIcon: Icons.person_rounded,
+        label: l10n.profile,
+      ),
+    ];
   }
 }

@@ -125,37 +125,121 @@ class _ProductBrowseScreenState extends ConsumerState<ProductBrowseScreen> {
                     onClearVeg: () => setState(() => _vegOnly = false),
                   );
                 }
-                return RefreshIndicator(
-                  color: RadhaColors.primary,
-                  onRefresh: () async =>
-                      ref.invalidate(categoryBrowseProvider(args)),
-                  child: GridView.builder(
-                    controller: _scrollController,
-                    physics: const AlwaysScrollableScrollPhysics(
-                      parent: BouncingScrollPhysics(),
-                    ),
-                    padding: const EdgeInsets.all(RadhaSpacing.space20),
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          childAspectRatio: 0.66,
-                          crossAxisSpacing: RadhaSpacing.space12,
-                          mainAxisSpacing: RadhaSpacing.space12,
+                return Column(
+                  children: [
+                    // Honest provenance: when the rows aren't live, say so and
+                    // offer a retry — the bundled catalog still renders below.
+                    if (state.source != CatalogSource.live)
+                      _CatalogSourceBanner(
+                        source: state.source,
+                        onRetry: () =>
+                            ref.invalidate(categoryBrowseProvider(args)),
+                      ),
+                    Expanded(
+                      child: RefreshIndicator(
+                        color: RadhaColors.primary,
+                        onRefresh: () async =>
+                            ref.invalidate(categoryBrowseProvider(args)),
+                        child: GridView.builder(
+                          controller: _scrollController,
+                          physics: const AlwaysScrollableScrollPhysics(
+                            parent: BouncingScrollPhysics(),
+                          ),
+                          padding: const EdgeInsets.all(RadhaSpacing.space20),
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                childAspectRatio: 0.66,
+                                crossAxisSpacing: RadhaSpacing.space12,
+                                mainAxisSpacing: RadhaSpacing.space12,
+                              ),
+                          // +1 trailing cell for the load-more footer.
+                          itemCount: items.length + (state.loadingMore ? 2 : 0),
+                          itemBuilder: (context, i) {
+                            if (i >= items.length) {
+                              return const _LoadingMoreCell();
+                            }
+                            return RepaintBoundary(
+                              child: _ProductCard(product: items[i]),
+                            );
+                          },
                         ),
-                    // +1 trailing cell for the load-more footer when paging.
-                    itemCount: items.length + (state.loadingMore ? 2 : 0),
-                    itemBuilder: (context, i) {
-                      if (i >= items.length) {
-                        return const _LoadingMoreCell();
-                      }
-                      return RepaintBoundary(
-                        child: _ProductCard(product: items[i]),
-                      );
-                    },
-                  ),
+                      ),
+                    ),
+                  ],
                 );
               },
             ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// ─── Catalog source banner (honest offline / unavailable cue) ──────────────
+
+/// A slim, non-blocking strip shown above the grid when the visible rows are
+/// the bundled catalog rather than live server data. Communicates *why* (icon +
+/// text, never colour-alone) and offers a retry. The grid stays usable below.
+class _CatalogSourceBanner extends StatelessWidget {
+  const _CatalogSourceBanner({required this.source, required this.onRetry});
+
+  final CatalogSource source;
+  final VoidCallback onRetry;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final offline = source == CatalogSource.offline;
+    final tone = offline ? RadhaColors.complement : RadhaColors.warning;
+    final icon = offline
+        ? Icons.cloud_off_rounded
+        : Icons.error_outline_rounded;
+    final message = offline
+        ? 'Offline — showing your saved catalog'
+        : 'Live catalog unavailable — showing saved catalog';
+
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.fromLTRB(
+        RadhaSpacing.space20,
+        0,
+        RadhaSpacing.space20,
+        RadhaSpacing.space8,
+      ),
+      padding: const EdgeInsets.symmetric(
+        horizontal: RadhaSpacing.space12,
+        vertical: RadhaSpacing.space8,
+      ),
+      decoration: BoxDecoration(
+        color: tone.withValues(alpha: 0.10),
+        borderRadius: BorderRadius.circular(RadhaRadii.radiusMd),
+        border: Border.all(color: tone.withValues(alpha: 0.30)),
+      ),
+      child: Row(
+        children: [
+          Icon(icon, size: 18, color: tone),
+          const SizedBox(width: RadhaSpacing.space8),
+          Expanded(
+            child: Text(
+              message,
+              style: theme.textTheme.bodySmall?.copyWith(
+                color: theme.colorScheme.onSurface,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+          TextButton(
+            onPressed: onRetry,
+            style: TextButton.styleFrom(
+              foregroundColor: tone,
+              minimumSize: const Size(0, kMinTouchTarget),
+              padding: const EdgeInsets.symmetric(
+                horizontal: RadhaSpacing.space8,
+              ),
+            ),
+            child: const Text('Retry'),
           ),
         ],
       ),
