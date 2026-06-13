@@ -1,9 +1,64 @@
-﻿import 'package:flutter/foundation.dart';
+﻿import 'dart:developer' as developer;
+
+import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:radha_app/core/network/api_client.dart';
 import 'package:radha_app/core/network/dto/catalog_dto.dart';
 import 'package:radha_app/features/catalog/data/launch_catalog.dart';
+
+/// Provenance of the catalog rows currently on screen. Surfaced honestly to the
+/// user so a server failure is never silently indistinguishable from offline
+/// mode or an unseeded database — the bundled catalog still renders, but the UI
+/// can say *why* it isn't live and offer a retry.
+enum CatalogSource {
+  /// Server responded successfully — rows are live (possibly merged with
+  /// bundled items). An empty live response is still `live` (catalog reachable,
+  /// just not seeded for this slice).
+  live,
+
+  /// Server unreachable (no connection / timeout) — showing the bundled
+  /// catalog only.
+  offline,
+
+  /// Server reachable but the request failed (5xx/4xx) or the category could
+  /// not be resolved — showing the bundled catalog only.
+  unavailable,
+}
+
+/// Classify a caught error into a [CatalogSource]. Connection-class failures are
+/// "offline"; everything else (HTTP error, bad response, decode) is
+/// "unavailable" so the two are reported distinctly.
+CatalogSource catalogSourceForError(Object error) {
+  if (error is DioException) {
+    switch (error.type) {
+      case DioExceptionType.connectionError:
+      case DioExceptionType.connectionTimeout:
+      case DioExceptionType.sendTimeout:
+      case DioExceptionType.receiveTimeout:
+        return CatalogSource.offline;
+      default:
+        return CatalogSource.unavailable;
+    }
+  }
+  return CatalogSource.unavailable;
+}
+
+/// Structured, PII-free failure log for catalog calls (no tokens, no bodies —
+/// only the operation and a coarse error signature). Replaces the previous
+/// silent `catch (_)` swallow so these defects are observable.
+void logCatalogFailure(String op, Object error) {
+  final signature = error is DioException
+      ? '${error.type}'
+            '${error.response?.statusCode != null ? ' ${error.response!.statusCode}' : ''}'
+      : error.runtimeType.toString();
+  developer.log(
+    'catalog op failed: $op ($signature)',
+    name: 'radha.catalog',
+    level: 900, // WARNING
+  );
+}
 
 /// Browse sort order — backed by the server `?sort=` param (`health` = best
 /// rating first, `name` = A→Z) and applied to the bundled launch catalog too.
@@ -106,6 +161,7 @@ class CategoryBrowseState {
     required this.cursor,
     required this.hasMore,
     required this.loadingMore,
+    this.source = CatalogSource.offline,
   });
 
   final List<LaunchProduct> launch;
@@ -113,6 +169,11 @@ class CategoryBrowseState {
   final String? cursor;
   final bool hasMore;
   final bool loadingMore;
+
+  /// Where the rows came from — drives the honest "offline / unavailable"
+  /// banner + retry. Defaults to [CatalogSource.offline] (bundled-only) until a
+  /// live fetch upgrades it.
+  final CatalogSource source;
 
   /// Launch products first (curated/offline), with server rows merged in: a
   /// server row that shares an EAN with a launch product replaces it (it adds
@@ -143,12 +204,14 @@ class CategoryBrowseState {
     Object? cursor = _sentinel,
     bool? hasMore,
     bool? loadingMore,
+    CatalogSource? source,
   }) => CategoryBrowseState(
     launch: launch,
     server: server ?? this.server,
     cursor: identical(cursor, _sentinel) ? this.cursor : cursor as String?,
     hasMore: hasMore ?? this.hasMore,
     loadingMore: loadingMore ?? this.loadingMore,
+    source: source ?? this.source,
   );
 
   static const _sentinel = Object();
@@ -175,11 +238,13 @@ class CategoryBrowseController
 
     // Best-effort server enrich. The catalog API filters by category *UUID*,
     // so resolve it from /catalog/categories (slugs differ from the home ids,
-    // e.g. `biscuits` ↔ `biscuits-snacks`). Any failure (offline / empty DB)
-    // degrades silently to the launch catalog — never an error screen.
+    // e.g. `biscuits` ↔ `biscuits-snacks`). On failure the bundled launch
+    // catalog still renders — but we now record *why* it isn't live ([source])
+    // and log the failure instead of swallowing it silently.
     List<CatalogProductItem> server = const [];
     String? cursor;
     var hasMore = false;
+    var source = CatalogSource.offline;
     try {
       final cats = await ref.watch(catalogCategoriesProvider.future);
       _categoryUuid = _matchCategoryId(cats, slug);
@@ -194,9 +259,17 @@ class CategoryBrowseController
         server = page.items;
         cursor = page.nextCursor;
         hasMore = page.nextCursor != null;
+        source = CatalogSource.live;
+      } else {
+        // Categories loaded but this slug didn't resolve to a server category
+        // (e.g. catalog seeded without this slice) — live catalog can't serve
+        // it. Bundled catalog covers the screen.
+        source = CatalogSource.unavailable;
+        logCatalogFailure('category-map slug=$slug', StateError('no match'));
       }
-    } catch (_) {
-      // Offline / catalog not yet seeded — launch catalog stands alone.
+    } catch (e) {
+      source = catalogSourceForError(e);
+      logCatalogFailure('browse slug=$slug', e);
     }
 
     return CategoryBrowseState(
@@ -205,6 +278,7 @@ class CategoryBrowseController
       cursor: cursor,
       hasMore: hasMore,
       loadingMore: false,
+      source: source,
     );
   }
 
@@ -236,9 +310,16 @@ class CategoryBrowseController
           loadingMore: false,
         ),
       );
-    } catch (_) {
+    } catch (e) {
+      logCatalogFailure('loadMore', e);
+      // Keep the already-loaded rows; stop paginating. Downgrade the source so
+      // the banner reflects that further pages couldn't be fetched.
       state = AsyncValue.data(
-        current.copyWith(loadingMore: false, hasMore: false),
+        current.copyWith(
+          loadingMore: false,
+          hasMore: false,
+          source: catalogSourceForError(e),
+        ),
       );
     }
   }
@@ -264,18 +345,15 @@ class CategoryBrowseController
 
 /// Global catalog categories, cached across browse screens. Switching between
 /// categories shouldn't refetch this small, rarely-changing list — so a
-/// successful fetch is `keepAlive`d. A failure (offline / catalog not seeded)
-/// returns an empty list and is NOT cached, so it retries on the next open;
+/// successful fetch is `keepAlive`d. A failure propagates (it is NOT cached, so
+/// it retries on next open) and is classified by the single consumer
+/// ([CategoryBrowseController.build]) into an honest offline/unavailable source;
 /// the bundled launch catalog covers browse in the meantime regardless.
 final catalogCategoriesProvider =
     FutureProvider.autoDispose<List<CatalogCategory>>((ref) async {
-      try {
-        final cats = await ref.watch(apiClientProvider).getCatalogCategories();
-        ref.keepAlive();
-        return cats;
-      } catch (_) {
-        return const <CatalogCategory>[];
-      }
+      final cats = await ref.watch(apiClientProvider).getCatalogCategories();
+      ref.keepAlive();
+      return cats;
     });
 
 final categoryBrowseProvider = AsyncNotifierProvider.autoDispose
@@ -316,8 +394,9 @@ final featuredProductsProvider = FutureProvider.autoDispose<List<BrowseProduct>>
           .getCatalogProducts(sort: CatalogSort.health.wire, limit: max);
       server = page.items.map(BrowseProduct.fromServer).toList();
       ref.keepAlive();
-    } catch (_) {
+    } catch (e) {
       // Offline / catalog not yet seeded — the launch spread carries the rail.
+      logCatalogFailure('featured', e);
     }
 
     final out = <BrowseProduct>[...server];
@@ -359,8 +438,9 @@ final catalogSearchProvider = FutureProvider.autoDispose
             .watch(apiClientProvider)
             .getCatalogProducts(q: q, sort: CatalogSort.health.wire, limit: 30);
         server = page.items.map(BrowseProduct.fromServer).toList();
-      } catch (_) {
+      } catch (e) {
         // Offline / catalog not seeded — launch matches stand alone.
+        logCatalogFailure('search', e);
       }
 
       // Server rows (real) first, then launch matches not already covered.
