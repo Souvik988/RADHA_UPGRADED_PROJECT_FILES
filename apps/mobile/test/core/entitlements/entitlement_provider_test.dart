@@ -3,64 +3,136 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:radha_mobile/core/entitlements/entitlement_provider.dart';
+import 'package:radha_mobile/core/network/api_client.dart';
+import 'package:radha_mobile/core/network/dto/subscription_status_dto.dart';
 import 'package:radha_mobile/design/widgets/locked_feature.dart';
 
+/// Fake ApiClient returning a scripted subscription status.
+class _FakeApi implements ApiClient {
+  _FakeApi(this.status);
+  final SubscriptionStatusDto status;
+
+  @override
+  Future<SubscriptionStatusDto> getSubscriptionStatus() async => status;
+
+  @override
+  dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
+}
+
+SubscriptionStatusDto _status({
+  required bool isActive,
+  required String code,
+  String status = 'active',
+  Map<String, bool> features = const {},
+  Map<String, dynamic> limits = const {},
+  int? trialDaysRemaining,
+}) => SubscriptionStatusDto(
+  isActive: isActive,
+  status: status,
+  plan: SubscriptionPlanDto(
+    id: '11111111-1111-4111-8111-111111111111',
+    code: code,
+    name: code,
+    price: 0,
+    currency: 'INR',
+  ),
+  features: features,
+  limits: limits,
+  trialDaysRemaining: trialDaysRemaining,
+);
+
+Future<EntitlementState> _resolve(SubscriptionStatusDto status) async {
+  final container = ProviderContainer(
+    overrides: [apiClientProvider.overrideWithValue(_FakeApi(status))],
+  );
+  addTearDown(container.dispose);
+  return container.read(entitlementProvider.future);
+}
+
 void main() {
-  group('EntitlementState', () {
-    test('canAccess returns true for included features', () {
-      final controller = EntitlementController();
-      final container = ProviderContainer(
-        overrides: [entitlementProvider.overrideWith(() => controller)],
-      );
-      addTearDown(container.dispose);
+  group('entitlement mapping from /subscriptions/status', () {
+    test(
+      'growth (advanced_analytics + stores>1) unlocks tier features',
+      () async {
+        final state = await _resolve(
+          _status(
+            isActive: true,
+            code: 'growth',
+            features: {'advanced_analytics': true},
+            limits: {'stores': 5},
+          ),
+        );
+        expect(state.features.contains(Feature.advancedReports), isTrue);
+        expect(state.features.contains(Feature.multiStore), isTrue);
+        // App-capability features ride on any active plan.
+        expect(state.features.contains(Feature.inventory), isTrue);
+        expect(state.features.contains(Feature.grn), isTrue);
+      },
+    );
 
-      // Simulate a standard plan state
-      container.read(entitlementProvider.notifier);
-      final state = EntitlementState(
-        planId: 'standard',
-        billingCycle: BillingCycle.monthly,
-        features: {
-          Feature.advancedReports,
-          Feature.inventory,
-          Feature.grn,
-          Feature.bulkScan,
-        },
-      );
+    test(
+      'starter (no advanced_analytics, stores=1) gates tier features',
+      () async {
+        final state = await _resolve(
+          _status(
+            isActive: true,
+            code: 'starter',
+            features: {'advanced_analytics': false},
+            limits: {'stores': 1},
+          ),
+        );
+        expect(state.features.contains(Feature.advancedReports), isFalse);
+        expect(state.features.contains(Feature.multiStore), isFalse);
+        expect(state.features.contains(Feature.inventory), isTrue);
+        expect(state.planId, 'starter');
+      },
+    );
 
-      expect(state.features.contains(Feature.inventory), isTrue);
-      expect(state.features.contains(Feature.grn), isTrue);
-      expect(state.features.contains(Feature.advancedReports), isTrue);
-      expect(state.features.contains(Feature.bulkScan), isTrue);
+    test('inactive subscription grants nothing', () async {
+      final state = await _resolve(
+        _status(isActive: false, code: 'starter', status: 'expired'),
+      );
+      expect(state.features, isEmpty);
+      expect(state.isActive, isFalse);
     });
 
-    test('canAccess returns false for excluded features', () {
-      final state = EntitlementState(
-        planId: 'basic',
-        billingCycle: BillingCycle.monthly,
-        features: {Feature.inventory},
+    test('trial maps trialDaysRemaining', () async {
+      final state = await _resolve(
+        _status(
+          isActive: true,
+          code: 'trial',
+          status: 'trial',
+          trialDaysRemaining: 42,
+        ),
       );
-
-      expect(state.features.contains(Feature.inventory), isTrue);
-      expect(state.features.contains(Feature.grn), isFalse);
-      expect(state.features.contains(Feature.advancedReports), isFalse);
-      expect(state.features.contains(Feature.allergenProfile), isFalse);
-      expect(state.features.contains(Feature.recallAlerts), isFalse);
-      expect(state.features.contains(Feature.weeklyDigest), isFalse);
+      expect(state.status, 'trial');
+      expect(state.trialDaysRemaining, 42);
     });
 
-    test('UsageInfo.exceeded is true when current >= limit', () {
-      const usage = UsageInfo(current: 10, limit: 10);
-      expect(usage.exceeded, isTrue);
+    test('unlimited stores unlocks multiStore', () async {
+      final state = await _resolve(
+        _status(
+          isActive: true,
+          code: 'pro',
+          features: {'advanced_analytics': true},
+          limits: {'stores': 'unlimited'},
+        ),
+      );
+      expect(state.features.contains(Feature.multiStore), isTrue);
+    });
+  });
 
-      const usage2 = UsageInfo(current: 5, limit: 10);
-      expect(usage2.exceeded, isFalse);
+  group('UsageInfo + requiredPlanFor', () {
+    test('UsageInfo.exceeded', () {
+      expect(const UsageInfo(current: 10, limit: 10).exceeded, isTrue);
+      expect(const UsageInfo(current: 5, limit: 10).exceeded, isFalse);
     });
 
-    test('requiredPlanFor returns correct plan name', () {
-      expect(requiredPlanFor(Feature.inventory), 'Basic');
-      expect(requiredPlanFor(Feature.grn), 'Standard');
-      expect(requiredPlanFor(Feature.allergenProfile), 'Premium');
-      expect(requiredPlanFor(Feature.weeklyDigest), 'Premium');
+    test('requiredPlanFor maps to real plan names', () {
+      expect(requiredPlanFor(Feature.advancedReports), 'Growth');
+      expect(requiredPlanFor(Feature.multiStore), 'Growth');
+      expect(requiredPlanFor(Feature.inventory), 'Starter');
+      expect(requiredPlanFor(Feature.ingredientExplainer), 'Starter');
     });
   });
 
@@ -83,10 +155,8 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      // The lock icon and upgrade text should be visible
       expect(find.byIcon(Icons.lock_outlined), findsOneWidget);
       expect(find.text('View plans'), findsOneWidget);
-      // The child content is still rendered (just dimmed)
       expect(find.text('Advanced Reports Content'), findsOneWidget);
     });
 
@@ -110,7 +180,6 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      // Child renders normally, no lock overlay
       expect(find.text('Inventory Content'), findsOneWidget);
       expect(find.byIcon(Icons.lock_outlined), findsNothing);
       expect(find.text('View plans'), findsNothing);
@@ -118,37 +187,25 @@ void main() {
   });
 }
 
-/// Controller that simulates a basic plan (denies advanced reports).
+EntitlementState _fixed(String code, Set<Feature> features) => EntitlementState(
+  planId: code,
+  planName: code,
+  status: 'active',
+  isActive: true,
+  billingCycle: BillingCycle.monthly,
+  features: features,
+);
+
+/// Denies advanced reports (starter-like).
 class _DeniedController extends EntitlementController {
   @override
-  Future<EntitlementState> build() async {
-    return const EntitlementState(
-      planId: 'basic',
-      billingCycle: BillingCycle.monthly,
-      features: {Feature.inventory},
-    );
-  }
+  Future<EntitlementState> build() async =>
+      _fixed('starter', {Feature.inventory});
 }
 
-/// Controller that simulates a premium plan (allows everything).
+/// Allows everything (pro-like).
 class _AllowedController extends EntitlementController {
   @override
-  Future<EntitlementState> build() async {
-    return const EntitlementState(
-      planId: 'premium',
-      billingCycle: BillingCycle.monthly,
-      features: {
-        Feature.advancedReports,
-        Feature.inventory,
-        Feature.grn,
-        Feature.allergenProfile,
-        Feature.recallAlerts,
-        Feature.weeklyDigest,
-        Feature.healthyAlternatives,
-        Feature.ingredientExplainer,
-        Feature.bulkScan,
-        Feature.multiStore,
-      },
-    );
-  }
+  Future<EntitlementState> build() async =>
+      _fixed('pro', Feature.values.toSet());
 }

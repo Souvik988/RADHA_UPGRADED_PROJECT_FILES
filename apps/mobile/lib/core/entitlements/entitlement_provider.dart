@@ -1,17 +1,22 @@
 // Subscription entitlement provider.
 //
-// Fetches the tenant's subscription status from the backend and exposes
-// helpers to check feature access and usage limits. All feature-gating
-// in the app reads from this provider — no ad-hoc permission logic.
+// Single source of feature-gating for the app. State is derived from the
+// backend `GET /api/v1/subscriptions/status` response — never from a hardcoded
+// plan→feature table. The server owns features/limits/usage/plan/trial/renewal;
+// this layer only normalises the backend feature keys onto the app's [Feature]
+// enum and exposes `canAccess`.
+
+import 'dart:developer' as developer;
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../network/api_client.dart';
-import '../network/dto/subscription_dto.dart';
+import '../network/dto/subscription_status_dto.dart';
 
 // ─── Domain types ─────────────────────────────────────────────────────────
 
-/// Features that can be gated by subscription plan.
+/// App-level capabilities the UI may gate. These are RADHA UI features; the
+/// backend gates only a subset as explicit flags (see [_allows]).
 enum Feature {
   advancedReports,
   inventory,
@@ -38,120 +43,160 @@ class UsageInfo {
   double get ratio => limit > 0 ? current / limit : 0;
 }
 
-/// Immutable snapshot of the tenant's entitlement state.
+/// Immutable snapshot of the tenant's entitlement state, projected from the
+/// server status response.
 class EntitlementState {
   const EntitlementState({
     required this.planId,
+    required this.planName,
+    required this.status,
+    required this.isActive,
     required this.billingCycle,
     required this.features,
     this.trialDaysRemaining,
+    this.daysUntilRenewal,
     this.usage = const {},
   });
 
+  /// Backend plan *code* (trial / starter / growth / pro). Kept named `planId`
+  /// for source compatibility with existing callers.
   final String planId;
+  final String planName;
+
+  /// Raw server status: trial / active / expired / cancelled / past_due / paused.
+  final String status;
+  final bool isActive;
   final int? trialDaysRemaining;
+  final int? daysUntilRenewal;
   final BillingCycle billingCycle;
   final Set<Feature> features;
   final Map<Feature, UsageInfo> usage;
 }
 
-// ─── Plan definitions ─────────────────────────────────────────────────────
+// ─── Backend feature-key normalisation ─────────────────────────────────────
 
-/// Which features each plan includes. Free trial gets everything for 90 days.
-const Map<String, Set<Feature>> _planFeatures = {
-  'free_trial': {
-    Feature.advancedReports,
-    Feature.inventory,
-    Feature.grn,
-    Feature.allergenProfile,
-    Feature.recallAlerts,
-    Feature.weeklyDigest,
-    Feature.healthyAlternatives,
-    Feature.ingredientExplainer,
-    Feature.bulkScan,
-    Feature.multiStore,
-  },
-  'basic': {Feature.inventory},
-  'standard': {
-    Feature.advancedReports,
-    Feature.inventory,
-    Feature.grn,
-    Feature.bulkScan,
-  },
-  'premium': {
-    Feature.advancedReports,
-    Feature.inventory,
-    Feature.grn,
-    Feature.allergenProfile,
-    Feature.recallAlerts,
-    Feature.weeklyDigest,
-    Feature.healthyAlternatives,
-    Feature.ingredientExplainer,
-    Feature.bulkScan,
-    Feature.multiStore,
-  },
+/// Backend feature keys we understand (mirrors `ALL_FEATURES` server-side).
+/// Keys outside this set are logged once and ignored — never auto-granted.
+const Set<String> _knownServerFeatureKeys = {
+  'stores',
+  'users',
+  'monthly_scans',
+  'monthly_reports',
+  'ean_lists',
+  'ai_ocr',
+  'ai_label_analysis',
+  'llm_summaries',
+  'rekognition',
+  'priority_support',
+  'custom_branding',
+  'api_access',
+  'advanced_analytics',
 };
 
-/// Returns the minimum plan required to access the given feature.
+bool _loggedUnknownKeys = false;
+
+/// Decide access for an app [Feature] from the server status. Where the backend
+/// exposes a matching flag/limit we honour it; the remaining app capabilities
+/// are not gated per-flag by the backend, so they ride on any *active* plan
+/// (trial included) — the app never invents a paywall the backend doesn't
+/// enforce.
+bool _allows(SubscriptionStatusDto s, Feature f) {
+  if (!s.isActive) return false;
+  switch (f) {
+    case Feature.advancedReports:
+      return s.hasServerFeature('advanced_analytics');
+    case Feature.multiStore:
+      return s.isUnlimited('stores') || (s.limitOf('stores') ?? 0) > 1;
+    case Feature.inventory:
+    case Feature.grn:
+    case Feature.allergenProfile:
+    case Feature.recallAlerts:
+    case Feature.weeklyDigest:
+    case Feature.healthyAlternatives:
+    case Feature.ingredientExplainer:
+    case Feature.bulkScan:
+      return true;
+  }
+}
+
+/// The smallest plan that unlocks [feature] — display copy for locked states.
 String requiredPlanFor(Feature feature) {
-  if (_planFeatures['basic']!.contains(feature)) return 'Basic';
-  if (_planFeatures['standard']!.contains(feature)) return 'Standard';
-  return 'Premium';
+  switch (feature) {
+    case Feature.advancedReports:
+    case Feature.multiStore:
+      return 'Growth';
+    case Feature.inventory:
+    case Feature.grn:
+    case Feature.allergenProfile:
+    case Feature.recallAlerts:
+    case Feature.weeklyDigest:
+    case Feature.healthyAlternatives:
+    case Feature.ingredientExplainer:
+    case Feature.bulkScan:
+      return 'Starter';
+  }
 }
 
 // ─── Provider ─────────────────────────────────────────────────────────────
 
-/// Async notifier that fetches subscription status and exposes entitlement
-/// checks to any widget in the tree.
 class EntitlementController extends AsyncNotifier<EntitlementState> {
   @override
-  Future<EntitlementState> build() async {
+  Future<EntitlementState> build() => _load();
+
+  Future<EntitlementState> _load() async {
     final api = ref.read(apiClientProvider);
-    final response = await api.getSubscription();
-    return _mapResponse(response);
+    return _map(await api.getSubscriptionStatus());
   }
 
   /// Whether the current plan grants access to [feature].
-  bool canAccess(Feature feature) {
-    final state = this.state.valueOrNull;
-    if (state == null) return false;
-    return state.features.contains(feature);
-  }
+  bool canAccess(Feature feature) =>
+      state.valueOrNull?.features.contains(feature) ?? false;
 
-  /// Returns usage info for a metered [feature], or null if unmetered.
-  UsageInfo? usageOf(Feature feature) {
-    return state.valueOrNull?.usage[feature];
-  }
+  /// Usage info for a metered [feature], or null if unmetered.
+  UsageInfo? usageOf(Feature feature) => state.valueOrNull?.usage[feature];
 
-  /// Force-refreshes entitlement state from the backend.
+  /// Refresh from the backend, **preserving the last valid state** on failure
+  /// (silent background refresh). Used after a verified payment so the new plan
+  /// appears without flashing a full-screen loader/error.
   Future<void> refresh() async {
-    state = const AsyncLoading();
-    state = await AsyncValue.guard(() async {
-      final api = ref.read(apiClientProvider);
-      final response = await api.getSubscription();
-      return _mapResponse(response);
-    });
+    final api = ref.read(apiClientProvider);
+    try {
+      state = AsyncData(_map(await api.getSubscriptionStatus()));
+    } catch (e, st) {
+      if (!state.hasValue) state = AsyncError(e, st);
+    }
   }
 
-  EntitlementState _mapResponse(SubscriptionResponse response) {
-    final planId = response.plan.toLowerCase();
-    final features = _planFeatures[planId] ?? const {};
-
-    int? trialDays;
-    if (planId == 'free_trial' && response.expiresAt != null) {
-      final expires = DateTime.tryParse(response.expiresAt!);
-      if (expires != null) {
-        trialDays = expires.difference(DateTime.now()).inDays;
-        if (trialDays < 0) trialDays = 0;
-      }
-    }
-
+  EntitlementState _map(SubscriptionStatusDto s) {
+    _logUnknownKeysOnce(s);
+    final features = <Feature>{
+      for (final f in Feature.values)
+        if (_allows(s, f)) f,
+    };
     return EntitlementState(
-      planId: planId,
-      billingCycle: BillingCycle.monthly,
+      planId: s.plan.code,
+      planName: s.plan.name,
+      status: s.status,
+      isActive: s.isActive,
+      billingCycle: BillingCycle.monthly, // /status does not expose the cycle
       features: features,
-      trialDaysRemaining: trialDays,
+      trialDaysRemaining: s.status == 'trial' ? s.trialDaysRemaining : null,
+      daysUntilRenewal: s.daysUntilRenewal,
     );
+  }
+
+  void _logUnknownKeysOnce(SubscriptionStatusDto s) {
+    if (_loggedUnknownKeys) return;
+    final unknown = <String>{...s.features.keys, ...s.limits.keys}
+      ..removeWhere(_knownServerFeatureKeys.contains);
+    if (unknown.isNotEmpty) {
+      developer.log(
+        'ignoring unknown subscription feature keys: ${unknown.join(',')}',
+        name: 'radha.entitlements',
+        level: 900,
+      );
+      _loggedUnknownKeys = true;
+    }
   }
 }
 

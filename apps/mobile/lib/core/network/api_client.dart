@@ -24,7 +24,7 @@ import 'package:radha_mobile/core/network/dto/product_lookup_dto.dart';
 import 'package:radha_mobile/core/network/dto/reports_dto.dart';
 import 'package:radha_mobile/core/network/dto/saved_product_dto.dart';
 import 'package:radha_mobile/core/network/dto/scan_dto.dart';
-import 'package:radha_mobile/core/network/dto/subscription_dto.dart';
+import 'package:radha_mobile/core/network/dto/subscription_status_dto.dart';
 import 'package:radha_mobile/core/network/dto/task_dto.dart';
 
 // Re-export auth DTOs so existing imports from this file keep working.
@@ -219,14 +219,26 @@ abstract class ApiClient {
   @GET('/api/v1/grn/{id}')
   Future<GrnResponse> getGrn(@Path('id') String id);
 
-  // ─── Subscription ──────────────────────────────────────────────────────
-  @GET('/api/v1/subscription')
-  Future<SubscriptionResponse> getSubscription();
+  // ─── Subscription (canonical plural surface — BE-28) ────────────────────
+  // Backend: @Controller('subscriptions'). The server is the source of truth
+  // for plans (with UUID id), status, features, limits and usage.
+  @GET('/api/v1/subscriptions/plans')
+  Future<List<SubscriptionPlanDto>> getSubscriptionPlans();
 
-  @POST('/api/v1/subscription')
-  Future<SubscriptionResponse> createSubscription(
-    @Body() CreateSubscriptionDto body,
-  );
+  @GET('/api/v1/subscriptions/status')
+  Future<SubscriptionStatusDto> getSubscriptionStatus();
+
+  @GET('/api/v1/subscriptions/usage')
+  Future<UsageStatsDto> getSubscriptionUsage();
+
+  @POST('/api/v1/subscriptions/upgrade')
+  Future<void> upgradeSubscriptionPlan(@Body() UpgradePlanRequestDto body);
+
+  @POST('/api/v1/subscriptions/cancel')
+  Future<void> cancelSubscription(@Body() CancelSubscriptionRequestDto body);
+
+  @POST('/api/v1/subscriptions/reactivate')
+  Future<void> reactivateSubscription();
 
   // ─── Payments (Razorpay) ───────────────────────────────────────────────
   @POST('/api/v1/payments/checkout')

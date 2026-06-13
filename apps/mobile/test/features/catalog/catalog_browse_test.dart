@@ -79,7 +79,7 @@ void main() {
       tester,
     ) async {
       // No subscription → not entitled → premium sections render locked.
-      when(() => mockApi.getSubscription()).thenThrow(Exception('no plan'));
+      when(() => mockApi.getSubscriptionStatus()).thenThrow(Exception('no plan'));
 
       await tester.pumpWidget(
         _app(
@@ -117,7 +117,7 @@ void main() {
     testWidgets('renders REAL nutrients when the lookup resolves (free tier)', (
       tester,
     ) async {
-      when(() => mockApi.getSubscription()).thenThrow(Exception('no plan'));
+      when(() => mockApi.getSubscriptionStatus()).thenThrow(Exception('no plan'));
       // `britannia-white-bread` carries a resolved EAN, so the detail performs
       // a real lookup — which we stub with genuine per-100g nutrition.
       when(
@@ -166,7 +166,7 @@ void main() {
 
     testWidgets('shows honest "scan to unlock" when a resolved EAN has no '
         'nutrition yet', (tester) async {
-      when(() => mockApi.getSubscription()).thenThrow(Exception('no plan'));
+      when(() => mockApi.getSubscriptionStatus()).thenThrow(Exception('no plan'));
       // EAN resolves but the catalog has no nutrition for it yet → honest
       // scan-driver state, never zero-faked values.
       when(
