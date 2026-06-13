@@ -21,6 +21,7 @@ import 'package:radha_mobile/design/widgets/mor_companion.dart';
 import 'package:radha_mobile/features/allergen/allergen_profile_screen.dart';
 import 'package:radha_mobile/features/catalog/catalog_health.dart';
 import 'package:radha_mobile/features/catalog/data/launch_catalog.dart';
+import 'package:radha_mobile/features/catalog/product_lookup_state.dart';
 import 'package:radha_mobile/features/catalog/providers/product_browse_providers.dart';
 
 // ─── Providers ──────────────────────────────────────────────────────────────
@@ -109,6 +110,25 @@ class _CatalogProductDetailScreenState
     final nutrition = lookupItem?.nutrition;
     final productId = lookupItem?.id;
 
+    // PII-free telemetry, fired once per lookup resolution (not per rebuild).
+    if (ean != null) {
+      ref.listen<AsyncValue<ProductLookupResult>>(_lookupProvider(ean), (
+        prev,
+        next,
+      ) {
+        next.whenOrNull(
+          data: (r) => logProductLookupEvent(
+            (r.product?.nutrition?.hasAnyValue ?? false)
+                ? 'lookup_success'
+                : 'nutrition_missing',
+          ),
+          error: (e, _) => logProductLookupEvent(
+            productLookupEventFor(classifyProductLookupFailure(e)),
+          ),
+        );
+      });
+    }
+
     return Scaffold(
       backgroundColor: theme.colorScheme.surface,
       appBar: AppBar(
@@ -156,7 +176,20 @@ class _CatalogProductDetailScreenState
           if (lookupAsync != null)
             lookupAsync.when(
               loading: () => const _NutritionSkeleton(),
-              error: (_, _) => const SizedBox.shrink(),
+              // Contained, classified failure (never a silent empty widget) —
+              // identity + health rating above stay intact; only this section
+              // reacts, with a retry.
+              error: (err, _) => _NutritionError(
+                failure: classifyProductLookupFailure(err),
+                onRetry: () {
+                  logProductLookupEvent('retry_clicked');
+                  ref.invalidate(_lookupProvider(ean!));
+                },
+                onScanLabel: () {
+                  logProductLookupEvent('scan_label_clicked');
+                  context.push(AppRoute.labelScan);
+                },
+              ),
               data: (_) {
                 if (nutrition == null || !nutrition.hasAnyValue) {
                   return _ScanToUnlock(
@@ -1495,6 +1528,123 @@ class _BuyChip extends StatelessWidget {
 }
 
 // ─── Honest "scan to unlock" ────────────────────────────────────────────────
+
+/// Contained, classified nutrition-lookup failure. Replaces the old silent
+/// empty widget: the product identity + health rating above stay on screen,
+/// and only this card reacts — with an honest message and a retry. For a
+/// not-found product it offers a label scan to add the record.
+class _NutritionError extends StatelessWidget {
+  const _NutritionError({
+    required this.failure,
+    required this.onRetry,
+    required this.onScanLabel,
+  });
+
+  final ProductLookupFailure failure;
+  final VoidCallback onRetry;
+  final VoidCallback onScanLabel;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final (
+      IconData icon,
+      String title,
+      String body,
+      Color tone,
+    ) = switch (failure) {
+      ProductLookupFailure.notFound => (
+        Icons.search_off_rounded,
+        "We don't have this record yet",
+        "RADHA doesn't have this product's full nutrition yet. Scan its "
+            "barcode or label to pull in the real data.",
+        RadhaColors.complement,
+      ),
+      ProductLookupFailure.offline => (
+        Icons.cloud_off_rounded,
+        "You're offline",
+        "We couldn't load nutrition. Your product details above are still "
+            "here — reconnect and retry.",
+        RadhaColors.complement,
+      ),
+      ProductLookupFailure.unauthorized => (
+        Icons.lock_clock_rounded,
+        'Session expired',
+        'Please retry — RADHA will refresh your session and try again.',
+        RadhaColors.warning,
+      ),
+      ProductLookupFailure.serverFailure => (
+        Icons.error_outline_rounded,
+        "Couldn't load nutrition",
+        "Something went wrong fetching the details. The product info above "
+            "is unaffected.",
+        RadhaColors.warning,
+      ),
+    };
+    final showScan = failure == ProductLookupFailure.notFound;
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(RadhaSpacing.space16),
+      decoration: BoxDecoration(
+        color: theme.colorScheme.surfaceContainer,
+        borderRadius: BorderRadius.circular(RadhaRadii.radiusLg),
+        border: Border.all(color: tone.withValues(alpha: 0.30)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Icon(icon, color: tone, size: 22),
+              const SizedBox(width: RadhaSpacing.space12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: theme.textTheme.titleSmall?.copyWith(
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    const SizedBox(height: RadhaSpacing.space4),
+                    Text(
+                      body,
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color: theme.colorScheme.onSurfaceVariant,
+                        height: 1.4,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: RadhaSpacing.space12),
+          Row(
+            children: [
+              OutlinedButton.icon(
+                onPressed: onRetry,
+                icon: const Icon(Icons.refresh_rounded, size: 18),
+                label: const Text('Retry'),
+              ),
+              if (showScan) ...[
+                const SizedBox(width: RadhaSpacing.space8),
+                TextButton.icon(
+                  onPressed: onScanLabel,
+                  icon: const Icon(Icons.document_scanner_outlined, size: 18),
+                  label: const Text('Scan label'),
+                ),
+              ],
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
 
 class _ScanToUnlock extends StatelessWidget {
   const _ScanToUnlock({required this.onScan});
