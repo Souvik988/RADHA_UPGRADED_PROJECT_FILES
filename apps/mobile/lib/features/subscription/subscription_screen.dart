@@ -1,15 +1,18 @@
 // Subscription management screen.
 //
-// Current plan + trial progress, a stacked plan-card compare (Standard marked
-// "Popular"), and per-plan upgrade CTAs that open the Razorpay sheet. Matches
-// the mockup: warm cream surfaces, single orange accent, plus a check-tick
-// feature list per card.
+// Plans come from the backend (`GET /subscriptions/plans`) with their real UUID
+// `id` — checkout sends that UUID (never a plan code) plus the explicitly chosen
+// billing cycle. The purchase runs through the tested [CheckoutEngine] and the
+// screen reacts to a structured [CheckoutResult] (verified / cancelled / pending
+// / failed), refreshing entitlements only after server verification.
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/entitlements/entitlement_provider.dart';
+import '../../core/network/api_client.dart';
+import '../../core/network/dto/subscription_status_dto.dart';
 import '../../design/app_assets.dart';
 import '../../design/theme.dart';
 import '../../design/tokens.dart';
@@ -17,99 +20,30 @@ import '../../design/widgets/brand_illustration.dart';
 import '../../design/widgets/error_state.dart';
 import '../../design/widgets/mor_companion.dart';
 import '../../design/widgets/primary_button.dart';
-import 'razorpay_checkout_sheet.dart';
+import '../../design/widgets/skeleton_loader.dart';
+import 'payment/checkout_engine.dart';
+import 'payment/checkout_models.dart';
+import 'payment/razorpay_adapter.dart';
 
-// ─── Plan metadata ────────────────────────────────────────────────────────
+// ─── Providers ──────────────────────────────────────────────────────────────
 
-class _PlanInfo {
-  const _PlanInfo({
-    required this.id,
-    required this.name,
-    required this.price,
-    required this.tagline,
-    required this.highlights,
-    required this.features,
-  });
+/// Public, purchasable plans from the backend (source of truth for price + the
+/// UUID used at checkout). Sorted by the server `sortOrder`.
+final subscriptionPlansProvider =
+    FutureProvider.autoDispose<List<SubscriptionPlanDto>>((ref) async {
+      final plans = await ref.watch(apiClientProvider).getSubscriptionPlans();
+      final list = [...plans]
+        ..sort((a, b) => a.sortOrder.compareTo(b.sortOrder));
+      return list;
+    });
 
-  final String id;
-  final String name;
-  final int price; // 0 = free trial
-  final String tagline;
-  final List<String> highlights;
-  final Set<Feature> features;
-}
-
-const List<_PlanInfo> _plans = [
-  _PlanInfo(
-    id: 'free_trial',
-    name: 'Free Trial',
-    price: 0,
-    tagline: 'Everything, free for 90 days',
-    highlights: ['All features unlocked', 'No card required'],
-    features: {
-      Feature.inventory,
-      Feature.grn,
-      Feature.advancedReports,
-      Feature.bulkScan,
-      Feature.allergenProfile,
-      Feature.recallAlerts,
-      Feature.weeklyDigest,
-      Feature.healthyAlternatives,
-      Feature.ingredientExplainer,
-      Feature.multiStore,
-    },
+/// The payment engine, overridable in tests with a fake adapter/api.
+final checkoutEngineProvider = Provider<CheckoutEngine>(
+  (ref) => CheckoutEngine(
+    api: ref.watch(apiClientProvider),
+    adapterFactory: FlutterRazorpayAdapter.new,
   ),
-  _PlanInfo(
-    id: 'basic',
-    name: 'Basic',
-    price: 49,
-    tagline: 'Scan, health & expiry',
-    highlights: ['Inventory management', 'Unlimited scans'],
-    features: {Feature.inventory},
-  ),
-  _PlanInfo(
-    id: 'standard',
-    name: 'Standard',
-    price: 99,
-    tagline: '+ Inventory & tasks',
-    highlights: [
-      'Everything in Basic',
-      'GRN inward',
-      'Advanced reports',
-      'Bulk scan',
-    ],
-    features: {
-      Feature.inventory,
-      Feature.grn,
-      Feature.advancedReports,
-      Feature.bulkScan,
-    },
-  ),
-  _PlanInfo(
-    id: 'premium',
-    name: 'Premium',
-    price: 199,
-    tagline: '+ GRN, analytics & allergen',
-    highlights: [
-      'Everything in Standard',
-      'Allergen & recall alerts',
-      'Multi-store',
-      'Weekly digest',
-    ],
-    features: {
-      Feature.inventory,
-      Feature.grn,
-      Feature.advancedReports,
-      Feature.bulkScan,
-      Feature.allergenProfile,
-      Feature.recallAlerts,
-      Feature.weeklyDigest,
-      Feature.healthyAlternatives,
-      Feature.ingredientExplainer,
-      Feature.multiStore,
-    },
-  ),
-];
+);
 
 // ─── Screen ───────────────────────────────────────────────────────────────
 
@@ -158,15 +92,14 @@ class _SubscriptionBody extends ConsumerStatefulWidget {
 }
 
 class _SubscriptionBodyState extends ConsumerState<_SubscriptionBody> {
-  String? _busyPlanId;
-
-  String get _billingCycleString =>
-      widget.state.billingCycle == BillingCycle.yearly ? 'yearly' : 'monthly';
+  BillingCycle _cycle = BillingCycle.monthly;
+  String? _busyPlanCode;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final state = widget.state;
+    final plansAsync = ref.watch(subscriptionPlansProvider);
 
     return ListView(
       padding: const EdgeInsets.fromLTRB(
@@ -176,7 +109,6 @@ class _SubscriptionBodyState extends ConsumerState<_SubscriptionBody> {
         RadhaSpacing.space48,
       ),
       children: [
-        // Premium paywall hero — sets the "RADHA Plus" aspiration before plans.
         Center(
           child: BrandIllustration(
             RadhaAssets.paywallHero,
@@ -195,30 +127,68 @@ class _SubscriptionBodyState extends ConsumerState<_SubscriptionBody> {
         const SizedBox(height: RadhaSpacing.space24),
         _CurrentPlanCard(state: state),
         const SizedBox(height: RadhaSpacing.space24),
-        Text(
-          'Choose a plan',
-          style: theme.textTheme.titleMedium?.copyWith(
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-        const SizedBox(height: RadhaSpacing.space12),
-        for (final plan in _plans)
-          if (plan.id != 'free_trial')
-            Padding(
-              padding: const EdgeInsets.only(bottom: RadhaSpacing.space12),
-              child: _PlanCard(
-                plan: plan,
-                isCurrent: plan.id == state.planId,
-                recommended: plan.id == 'standard',
-                busy: _busyPlanId == plan.id,
-                disabled: _busyPlanId != null && _busyPlanId != plan.id,
-                onUpgrade: () => _handleUpgrade(plan),
+        Row(
+          children: [
+            Expanded(
+              child: Text(
+                'Choose a plan',
+                style: theme.textTheme.titleMedium?.copyWith(
+                  fontWeight: FontWeight.w700,
+                ),
               ),
             ),
+            _BillingToggle(
+              cycle: _cycle,
+              onChanged: (c) {
+                HapticFeedback.selectionClick();
+                setState(() => _cycle = c);
+              },
+            ),
+          ],
+        ),
+        const SizedBox(height: RadhaSpacing.space12),
+        plansAsync.when(
+          loading: () => const _PlansSkeleton(),
+          error: (_, _) => ErrorState(
+            title: "Couldn't load plans",
+            body: 'Check your connection and try again.',
+            onRetry: () => ref.invalidate(subscriptionPlansProvider),
+          ),
+          data: (plans) {
+            if (plans.isEmpty) {
+              return Text(
+                'Plans are unavailable right now. Please try again later.',
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  color: theme.colorScheme.onSurfaceVariant,
+                ),
+              );
+            }
+            return Column(
+              children: [
+                for (final plan in plans)
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      bottom: RadhaSpacing.space12,
+                    ),
+                    child: _PlanCard(
+                      plan: plan,
+                      cycle: _cycle,
+                      isCurrent: plan.code == state.planId,
+                      recommended: plan.code == 'growth',
+                      busy: _busyPlanCode == plan.code,
+                      disabled:
+                          _busyPlanCode != null && _busyPlanCode != plan.code,
+                      onUpgrade: () => _handleUpgrade(plan),
+                    ),
+                  ),
+              ],
+            );
+          },
+        ),
         const SizedBox(height: RadhaSpacing.space12),
         Center(
           child: Text(
-            'Cancel anytime · GST included',
+            'Secure payment via Razorpay',
             style: theme.textTheme.bodySmall?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
             ),
@@ -228,18 +198,40 @@ class _SubscriptionBodyState extends ConsumerState<_SubscriptionBody> {
     );
   }
 
-  Future<void> _handleUpgrade(_PlanInfo plan) async {
+  Future<void> _handleUpgrade(SubscriptionPlanDto plan) async {
+    if (_busyPlanCode != null) return;
     HapticFeedback.lightImpact();
-    setState(() => _busyPlanId = plan.id);
+    setState(() => _busyPlanCode = plan.code);
+    final engine = ref.read(checkoutEngineProvider);
+    final messenger = ScaffoldMessenger.of(context);
+
+    void snack(String msg) =>
+        messenger.showSnackBar(SnackBar(content: Text(msg)));
+
     try {
-      await openRazorpayCheckout(
-        context: context,
-        ref: ref,
+      final result = await engine.run(
         planId: plan.id,
-        billingCycle: _billingCycleString,
+        billingCycle: _cycle.name,
       );
+      if (!mounted) return;
+      switch (result) {
+        case CheckoutVerified():
+          await ref.read(entitlementProvider.notifier).refresh();
+          if (!mounted) return;
+          HapticFeedback.mediumImpact();
+          snack("You're on ${plan.name}. Welcome to RADHA ${plan.name}!");
+        case CheckoutCancelled():
+          snack('Checkout cancelled — your plan is unchanged.');
+        case CheckoutPending(:final supportRef):
+          snack(
+            'Payment received — confirming it now. '
+            'Ref $supportRef. Pull down to refresh in a moment.',
+          );
+        case CheckoutFailed(:final message):
+          snack(message ?? 'Payment failed. Please try again.');
+      }
     } finally {
-      if (mounted) setState(() => _busyPlanId = null);
+      if (mounted) setState(() => _busyPlanCode = null);
     }
   }
 }
@@ -253,12 +245,8 @@ class _CurrentPlanCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final planInfo = _plans.firstWhere(
-      (p) => p.id == state.planId,
-      orElse: () => _plans.first,
-    );
     final trialDays = state.trialDaysRemaining;
-    final onTrial = trialDays != null;
+    final onTrial = state.status == 'trial' && trialDays != null;
 
     return Container(
       decoration: BoxDecoration(
@@ -279,71 +267,30 @@ class _CurrentPlanCard extends StatelessWidget {
                 ),
               ),
               const Spacer(),
-              if (onTrial)
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: RadhaSpacing.space12,
-                    vertical: RadhaSpacing.space4,
-                  ),
-                  decoration: BoxDecoration(
-                    color: RadhaColors.primaryTint.withValues(alpha: 0.5),
-                    borderRadius: BorderRadius.circular(RadhaRadii.radiusFull),
-                  ),
-                  child: Text(
-                    '$trialDays days left',
-                    style: theme.textTheme.labelSmall?.copyWith(
-                      color: RadhaColors.primaryDeep,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                ),
-            ],
-          ),
-          const SizedBox(height: RadhaSpacing.space4),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.baseline,
-            textBaseline: TextBaseline.alphabetic,
-            children: [
-              Text(
-                planInfo.name,
-                style: theme.textTheme.headlineSmall?.copyWith(
-                  fontWeight: FontWeight.w800,
-                ),
-              ),
-              const Spacer(),
-              if (planInfo.price > 0)
-                Text(
-                  '₹${planInfo.price}',
-                  style: radhaMonoStyle(
-                    fontSize: 22,
-                    weight: FontWeight.w700,
-                    color: theme.colorScheme.onSurface,
-                  ),
-                ),
-              if (planInfo.price > 0)
-                Text(
-                  '/mo',
-                  style: theme.textTheme.bodySmall?.copyWith(
-                    color: theme.colorScheme.onSurfaceVariant,
-                  ),
-                ),
+              _StatusChipForState(state: state),
             ],
           ),
           const SizedBox(height: RadhaSpacing.space4),
           Text(
-            state.billingCycle == BillingCycle.yearly
-                ? 'Yearly billing'
-                : 'Monthly billing',
-            style: theme.textTheme.bodySmall?.copyWith(
-              color: theme.colorScheme.onSurfaceVariant,
+            state.planName.isEmpty ? state.planId : state.planName,
+            style: theme.textTheme.headlineSmall?.copyWith(
+              fontWeight: FontWeight.w800,
             ),
           ),
+          if (state.daysUntilRenewal != null && !onTrial) ...[
+            const SizedBox(height: RadhaSpacing.space4),
+            Text(
+              'Renews in ${state.daysUntilRenewal} days',
+              style: theme.textTheme.bodySmall?.copyWith(
+                color: theme.colorScheme.onSurfaceVariant,
+              ),
+            ),
+          ],
           if (onTrial) ...[
             const SizedBox(height: RadhaSpacing.space16),
             ClipRRect(
               borderRadius: BorderRadius.circular(RadhaRadii.radiusFull),
               child: LinearProgressIndicator(
-                // 90-day trial; show elapsed fraction.
                 value: ((90 - trialDays) / 90).clamp(0.0, 1.0),
                 minHeight: 6,
                 backgroundColor: RadhaColors.primary.withValues(alpha: 0.16),
@@ -359,11 +306,112 @@ class _CurrentPlanCard extends StatelessWidget {
   }
 }
 
+class _StatusChipForState extends StatelessWidget {
+  const _StatusChipForState({required this.state});
+  final EntitlementState state;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final (String label, Color color) = switch (state.status) {
+      'trial' => (
+        state.trialDaysRemaining != null
+            ? '${state.trialDaysRemaining} days left'
+            : 'Trial',
+        RadhaColors.primaryDeep,
+      ),
+      'active' => ('Active', RadhaColors.success),
+      'past_due' => ('Past due', RadhaColors.warning),
+      'paused' => ('Paused', RadhaColors.warning),
+      'cancelled' => ('Cancelled', RadhaColors.danger),
+      'expired' => ('Expired', RadhaColors.danger),
+      _ => (state.status, theme.colorScheme.onSurfaceVariant),
+    };
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: RadhaSpacing.space12,
+        vertical: RadhaSpacing.space4,
+      ),
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.12),
+        borderRadius: BorderRadius.circular(RadhaRadii.radiusFull),
+      ),
+      child: Text(
+        label,
+        style: theme.textTheme.labelSmall?.copyWith(
+          color: color,
+          fontWeight: FontWeight.w700,
+        ),
+      ),
+    );
+  }
+}
+
+// ─── Billing cycle toggle ──────────────────────────────────────────────────
+
+class _BillingToggle extends StatelessWidget {
+  const _BillingToggle({required this.cycle, required this.onChanged});
+  final BillingCycle cycle;
+  final ValueChanged<BillingCycle> onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    Widget seg(String label, BillingCycle value) {
+      final selected = cycle == value;
+      return Semantics(
+        button: true,
+        selected: selected,
+        label: label,
+        child: GestureDetector(
+          onTap: () => onChanged(value),
+          child: Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: RadhaSpacing.space12,
+              vertical: RadhaSpacing.space8,
+            ),
+            decoration: BoxDecoration(
+              color: selected ? RadhaColors.primary : Colors.transparent,
+              borderRadius: BorderRadius.circular(RadhaRadii.radiusFull),
+            ),
+            child: Text(
+              label,
+              style: theme.textTheme.labelMedium?.copyWith(
+                color: selected
+                    ? RadhaColors.onPrimary
+                    : theme.colorScheme.onSurfaceVariant,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
+        ),
+      );
+    }
+
+    return Container(
+      padding: const EdgeInsets.all(2),
+      decoration: BoxDecoration(
+        color: theme.colorScheme.surfaceContainer,
+        borderRadius: BorderRadius.circular(RadhaRadii.radiusFull),
+        border: Border.all(color: theme.colorScheme.outline),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          seg('Monthly', BillingCycle.monthly),
+          seg('Yearly', BillingCycle.yearly),
+        ],
+      ),
+    );
+  }
+}
+
 // ─── Plan card ────────────────────────────────────────────────────────────
 
 class _PlanCard extends StatelessWidget {
   const _PlanCard({
     required this.plan,
+    required this.cycle,
     required this.isCurrent,
     required this.recommended,
     required this.busy,
@@ -371,7 +419,8 @@ class _PlanCard extends StatelessWidget {
     required this.onUpgrade,
   });
 
-  final _PlanInfo plan;
+  final SubscriptionPlanDto plan;
+  final BillingCycle cycle;
   final bool isCurrent;
   final bool recommended;
   final bool busy;
@@ -382,6 +431,10 @@ class _PlanCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final highlight = recommended && !isCurrent;
+    final highlights = plan.features
+        .where((f) => (f.description ?? '').isNotEmpty)
+        .take(4)
+        .toList();
 
     return Container(
       decoration: BoxDecoration(
@@ -393,15 +446,6 @@ class _PlanCard extends StatelessWidget {
               : theme.colorScheme.outline,
           width: highlight || isCurrent ? 2 : 1,
         ),
-        boxShadow: highlight
-            ? [
-                BoxShadow(
-                  color: RadhaColors.primary.withValues(alpha: 0.14),
-                  blurRadius: 18,
-                  offset: const Offset(0, 6),
-                ),
-              ]
-            : const <BoxShadow>[],
       ),
       padding: const EdgeInsets.all(RadhaSpacing.space20),
       child: Column(
@@ -416,50 +460,22 @@ class _PlanCard extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: RadhaSpacing.space8),
-              if (recommended)
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: RadhaSpacing.space8,
-                    vertical: 2,
-                  ),
-                  decoration: BoxDecoration(
-                    color: RadhaColors.primary,
-                    borderRadius: BorderRadius.circular(RadhaRadii.radiusFull),
-                  ),
-                  child: Text(
-                    'Popular',
-                    style: theme.textTheme.labelSmall?.copyWith(
-                      color: RadhaColors.onPrimary,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                ),
+              if (recommended) const _PopularBadge(),
               const Spacer(),
-              Text(
-                '₹${plan.price}',
-                style: radhaMonoStyle(
-                  fontSize: 20,
-                  weight: FontWeight.w700,
-                  color: theme.colorScheme.onSurface,
-                ),
-              ),
-              Text(
-                '/mo',
-                style: theme.textTheme.bodySmall?.copyWith(
-                  color: theme.colorScheme.onSurfaceVariant,
-                ),
-              ),
+              _PlanPrice(plan: plan, cycle: cycle),
             ],
           ),
-          const SizedBox(height: RadhaSpacing.space4),
-          Text(
-            plan.tagline,
-            style: theme.textTheme.bodySmall?.copyWith(
-              color: theme.colorScheme.onSurfaceVariant,
+          if ((plan.description ?? '').isNotEmpty) ...[
+            const SizedBox(height: RadhaSpacing.space4),
+            Text(
+              plan.description!,
+              style: theme.textTheme.bodySmall?.copyWith(
+                color: theme.colorScheme.onSurfaceVariant,
+              ),
             ),
-          ),
+          ],
           const SizedBox(height: RadhaSpacing.space12),
-          for (final h in plan.highlights)
+          for (final f in highlights)
             Padding(
               padding: const EdgeInsets.only(bottom: RadhaSpacing.space8),
               child: Row(
@@ -472,7 +488,7 @@ class _PlanCard extends StatelessWidget {
                   const SizedBox(width: RadhaSpacing.space8),
                   Expanded(
                     child: Text(
-                      h,
+                      f.description!,
                       style: theme.textTheme.bodySmall?.copyWith(
                         color: theme.colorScheme.onSurface,
                       ),
@@ -483,25 +499,7 @@ class _PlanCard extends StatelessWidget {
             ),
           const SizedBox(height: RadhaSpacing.space8),
           if (isCurrent)
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.symmetric(
-                vertical: RadhaSpacing.space12,
-              ),
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: RadhaColors.primary.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(RadhaRadii.radiusMd),
-                border: Border.all(color: RadhaColors.primary),
-              ),
-              child: Text(
-                "You're on ${plan.name}",
-                style: theme.textTheme.labelLarge?.copyWith(
-                  color: RadhaColors.primaryDeep,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            )
+            _CurrentPill(name: plan.name)
           else if (highlight)
             PrimaryButton(
               label: 'Upgrade to ${plan.name}',
@@ -525,6 +523,137 @@ class _PlanCard extends StatelessWidget {
             ),
         ],
       ),
+    );
+  }
+}
+
+class _PlanPrice extends StatelessWidget {
+  const _PlanPrice({required this.plan, required this.cycle});
+  final SubscriptionPlanDto plan;
+  final BillingCycle cycle;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final yearly = cycle == BillingCycle.yearly;
+    // Show the real monthly price always; for yearly, show the backend yearly
+    // price when present, else state honestly that it's billed yearly at the
+    // verified amount (no fabricated number).
+    final amount = yearly ? plan.yearlyPrice : plan.price;
+    final suffix = yearly ? '/yr' : '/mo';
+
+    if (yearly && plan.yearlyPrice == null) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Text(
+            '₹${_fmt(plan.price)}',
+            style: radhaMonoStyle(
+              fontSize: 20,
+              weight: FontWeight.w700,
+              color: theme.colorScheme.onSurface,
+            ),
+          ),
+          Text(
+            'billed yearly',
+            style: theme.textTheme.bodySmall?.copyWith(
+              color: theme.colorScheme.onSurfaceVariant,
+            ),
+          ),
+        ],
+      );
+    }
+
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.baseline,
+      textBaseline: TextBaseline.alphabetic,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          '₹${_fmt(amount ?? plan.price)}',
+          style: radhaMonoStyle(
+            fontSize: 20,
+            weight: FontWeight.w700,
+            color: theme.colorScheme.onSurface,
+          ),
+        ),
+        Text(
+          suffix,
+          style: theme.textTheme.bodySmall?.copyWith(
+            color: theme.colorScheme.onSurfaceVariant,
+          ),
+        ),
+      ],
+    );
+  }
+
+  String _fmt(double v) =>
+      v == v.roundToDouble() ? v.toStringAsFixed(0) : v.toStringAsFixed(2);
+}
+
+class _PopularBadge extends StatelessWidget {
+  const _PopularBadge();
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: RadhaSpacing.space8,
+        vertical: 2,
+      ),
+      decoration: BoxDecoration(
+        color: RadhaColors.primary,
+        borderRadius: BorderRadius.circular(RadhaRadii.radiusFull),
+      ),
+      child: Text(
+        'Popular',
+        style: theme.textTheme.labelSmall?.copyWith(
+          color: RadhaColors.onPrimary,
+          fontWeight: FontWeight.w700,
+        ),
+      ),
+    );
+  }
+}
+
+class _CurrentPill extends StatelessWidget {
+  const _CurrentPill({required this.name});
+  final String name;
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(vertical: RadhaSpacing.space12),
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        color: RadhaColors.primary.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(RadhaRadii.radiusMd),
+        border: Border.all(color: RadhaColors.primary),
+      ),
+      child: Text(
+        "You're on $name",
+        style: theme.textTheme.labelLarge?.copyWith(
+          color: RadhaColors.primaryDeep,
+          fontWeight: FontWeight.w700,
+        ),
+      ),
+    );
+  }
+}
+
+class _PlansSkeleton extends StatelessWidget {
+  const _PlansSkeleton();
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        for (var i = 0; i < 3; i++)
+          const Padding(
+            padding: EdgeInsets.only(bottom: RadhaSpacing.space12),
+            child: SkeletonLoader(height: 150, radius: RadhaRadii.radiusLg),
+          ),
+      ],
     );
   }
 }
