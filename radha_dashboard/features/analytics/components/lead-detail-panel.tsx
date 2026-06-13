@@ -95,7 +95,6 @@ export function LeadDetailPanel({ leadId, open, onOpenChange }: LeadDetailPanelP
                 variant="secondary"
                 className="w-full border-accent text-accent hover:bg-accent-tint"
                 onClick={() => setShowConvertConfirm(true)}
-                disabled={lead?.status === 'converted'}
               >
                 Convert to Tenant
               </Button>
