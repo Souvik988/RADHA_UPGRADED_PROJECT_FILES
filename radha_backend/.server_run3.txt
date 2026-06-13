@@ -1,0 +1,2140 @@
+[api] RADHA API listening on http://localhost:3000/api/v1 (development)
+[13:31:42.346] [32mINFO[39m: [36mStarting Nest application...[39m
+    context: "NestFactory"
+[13:31:42.348] [32mINFO[39m: [36mAppModule dependencies initialized[39m
+    context: "InstanceLoader"
+[13:31:42.348] [32mINFO[39m: [36mI18nModule dependencies initialized[39m
+    context: "InstanceLoader"
+[13:31:42.348] [32mINFO[39m: [36mConfigHostModule dependencies initialized[39m
+    context: "InstanceLoader"
+[13:31:42.348] [32mINFO[39m: [36mClsModule dependencies initialized[39m
+    context: "InstanceLoader"
+[13:31:42.348] [32mINFO[39m: [36mRequestContextModule dependencies initialized[39m
+    context: "InstanceLoader"
+[13:31:42.348] [32mINFO[39m: [36mConfigModule dependencies initialized[39m
+    context: "InstanceLoader"
+[13:31:42.348] [32mINFO[39m: [36mConfiguration loaded for NODE_ENV=development[39m
+    context: "ConfigService"
+[13:31:42.348] [32mINFO[39m: [36mAppConfigModule dependencies initialized[39m
+    context: "InstanceLoader"
+[13:31:42.349] [32mINFO[39m: [36mRazorpay provider resolved: live[39m
+    context: "RazorpayService"
+[13:31:42.349] [32mINFO[39m: [36mSMS provider resolved: 2factor (cfg=2factor)[39m
+    context: "SmsService"
+[13:31:42.349] [32mINFO[39m: [36mEmail provider: mock[39m
+    context: "EmailService"
+[13:31:42.349] [32mINFO[39m: [36mRazorpayModule dependencies initialized[39m
+    context: "InstanceLoader"
+[13:31:42.349] [32mINFO[39m: [36mFcmModule dependencies initialized[39m
+    context: "InstanceLoader"
+[13:31:42.349] [31mERROR[39m: [36mbullmq.init.failed[39m
+    context: "BullMqBootstrapService"
+[13:31:42.349] [32mINFO[39m: [36mSmsModule dependencies initialized[39m
+    context: "InstanceLoader"
+[13:31:42.349] [32mINFO[39m: [36mEmailModule dependencies initialized[39m
+    context: "InstanceLoader"
+[13:31:42.349] [32mINFO[39m: [36mAwsModule dependencies initialized[39m
+    context: "InstanceLoader"
+[13:31:42.349] [32mINFO[39m: [36mJwtModule dependencies initialized[39m
+    context: "InstanceLoader"
+[13:31:42.349] [32mINFO[39m: [36mLoggerModule dependencies initialized[39m
+    context: "InstanceLoader"
+[13:31:42.349] [32mINFO[39m: [36mLoggerModule dependencies initialized[39m
+    context: "InstanceLoader"
+[13:31:42.349] [32mINFO[39m: [36mCommonModule dependencies initialized[39m
+    context: "InstanceLoader"
+[13:31:42.349] [32mINFO[39m: [36mDbModule dependencies initialized[39m
+    context: "InstanceLoader"
+[13:31:42.349] [32mINFO[39m: [36mHealthModule dependencies initialized[39m
+    context: "InstanceLoader"
+[13:31:42.349] [32mINFO[39m: [36mObservabilityModule dependencies initialized[39m
+    context: "InstanceLoader"
+[13:31:42.349] [32mINFO[39m: [36mOffModule dependencies initialized[39m
+    context: "InstanceLoader"
+[13:31:42.349] [32mINFO[39m: [36mVoiceModule dependencies initialized[39m
+    context: "InstanceLoader"
+[13:31:42.349] [32mINFO[39m: [36mIngredientExplainerModule dependencies initialized[39m
+    context: "InstanceLoader"
+[13:31:42.349] [32mINFO[39m: [36mFeatureFlagsModule dependencies initialized[39m
+    context: "InstanceLoader"
+[13:31:42.349] [32mINFO[39m: [36mPublicProductModule dependencies initialized[39m
+    context: "InstanceLoader"
+[13:31:42.349] [32mINFO[39m: [36mRateLimitingModule dependencies initialized[39m
+    context: "InstanceLoader"
+[13:31:42.350] [32mINFO[39m: [36mAiModule dependencies initialized[39m
+    context: "InstanceLoader"
+[13:31:42.350] [32mINFO[39m: [36mAllergenModule dependencies initialized[39m
+    context: "InstanceLoader"
+[13:31:42.350] [32mINFO[39m: [36mExpiryCalendarModule dependencies initialized[39m
+    context: "InstanceLoader"
+[13:31:42.350] [32mINFO[39m: [36mImageFallbackModule dependencies initialized[39m
+    context: "InstanceLoader"
+[13:31:42.350] [32mINFO[39m: [36mShoppingListModule dependencies initialized[39m
+    context: "InstanceLoader"
+[13:31:42.350] [32mINFO[39m: [36mSavedProductsModule dependencies initialized[39m
+    context: "InstanceLoader"
+[13:31:42.350] [32mINFO[39m: [36mOnboardingModule dependencies initialized[39m
+    context: "InstanceLoader"
+[13:31:42.350] [32mINFO[39m: [36mUserLanguageModule dependencies initialized[39m
+    context: "InstanceLoader"
+[13:31:42.350] [32mINFO[39m: [36mWeeklyDigestModule dependencies initialized[39m
+    context: "InstanceLoader"
+[13:31:42.350] [32mINFO[39m: [36mCatalogImportModule dependencies initialized[39m
+    context: "InstanceLoader"
+[13:31:42.350] [32mINFO[39m: [36mAffiliateModule dependencies initialized[39m
+    context: "InstanceLoader"
+[13:31:42.350] [32mINFO[39m: [36mSyncModule dependencies initialized[39m
+    context: "InstanceLoader"
+[13:31:42.350] [32mINFO[39m: [36mSuppliersModule dependencies initialized[39m
+    context: "InstanceLoader"
+[13:31:42.350] [32mINFO[39m: [36mTenantsModule dependencies initialized[39m
+    context: "InstanceLoader"
+[13:31:42.350] [32mINFO[39m: [36mReferralsModule dependencies initialized[39m
+    context: "InstanceLoader"
+[13:31:42.350] [32mINFO[39m: [36mExpiryModule dependencies initialized[39m
+    context: "InstanceLoader"
+[13:31:42.350] [32mINFO[39m: [36mStoresModule dependencies initialized[39m
+    context: "InstanceLoader"
+[13:31:42.350] [32mINFO[39m: [36mEanListsModule dependencies initialized[39m
+    context: "InstanceLoader"
+[13:31:42.350] [32mINFO[39m: [36mBarcodeLearningModule dependencies initialized[39m
+    context: "InstanceLoader"
+[13:31:42.350] [32mINFO[39m: [36mVerifiedBadgeModule dependencies initialized[39m
+    context: "InstanceLoader"
+[13:31:42.350] [32mINFO[39m: [36mAuthModule dependencies initialized[39m
+    context: "InstanceLoader"
+[13:31:42.350] [32mINFO[39m: [36mMediaModule dependencies initialized[39m
+    context: "InstanceLoader"
+[13:31:42.350] [32mINFO[39m: [36mAdminImpersonationModule dependencies initialized[39m
+    context: "InstanceLoader"
+[13:31:42.350] [32mINFO[39m: [36mTasksModule dependencies initialized[39m
+    context: "InstanceLoader"
+[13:31:42.350] [32mINFO[39m: [36mWebhooksModule dependencies initialized[39m
+    context: "InstanceLoader"
+[13:31:42.350] [32mINFO[39m: [36mNotificationsModule dependencies initialized[39m
+    context: "InstanceLoader"
+[13:31:42.351] [32mINFO[39m: [36mSubscriptionsModule dependencies initialized[39m
+    context: "InstanceLoader"
+[13:31:42.351] [32mINFO[39m: [36mAnalyticsModule dependencies initialized[39m
+    context: "InstanceLoader"
+[13:31:42.351] [32mINFO[39m: [36mPaymentsModule dependencies initialized[39m
+    context: "InstanceLoader"
+[13:31:42.351] [32mINFO[39m: [36mHealthScoringModule dependencies initialized[39m
+    context: "InstanceLoader"
+[13:31:42.351] [32mINFO[39m: [36mGrnModule dependencies initialized[39m
+    context: "InstanceLoader"
+[13:31:42.351] [32mINFO[39m: [36mBusinessActivationModule dependencies initialized[39m
+    context: "InstanceLoader"
+[13:31:42.351] [32mINFO[39m: [36mProductsModule dependencies initialized[39m
+    context: "InstanceLoader"
+[13:31:42.351] [32mINFO[39m: [36mRecallModule dependencies initialized[39m
+    context: "InstanceLoader"
+[13:31:42.351] [32mINFO[39m: [36mScansModule dependencies initialized[39m
+    context: "InstanceLoader"
+[13:31:42.351] [32mINFO[39m: [36mAiModule dependencies initialized[39m
+    context: "InstanceLoader"
+[13:31:42.351] [32mINFO[39m: [36mJobsModule dependencies initialized[39m
+    context: "InstanceLoader"
+[13:31:42.351] [32mINFO[39m: [36mReportsModule dependencies initialized[39m
+    context: "InstanceLoader"
+[13:31:42.351] [32mINFO[39m: [36mAuthController {/api/auth} (version: 1):[39m
+    context: "RoutesResolver"
+[13:31:42.351] [32mINFO[39m: [36mMapped {/api/auth/otp/request, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.351] [32mINFO[39m: [36mMapped {/api/auth/otp/verify, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.351] [32mINFO[39m: [36mMapped {/api/auth/token/refresh, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.351] [32mINFO[39m: [36mMapped {/api/auth/refresh, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.351] [32mINFO[39m: [36mMapped {/api/auth/logout, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.351] [32mINFO[39m: [36mMapped {/api/auth/me, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.351] [32mINFO[39m: [36mAdminAuthController {/api/auth} (version: 1):[39m
+    context: "RoutesResolver"
+[13:31:42.351] [32mINFO[39m: [36mMapped {/api/auth/admin/login, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.351] [32mINFO[39m: [36mMapped {/api/auth/password/reset/request, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.351] [32mINFO[39m: [36mMapped {/api/auth/password/reset/complete, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.351] [32mINFO[39m: [36mMapped {/api/auth/email/verify, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.351] [32mINFO[39m: [36mMapped {/api/auth/admin/invitations/accept, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.351] [32mINFO[39m: [36mTenantsController {/api/tenants} (version: 1):[39m
+    context: "RoutesResolver"
+[13:31:42.351] [32mINFO[39m: [36mMapped {/api/tenants/onboard, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.351] [32mINFO[39m: [36mMapped {/api/tenants/me, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.351] [32mINFO[39m: [36mStoresController {/api/stores} (version: 1):[39m
+    context: "RoutesResolver"
+[13:31:42.351] [32mINFO[39m: [36mMapped {/api/stores, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.351] [32mINFO[39m: [36mMapped {/api/stores, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.351] [32mINFO[39m: [36mMapped {/api/stores/:storeId, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.351] [32mINFO[39m: [36mMapped {/api/stores/:storeId/access, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.351] [32mINFO[39m: [36mMapped {/api/stores/:storeId/access/:userId, DELETE} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.351] [32mINFO[39m: [36mProductsController {/api/products} (version: 1):[39m
+    context: "RoutesResolver"
+[13:31:42.351] [32mINFO[39m: [36mMapped {/api/products/lookup/:ean, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.351] [32mINFO[39m: [36mMapped {/api/products/lookup/batch, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.351] [32mINFO[39m: [36mMapped {/api/products, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.351] [32mINFO[39m: [36mMapped {/api/products/:id, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.352] [32mINFO[39m: [36mMapped {/api/products, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.352] [32mINFO[39m: [36mMapped {/api/products/:id, PATCH} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.352] [32mINFO[39m: [36mMapped {/api/products/:id, DELETE} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.352] [32mINFO[39m: [36mScanController {/api/products} (version: 1):[39m
+    context: "RoutesResolver"
+[13:31:42.352] [32mINFO[39m: [36mMapped {/api/products/:ean/scan, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.352] [32mINFO[39m: [36mMapped {/api/products/scan-mode-preference, PUT} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.352] [32mINFO[39m: [36mSearchController {/api/products} (version: 1):[39m
+    context: "RoutesResolver"
+[13:31:42.352] [32mINFO[39m: [36mMapped {/api/products/search, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.352] [32mINFO[39m: [36mMapped {/api/products/autocomplete, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.352] [32mINFO[39m: [36mMapped {/api/products/facets, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.352] [32mINFO[39m: [36mMapped {/api/products/popular, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.352] [32mINFO[39m: [36mMapped {/api/products/:id/similar, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.352] [32mINFO[39m: [36mConsumerCatalogController {/api/catalog} (version: 1):[39m
+    context: "RoutesResolver"
+[13:31:42.352] [32mINFO[39m: [36mMapped {/api/catalog/categories, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.352] [32mINFO[39m: [36mMapped {/api/catalog/products, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.352] [32mINFO[39m: [36mHealthScoringController {/api} (version: 1):[39m
+    context: "RoutesResolver"
+[13:31:42.352] [32mINFO[39m: [36mMapped {/api/products/:productId/health, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.352] [32mINFO[39m: [36mMapped {/api/products/:productId/health/recompute, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.352] [32mINFO[39m: [36mMapped {/api/products/health/bulk-recompute, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.352] [32mINFO[39m: [36mMapped {/api/products/health/filter, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.352] [32mINFO[39m: [36mMapped {/api/health-scoring/rules, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.352] [32mINFO[39m: [36mMapped {/api/health-scoring/stats, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.352] [32mINFO[39m: [36mMediaController {/api/media} (version: 1):[39m
+    context: "RoutesResolver"
+[13:31:42.352] [32mINFO[39m: [36mMapped {/api/media/presign, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.352] [32mINFO[39m: [36mMapped {/api/media/:id/confirm, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.352] [32mINFO[39m: [36mMapped {/api/media/:id, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.352] [32mINFO[39m: [36mMapped {/api/media, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.352] [32mINFO[39m: [36mMapped {/api/media/:id, DELETE} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.352] [32mINFO[39m: [36mMapped {/api/media/migrate-from-url, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.352] [32mINFO[39m: [36mMapped {/api/media/:id/reprocess, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.352] [32mINFO[39m: [36mMapped {/api/media/:id/invalidate, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.352] [32mINFO[39m: [36mMapped {/api/media/:id/variants, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.352] [32mINFO[39m: [36mEanListsController {/api/ean-lists} (version: 1):[39m
+    context: "RoutesResolver"
+[13:31:42.352] [32mINFO[39m: [36mMapped {/api/ean-lists, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.352] [32mINFO[39m: [36mMapped {/api/ean-lists, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.352] [32mINFO[39m: [36mMapped {/api/ean-lists/validate, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.352] [32mINFO[39m: [36mMapped {/api/ean-lists/validate/batch, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.352] [32mINFO[39m: [36mMapped {/api/ean-lists/imports/:batchId, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.352] [32mINFO[39m: [36mMapped {/api/ean-lists/imports/:batchId/errors, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.352] [32mINFO[39m: [36mMapped {/api/ean-lists/imports/:batchId/errors/csv, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.352] [32mINFO[39m: [36mMapped {/api/ean-lists/imports/:batchId/cancel, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.352] [32mINFO[39m: [36mMapped {/api/ean-lists/:id, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.352] [32mINFO[39m: [36mMapped {/api/ean-lists/:id, PATCH} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.352] [32mINFO[39m: [36mMapped {/api/ean-lists/:id, DELETE} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.353] [32mINFO[39m: [36mMapped {/api/ean-lists/:id/activate, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.353] [32mINFO[39m: [36mMapped {/api/ean-lists/:id/deactivate, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.353] [32mINFO[39m: [36mMapped {/api/ean-lists/:id/import, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.353] [32mINFO[39m: [36mMapped {/api/ean-lists/:id/items, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.353] [32mINFO[39m: [36mScansController {/api/scan-sessions} (version: 1):[39m
+    context: "RoutesResolver"
+[13:31:42.353] [32mINFO[39m: [36mMapped {/api/scan-sessions/sync-batches, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.353] [32mINFO[39m: [36mMapped {/api/scan-sessions/sync-batches/:batchId, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.353] [32mINFO[39m: [36mMapped {/api/scan-sessions/sync-batches/:batchId/cancel, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.353] [32mINFO[39m: [36mMapped {/api/scan-sessions, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.353] [32mINFO[39m: [36mMapped {/api/scan-sessions, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.353] [32mINFO[39m: [36mMapped {/api/scan-sessions/active, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.353] [32mINFO[39m: [36mMapped {/api/scan-sessions/:id, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.353] [32mINFO[39m: [36mMapped {/api/scan-sessions/:id/summary, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.353] [32mINFO[39m: [36mMapped {/api/scan-sessions/:id/end, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.353] [32mINFO[39m: [36mMapped {/api/scan-sessions/:id/abandon, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.353] [32mINFO[39m: [36mMapped {/api/scan-sessions/:id/items, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.353] [32mINFO[39m: [36mMapped {/api/scan-sessions/:id/items/batch, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.353] [32mINFO[39m: [36mMapped {/api/scan-sessions/:id/bulk-sync, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.353] [32mINFO[39m: [36mMapped {/api/scan-sessions/:id/items, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.353] [32mINFO[39m: [36mMapped {/api/scan-sessions/:id/items/:itemId, DELETE} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.353] [32mINFO[39m: [36mExpiryController {/api} (version: 1):[39m
+    context: "RoutesResolver"
+[13:31:42.353] [32mINFO[39m: [36mMapped {/api/expiry-records, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.353] [32mINFO[39m: [36mMapped {/api/expiry-records/near-expiry, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.353] [32mINFO[39m: [36mMapped {/api/expiry-records/expired, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.353] [32mINFO[39m: [36mMapped {/api/expiry-records/forecast, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.353] [32mINFO[39m: [36mMapped {/api/expiry-records/stats, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.353] [32mINFO[39m: [36mMapped {/api/expiry-records/stats/by-category, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.353] [32mINFO[39m: [36mMapped {/api/expiry-records/recalculate, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.353] [32mINFO[39m: [36mMapped {/api/expiry-records/:id, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.353] [32mINFO[39m: [36mMapped {/api/expiry-records, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.353] [32mINFO[39m: [36mMapped {/api/expiry-thresholds, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.353] [32mINFO[39m: [36mMapped {/api/expiry-thresholds, PUT} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.353] [32mINFO[39m: [36mMapped {/api/expiry-alerts, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.353] [32mINFO[39m: [36mMapped {/api/expiry-alerts/:id/acknowledge, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.353] [32mINFO[39m: [36mMapped {/api/expiry-alerts/:id/resolve, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.353] [32mINFO[39m: [36mMapped {/api/expiry/ocr/validate, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.353] [32mINFO[39m: [36mTasksController {/api} (version: 1):[39m
+    context: "RoutesResolver"
+[13:31:42.353] [32mINFO[39m: [36mMapped {/api/task-templates, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.353] [32mINFO[39m: [36mMapped {/api/task-templates, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.353] [32mINFO[39m: [36mMapped {/api/task-templates/:id, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.353] [32mINFO[39m: [36mMapped {/api/task-templates/:id, PATCH} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.353] [32mINFO[39m: [36mMapped {/api/task-templates/:id, DELETE} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.353] [32mINFO[39m: [36mMapped {/api/task-templates/:id/instantiate, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.353] [32mINFO[39m: [36mMapped {/api/tasks/my, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.353] [32mINFO[39m: [36mMapped {/api/tasks/stats, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.353] [32mINFO[39m: [36mMapped {/api/tasks/auto-from-alert, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.353] [32mINFO[39m: [36mMapped {/api/tasks, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.353] [32mINFO[39m: [36mMapped {/api/tasks, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.353] [32mINFO[39m: [36mMapped {/api/tasks/:id, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.353] [32mINFO[39m: [36mMapped {/api/tasks/:id, PATCH} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.353] [32mINFO[39m: [36mMapped {/api/tasks/:id, DELETE} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.353] [32mINFO[39m: [36mMapped {/api/tasks/:id/start, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.353] [32mINFO[39m: [36mMapped {/api/tasks/:id/complete, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.353] [32mINFO[39m: [36mMapped {/api/tasks/:id/reject, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.353] [32mINFO[39m: [36mMapped {/api/tasks/:id/cancel, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.353] [32mINFO[39m: [36mMapped {/api/tasks/:id/reassign, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.353] [32mINFO[39m: [36mMapped {/api/tasks/:id/evidence, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.353] [32mINFO[39m: [36mMapped {/api/tasks/evidence/:evidenceId, DELETE} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.353] [32mINFO[39m: [36mReportsController {/api} (version: 1):[39m
+    context: "RoutesResolver"
+[13:31:42.353] [32mINFO[39m: [36mMapped {/api/reports/export, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.353] [32mINFO[39m: [36mMapped {/api/reports/:id/export, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.353] [32mINFO[39m: [36mMapped {/api/reports/:id/files, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.353] [32mINFO[39m: [36mMapped {/api/reports/:id/download/:format, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.353] [32mINFO[39m: [36mMapped {/api/report-files/:id/download, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.353] [32mINFO[39m: [36mReportGenerationController {/api} (version: 1):[39m
+    context: "RoutesResolver"
+[13:31:42.353] [32mINFO[39m: [36mMapped {/api/dashboard/summary, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.353] [32mINFO[39m: [36mMapped {/api/reports/generate, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.353] [32mINFO[39m: [36mMapped {/api/reports/aggregate, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.354] [32mINFO[39m: [36mMapped {/api/reports/schedule, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.354] [32mINFO[39m: [36mMapped {/api/reports/scheduled, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.354] [32mINFO[39m: [36mMapped {/api/reports/scheduled/:id, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.354] [32mINFO[39m: [36mMapped {/api/reports/scheduled/:id/pause, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.354] [32mINFO[39m: [36mMapped {/api/reports/scheduled/:id/resume, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.354] [32mINFO[39m: [36mMapped {/api/reports/scheduled/:id, DELETE} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.354] [32mINFO[39m: [36mMapped {/api/reports, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.354] [32mINFO[39m: [36mMapped {/api/reports/:id/cancel, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.354] [32mINFO[39m: [36mMapped {/api/reports/:id, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.354] [32mINFO[39m: [36mAiController {/api/ai} (version: 1):[39m
+    context: "RoutesResolver"
+[13:31:42.354] [32mINFO[39m: [36mMapped {/api/ai/ocr/expiry, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.354] [32mINFO[39m: [36mMapped {/api/ai/ocr/batch, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.354] [32mINFO[39m: [36mMapped {/api/ai/ocr/text, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.354] [32mINFO[39m: [36mMapped {/api/ai/label/analyze, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.354] [32mINFO[39m: [36mMapped {/api/ai/image-fallback, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.354] [32mINFO[39m: [36mMapped {/api/ai/label/analyze-text, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.354] [32mINFO[39m: [36mMapped {/api/ai/report/summary, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.354] [32mINFO[39m: [36mMapped {/api/ai/usage, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.354] [32mINFO[39m: [36mMapped {/api/ai/limits, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.354] [32mINFO[39m: [36mMapped {/api/ai/ingredients/:slug/explanation, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.354] [32mINFO[39m: [36mNotificationsController {/api/notifications} (version: 1):[39m
+    context: "RoutesResolver"
+[13:31:42.354] [32mINFO[39m: [36mMapped {/api/notifications, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.354] [32mINFO[39m: [36mMapped {/api/notifications/preferences, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.354] [32mINFO[39m: [36mMapped {/api/notifications/preferences, PATCH} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.354] [32mINFO[39m: [36mMapped {/api/notifications/read-all, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.354] [32mINFO[39m: [36mMapped {/api/notifications/test, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.354] [32mINFO[39m: [36mMapped {/api/notifications/fcm-token, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.354] [32mINFO[39m: [36mMapped {/api/notifications/fcm-token, DELETE} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.354] [32mINFO[39m: [36mMapped {/api/notifications/:id/read, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.354] [32mINFO[39m: [36mOnboardingController {/api/onboarding} (version: 1):[39m
+    context: "RoutesResolver"
+[13:31:42.354] [32mINFO[39m: [36mMapped {/api/onboarding/segment, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.354] [32mINFO[39m: [36mSuppliersController {/api/suppliers} (version: 1):[39m
+    context: "RoutesResolver"
+[13:31:42.354] [32mINFO[39m: [36mMapped {/api/suppliers, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.354] [32mINFO[39m: [36mMapped {/api/suppliers, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.354] [32mINFO[39m: [36mMapped {/api/suppliers/search, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.354] [32mINFO[39m: [36mMapped {/api/suppliers/import, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.354] [32mINFO[39m: [36mMapped {/api/suppliers/export, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.354] [32mINFO[39m: [36mMapped {/api/suppliers/contacts/:contactId, DELETE} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.354] [32mINFO[39m: [36mMapped {/api/suppliers/:id, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.354] [32mINFO[39m: [36mMapped {/api/suppliers/:id, PATCH} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.354] [32mINFO[39m: [36mMapped {/api/suppliers/:id, DELETE} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.354] [32mINFO[39m: [36mMapped {/api/suppliers/:id/activate, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.354] [32mINFO[39m: [36mMapped {/api/suppliers/:id/deactivate, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.354] [32mINFO[39m: [36mMapped {/api/suppliers/:id/blacklist, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.354] [32mINFO[39m: [36mMapped {/api/suppliers/:id/contacts, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.354] [32mINFO[39m: [36mMapped {/api/suppliers/:id/contacts, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.354] [32mINFO[39m: [36mMapped {/api/suppliers/:id/performance, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.354] [32mINFO[39m: [36mGrnController {/api/grn} (version: 1):[39m
+    context: "RoutesResolver"
+[13:31:42.354] [32mINFO[39m: [36mMapped {/api/grn/stats, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.354] [32mINFO[39m: [36mMapped {/api/grn, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.354] [32mINFO[39m: [36mMapped {/api/grn, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.354] [32mINFO[39m: [36mMapped {/api/grn/:id, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.354] [32mINFO[39m: [36mMapped {/api/grn/:id, PATCH} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.354] [32mINFO[39m: [36mMapped {/api/grn/:id/items, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.354] [32mINFO[39m: [36mMapped {/api/grn/:id/items/:itemId, PATCH} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.354] [32mINFO[39m: [36mMapped {/api/grn/:id/items/:itemId, DELETE} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.354] [32mINFO[39m: [36mMapped {/api/grn/:id/validate, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.354] [32mINFO[39m: [36mMapped {/api/grn/:id/post, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.354] [32mINFO[39m: [36mMapped {/api/grn/:id/cancel, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.354] [32mINFO[39m: [36mMapped {/api/grn/:id/reverse, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.354] [32mINFO[39m: [36mHealthController {/api/health} (version: 1):[39m
+    context: "RoutesResolver"
+[13:31:42.354] [32mINFO[39m: [36mMapped {/api/health, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.354] [32mINFO[39m: [36mMapped {/api/health/ready, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.355] [32mINFO[39m: [36mConfigHealthController {/api/health/config} (version: 1):[39m
+    context: "RoutesResolver"
+[13:31:42.355] [32mINFO[39m: [36mMapped {/api/health/config, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.355] [32mINFO[39m: [36mAdminImpersonationController {/api} (version: 1):[39m
+    context: "RoutesResolver"
+[13:31:42.355] [32mINFO[39m: [36mMapped {/api/admin/impersonate, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.355] [32mINFO[39m: [36mMapped {/api/admin/impersonate, DELETE} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.355] [32mINFO[39m: [36mMapped {/api/admin/impersonations/audit, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.355] [32mINFO[39m: [36mAlternativesController {/api/products} (version: 1):[39m
+    context: "RoutesResolver"
+[13:31:42.355] [32mINFO[39m: [36mMapped {/api/products/:ean/alternatives, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.355] [32mINFO[39m: [36mAffiliateController {/api/affiliate} (version: 1):[39m
+    context: "RoutesResolver"
+[13:31:42.355] [32mINFO[39m: [36mMapped {/api/affiliate/clicks, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.355] [32mINFO[39m: [36mMapped {/api/affiliate/revenue, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.355] [32mINFO[39m: [36mAllergenController {/api/allergen/profiles} (version: 1):[39m
+    context: "RoutesResolver"
+[13:31:42.355] [32mINFO[39m: [36mMapped {/api/allergen/profiles, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.355] [32mINFO[39m: [36mMapped {/api/allergen/profiles/:id, PUT} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.355] [32mINFO[39m: [36mMapped {/api/allergen/profiles, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.355] [32mINFO[39m: [36mMapped {/api/allergen/profiles/:id, DELETE} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.355] [32mINFO[39m: [36mMapped {/api/allergen/profiles/:id/activate, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.355] [32mINFO[39m: [36mConsumerSubmissionController {/api/products} (version: 1):[39m
+    context: "RoutesResolver"
+[13:31:42.355] [32mINFO[39m: [36mMapped {/api/products/learn, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.355] [32mINFO[39m: [36mMapped {/api/products/:ean/flag, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.355] [32mINFO[39m: [36mAdminSubmissionController {/api/admin/learn} (version: 1):[39m
+    context: "RoutesResolver"
+[13:31:42.355] [32mINFO[39m: [36mMapped {/api/admin/learn/queue, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.355] [32mINFO[39m: [36mMapped {/api/admin/learn/:id/approve, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.355] [32mINFO[39m: [36mMapped {/api/admin/learn/:id/reject, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.355] [32mINFO[39m: [36mBusinessActivationController {/api/api/v1/account} (version: 1):[39m
+    context: "RoutesResolver"
+[13:31:42.355] [32mINFO[39m: [36mMapped {/api/api/v1/account/activate-business, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.355] [32mINFO[39m: [36mMapped {/api/api/v1/account/touchpoints, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.355] [32mINFO[39m: [36mSubscriptionsController {/api/subscriptions} (version: 1):[39m
+    context: "RoutesResolver"
+[13:31:42.355] [32mINFO[39m: [36mMapped {/api/subscriptions/plans, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.355] [32mINFO[39m: [36mMapped {/api/subscriptions/status, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.355] [32mINFO[39m: [36mMapped {/api/subscriptions/usage, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.355] [32mINFO[39m: [36mMapped {/api/subscriptions/upgrade, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.355] [32mINFO[39m: [36mMapped {/api/subscriptions/cancel, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.355] [32mINFO[39m: [36mMapped {/api/subscriptions/reactivate, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.355] [32mINFO[39m: [36mAnalyticsController {/api} (version: 1):[39m
+    context: "RoutesResolver"
+[13:31:42.355] [32mINFO[39m: [36mMapped {/api/analytics/app/events, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.355] [32mINFO[39m: [36mMapped {/api/analytics/app/events/batch, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.355] [32mINFO[39m: [36mMapped {/api/analytics/app/me, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.355] [32mINFO[39m: [36mMapped {/api/analytics/app/tenant, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.355] [32mINFO[39m: [36mMapped {/api/analytics/website/stats, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.355] [32mINFO[39m: [36mMapped {/api/analytics/website/funnel, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.355] [32mINFO[39m: [36mMapped {/api/analytics/funnel, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.355] [32mINFO[39m: [36mMapped {/api/marketing/leads, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.355] [32mINFO[39m: [36mMapped {/api/marketing/leads/:id, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.355] [32mINFO[39m: [36mMapped {/api/marketing/leads/:id, PATCH} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.355] [32mINFO[39m: [36mMapped {/api/marketing/leads/:id/convert, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.355] [32mINFO[39m: [36mPublicAnalyticsController {/api} (version: 1):[39m
+    context: "RoutesResolver"
+[13:31:42.355] [32mINFO[39m: [36mMapped {/api/analytics/website/events, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.355] [32mINFO[39m: [36mMapped {/api/marketing/leads, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.355] [32mINFO[39m: [36mExpiryCalendarController {/api/consumer/expiry-calendar} (version: 1):[39m
+    context: "RoutesResolver"
+[13:31:42.355] [32mINFO[39m: [36mMapped {/api/consumer/expiry-calendar, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.355] [32mINFO[39m: [36mMapped {/api/consumer/expiry-calendar/saved-products/:id/consumed, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.355] [32mINFO[39m: [36mMapped {/api/consumer/expiry-calendar/saved-products/:id, DELETE} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.355] [32mINFO[39m: [36mFeatureFlagsController {/api/feature-flags} (version: 1):[39m
+    context: "RoutesResolver"
+[13:31:42.355] [32mINFO[39m: [36mMapped {/api/feature-flags/me, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.355] [32mINFO[39m: [36mImageFallbackController {/api/scan} (version: 1):[39m
+    context: "RoutesResolver"
+[13:31:42.355] [32mINFO[39m: [36mMapped {/api/scan/image-fallback, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.355] [32mINFO[39m: [36mIngredientExplainerController {/api/ingredients} (version: 1):[39m
+    context: "RoutesResolver"
+[13:31:42.355] [32mINFO[39m: [36mMapped {/api/ingredients/:slug/explanation, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.355] [32mINFO[39m: [36mPublicProductController {/api/public/products} (version: 1):[39m
+    context: "RoutesResolver"
+[13:31:42.355] [32mINFO[39m: [36mMapped {/api/public/products/sitemap.xml, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.356] [32mINFO[39m: [36mMapped {/api/public/products/:slug, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.356] [32mINFO[39m: [36mRecallController {/api/recall} (version: 1):[39m
+    context: "RoutesResolver"
+[13:31:42.356] [32mINFO[39m: [36mMapped {/api/recall/alerts, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.356] [32mINFO[39m: [36mMapped {/api/recall/alerts/:id/acknowledge, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.356] [32mINFO[39m: [36mReferralsController {/api/referrals} (version: 1):[39m
+    context: "RoutesResolver"
+[13:31:42.356] [32mINFO[39m: [36mMapped {/api/referrals/me, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.356] [32mINFO[39m: [36mMapped {/api/referrals/apply, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.356] [32mINFO[39m: [36mSavedProductsController {/api/saved-products} (version: 1):[39m
+    context: "RoutesResolver"
+[13:31:42.356] [32mINFO[39m: [36mMapped {/api/saved-products, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.356] [32mINFO[39m: [36mMapped {/api/saved-products, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.356] [32mINFO[39m: [36mMapped {/api/saved-products/:id, DELETE} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.356] [32mINFO[39m: [36mShoppingListController {/api/shopping-lists} (version: 1):[39m
+    context: "RoutesResolver"
+[13:31:42.356] [32mINFO[39m: [36mMapped {/api/shopping-lists, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.356] [32mINFO[39m: [36mMapped {/api/shopping-lists, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.356] [32mINFO[39m: [36mMapped {/api/shopping-lists/:id, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.356] [32mINFO[39m: [36mMapped {/api/shopping-lists/:id, PATCH} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.356] [32mINFO[39m: [36mMapped {/api/shopping-lists/:id/items, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.356] [32mINFO[39m: [36mMapped {/api/shopping-lists/:id/items/:itemId, PATCH} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.356] [32mINFO[39m: [36mMapped {/api/shopping-lists/:id/items/:itemId, DELETE} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.356] [32mINFO[39m: [36mMapped {/api/shopping-lists/:id/whatsapp-format, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.356] [32mINFO[39m: [36mSyncController {/api/sync} (version: 1):[39m
+    context: "RoutesResolver"
+[13:31:42.356] [32mINFO[39m: [36mMapped {/api/sync/scans, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.356] [32mINFO[39m: [36mMapped {/api/sync/saved-products, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.356] [32mINFO[39m: [36mMapped {/api/sync/allergen-profiles, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.356] [32mINFO[39m: [36mMapped {/api/sync/changes, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.356] [32mINFO[39m: [36mPaymentsController {/api/payments} (version: 1):[39m
+    context: "RoutesResolver"
+[13:31:42.356] [32mINFO[39m: [36mMapped {/api/payments/checkout, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.356] [32mINFO[39m: [36mMapped {/api/payments/verify, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.356] [32mINFO[39m: [36mMapped {/api/payments/refund, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.356] [32mINFO[39m: [36mMapped {/api/payments/webhooks/razorpay, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.356] [32mINFO[39m: [36mUserLanguageController {/api/users/me} (version: 1):[39m
+    context: "RoutesResolver"
+[13:31:42.356] [32mINFO[39m: [36mMapped {/api/users/me/language, PUT} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.356] [32mINFO[39m: [36mVerifiedBadgeController {/api} (version: 1):[39m
+    context: "RoutesResolver"
+[13:31:42.356] [32mINFO[39m: [36mMapped {/api/badges/me, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.356] [32mINFO[39m: [36mMapped {/api/verify/:tenantSlug, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.356] [32mINFO[39m: [36mVoicePlaceholderController {/api/voice} (version: 1):[39m
+    context: "RoutesResolver"
+[13:31:42.356] [32mINFO[39m: [36mMapped {/api/voice/*, ALL} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.356] [32mINFO[39m: [36mWebhooksController {/api/webhooks} (version: 1):[39m
+    context: "RoutesResolver"
+[13:31:42.356] [32mINFO[39m: [36mMapped {/api/webhooks/endpoints, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.356] [32mINFO[39m: [36mMapped {/api/webhooks/endpoints, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.356] [32mINFO[39m: [36mMapped {/api/webhooks/endpoints/:id, DELETE} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.356] [32mINFO[39m: [36mMapped {/api/webhooks/deliveries, GET} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.356] [32mINFO[39m: [36mMapped {/api/webhooks/deliveries/:id/replay, POST} (version: 1) route[39m
+    context: "RouterExplorer"
+[13:31:42.356] [32mINFO[39m: [36mSentry DSN not configured; error tracking disabled.[39m
+    context: "SentryService"
+[13:31:42.356] [32mINFO[39m: [36mDatabase connected: localhost:5433/radha_dev[39m
+    context: "DbService"
+[13:31:42.356] [32mINFO[39m: [36mNest application successfully started[39m
+    context: "NestApplication"
+[13:32:44.092] [32mINFO[39m: [36mrequest.out[39m
+    req: {
+      "id": 1,
+      "method": "GET",
+      "url": "/api/v1/health",
+      "userAgent": "Mozilla/5.0 (Windows NT; Windows NT 10.0; en-US) WindowsPowerShell/5.1.26100.8655"
+    }
+    service: "RADHA"
+    context: "Http"
+    requestId: "unknown"
+    method: "GET"
+    path: "/api/v1/health"
+    status: 200
+    durationMs: 41
+[13:32:44.093] [32mINFO[39m: [36mrequest completed[39m
+    req: {
+      "id": 1,
+      "method": "GET",
+      "url": "/api/v1/health",
+      "userAgent": "Mozilla/5.0 (Windows NT; Windows NT 10.0; en-US) WindowsPowerShell/5.1.26100.8655"
+    }
+    service: "RADHA"
+    res: {
+      "statusCode": 200
+    }
+    responseTime: 47
+[13:32:44.038] [32mINFO[39m: [36mrequest.in[39m
+    context: "Http"
+    requestId: "unknown"
+    method: "GET"
+    path: "/api/v1/health"
+    userAgent: "Mozilla/5.0 (Windows NT; Windows NT 10.0; en-US) WindowsPowerShell/5.1.26100.8655"
+[14:10:08.422] [32mINFO[39m: [36mrequest.in[39m
+    context: "Http"
+    requestId: "unknown"
+    method: "POST"
+    path: "/api/v1/auth/otp/request"
+    userAgent: "Dart/3.12 (dart:io)"
+[14:10:10.642] [32mINFO[39m: [36maudit.event[39m
+    req: {
+      "id": 2,
+      "method": "POST",
+      "url": "/api/v1/auth/otp/request",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    context: "app"
+    audit: true
+    action: "CREATE"
+    resourceType: "OtpAttempt"
+    resourceId: "b0abf0c8-5056-45b0-9f38-e32adfb09e9e"
+    userId: "system"
+    tenantId: "system"
+    success: true
+    metadata: {
+      "mobile": "[REDACTED]"
+    }
+    ipAddress: "::ffff:127.0.0.1"
+    userAgent: "Dart/3.12 (dart:io)"
+    requestId: "unknown"
+[14:10:10.686] [33mWARN[39m: [36mrequest.slow[39m
+    req: {
+      "id": 2,
+      "method": "POST",
+      "url": "/api/v1/auth/otp/request",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    context: "Http"
+    requestId: "unknown"
+    method: "POST"
+    path: "/api/v1/auth/otp/request"
+    status: 200
+    durationMs: 2225
+[14:10:10.686] [32mINFO[39m: [36mrequest completed[39m
+    req: {
+      "id": 2,
+      "method": "POST",
+      "url": "/api/v1/auth/otp/request",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    res: {
+      "statusCode": 200
+    }
+    responseTime: 2234
+[14:11:00.884] [32mINFO[39m: [36mrequest.in[39m
+    context: "Http"
+    requestId: "unknown"
+    method: "POST"
+    path: "/api/v1/auth/otp/verify"
+    userAgent: "Dart/3.12 (dart:io)"
+[14:11:01.904] [32mINFO[39m: [36mrequest.in[39m
+    context: "Http"
+    requestId: "unknown"
+    method: "GET"
+    path: "/api/v1/auth/me"
+    userAgent: "Dart/3.12 (dart:io)"
+[14:11:01.404] [32mINFO[39m: [36maudit.event[39m
+    req: {
+      "id": 3,
+      "method": "POST",
+      "url": "/api/v1/auth/otp/verify",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    context: "app"
+    audit: true
+    action: "LOGIN"
+    resourceType: "User"
+    resourceId: "499ac247-fda7-426a-b0b3-51b84afa5275"
+    userId: "499ac247-fda7-426a-b0b3-51b84afa5275"
+    tenantId: "system"
+    ipAddress: "::ffff:127.0.0.1"
+    userAgent: "Dart/3.12 (dart:io)"
+    success: true
+    requestId: "unknown"
+[14:11:01.424] [32mINFO[39m: [36mrequest.out[39m
+    req: {
+      "id": 3,
+      "method": "POST",
+      "url": "/api/v1/auth/otp/verify",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    context: "Http"
+    requestId: "unknown"
+    method: "POST"
+    path: "/api/v1/auth/otp/verify"
+    status: 200
+    durationMs: 539
+[14:11:01.424] [32mINFO[39m: [36mrequest completed[39m
+    req: {
+      "id": 3,
+      "method": "POST",
+      "url": "/api/v1/auth/otp/verify",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    res: {
+      "statusCode": 200
+    }
+    responseTime: 540
+[14:11:01.929] [32mINFO[39m: [36mrequest.out[39m
+    req: {
+      "id": 4,
+      "method": "GET",
+      "url": "/api/v1/auth/me",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    context: "Http"
+    requestId: "unknown"
+    method: "GET"
+    path: "/api/v1/auth/me"
+    status: 200
+    durationMs: 16
+[14:11:01.930] [32mINFO[39m: [36mrequest completed[39m
+    req: {
+      "id": 4,
+      "method": "GET",
+      "url": "/api/v1/auth/me",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    res: {
+      "statusCode": 200
+    }
+    responseTime: 17
+[14:11:03.569] [32mINFO[39m: [36mrequest.in[39m
+    context: "Http"
+    requestId: "unknown"
+    method: "GET"
+    path: "/api/v1/subscription"
+    userAgent: "Dart/3.12 (dart:io)"
+[14:11:03.814] [32mINFO[39m: [36mrequest.in[39m
+    context: "Http"
+    requestId: "unknown"
+    method: "GET"
+    path: "/api/v1/saved-products?limit=20"
+    userAgent: "Dart/3.12 (dart:io)"
+[14:11:04.163] [32mINFO[39m: [36mrequest.in[39m
+    context: "Http"
+    requestId: "unknown"
+    method: "GET"
+    path: "/api/v1/expiry?limit=1&status=near_expiry"
+    userAgent: "Dart/3.12 (dart:io)"
+[14:11:03.590] [33mWARN[39m:
+    req: {
+      "id": 5,
+      "method": "GET",
+      "url": "/api/v1/subscription",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    context: "GlobalExceptionFilter"
+    requestId: "unknown"
+    path: "/api/v1/subscription"
+    method: "GET"
+    status: 404
+    code: "E5000"
+[14:11:03.592] [33mWARN[39m: [36mrequest.out[39m
+    req: {
+      "id": 5,
+      "method": "GET",
+      "url": "/api/v1/subscription",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    context: "Http"
+    requestId: "unknown"
+    method: "GET"
+    path: "/api/v1/subscription"
+    status: 404
+    durationMs: 21
+[14:11:03.592] [32mINFO[39m: [36mrequest completed[39m
+    req: {
+      "id": 5,
+      "method": "GET",
+      "url": "/api/v1/subscription",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    res: {
+      "statusCode": 404
+    }
+    responseTime: 22
+[14:11:03.887] [32mINFO[39m: [36mrequest.out[39m
+    req: {
+      "id": 6,
+      "method": "GET",
+      "url": "/api/v1/saved-products?limit=20",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    context: "Http"
+    requestId: "unknown"
+    method: "GET"
+    path: "/api/v1/saved-products?limit=20"
+    status: 200
+    durationMs: 72
+[14:11:03.887] [32mINFO[39m: [36mrequest completed[39m
+    req: {
+      "id": 6,
+      "method": "GET",
+      "url": "/api/v1/saved-products?limit=20",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    res: {
+      "statusCode": 200
+    }
+    responseTime: 72
+[14:11:04.171] [33mWARN[39m:
+    req: {
+      "id": 7,
+      "method": "GET",
+      "url": "/api/v1/expiry?limit=1&status=near_expiry",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    context: "GlobalExceptionFilter"
+    requestId: "unknown"
+    path: "/api/v1/expiry?limit=1&status=near_expiry"
+    method: "GET"
+    status: 404
+    code: "E5000"
+[14:11:04.172] [33mWARN[39m: [36mrequest.out[39m
+    req: {
+      "id": 7,
+      "method": "GET",
+      "url": "/api/v1/expiry?limit=1&status=near_expiry",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    context: "Http"
+    requestId: "unknown"
+    method: "GET"
+    path: "/api/v1/expiry?limit=1&status=near_expiry"
+    status: 404
+    durationMs: 3
+[14:11:04.173] [32mINFO[39m: [36mrequest completed[39m
+    req: {
+      "id": 7,
+      "method": "GET",
+      "url": "/api/v1/expiry?limit=1&status=near_expiry",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    res: {
+      "statusCode": 404
+    }
+    responseTime: 5
+[14:11:04.451] [33mWARN[39m:
+    req: {
+      "id": 8,
+      "method": "GET",
+      "url": "/api/v1/recalls",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    context: "GlobalExceptionFilter"
+    requestId: "unknown"
+    path: "/api/v1/recalls"
+    method: "GET"
+    status: 404
+    code: "E5000"
+[14:11:04.452] [33mWARN[39m: [36mrequest.out[39m
+    req: {
+      "id": 8,
+      "method": "GET",
+      "url": "/api/v1/recalls",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    context: "Http"
+    requestId: "unknown"
+    method: "GET"
+    path: "/api/v1/recalls"
+    status: 404
+    durationMs: 2
+[14:11:04.452] [32mINFO[39m: [36mrequest completed[39m
+    req: {
+      "id": 8,
+      "method": "GET",
+      "url": "/api/v1/recalls",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    res: {
+      "statusCode": 404
+    }
+    responseTime: 2
+[14:11:04.448] [32mINFO[39m: [36mrequest.in[39m
+    context: "Http"
+    requestId: "unknown"
+    method: "GET"
+    path: "/api/v1/recalls"
+    userAgent: "Dart/3.12 (dart:io)"
+[14:11:18.060] [33mWARN[39m:
+    req: {
+      "id": 9,
+      "method": "GET",
+      "url": "/api/v1/catalog/products?sort=health&limit=12",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    context: "GlobalExceptionFilter"
+    requestId: "unknown"
+    path: "/api/v1/catalog/products?sort=health&limit=12"
+    method: "GET"
+    status: 403
+    code: "E4001"
+[14:11:18.062] [33mWARN[39m: [36mrequest.out[39m
+    req: {
+      "id": 9,
+      "method": "GET",
+      "url": "/api/v1/catalog/products?sort=health&limit=12",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    context: "Http"
+    requestId: "unknown"
+    method: "GET"
+    path: "/api/v1/catalog/products?sort=health&limit=12"
+    status: 403
+    durationMs: 92
+[14:11:18.062] [32mINFO[39m: [36mrequest completed[39m
+    req: {
+      "id": 9,
+      "method": "GET",
+      "url": "/api/v1/catalog/products?sort=health&limit=12",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    res: {
+      "statusCode": 403
+    }
+    responseTime: 95
+[14:11:17.964] [32mINFO[39m: [36mrequest.in[39m
+    context: "Http"
+    requestId: "unknown"
+    method: "GET"
+    path: "/api/v1/catalog/products?sort=health&limit=12"
+    userAgent: "Dart/3.12 (dart:io)"
+[14:11:38.871] [33mWARN[39m:
+    req: {
+      "id": 10,
+      "method": "GET",
+      "url": "/api/v1/recalls",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    context: "GlobalExceptionFilter"
+    requestId: "unknown"
+    path: "/api/v1/recalls"
+    method: "GET"
+    status: 404
+    code: "E5000"
+[14:11:38.877] [33mWARN[39m: [36mrequest.out[39m
+    req: {
+      "id": 10,
+      "method": "GET",
+      "url": "/api/v1/recalls",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    context: "Http"
+    requestId: "unknown"
+    method: "GET"
+    path: "/api/v1/recalls"
+    status: 404
+    durationMs: 6
+[14:11:38.877] [32mINFO[39m: [36mrequest completed[39m
+    req: {
+      "id": 10,
+      "method": "GET",
+      "url": "/api/v1/recalls",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    res: {
+      "statusCode": 404
+    }
+    responseTime: 8
+[14:11:38.864] [32mINFO[39m: [36mrequest.in[39m
+    context: "Http"
+    requestId: "unknown"
+    method: "GET"
+    path: "/api/v1/recalls"
+    userAgent: "Dart/3.12 (dart:io)"
+[14:11:39.385] [32mINFO[39m: [36mrequest.in[39m
+    context: "Http"
+    requestId: "unknown"
+    method: "GET"
+    path: "/api/v1/expiry?limit=1&status=near_expiry"
+    userAgent: "Dart/3.12 (dart:io)"
+[14:11:39.388] [33mWARN[39m:
+    req: {
+      "id": 11,
+      "method": "GET",
+      "url": "/api/v1/expiry?limit=1&status=near_expiry",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    context: "GlobalExceptionFilter"
+    requestId: "unknown"
+    path: "/api/v1/expiry?limit=1&status=near_expiry"
+    method: "GET"
+    status: 404
+    code: "E5000"
+[14:11:39.392] [33mWARN[39m: [36mrequest.out[39m
+    req: {
+      "id": 11,
+      "method": "GET",
+      "url": "/api/v1/expiry?limit=1&status=near_expiry",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    context: "Http"
+    requestId: "unknown"
+    method: "GET"
+    path: "/api/v1/expiry?limit=1&status=near_expiry"
+    status: 404
+    durationMs: 5
+[14:11:39.392] [32mINFO[39m: [36mrequest completed[39m
+    req: {
+      "id": 11,
+      "method": "GET",
+      "url": "/api/v1/expiry?limit=1&status=near_expiry",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    res: {
+      "statusCode": 404
+    }
+    responseTime: 6
+[14:12:25.683] [32mINFO[39m: [36mrequest.in[39m
+    context: "Http"
+    requestId: "unknown"
+    method: "GET"
+    path: "/api/v1/expiry?limit=20&status=near_expiry"
+    userAgent: "Dart/3.12 (dart:io)"
+[14:12:25.685] [33mWARN[39m:
+    req: {
+      "id": 12,
+      "method": "GET",
+      "url": "/api/v1/expiry?limit=20&status=near_expiry",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    context: "GlobalExceptionFilter"
+    requestId: "unknown"
+    path: "/api/v1/expiry?limit=20&status=near_expiry"
+    method: "GET"
+    status: 404
+    code: "E5000"
+[14:12:25.686] [33mWARN[39m: [36mrequest.out[39m
+    req: {
+      "id": 12,
+      "method": "GET",
+      "url": "/api/v1/expiry?limit=20&status=near_expiry",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    context: "Http"
+    requestId: "unknown"
+    method: "GET"
+    path: "/api/v1/expiry?limit=20&status=near_expiry"
+    status: 404
+    durationMs: 1
+[14:12:25.686] [32mINFO[39m: [36mrequest completed[39m
+    req: {
+      "id": 12,
+      "method": "GET",
+      "url": "/api/v1/expiry?limit=20&status=near_expiry",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    res: {
+      "statusCode": 404
+    }
+    responseTime: 1
+[14:12:29.732] [32mINFO[39m: [36mrequest.in[39m
+    context: "Http"
+    requestId: "unknown"
+    method: "GET"
+    path: "/api/v1/expiry?limit=20&status=near_expiry"
+    userAgent: "Dart/3.12 (dart:io)"
+[14:12:29.735] [33mWARN[39m:
+    req: {
+      "id": 13,
+      "method": "GET",
+      "url": "/api/v1/expiry?limit=20&status=near_expiry",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    context: "GlobalExceptionFilter"
+    requestId: "unknown"
+    path: "/api/v1/expiry?limit=20&status=near_expiry"
+    method: "GET"
+    status: 404
+    code: "E5000"
+[14:12:29.736] [33mWARN[39m: [36mrequest.out[39m
+    req: {
+      "id": 13,
+      "method": "GET",
+      "url": "/api/v1/expiry?limit=20&status=near_expiry",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    context: "Http"
+    requestId: "unknown"
+    method: "GET"
+    path: "/api/v1/expiry?limit=20&status=near_expiry"
+    status: 404
+    durationMs: 1
+[14:12:29.736] [32mINFO[39m: [36mrequest completed[39m
+    req: {
+      "id": 13,
+      "method": "GET",
+      "url": "/api/v1/expiry?limit=20&status=near_expiry",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    res: {
+      "statusCode": 404
+    }
+    responseTime: 2
+[14:14:10.680] [32mINFO[39m: [36mrequest.in[39m
+    context: "Http"
+    requestId: "unknown"
+    method: "GET"
+    path: "/api/v1/subscription"
+    userAgent: "Dart/3.12 (dart:io)"
+[14:14:10.697] [32mINFO[39m: [36mrequest.in[39m
+    context: "Http"
+    requestId: "unknown"
+    method: "GET"
+    path: "/api/v1/auth/me"
+    userAgent: "Dart/3.12 (dart:io)"
+[14:14:11.121] [32mINFO[39m: [36mrequest.in[39m
+    context: "Http"
+    requestId: "unknown"
+    method: "GET"
+    path: "/api/v1/expiry?limit=1&status=near_expiry"
+    userAgent: "Dart/3.12 (dart:io)"
+[14:14:11.127] [32mINFO[39m: [36mrequest.in[39m
+    context: "Http"
+    requestId: "unknown"
+    method: "GET"
+    path: "/api/v1/saved-products?limit=20"
+    userAgent: "Dart/3.12 (dart:io)"
+[14:14:10.681] [33mWARN[39m:
+    req: {
+      "id": 14,
+      "method": "GET",
+      "url": "/api/v1/subscription",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    context: "GlobalExceptionFilter"
+    requestId: "unknown"
+    path: "/api/v1/subscription"
+    method: "GET"
+    status: 404
+    code: "E5000"
+[14:14:10.682] [33mWARN[39m: [36mrequest.out[39m
+    req: {
+      "id": 14,
+      "method": "GET",
+      "url": "/api/v1/subscription",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    context: "Http"
+    requestId: "unknown"
+    method: "GET"
+    path: "/api/v1/subscription"
+    status: 404
+    durationMs: 1
+[14:14:10.682] [32mINFO[39m: [36mrequest completed[39m
+    req: {
+      "id": 14,
+      "method": "GET",
+      "url": "/api/v1/subscription",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    res: {
+      "statusCode": 404
+    }
+    responseTime: 1
+[14:14:10.781] [32mINFO[39m: [36mrequest.out[39m
+    req: {
+      "id": 15,
+      "method": "GET",
+      "url": "/api/v1/auth/me",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    context: "Http"
+    requestId: "unknown"
+    method: "GET"
+    path: "/api/v1/auth/me"
+    status: 200
+    durationMs: 83
+[14:14:10.781] [32mINFO[39m: [36mrequest completed[39m
+    req: {
+      "id": 15,
+      "method": "GET",
+      "url": "/api/v1/auth/me",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    res: {
+      "statusCode": 200
+    }
+    responseTime: 83
+[14:14:11.125] [33mWARN[39m:
+    req: {
+      "id": 16,
+      "method": "GET",
+      "url": "/api/v1/expiry?limit=1&status=near_expiry",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    context: "GlobalExceptionFilter"
+    requestId: "unknown"
+    path: "/api/v1/expiry?limit=1&status=near_expiry"
+    method: "GET"
+    status: 404
+    code: "E5000"
+[14:14:11.126] [33mWARN[39m: [36mrequest.out[39m
+    req: {
+      "id": 16,
+      "method": "GET",
+      "url": "/api/v1/expiry?limit=1&status=near_expiry",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    context: "Http"
+    requestId: "unknown"
+    method: "GET"
+    path: "/api/v1/expiry?limit=1&status=near_expiry"
+    status: 404
+    durationMs: 3
+[14:14:11.126] [32mINFO[39m: [36mrequest completed[39m
+    req: {
+      "id": 16,
+      "method": "GET",
+      "url": "/api/v1/expiry?limit=1&status=near_expiry",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    res: {
+      "statusCode": 404
+    }
+    responseTime: 4
+[14:14:11.158] [32mINFO[39m: [36mrequest.out[39m
+    req: {
+      "id": 17,
+      "method": "GET",
+      "url": "/api/v1/saved-products?limit=20",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    context: "Http"
+    requestId: "unknown"
+    method: "GET"
+    path: "/api/v1/saved-products?limit=20"
+    status: 200
+    durationMs: 29
+[14:14:11.158] [32mINFO[39m: [36mrequest completed[39m
+    req: {
+      "id": 17,
+      "method": "GET",
+      "url": "/api/v1/saved-products?limit=20",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    res: {
+      "statusCode": 200
+    }
+    responseTime: 29
+[14:14:12.225] [32mINFO[39m: [36mrequest.in[39m
+    context: "Http"
+    requestId: "unknown"
+    method: "GET"
+    path: "/api/v1/recalls"
+    userAgent: "Dart/3.12 (dart:io)"
+[14:14:12.227] [33mWARN[39m:
+    req: {
+      "id": 18,
+      "method": "GET",
+      "url": "/api/v1/recalls",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    context: "GlobalExceptionFilter"
+    requestId: "unknown"
+    path: "/api/v1/recalls"
+    method: "GET"
+    status: 404
+    code: "E5000"
+[14:14:12.228] [33mWARN[39m: [36mrequest.out[39m
+    req: {
+      "id": 18,
+      "method": "GET",
+      "url": "/api/v1/recalls",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    context: "Http"
+    requestId: "unknown"
+    method: "GET"
+    path: "/api/v1/recalls"
+    status: 404
+    durationMs: 2
+[14:14:12.228] [32mINFO[39m: [36mrequest completed[39m
+    req: {
+      "id": 18,
+      "method": "GET",
+      "url": "/api/v1/recalls",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    res: {
+      "statusCode": 404
+    }
+    responseTime: 2
+[14:14:17.021] [32mINFO[39m: [36mrequest.in[39m
+    context: "Http"
+    requestId: "unknown"
+    method: "GET"
+    path: "/api/v1/expiry?limit=20&status=near_expiry"
+    userAgent: "Dart/3.12 (dart:io)"
+[14:14:17.023] [33mWARN[39m:
+    req: {
+      "id": 19,
+      "method": "GET",
+      "url": "/api/v1/expiry?limit=20&status=near_expiry",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    context: "GlobalExceptionFilter"
+    requestId: "unknown"
+    path: "/api/v1/expiry?limit=20&status=near_expiry"
+    method: "GET"
+    status: 404
+    code: "E5000"
+[14:14:17.023] [33mWARN[39m: [36mrequest.out[39m
+    req: {
+      "id": 19,
+      "method": "GET",
+      "url": "/api/v1/expiry?limit=20&status=near_expiry",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    context: "Http"
+    requestId: "unknown"
+    method: "GET"
+    path: "/api/v1/expiry?limit=20&status=near_expiry"
+    status: 404
+    durationMs: 1
+[14:14:17.023] [32mINFO[39m: [36mrequest completed[39m
+    req: {
+      "id": 19,
+      "method": "GET",
+      "url": "/api/v1/expiry?limit=20&status=near_expiry",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    res: {
+      "statusCode": 404
+    }
+    responseTime: 1
+[14:19:53.977] [32mINFO[39m: [36mrequest.in[39m
+    context: "Http"
+    requestId: "unknown"
+    method: "GET"
+    path: "/api/v1/catalog/products?sort=health&limit=12"
+    userAgent: "Dart/3.12 (dart:io)"
+[14:19:54.048] [33mWARN[39m:
+    req: {
+      "id": 20,
+      "method": "GET",
+      "url": "/api/v1/catalog/products?sort=health&limit=12",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    context: "GlobalExceptionFilter"
+    requestId: "unknown"
+    path: "/api/v1/catalog/products?sort=health&limit=12"
+    method: "GET"
+    status: 403
+    code: "E4001"
+[14:19:54.049] [33mWARN[39m: [36mrequest.out[39m
+    req: {
+      "id": 20,
+      "method": "GET",
+      "url": "/api/v1/catalog/products?sort=health&limit=12",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    context: "Http"
+    requestId: "unknown"
+    method: "GET"
+    path: "/api/v1/catalog/products?sort=health&limit=12"
+    status: 403
+    durationMs: 71
+[14:19:54.049] [32mINFO[39m: [36mrequest completed[39m
+    req: {
+      "id": 20,
+      "method": "GET",
+      "url": "/api/v1/catalog/products?sort=health&limit=12",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    res: {
+      "statusCode": 403
+    }
+    responseTime: 71
+[14:20:08.494] [33mWARN[39m:
+    req: {
+      "id": 21,
+      "method": "GET",
+      "url": "/api/v1/recalls",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    context: "GlobalExceptionFilter"
+    requestId: "unknown"
+    path: "/api/v1/recalls"
+    method: "GET"
+    status: 404
+    code: "E5000"
+[14:20:08.496] [33mWARN[39m: [36mrequest.out[39m
+    req: {
+      "id": 21,
+      "method": "GET",
+      "url": "/api/v1/recalls",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    context: "Http"
+    requestId: "unknown"
+    method: "GET"
+    path: "/api/v1/recalls"
+    status: 404
+    durationMs: 2
+[14:20:08.496] [32mINFO[39m: [36mrequest completed[39m
+    req: {
+      "id": 21,
+      "method": "GET",
+      "url": "/api/v1/recalls",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    res: {
+      "statusCode": 404
+    }
+    responseTime: 2
+[14:20:08.987] [33mWARN[39m:
+    req: {
+      "id": 22,
+      "method": "GET",
+      "url": "/api/v1/expiry?limit=1&status=near_expiry",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    context: "GlobalExceptionFilter"
+    requestId: "unknown"
+    path: "/api/v1/expiry?limit=1&status=near_expiry"
+    method: "GET"
+    status: 404
+    code: "E5000"
+[14:20:08.988] [33mWARN[39m: [36mrequest.out[39m
+    req: {
+      "id": 22,
+      "method": "GET",
+      "url": "/api/v1/expiry?limit=1&status=near_expiry",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    context: "Http"
+    requestId: "unknown"
+    method: "GET"
+    path: "/api/v1/expiry?limit=1&status=near_expiry"
+    status: 404
+    durationMs: 1
+[14:20:08.988] [32mINFO[39m: [36mrequest completed[39m
+    req: {
+      "id": 22,
+      "method": "GET",
+      "url": "/api/v1/expiry?limit=1&status=near_expiry",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    res: {
+      "statusCode": 404
+    }
+    responseTime: 2
+[14:20:08.492] [32mINFO[39m: [36mrequest.in[39m
+    context: "Http"
+    requestId: "unknown"
+    method: "GET"
+    path: "/api/v1/recalls"
+    userAgent: "Dart/3.12 (dart:io)"
+[14:20:08.985] [32mINFO[39m: [36mrequest.in[39m
+    context: "Http"
+    requestId: "unknown"
+    method: "GET"
+    path: "/api/v1/expiry?limit=1&status=near_expiry"
+    userAgent: "Dart/3.12 (dart:io)"
+[14:21:04.416] [33mWARN[39m:
+    req: {
+      "id": 23,
+      "method": "GET",
+      "url": "/api/v1/expiry/calendar?month=2026-06",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    context: "GlobalExceptionFilter"
+    requestId: "unknown"
+    path: "/api/v1/expiry/calendar?month=2026-06"
+    method: "GET"
+    status: 404
+    code: "E5000"
+[14:21:04.416] [33mWARN[39m: [36mrequest.out[39m
+    req: {
+      "id": 23,
+      "method": "GET",
+      "url": "/api/v1/expiry/calendar?month=2026-06",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    context: "Http"
+    requestId: "unknown"
+    method: "GET"
+    path: "/api/v1/expiry/calendar?month=2026-06"
+    status: 404
+    durationMs: 1
+[14:21:04.416] [32mINFO[39m: [36mrequest completed[39m
+    req: {
+      "id": 23,
+      "method": "GET",
+      "url": "/api/v1/expiry/calendar?month=2026-06",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    res: {
+      "statusCode": 404
+    }
+    responseTime: 1
+[14:21:04.414] [32mINFO[39m: [36mrequest.in[39m
+    context: "Http"
+    requestId: "unknown"
+    method: "GET"
+    path: "/api/v1/expiry/calendar?month=2026-06"
+    userAgent: "Dart/3.12 (dart:io)"
+[14:21:06.701] [33mWARN[39m:
+    req: {
+      "id": 24,
+      "method": "GET",
+      "url": "/api/v1/expiry/calendar?month=2026-06",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    context: "GlobalExceptionFilter"
+    requestId: "unknown"
+    path: "/api/v1/expiry/calendar?month=2026-06"
+    method: "GET"
+    status: 404
+    code: "E5000"
+[14:21:06.702] [33mWARN[39m: [36mrequest.out[39m
+    req: {
+      "id": 24,
+      "method": "GET",
+      "url": "/api/v1/expiry/calendar?month=2026-06",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    context: "Http"
+    requestId: "unknown"
+    method: "GET"
+    path: "/api/v1/expiry/calendar?month=2026-06"
+    status: 404
+    durationMs: 1
+[14:21:06.702] [32mINFO[39m: [36mrequest completed[39m
+    req: {
+      "id": 24,
+      "method": "GET",
+      "url": "/api/v1/expiry/calendar?month=2026-06",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    res: {
+      "statusCode": 404
+    }
+    responseTime: 1
+[14:21:06.700] [32mINFO[39m: [36mrequest.in[39m
+    context: "Http"
+    requestId: "unknown"
+    method: "GET"
+    path: "/api/v1/expiry/calendar?month=2026-06"
+    userAgent: "Dart/3.12 (dart:io)"
+[14:21:09.024] [33mWARN[39m:
+    req: {
+      "id": 25,
+      "method": "GET",
+      "url": "/api/v1/expiry?limit=20&status=safe",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    context: "GlobalExceptionFilter"
+    requestId: "unknown"
+    path: "/api/v1/expiry?limit=20&status=safe"
+    method: "GET"
+    status: 404
+    code: "E5000"
+[14:21:09.025] [33mWARN[39m: [36mrequest.out[39m
+    req: {
+      "id": 25,
+      "method": "GET",
+      "url": "/api/v1/expiry?limit=20&status=safe",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    context: "Http"
+    requestId: "unknown"
+    method: "GET"
+    path: "/api/v1/expiry?limit=20&status=safe"
+    status: 404
+    durationMs: 1
+[14:21:09.025] [32mINFO[39m: [36mrequest completed[39m
+    req: {
+      "id": 25,
+      "method": "GET",
+      "url": "/api/v1/expiry?limit=20&status=safe",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    res: {
+      "statusCode": 404
+    }
+    responseTime: 1
+[14:21:09.023] [32mINFO[39m: [36mrequest.in[39m
+    context: "Http"
+    requestId: "unknown"
+    method: "GET"
+    path: "/api/v1/expiry?limit=20&status=safe"
+    userAgent: "Dart/3.12 (dart:io)"
+[14:21:10.408] [32mINFO[39m: [36mrequest.in[39m
+    context: "Http"
+    requestId: "unknown"
+    method: "GET"
+    path: "/api/v1/expiry?limit=20&status=expired"
+    userAgent: "Dart/3.12 (dart:io)"
+[14:21:10.412] [33mWARN[39m:
+    req: {
+      "id": 26,
+      "method": "GET",
+      "url": "/api/v1/expiry?limit=20&status=expired",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    context: "GlobalExceptionFilter"
+    requestId: "unknown"
+    path: "/api/v1/expiry?limit=20&status=expired"
+    method: "GET"
+    status: 404
+    code: "E5000"
+[14:21:10.413] [33mWARN[39m: [36mrequest.out[39m
+    req: {
+      "id": 26,
+      "method": "GET",
+      "url": "/api/v1/expiry?limit=20&status=expired",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    context: "Http"
+    requestId: "unknown"
+    method: "GET"
+    path: "/api/v1/expiry?limit=20&status=expired"
+    status: 404
+    durationMs: 1
+[14:21:10.413] [32mINFO[39m: [36mrequest completed[39m
+    req: {
+      "id": 26,
+      "method": "GET",
+      "url": "/api/v1/expiry?limit=20&status=expired",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    res: {
+      "statusCode": 404
+    }
+    responseTime: 4
+[14:21:12.454] [33mWARN[39m:
+    req: {
+      "id": 27,
+      "method": "GET",
+      "url": "/api/v1/tasks?limit=30&status=pending",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    context: "GlobalExceptionFilter"
+    requestId: "unknown"
+    path: "/api/v1/tasks?limit=30&status=pending"
+    method: "GET"
+    status: 403
+    code: "E4004"
+[14:21:12.455] [33mWARN[39m: [36mrequest.out[39m
+    req: {
+      "id": 27,
+      "method": "GET",
+      "url": "/api/v1/tasks?limit=30&status=pending",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    context: "Http"
+    requestId: "unknown"
+    method: "GET"
+    path: "/api/v1/tasks?limit=30&status=pending"
+    status: 403
+    durationMs: 61
+[14:21:12.455] [32mINFO[39m: [36mrequest completed[39m
+    req: {
+      "id": 27,
+      "method": "GET",
+      "url": "/api/v1/tasks?limit=30&status=pending",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    res: {
+      "statusCode": 403
+    }
+    responseTime: 62
+[14:21:12.392] [32mINFO[39m: [36mrequest.in[39m
+    context: "Http"
+    requestId: "unknown"
+    method: "GET"
+    path: "/api/v1/tasks?limit=30&status=pending"
+    userAgent: "Dart/3.12 (dart:io)"
+[14:21:19.202] [33mWARN[39m:
+    req: {
+      "id": 28,
+      "method": "GET",
+      "url": "/api/v1/expiry?limit=1&status=near_expiry",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    context: "GlobalExceptionFilter"
+    requestId: "unknown"
+    path: "/api/v1/expiry?limit=1&status=near_expiry"
+    method: "GET"
+    status: 404
+    code: "E5000"
+[14:21:19.203] [33mWARN[39m: [36mrequest.out[39m
+    req: {
+      "id": 28,
+      "method": "GET",
+      "url": "/api/v1/expiry?limit=1&status=near_expiry",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    context: "Http"
+    requestId: "unknown"
+    method: "GET"
+    path: "/api/v1/expiry?limit=1&status=near_expiry"
+    status: 404
+    durationMs: 1
+[14:21:19.203] [32mINFO[39m: [36mrequest completed[39m
+    req: {
+      "id": 28,
+      "method": "GET",
+      "url": "/api/v1/expiry?limit=1&status=near_expiry",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    res: {
+      "statusCode": 404
+    }
+    responseTime: 2
+[14:21:19.214] [33mWARN[39m:
+    req: {
+      "id": 29,
+      "method": "GET",
+      "url": "/api/v1/recalls",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    context: "GlobalExceptionFilter"
+    requestId: "unknown"
+    path: "/api/v1/recalls"
+    method: "GET"
+    status: 404
+    code: "E5000"
+[14:21:19.215] [33mWARN[39m: [36mrequest.out[39m
+    req: {
+      "id": 29,
+      "method": "GET",
+      "url": "/api/v1/recalls",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    context: "Http"
+    requestId: "unknown"
+    method: "GET"
+    path: "/api/v1/recalls"
+    status: 404
+    durationMs: 1
+[14:21:19.215] [32mINFO[39m: [36mrequest completed[39m
+    req: {
+      "id": 29,
+      "method": "GET",
+      "url": "/api/v1/recalls",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    res: {
+      "statusCode": 404
+    }
+    responseTime: 2
+[14:21:19.200] [32mINFO[39m: [36mrequest.in[39m
+    context: "Http"
+    requestId: "unknown"
+    method: "GET"
+    path: "/api/v1/expiry?limit=1&status=near_expiry"
+    userAgent: "Dart/3.12 (dart:io)"
+[14:21:19.212] [32mINFO[39m: [36mrequest.in[39m
+    context: "Http"
+    requestId: "unknown"
+    method: "GET"
+    path: "/api/v1/recalls"
+    userAgent: "Dart/3.12 (dart:io)"
+[14:27:36.219] [33mWARN[39m:
+    req: {
+      "id": 30,
+      "method": "GET",
+      "url": "/api/v1/catalog/products?sort=health&limit=12",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    context: "GlobalExceptionFilter"
+    requestId: "unknown"
+    path: "/api/v1/catalog/products?sort=health&limit=12"
+    method: "GET"
+    status: 403
+    code: "E4001"
+[14:27:36.220] [33mWARN[39m: [36mrequest.out[39m
+    req: {
+      "id": 30,
+      "method": "GET",
+      "url": "/api/v1/catalog/products?sort=health&limit=12",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    context: "Http"
+    requestId: "unknown"
+    method: "GET"
+    path: "/api/v1/catalog/products?sort=health&limit=12"
+    status: 403
+    durationMs: 82
+[14:27:36.220] [32mINFO[39m: [36mrequest completed[39m
+    req: {
+      "id": 30,
+      "method": "GET",
+      "url": "/api/v1/catalog/products?sort=health&limit=12",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    res: {
+      "statusCode": 403
+    }
+    responseTime: 83
+[14:27:36.136] [32mINFO[39m: [36mrequest.in[39m
+    context: "Http"
+    requestId: "unknown"
+    method: "GET"
+    path: "/api/v1/catalog/products?sort=health&limit=12"
+    userAgent: "Dart/3.12 (dart:io)"
+[14:28:24.862] [33mWARN[39m:
+    req: {
+      "id": 31,
+      "method": "GET",
+      "url": "/api/v1/catalog/products?sort=health&limit=12",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    context: "GlobalExceptionFilter"
+    requestId: "unknown"
+    path: "/api/v1/catalog/products?sort=health&limit=12"
+    method: "GET"
+    status: 403
+    code: "E4001"
+[14:28:24.863] [33mWARN[39m: [36mrequest.out[39m
+    req: {
+      "id": 31,
+      "method": "GET",
+      "url": "/api/v1/catalog/products?sort=health&limit=12",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    context: "Http"
+    requestId: "unknown"
+    method: "GET"
+    path: "/api/v1/catalog/products?sort=health&limit=12"
+    status: 403
+    durationMs: 81
+[14:28:24.863] [32mINFO[39m: [36mrequest completed[39m
+    req: {
+      "id": 31,
+      "method": "GET",
+      "url": "/api/v1/catalog/products?sort=health&limit=12",
+      "userAgent": "Dart/3.12 (dart:io)"
+    }
+    service: "RADHA"
+    res: {
+      "statusCode": 403
+    }
+    responseTime: 81
+[14:28:24.780] [32mINFO[39m: [36mrequest.in[39m
+    context: "Http"
+    requestId: "unknown"
+    method: "GET"
+    path: "/api/v1/catalog/products?sort=health&limit=12"
+    userAgent: "Dart/3.12 (dart:io)"
+[14:40:31.179] [32mINFO[39m: [36mdatabase.connection.closed[39m
+    context: "app"
+    requestId: "unknown"
+[14:40:31.346] [31mERROR[39m: [36mError happened during shutdown[39m
+    context: "NestApplicationContext"
+    err: {
+      "type": "Error",
+      "message": "Error happened during shutdown",
+      "stack":
+          Error: kill ENOSYS
+              at process.kill (node:internal/process/per_thread:277:13)
+              at process.cleanup (C:\Users\sayan\Downloads\RADHA_UPGRADED_PROJECT_FILES new\RADHA_UPGRADED_PROJECT_FILES\radha_backend\node_modules\.pnpm\@nestjs+core@10.4.22_@nestj_558ae3c7cf983d845eb445c3b6d17e96\node_modules\@nestjs\core\nest-application-context.js:203:25)
+              at processTicksAndRejections (node:internal/process/task_queues:104:5)
+    }

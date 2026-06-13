@@ -1,0 +1,64 @@
+- generic [active] [ref=e1]:
+  - link "Skip to content" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - main [ref=e3]:
+    - generic [ref=e5]:
+      - generic [ref=e6]:
+        - 'button "Store: Select store" [ref=e7] [cursor=pointer]':
+          - img [ref=e8]
+          - generic [ref=e13]: Select store
+          - img [ref=e14]
+        - button "Open command palette (⌘K)" [ref=e16] [cursor=pointer]:
+          - img [ref=e17]
+          - generic [ref=e20]: Search…
+          - generic [ref=e21]: ⌘K
+        - generic [ref=e22]:
+          - link "Notifications" [ref=e25] [cursor=pointer]:
+            - /url: /notifications
+            - img [ref=e26]
+          - button "Account menu" [ref=e30] [cursor=pointer]: R
+      - main [ref=e31]:
+        - generic [ref=e32]:
+          - generic [ref=e35]:
+            - paragraph [ref=e36]: ADMINISTRATION
+            - heading "Admin Console" [level=1] [ref=e37]
+            - paragraph [ref=e38]: Elevated tools for the RADHA platform team. All actions are audited.
+          - generic [ref=e39]:
+            - img [ref=e40]
+            - generic [ref=e42]:
+              - paragraph [ref=e43]: Admin access — role verified
+              - paragraph [ref=e44]: This section is server-side role-gated. Access is restricted to admin and owner roles. All impersonation and webhook changes are permanently logged.
+          - generic [ref=e45]:
+            - link "Audited Impersonation Start a time-boxed admin impersonation session for a user/tenant. View the full audit log of past sessions. Open" [ref=e46] [cursor=pointer]:
+              - /url: /admin/impersonation
+              - generic [ref=e47]:
+                - img [ref=e49]
+                - generic [ref=e53]: Audited
+              - generic [ref=e54]:
+                - heading "Impersonation" [level=3] [ref=e55]
+                - paragraph [ref=e56]: Start a time-boxed admin impersonation session for a user/tenant. View the full audit log of past sessions.
+              - generic [ref=e57]:
+                - text: Open
+                - img [ref=e58]
+            - link "Read-only Feature Flags View the current enabled/disabled state of all feature flags. Management requires backend configuration. Open" [ref=e60] [cursor=pointer]:
+              - /url: /admin/flags
+              - generic [ref=e61]:
+                - img [ref=e63]
+                - generic [ref=e65]: Read-only
+              - generic [ref=e66]:
+                - heading "Feature Flags" [level=3] [ref=e67]
+                - paragraph [ref=e68]: View the current enabled/disabled state of all feature flags. Management requires backend configuration.
+              - generic [ref=e69]:
+                - text: Open
+                - img [ref=e70]
+            - 'link "CRUD Webhooks Manage webhook endpoints per tenant: add/remove/activate endpoints, browse delivery history, and replay failed deliveries. Open" [ref=e72] [cursor=pointer]':
+              - /url: /admin/webhooks
+              - generic [ref=e73]:
+                - img [ref=e75]
+                - generic [ref=e79]: CRUD
+              - generic [ref=e80]:
+                - heading "Webhooks" [level=3] [ref=e81]
+                - paragraph [ref=e82]: "Manage webhook endpoints per tenant: add/remove/activate endpoints, browse delivery history, and replay failed deliveries."
+              - generic [ref=e83]:
+                - text: Open
+                - img [ref=e84]

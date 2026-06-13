@@ -1,6 +1,0 @@
-
-> @radha/server@1.0.0 test C:\Users\sayan\Downloads\RADHA_UPGRADED_PROJECT_FILES new\RADHA_UPGRADED_PROJECT_FILES\server
-> jest "--testPathPattern=modules/analytics"
-
-[32m[Nest] 23052  - [39m05/18/2026, 9:16:53 AM [32m    LOG[39m [38;5;3m[OwnerMetricsAggregationCron] [39m[32mowner-metrics-aggregation: starting for 2026-05-17T03:46:53.643Z[39m
-[32m[Nest] 23052  - [39m05/18/2026, 9:16:53 AM [32m    LOG[39m [38;5;3m[OwnerMetricsAggregationCron] [39m[32mowner-metrics-aggregation: starting for 2026-05-17T03:46:53.670Z[39m

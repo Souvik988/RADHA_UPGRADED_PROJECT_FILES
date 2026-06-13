@@ -1,10 +1,16 @@
 # Tech Stack
 
-## Monorepo
-- **pnpm workspaces** (`pnpm-workspace.yaml`). Workspaces: `server`, `packages/*`.
-- Node `>=18.17.0`, pnpm `>=8.10.0`, TypeScript 5.3.
+## Repository shape
+RADHA now lives as two standalone, independently-deployable folders at the repo root:
+- `radha_backend/` — NestJS backend (API + Worker + Scheduler).
+- `radha_app/` — Flutter mobile app.
 
-## Backend (`server/`)
+There is **no pnpm workspace / monorepo** anymore. The backend is self-contained:
+the previously shared `@radha/shared-types` package has been **inlined** into
+`radha_backend/src/shared-types.ts` (imported via the `@/shared-types` path alias).
+Node `>=18.17.0`, TypeScript 5.3.
+
+## Backend (`radha_backend/`)
 - **NestJS 10** modular monolith with three runtime entrypoints:
   - `src/main.api.ts` — REST API process
   - `src/main.worker.ts` — BullMQ workers (imports, OCR, reports, AI, notifications)
@@ -12,29 +18,34 @@
 - **Drizzle ORM** (`drizzle-orm` + `drizzle-kit`) over **PostgreSQL** (`postgres` driver).
 - **BullMQ + ioredis** for background jobs.
 - **Validation**: `class-validator` + `class-transformer` for DTOs, `zod` for schema-level validation.
-- **Auth**: `@nestjs/jwt`, `bcrypt`, OTP via MSG91 (server-only wrapper).
+- **Auth**: `@nestjs/jwt`, `bcrypt`, OTP via 2Factor.in (server-only wrapper; `mock` provider in dev).
 - **Logging/observability**: `nestjs-pino` + `pino-http`, request context via `nestjs-cls`, Sentry (`@sentry/node`).
 - **Security middleware**: `helmet`, `compression`.
 - **AWS**: `@aws-sdk/client-s3`, `s3-presigned-post`, `s3-request-presigner`, `client-cloudfront`, `client-rekognition` (paid escalation only).
-- **AI/OCR (free-first)**: `@google-cloud/vision` (ML Kit on device, Vision in worker), Open Food Facts HTTP, optional `openai` for summaries. AWS Rekognition only as paid escalation.
+- **AI/OCR (free-first)**: `@google-cloud/vision` (ML Kit on device, Vision in worker), Open Food Facts HTTP, Google Gemini / optional `openai` for summaries. AWS Rekognition only as paid escalation.
+- **Payments**: Razorpay (TEST mode; deterministic mock when key absent).
 - **Files/exports**: `exceljs`, `xlsx`, `pdfkit`, `sharp`, `csv-parse`.
 - **Push**: `firebase-admin`.
-- **Testing**: Jest + ts-jest (unit/integration) and `supertest` for E2E (`test/jest-e2e.json`).
+- Shared DTO/contract types live in `src/shared-types.ts` (framework-free domain primitives).
 
-## Frontend (planned)
-- **Mobile**: Flutter, Riverpod for state, Google ML Kit for on-device scan/OCR.
-- **Admin / Marketing / Owner Dashboard**: Next.js with TanStack Query.
-- UI never calls HTTP directly — always through a typed service layer that consumes `@radha/shared-types`.
+> Test files (`*.spec.ts`, e2e) and the `packages/`, `infra/`, `deploy/`, and root
+> monorepo tooling have been removed from this trimmed deploy copy. If you reintroduce
+> tests, Jest + ts-jest is the expected runner.
 
-## Shared packages
-- `packages/shared-types` (`@radha/shared-types`) — typed DTOs/contracts shared by server and frontends.
+## Frontend (`radha_app/`)
+- **Mobile**: Flutter, Riverpod for state, `go_router`, `dio` + `retrofit`, Drift for offline,
+  Google ML Kit for on-device scan/OCR, `razorpay_flutter` for checkout.
+- UI never calls HTTP directly — always through the typed `dio`/`retrofit` service layer.
+- API base URL is injected at run/build time via `--dart-define=BASE_URL=...`
+  (Android emulator reaches the host backend at `http://10.0.2.2:3000/api`).
 
-## Infra (dev)
-`docker-compose.yml` brings up:
-- Postgres 16 on **host port 5433** (db `radha_dev`, user `radha`)
-- Redis 7 on **host port 6380**
+## Local services (dev)
+The backend `.env.development` expects:
+- Postgres on **host port 5433** (db `radha_dev`, user `radha`)
+- Redis on **host port 6380**
 
-These ports are intentional to avoid clashing with local installs. Server `.env.development` matches them.
+Run these however you prefer (local install or a Postgres/Redis container). The ports
+are intentionally non-default to avoid clashing with a local 5432/6379.
 
 ## Code style
 - Prettier (`.prettierrc`): single quotes, trailing commas, semicolons, print width 100, tab width 2, arrow parens always, LF line endings.
@@ -42,28 +53,14 @@ These ports are intentional to avoid clashing with local installs. Server `.env.
 
 ## Common commands
 
-### Root (monorepo)
+### Backend (`cd radha_backend`)
 ```bash
-pnpm install                  # install everything
-pnpm build                    # build packages then server
-pnpm lint                     # lint all workspaces
-pnpm test                     # run all workspace tests
-pnpm format                   # prettier all workspaces
-pnpm server:dev               # nest start --watch (API)
-pnpm server:worker            # worker process
-pnpm server:scheduler         # scheduler process
-```
-
-### Server (`cd server`)
-```bash
-pnpm start:dev                # API watch mode
-pnpm start:worker             # worker
-pnpm start:scheduler          # scheduler
-pnpm build                    # nest build
+pnpm install                  # or npm install — install deps
+pnpm start:dev                # API watch mode (nest start --watch)
+pnpm start:worker             # worker process
+pnpm start:scheduler          # scheduler process
+pnpm build                    # nest build + tsc-alias
 pnpm lint                     # eslint, zero warnings
-pnpm test                     # jest unit/integration
-pnpm test:cov                 # with coverage
-pnpm test:e2e                 # supertest E2E
 pnpm db:generate              # drizzle-kit generate:pg
 pnpm db:migrate               # tsx src/db/migrate.ts
 pnpm db:push                  # drizzle-kit push:pg
@@ -71,18 +68,19 @@ pnpm db:reset                 # tsx src/db/reset.ts
 pnpm db:studio                # drizzle-kit studio
 ```
 
-### Local services
+### Mobile app (`cd radha_app`)
 ```bash
-docker compose up -d          # start Postgres (5433) + Redis (6380)
-docker compose down           # stop (data persists)
-docker compose down -v        # full wipe
+flutter pub get                                   # install deps
+dart run build_runner build -d                    # codegen (retrofit/json/drift/freezed)
+flutter run --dart-define=BASE_URL=http://10.0.2.2:3000/api   # run on emulator
+flutter build apk                                 # release build
 ```
 
 ## Backend rules (enforced in design + reviews)
 - Controllers are **transport only** — no business logic.
 - **Services** own business logic and transactions.
 - **Repositories** own all database access.
-- **Integrations** hide external providers (MSG91, OpenAI, AWS, Open Food Facts).
+- **Integrations** hide external providers (2Factor, OpenAI/Gemini, AWS, Open Food Facts, Razorpay, FCM).
 - Every state-changing write also writes an **audit log**.
 - DTO validation must reject invalid input; logs must redact PII; risky routes must be rate-limited.
 - All multi-tenant queries must include `tenant_id` (and `store_id` where applicable).

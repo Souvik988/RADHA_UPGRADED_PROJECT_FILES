@@ -1,0 +1,90 @@
+- generic [active] [ref=e1]:
+  - link "Skip to content" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - main [ref=e3]:
+    - generic [ref=e5]:
+      - generic [ref=e6]:
+        - 'button "Store: Select store" [ref=e7] [cursor=pointer]':
+          - img [ref=e8]
+          - generic [ref=e13]: Select store
+          - img [ref=e14]
+        - button "Open command palette (⌘K)" [ref=e16] [cursor=pointer]:
+          - img [ref=e17]
+          - generic [ref=e20]: Search…
+          - generic [ref=e21]: ⌘K
+        - generic [ref=e22]:
+          - link "Notifications" [ref=e25] [cursor=pointer]:
+            - /url: /notifications
+            - img [ref=e26]
+          - button "Account menu" [ref=e30] [cursor=pointer]: R
+      - main [ref=e31]:
+        - generic [ref=e32]:
+          - generic [ref=e35]:
+            - paragraph [ref=e36]: PROCUREMENT
+            - heading "Suppliers" [level=1] [ref=e37]
+            - paragraph [ref=e38]: Manage your supplier directory for GRN and procurement.
+          - generic [ref=e39]:
+            - paragraph [ref=e41]: SUPPLIER DIRECTORY
+            - generic [ref=e42]:
+              - tablist "Filter segments" [ref=e43]:
+                - tab "All" [selected] [ref=e45] [cursor=pointer]
+                - tab "Active" [ref=e46] [cursor=pointer]
+                - tab "Inactive" [ref=e47] [cursor=pointer]
+              - generic [ref=e48]:
+                - img
+                - searchbox "Search by name, phone…" [ref=e49]
+            - grid [ref=e52]:
+              - rowgroup [ref=e53]:
+                - row "Supplier Name Contact Phone Email Status Added" [ref=e54]:
+                  - columnheader "Supplier Name" [ref=e55] [cursor=pointer]:
+                    - generic [ref=e56]:
+                      - text: Supplier Name
+                      - img [ref=e57]
+                  - columnheader "Contact" [ref=e60]:
+                    - generic [ref=e61]: Contact
+                  - columnheader "Phone" [ref=e62]:
+                    - generic [ref=e63]: Phone
+                  - columnheader "Email" [ref=e64]:
+                    - generic [ref=e65]: Email
+                  - columnheader "Status" [ref=e66]:
+                    - generic [ref=e67]: Status
+                  - columnheader "Added" [ref=e68] [cursor=pointer]:
+                    - generic [ref=e69]:
+                      - text: Added
+                      - img [ref=e70]
+              - rowgroup [ref=e73]:
+                - row [ref=e74] [cursor=pointer]:
+                  - gridcell [ref=e75]
+                  - gridcell [ref=e77]
+                  - gridcell [ref=e79]
+                  - gridcell [ref=e81]
+                  - gridcell [ref=e83]
+                  - gridcell [ref=e85]
+                - row [ref=e87] [cursor=pointer]:
+                  - gridcell [ref=e88]
+                  - gridcell [ref=e90]
+                  - gridcell [ref=e92]
+                  - gridcell [ref=e94]
+                  - gridcell [ref=e96]
+                  - gridcell [ref=e98]
+                - row [ref=e100] [cursor=pointer]:
+                  - gridcell [ref=e101]
+                  - gridcell [ref=e103]
+                  - gridcell [ref=e105]
+                  - gridcell [ref=e107]
+                  - gridcell [ref=e109]
+                  - gridcell [ref=e111]
+                - row [ref=e113] [cursor=pointer]:
+                  - gridcell [ref=e114]
+                  - gridcell [ref=e116]
+                  - gridcell [ref=e118]
+                  - gridcell [ref=e120]
+                  - gridcell [ref=e122]
+                  - gridcell [ref=e124]
+                - row [ref=e126] [cursor=pointer]:
+                  - gridcell [ref=e127]
+                  - gridcell [ref=e129]
+                  - gridcell [ref=e131]
+                  - gridcell [ref=e133]
+                  - gridcell [ref=e135]
+                  - gridcell [ref=e137]

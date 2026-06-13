@@ -1,0 +1,38 @@
+- generic [active] [ref=e1]:
+  - link "Skip to content" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - main [ref=e3]:
+    - generic [ref=e5]:
+      - generic [ref=e6]:
+        - 'button "Store: Select store" [ref=e7] [cursor=pointer]':
+          - img [ref=e8]
+          - generic [ref=e13]: Select store
+          - img [ref=e14]
+        - button "Open command palette (⌘K)" [ref=e16] [cursor=pointer]:
+          - img [ref=e17]
+          - generic [ref=e20]: Search…
+          - generic [ref=e21]: ⌘K
+        - link "Notifications" [ref=e23] [cursor=pointer]:
+          - /url: /notifications
+          - img [ref=e24]
+        - button "Account menu" [ref=e28] [cursor=pointer]: R
+      - main [ref=e29]:
+        - generic [ref=e30]:
+          - generic [ref=e32]:
+            - generic [ref=e33]:
+              - paragraph [ref=e34]: COMMAND CENTRE
+              - heading "Good morning, there" [level=1] [ref=e35]
+              - paragraph [ref=e36]: Here's what needs your attention today.
+            - button "Generate report" [ref=e38] [cursor=pointer]:
+              - img [ref=e39]
+              - text: Generate report
+          - region "Store KPIs" [ref=e42]:
+            - paragraph [ref=e43]: At a glance
+          - region "Health and trends" [ref=e61]:
+            - paragraph [ref=e62]: Performance
+          - region "Active alerts" [ref=e72]:
+            - paragraph [ref=e73]: Alerts
+            - paragraph [ref=e75]: Alerts
+          - region "Recent activity" [ref=e79]:
+            - paragraph [ref=e80]: Activity
+            - paragraph [ref=e82]: Recent Activity

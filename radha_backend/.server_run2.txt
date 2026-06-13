@@ -1,0 +1,36 @@
+Error: Cannot find module 'C:\Users\sayan\Downloads\RADHA_UPGRADED_PROJECT_FILES new\RADHA_UPGRADED_PROJECT_FILES\radha_backend\node_modules\.pnpm\bcrypt@5.1.1\node_modules\bcrypt\lib\binding\napi-v3\bcrypt_lib.node'
+Require stack:
+- C:\Users\sayan\Downloads\RADHA_UPGRADED_PROJECT_FILES new\RADHA_UPGRADED_PROJECT_FILES\radha_backend\node_modules\.pnpm\bcrypt@5.1.1\node_modules\bcrypt\bcrypt.js
+- C:\Users\sayan\Downloads\RADHA_UPGRADED_PROJECT_FILES new\RADHA_UPGRADED_PROJECT_FILES\radha_backend\src\modules\auth\utils\password.utils.ts
+- C:\Users\sayan\Downloads\RADHA_UPGRADED_PROJECT_FILES new\RADHA_UPGRADED_PROJECT_FILES\radha_backend\src\modules\auth\services\password.service.ts
+- C:\Users\sayan\Downloads\RADHA_UPGRADED_PROJECT_FILES new\RADHA_UPGRADED_PROJECT_FILES\radha_backend\src\modules\auth\services\admin-auth.service.ts
+- C:\Users\sayan\Downloads\RADHA_UPGRADED_PROJECT_FILES new\RADHA_UPGRADED_PROJECT_FILES\radha_backend\src\modules\auth\admin-auth.controller.ts
+- C:\Users\sayan\Downloads\RADHA_UPGRADED_PROJECT_FILES new\RADHA_UPGRADED_PROJECT_FILES\radha_backend\src\modules\auth\auth.module.ts
+- C:\Users\sayan\Downloads\RADHA_UPGRADED_PROJECT_FILES new\RADHA_UPGRADED_PROJECT_FILES\radha_backend\src\modules\expiry\expiry.module.ts
+- C:\Users\sayan\Downloads\RADHA_UPGRADED_PROJECT_FILES new\RADHA_UPGRADED_PROJECT_FILES\radha_backend\src\jobs\jobs.module.ts
+- C:\Users\sayan\Downloads\RADHA_UPGRADED_PROJECT_FILES new\RADHA_UPGRADED_PROJECT_FILES\radha_backend\src\app.module.ts
+- C:\Users\sayan\Downloads\RADHA_UPGRADED_PROJECT_FILES new\RADHA_UPGRADED_PROJECT_FILES\radha_backend\src\main.api.ts
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1476:15)
+    at Module._resolveFilename.sharedData.moduleResolveFilenameHook.installedValue (C:\Users\sayan\Downloads\RADHA_UPGRADED_PROJECT_FILES new\RADHA_UPGRADED_PROJECT_FILES\radha_backend\node_modules\.pnpm\@cspotcode+source-map-support@0.8.1\node_modules\@cspotcode\source-map-support\source-map-support.js:811:30)
+    at Module._resolveFilename (C:\Users\sayan\Downloads\RADHA_UPGRADED_PROJECT_FILES new\RADHA_UPGRADED_PROJECT_FILES\radha_backend\node_modules\.pnpm\tsconfig-paths@4.2.0\node_modules\tsconfig-paths\src\register.ts:115:36)
+    at wrapResolveFilename (node:internal/modules/cjs/loader:1049:27)
+    at defaultResolveImplForCJSLoading (node:internal/modules/cjs/loader:1073:10)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1094:12)
+    at Module._load (node:internal/modules/cjs/loader:1262:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.require (node:internal/modules/cjs/loader:1576:12)
+    at require (node:internal/modules/helpers:153:16) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'C:\\Users\\sayan\\Downloads\\RADHA_UPGRADED_PROJECT_FILES new\\RADHA_UPGRADED_PROJECT_FILES\\radha_backend\\node_modules\\.pnpm\\bcrypt@5.1.1\\node_modules\\bcrypt\\bcrypt.js',
+    'C:\\Users\\sayan\\Downloads\\RADHA_UPGRADED_PROJECT_FILES new\\RADHA_UPGRADED_PROJECT_FILES\\radha_backend\\src\\modules\\auth\\utils\\password.utils.ts',
+    'C:\\Users\\sayan\\Downloads\\RADHA_UPGRADED_PROJECT_FILES new\\RADHA_UPGRADED_PROJECT_FILES\\radha_backend\\src\\modules\\auth\\services\\password.service.ts',
+    'C:\\Users\\sayan\\Downloads\\RADHA_UPGRADED_PROJECT_FILES new\\RADHA_UPGRADED_PROJECT_FILES\\radha_backend\\src\\modules\\auth\\services\\admin-auth.service.ts',
+    'C:\\Users\\sayan\\Downloads\\RADHA_UPGRADED_PROJECT_FILES new\\RADHA_UPGRADED_PROJECT_FILES\\radha_backend\\src\\modules\\auth\\admin-auth.controller.ts',
+    'C:\\Users\\sayan\\Downloads\\RADHA_UPGRADED_PROJECT_FILES new\\RADHA_UPGRADED_PROJECT_FILES\\radha_backend\\src\\modules\\auth\\auth.module.ts',
+    'C:\\Users\\sayan\\Downloads\\RADHA_UPGRADED_PROJECT_FILES new\\RADHA_UPGRADED_PROJECT_FILES\\radha_backend\\src\\modules\\expiry\\expiry.module.ts',
+    'C:\\Users\\sayan\\Downloads\\RADHA_UPGRADED_PROJECT_FILES new\\RADHA_UPGRADED_PROJECT_FILES\\radha_backend\\src\\jobs\\jobs.module.ts',
+    'C:\\Users\\sayan\\Downloads\\RADHA_UPGRADED_PROJECT_FILES new\\RADHA_UPGRADED_PROJECT_FILES\\radha_backend\\src\\app.module.ts',
+    'C:\\Users\\sayan\\Downloads\\RADHA_UPGRADED_PROJECT_FILES new\\RADHA_UPGRADED_PROJECT_FILES\\radha_backend\\src\\main.api.ts'
+  ]
+}

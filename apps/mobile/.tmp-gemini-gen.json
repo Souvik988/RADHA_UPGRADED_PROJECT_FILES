@@ -1,7 +1,0 @@
-{
-  "error": {
-    "code": 400,
-    "message": "Invalid JSON payload received. Unexpected token.\nents:[{parts:[{text:Reply with exactly: \n                    ^",
-    "status": "INVALID_ARGUMENT"
-  }
-}

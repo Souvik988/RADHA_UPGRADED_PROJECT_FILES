@@ -1,0 +1,16 @@
+- generic [active] [ref=e1]:
+  - link "Skip to content" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - main [ref=e3]:
+    - generic [ref=e5]:
+      - generic [ref=e6]:
+        - paragraph [ref=e7]: RADHA · Admin Dashboard
+        - heading "Reset password" [level=1] [ref=e8]
+      - generic [ref=e9]:
+        - generic [ref=e10]:
+          - generic [ref=e11]: Email address*
+          - textbox "Email address" [ref=e12]:
+            - /placeholder: you@company.com
+        - button "Send reset link" [ref=e13] [cursor=pointer]
+        - link "Back to sign in" [ref=e14] [cursor=pointer]:
+          - /url: /login

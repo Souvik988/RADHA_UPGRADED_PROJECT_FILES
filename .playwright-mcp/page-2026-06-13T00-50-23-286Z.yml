@@ -1,0 +1,271 @@
+- generic [active] [ref=e1]:
+  - link "Skip to content" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - main [ref=e3]:
+    - generic [ref=e94]:
+      - navigation "Main navigation" [ref=e274]:
+        - generic [ref=e275]:
+          - generic [ref=e276]: R
+          - generic [ref=e277]: RADHA
+        - generic [ref=e278]:
+          - generic [ref=e279]:
+            - paragraph [ref=e280]: Operate
+            - link "Overview" [ref=e281] [cursor=pointer]:
+              - /url: /
+              - img [ref=e283]
+              - generic [ref=e288]: Overview
+            - link "Expiry" [ref=e289] [cursor=pointer]:
+              - /url: /expiry
+              - img [ref=e290]
+              - generic [ref=e293]: Expiry
+            - link "Tasks" [ref=e294] [cursor=pointer]:
+              - /url: /tasks
+              - img [ref=e295]
+              - generic [ref=e298]: Tasks
+            - link "Inventory" [ref=e299] [cursor=pointer]:
+              - /url: /inventory
+              - img [ref=e300]
+              - generic [ref=e304]: Inventory
+            - link "GRN" [ref=e305] [cursor=pointer]:
+              - /url: /grn
+              - img [ref=e306]
+              - generic [ref=e311]: GRN
+            - link "Suppliers" [ref=e312] [cursor=pointer]:
+              - /url: /suppliers
+              - img [ref=e313]
+              - generic [ref=e317]: Suppliers
+            - link "Audit / EAN" [ref=e318] [cursor=pointer]:
+              - /url: /audit
+              - img [ref=e319]
+              - generic [ref=e324]: Audit / EAN
+          - generic [ref=e325]:
+            - paragraph [ref=e326]: Grow
+            - link "Reports" [ref=e327] [cursor=pointer]:
+              - /url: /reports
+              - img [ref=e328]
+              - generic [ref=e331]: Reports
+            - link "Analytics" [ref=e332] [cursor=pointer]:
+              - /url: /analytics
+              - img [ref=e333]
+              - generic [ref=e336]: Analytics
+            - link "Leads" [ref=e337] [cursor=pointer]:
+              - /url: /leads
+              - img [ref=e338]
+              - generic [ref=e343]: Leads
+            - link "Billing" [ref=e344] [cursor=pointer]:
+              - /url: /billing
+              - img [ref=e345]
+              - generic [ref=e347]: Billing
+            - link "Notifications" [ref=e348] [cursor=pointer]:
+              - /url: /notifications
+              - img [ref=e349]
+              - generic [ref=e352]: Notifications
+            - link "Stores" [ref=e353] [cursor=pointer]:
+              - /url: /stores
+              - img [ref=e354]
+              - generic [ref=e359]: Stores
+          - generic [ref=e360]:
+            - paragraph [ref=e361]: Admin
+            - link "Admin Console" [ref=e362] [cursor=pointer]:
+              - /url: /admin
+              - img [ref=e363]
+              - generic [ref=e366]: Admin Console
+          - generic [ref=e367]:
+            - paragraph [ref=e368]: Settings
+            - link "Settings" [ref=e369] [cursor=pointer]:
+              - /url: /settings
+              - img [ref=e370]
+              - generic [ref=e373]: Settings
+      - generic [ref=e196]:
+        - generic [ref=e197]:
+          - 'button "Store: Andheri West Store" [ref=e374] [cursor=pointer]':
+            - img [ref=e199]
+            - generic [ref=e204]: Andheri West Store
+            - img [ref=e205]
+          - button "Open command palette (⌘K)" [ref=e207] [cursor=pointer]:
+            - img [ref=e208]
+            - generic [ref=e211]: Search…
+            - generic [ref=e212]: ⌘K
+          - button "Switch to dark mode" [ref=e213] [cursor=pointer]:
+            - img [ref=e214]
+          - link "2 unread notifications" [ref=e216] [cursor=pointer]:
+            - /url: /notifications
+            - img [ref=e217]
+            - generic [ref=e220]: "2"
+          - button "Account menu" [ref=e222] [cursor=pointer]: AU
+        - main [ref=e223]:
+          - generic [ref=e224]:
+            - generic [ref=e226]:
+              - generic [ref=e227]:
+                - paragraph [ref=e228]: COMMAND CENTRE
+                - heading "Good morning, Admin" [level=1] [ref=e229]
+                - paragraph [ref=e230]: Here's what needs your attention today.
+              - button "Generate report" [ref=e232] [cursor=pointer]:
+                - img [ref=e233]
+                - text: Generate report
+            - region "Store KPIs" [ref=e375]:
+              - paragraph [ref=e376]: At a glance
+              - generic [ref=e377]:
+                - generic [ref=e379]:
+                  - 'generic "Expiring (7 days): 18" [ref=e380]': "0"
+                  - paragraph [ref=e381]: Expiring (7 days)
+                  - link "Review expiry" [ref=e382] [cursor=pointer]:
+                    - /url: /expiry
+                    - text: Review expiry
+                    - img [ref=e383]
+                - generic [ref=e386]:
+                  - 'generic "Expired items: 4" [ref=e387]': "0"
+                  - paragraph [ref=e388]: Expired items
+                  - link "Clear expired" [ref=e389] [cursor=pointer]:
+                    - /url: /expiry?status=expired
+                    - text: Clear expired
+                    - img [ref=e390]
+                - generic [ref=e393]:
+                  - 'generic "Open tasks: 11" [ref=e394]': "0"
+                  - paragraph [ref=e395]: Open tasks
+                  - link "View tasks" [ref=e396] [cursor=pointer]:
+                    - /url: /tasks
+                    - text: View tasks
+                    - img [ref=e397]
+                - generic [ref=e400]:
+                  - 'generic "Low stock items: 7" [ref=e401]': "0"
+                  - paragraph [ref=e402]: Low stock items
+                  - link "View inventory" [ref=e403] [cursor=pointer]:
+                    - /url: /inventory
+                    - text: View inventory
+                    - img [ref=e404]
+            - region "Health and trends" [ref=e406]:
+              - paragraph [ref=e407]: Performance
+              - generic [ref=e408]:
+                - generic [ref=e409]:
+                  - paragraph [ref=e410]: Store Health
+                  - generic [ref=e411]:
+                    - generic [ref=e413]:
+                      - 'img "OHS score: 78 out of 100" [ref=e414]'
+                      - generic [ref=e417]:
+                        - generic [ref=e418]: "78"
+                        - generic [ref=e419]: /100
+                    - generic [ref=e420]:
+                      - generic [ref=e421]:
+                        - generic [ref=e422]: Expiry compliance
+                        - generic [ref=e423]: "72"
+                      - generic [ref=e424]:
+                        - generic [ref=e425]: Stock coverage
+                        - generic [ref=e426]: "81"
+                      - generic [ref=e427]:
+                        - generic [ref=e428]: Task completion
+                        - generic [ref=e429]: "85"
+                      - generic [ref=e430]:
+                        - generic [ref=e431]: EAN audit accuracy
+                        - generic [ref=e432]: "91"
+                      - generic [ref=e433]:
+                        - generic [ref=e434]: GRN timeliness
+                        - generic [ref=e435]: "68"
+                      - generic [ref=e436]:
+                        - generic [ref=e437]: Supplier reliability
+                        - generic [ref=e438]: "74"
+                - generic [ref=e439]:
+                  - paragraph [ref=e440]: 30-Day Trend
+                  - img "30-day activity trend" [ref=e441]
+            - region "Active alerts" [ref=e443]:
+              - paragraph [ref=e444]: Alerts
+              - generic [ref=e445]:
+                - paragraph [ref=e446]: Alerts (4)
+                - generic [ref=e447]:
+                  - generic [ref=e448]:
+                    - img [ref=e450]
+                    - paragraph [ref=e452]: 4 products expired in Aisle 2 — remove immediately
+                    - generic [ref=e453]:
+                      - link "View alert detail" [ref=e454] [cursor=pointer]:
+                        - /url: /expiry?status=expired
+                        - img [ref=e455]
+                      - link "Create task from alert" [ref=e457] [cursor=pointer]:
+                        - /url: /tasks
+                        - img [ref=e458]
+                  - generic [ref=e461]:
+                    - img [ref=e463]
+                    - paragraph [ref=e465]: "Amul Butter 500g — only 3 units remaining (min: 10)"
+                    - generic [ref=e466]:
+                      - link "View alert detail" [ref=e467] [cursor=pointer]:
+                        - /url: /inventory
+                        - img [ref=e468]
+                      - link "Create task from alert" [ref=e470] [cursor=pointer]:
+                        - /url: /tasks
+                        - img [ref=e471]
+                  - generic [ref=e474]:
+                    - img [ref=e476]
+                    - paragraph [ref=e478]: 18 items expiring within 7 days — review needed
+                    - generic [ref=e479]:
+                      - link "View alert detail" [ref=e480] [cursor=pointer]:
+                        - /url: /expiry
+                        - img [ref=e481]
+                      - link "Create task from alert" [ref=e483] [cursor=pointer]:
+                        - /url: /tasks
+                        - img [ref=e484]
+                  - generic [ref=e487]:
+                    - img [ref=e489]
+                    - paragraph [ref=e491]: 3 tasks are overdue this week
+                    - generic [ref=e492]:
+                      - link "View alert detail" [ref=e493] [cursor=pointer]:
+                        - /url: /tasks
+                        - img [ref=e494]
+                      - link "Create task from alert" [ref=e496] [cursor=pointer]:
+                        - /url: /tasks
+                        - img [ref=e497]
+            - region "Recent activity" [ref=e500]:
+              - paragraph [ref=e501]: Activity
+              - generic [ref=e502]:
+                - paragraph [ref=e503]: Recent Activity
+                - generic [ref=e504]:
+                  - generic [ref=e506]:
+                    - generic [ref=e507]: S
+                    - generic [ref=e508]:
+                      - paragraph [ref=e509]:
+                        - text: Ravi Kumar scanned 24 items
+                        - generic [ref=e510]: · Aisle 3 EAN Audit
+                      - text: 16m ago
+                  - generic [ref=e511]:
+                    - generic [ref=e512]: C
+                    - generic [ref=e513]:
+                      - paragraph [ref=e514]:
+                        - text: Priya Shah completed task
+                        - generic [ref=e515]: · Stock count — Beverages
+                      - text: 46m ago
+                  - generic [ref=e516]:
+                    - generic [ref=e517]: R
+                    - generic [ref=e518]:
+                      - paragraph [ref=e519]:
+                        - text: Admin User received GRN
+                        - generic [ref=e520]: "· GRN #GRN-2025-041 from Amul Dairy"
+                      - text: 2h ago
+                  - generic [ref=e521]:
+                    - generic [ref=e522]: A
+                    - generic [ref=e523]:
+                      - paragraph [ref=e524]:
+                        - text: Ravi Kumar acknowledged alert
+                        - generic [ref=e525]: · 4 expired items cleared
+                      - text: 3h ago
+                  - generic [ref=e526]:
+                    - generic [ref=e527]: A
+                    - generic [ref=e528]:
+                      - paragraph [ref=e529]:
+                        - text: Meena Patel added expiry records
+                        - generic [ref=e530]: · 12 items — Dairy section
+                      - text: 5h ago
+                  - generic [ref=e531]:
+                    - generic [ref=e532]: C
+                    - generic [ref=e533]:
+                      - paragraph [ref=e534]:
+                        - text: Priya Shah created task
+                        - generic [ref=e535]: · Restock Personal Care aisle
+                      - text: 8h ago
+                  - generic [ref=e536]:
+                    - generic [ref=e537]: I
+                    - generic [ref=e538]:
+                      - paragraph [ref=e539]:
+                        - text: Admin User imported EAN list
+                        - generic [ref=e540]: · 1,204 items — Q3 Approved List
+                      - text: 1d ago
+  - alert [ref=e84]
+  - button "Open Next.js Dev Tools" [ref=e90] [cursor=pointer]:
+    - img [ref=e91]

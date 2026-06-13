@@ -1,0 +1,83 @@
+- generic [active] [ref=e1]:
+  - link "Skip to content" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - main [ref=e3]:
+    - generic [ref=e4]:
+      - generic [ref=e5]:
+        - generic [ref=e6]:
+          - generic [ref=e7]:
+            - generic [ref=e8]: R
+            - generic [ref=e9]: RADHA
+          - generic [ref=e10]:
+            - paragraph [ref=e11]: Retail Operations · Back Office
+            - heading [level=1] [ref=e12]: Your retail command centre.
+            - paragraph [ref=e13]: Expiry tracking, EAN audit, task management, inventory, and analytics — in one premium back-office.
+          - generic [ref=e14]:
+            - generic [ref=e15]:
+              - img [ref=e16]
+              - text: Expiry tracking
+            - generic [ref=e19]:
+              - img [ref=e20]
+              - text: Inventory & GRN
+            - generic [ref=e24]:
+              - img [ref=e25]
+              - text: EAN audit
+            - generic [ref=e28]:
+              - img [ref=e29]
+              - text: Analytics
+        - paragraph [ref=e31]: RADHA v1 · Private back-office · Not for public access
+      - generic [ref=e32]:
+        - generic [ref=e33]:
+          - generic [ref=e34]:
+            - paragraph [ref=e35]: Admin Dashboard
+            - heading "Sign in to your account" [level=2] [ref=e36]
+          - generic [ref=e37]:
+            - generic [ref=e38]:
+              - generic [ref=e39]: Email address*
+              - textbox "Email address" [ref=e40]:
+                - /placeholder: you@company.com
+            - generic [ref=e41]:
+              - generic [ref=e42]: Password*
+              - textbox "Password" [ref=e43]:
+                - /placeholder: Enter your password
+            - link "Forgot password?" [ref=e45] [cursor=pointer]:
+              - /url: /reset
+            - button "Sign in" [ref=e46] [cursor=pointer]
+        - generic [ref=e47]:
+          - generic [ref=e48]:
+            - generic [ref=e49]: Demo
+            - generic [ref=e50]:
+              - text: "Click any role to sign in · Password:"
+              - code [ref=e51]: demo1234
+          - generic [ref=e52]:
+            - button "Admin admin Full access + admin console" [ref=e53] [cursor=pointer]:
+              - generic [ref=e54]:
+                - generic [ref=e55]:
+                  - generic [ref=e56]: Admin
+                  - generic [ref=e57]: admin
+                - generic [ref=e58]: Full access + admin console
+            - button "Owner owner All screens + analytics" [ref=e59] [cursor=pointer]:
+              - generic [ref=e60]:
+                - generic [ref=e61]:
+                  - generic [ref=e62]: Owner
+                  - generic [ref=e63]: owner
+                - generic [ref=e64]: All screens + analytics
+            - 'button "Manager manager Ops: expiry, tasks, GRN" [ref=e65] [cursor=pointer]':
+              - generic [ref=e66]:
+                - generic [ref=e67]:
+                  - generic [ref=e68]: Manager
+                  - generic [ref=e69]: manager
+                - generic [ref=e70]: "Ops: expiry, tasks, GRN"
+            - button "Staff staff Tasks + expiry entry" [ref=e71] [cursor=pointer]:
+              - generic [ref=e72]:
+                - generic [ref=e73]:
+                  - generic [ref=e74]: Staff
+                  - generic [ref=e75]: staff
+                - generic [ref=e76]: Tasks + expiry entry
+            - button "Auditor auditor EAN audit + reports" [ref=e77] [cursor=pointer]:
+              - generic [ref=e78]:
+                - generic [ref=e79]:
+                  - generic [ref=e80]: Auditor
+                  - generic [ref=e81]: auditor
+                - generic [ref=e82]: EAN audit + reports
+          - paragraph [ref=e83]: Demo mode · No real backend required · All data is simulated

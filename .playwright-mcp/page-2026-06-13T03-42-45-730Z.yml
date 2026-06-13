@@ -1,0 +1,79 @@
+- generic [active] [ref=e1]:
+  - link "Skip to content" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - main [ref=e3]:
+    - generic [ref=e5]:
+      - generic [ref=e6]:
+        - 'button "Store: Select store" [ref=e7] [cursor=pointer]':
+          - img [ref=e8]
+          - generic [ref=e13]: Select store
+          - img [ref=e14]
+        - button "Open command palette (⌘K)" [ref=e16] [cursor=pointer]:
+          - img [ref=e17]
+          - generic [ref=e20]: Search…
+          - generic [ref=e21]: ⌘K
+        - link "Notifications" [ref=e23] [cursor=pointer]:
+          - /url: /notifications
+          - img [ref=e24]
+        - button "Account menu" [ref=e28] [cursor=pointer]: R
+      - main [ref=e29]:
+        - generic [ref=e30]:
+          - generic [ref=e33]:
+            - paragraph [ref=e34]: INSIGHTS
+            - heading "Reports" [level=1] [ref=e35]
+            - paragraph [ref=e36]: Build, generate, and download store reports.
+          - generic [ref=e37]:
+            - generic [ref=e38]:
+              - img [ref=e40]
+              - generic [ref=e43]:
+                - paragraph [ref=e44]: REPORT BUILDER
+                - heading "Generate a new report" [level=2] [ref=e45]
+            - form "Report builder form" [ref=e46]:
+              - generic [ref=e47]:
+                - generic [ref=e48]: Dataset*
+                - combobox "Dataset" [ref=e49]:
+                  - option "Select dataset…" [selected]
+                  - option "Expiry Report"
+                  - option "Inventory Report"
+                  - option "GRN Report"
+                  - option "Tasks Report"
+                  - option "EAN Audit Report"
+                  - option "Sales Summary"
+              - generic [ref=e50]:
+                - generic [ref=e51]: From*
+                - textbox "From" [ref=e52]
+              - generic [ref=e53]:
+                - generic [ref=e54]: To*
+                - textbox "To" [ref=e55]
+              - generic [ref=e56]:
+                - generic [ref=e57]: Format*
+                - combobox "Format" [ref=e58]:
+                  - option "Excel (.xlsx)" [selected]
+                  - option "PDF"
+                  - option "CSV"
+              - button "Generate report" [ref=e60] [cursor=pointer]:
+                - img [ref=e61]
+                - text: Generate report
+          - generic [ref=e64]:
+            - paragraph [ref=e65]: GENERATED REPORTS
+            - grid [ref=e68]:
+              - rowgroup [ref=e69]:
+                - row "Report Format Created Completed Status" [ref=e70]:
+                  - columnheader "Report" [ref=e71] [cursor=pointer]:
+                    - generic [ref=e72]:
+                      - text: Report
+                      - img [ref=e73]
+                  - columnheader "Format" [ref=e76]:
+                    - generic [ref=e77]: Format
+                  - columnheader "Created" [ref=e78] [cursor=pointer]:
+                    - generic [ref=e79]:
+                      - text: Created
+                      - img [ref=e80]
+                  - columnheader "Completed" [ref=e83]:
+                    - generic [ref=e84]: Completed
+                  - columnheader "Status" [ref=e85]:
+                    - generic [ref=e86]: Status
+                  - columnheader [ref=e87]
+              - rowgroup [ref=e88]:
+                - row "No reports generated yet. Use the builder above to create your first report." [ref=e89]:
+                  - gridcell "No reports generated yet. Use the builder above to create your first report." [ref=e90]
