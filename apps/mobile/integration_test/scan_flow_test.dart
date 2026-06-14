@@ -5,7 +5,7 @@
 // — "scanning a known EAN renders that product's detail card" — this test
 // drives the app pre-logged-in, navigates straight to `/scan/result/<ean>`,
 // and asserts the product name, brand, and category render once the lookup
-// resolves. The `GET /products/ean/:ean` response is stubbed via
+// resolves. The `GET /products/lookup/:ean` response is stubbed via
 // `http_mock_adapter`.
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -58,14 +58,18 @@ void main() {
         }),
       )
       ..onGet(
-        '/api/v1/products/ean/$ean',
+        '/api/v1/products/lookup/$ean',
         (server) => server.reply(200, {
-          'id': 'prod-1',
-          'name': 'Britannia Marie Gold',
-          'ean': ean,
-          'brand': 'Britannia',
-          'category': 'Biscuits',
-          'imageUrl': null,
+          'found': true,
+          'source': 'database',
+          'product': {
+            'id': 'prod-1',
+            'name': 'Britannia Marie Gold',
+            'ean': ean,
+            'brand': 'Britannia',
+            'subCategory': 'Biscuits',
+            'imageUrl': null,
+          },
         }),
       );
 

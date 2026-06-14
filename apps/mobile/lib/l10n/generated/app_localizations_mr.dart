@@ -361,6 +361,10 @@ class AppLocalizationsMr extends AppLocalizations {
       'हे घटक सध्या समजावता आले नाहीत.';
 
   @override
+  String get catalogDetailIngredientNeedsLabel =>
+      'घटकांच्या तपशीलासाठी स्पष्ट लेबल फोटो हवा आहे. पॅकचे लेबल स्कॅन करा आणि RADHA खरी घटक यादी समजावेल.';
+
+  @override
   String get catalogDetailPersonalisedFlagsTitle => 'वैयक्तिक सूचना';
 
   @override
@@ -374,6 +378,14 @@ class AppLocalizationsMr extends AppLocalizations {
   @override
   String get catalogDetailNoAllergensDetected =>
       'या उत्पादनात कोणतेही अॅलर्जन्स आढळले नाहीत.';
+
+  @override
+  String get catalogDetailAllergenSignalDetected =>
+      'या उत्पादनात संभाव्य अॅलर्जन माहिती आहे. खरेदी करण्यापूर्वी लेबल तपासा.';
+
+  @override
+  String get catalogDetailAllergenSignalUnavailable =>
+      'अॅलर्जन तपशील अजून या उत्पादनाच्या नोंदीत नाहीत. सुरक्षित वैयक्तिकरणासाठी लेबल स्कॅन करा.';
 
   @override
   String catalogDetailAllergenAvoided(String allergen) {
@@ -422,6 +434,20 @@ class AppLocalizationsMr extends AppLocalizations {
   @override
   String get catalogDetailNutritionSessionExpiredBody =>
       'कृपया पुन्हा प्रयत्न करा — RADHA तुमचे सेशन रीफ्रेश करून पुन्हा प्रयत्न करेल.';
+
+  @override
+  String get catalogDetailNutritionAccessDeniedTitle => 'प्रवेश मर्यादित आहे';
+
+  @override
+  String get catalogDetailNutritionAccessDeniedBody =>
+      'तुमचे खाते हा पोषण रेकॉर्ड वाचू शकत नाही. वरील उत्पादन माहिती उपलब्ध आहे.';
+
+  @override
+  String get catalogDetailNutritionTimeoutTitle => 'विनंतीची वेळ संपली';
+
+  @override
+  String get catalogDetailNutritionTimeoutBody =>
+      'RADHA वेळेत पोषण सेवेशी संपर्क करू शकला नाही. कनेक्शन स्थिर झाल्यावर पुन्हा प्रयत्न करा.';
 
   @override
   String get catalogDetailNutritionServerTitle => 'पोषण माहिती लोड झाली नाही';

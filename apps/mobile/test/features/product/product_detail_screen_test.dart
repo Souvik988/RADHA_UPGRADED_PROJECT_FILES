@@ -4,12 +4,22 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
 import 'package:radha_mobile/core/network/api_client.dart';
-import 'package:radha_mobile/core/network/dto/misc_dto.dart';
-import 'package:radha_mobile/core/network/dto/product_dto.dart';
+import 'package:radha_mobile/core/network/dto/product_lookup_dto.dart';
 import 'package:radha_mobile/features/product/product_detail_screen.dart';
 import 'package:radha_mobile/l10n/generated/app_localizations.dart';
 
 class MockApiClient extends Mock implements ApiClient {}
+
+ProductLookupResult _lookupProduct() => const ProductLookupResult(
+  found: true,
+  product: ProductLookupItem(
+    id: 'prod-1',
+    name: 'Organic Oats',
+    ean: '1234567890123',
+    brand: 'HealthyBrand',
+    subCategory: 'Cereals',
+  ),
+);
 
 void main() {
   late MockApiClient mockClient;
@@ -31,16 +41,12 @@ void main() {
 
   group('ProductDetailScreen', () {
     testWidgets('renders product name, brand, and category', (tester) async {
-      when(() => mockClient.getProductByEan('1234567890123')).thenAnswer(
-        (_) async => const ProductResponse(
-          id: 'prod-1',
-          name: 'Organic Oats',
-          ean: '1234567890123',
-          brand: 'HealthyBrand',
-          category: 'Cereals',
-          imageUrl: null,
+      when(
+        () => mockClient.getProductLookup(
+          '1234567890123',
+          includeNutrition: any(named: 'includeNutrition'),
         ),
-      );
+      ).thenAnswer((_) async => _lookupProduct());
 
       await tester.pumpWidget(buildSubject('1234567890123'));
       await tester.pumpAndSettle();
@@ -51,16 +57,12 @@ void main() {
     });
 
     testWidgets('shows honest assessment-pending health state', (tester) async {
-      when(() => mockClient.getProductByEan('1234567890123')).thenAnswer(
-        (_) async => const ProductResponse(
-          id: 'prod-1',
-          name: 'Organic Oats',
-          ean: '1234567890123',
-          brand: 'HealthyBrand',
-          category: 'Cereals',
-          imageUrl: null,
+      when(
+        () => mockClient.getProductLookup(
+          '1234567890123',
+          includeNutrition: any(named: 'includeNutrition'),
         ),
-      );
+      ).thenAnswer((_) async => _lookupProduct());
 
       await tester.pumpWidget(buildSubject('1234567890123'));
       await tester.pumpAndSettle();
@@ -77,22 +79,12 @@ void main() {
     testWidgets('explain ingredients button opens bottom sheet', (
       tester,
     ) async {
-      when(() => mockClient.getProductByEan('1234567890123')).thenAnswer(
-        (_) async => const ProductResponse(
-          id: 'prod-1',
-          name: 'Organic Oats',
-          ean: '1234567890123',
-          brand: 'HealthyBrand',
-          category: 'Cereals',
-          imageUrl: null,
+      when(
+        () => mockClient.getProductLookup(
+          '1234567890123',
+          includeNutrition: any(named: 'includeNutrition'),
         ),
-      );
-
-      when(() => mockClient.explainIngredients(any())).thenAnswer(
-        (_) async => const IngredientExplainerResponse(
-          explanation: 'These oats are whole grain and minimally processed.',
-        ),
-      );
+      ).thenAnswer((_) async => _lookupProduct());
 
       await tester.pumpWidget(buildSubject('1234567890123'));
       await tester.pumpAndSettle();

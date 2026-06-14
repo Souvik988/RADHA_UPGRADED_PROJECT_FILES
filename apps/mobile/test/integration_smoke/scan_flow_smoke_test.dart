@@ -46,14 +46,18 @@ void main() {
         }),
       )
       ..onGet(
-        '/api/v1/products/ean/$ean',
+        '/api/v1/products/lookup/$ean',
         (server) => server.reply(200, {
-          'id': 'prod-1',
-          'name': 'Britannia Marie Gold',
-          'ean': ean,
-          'brand': 'Britannia',
-          'category': 'Biscuits',
-          'imageUrl': null,
+          'found': true,
+          'source': 'database',
+          'product': {
+            'id': 'prod-1',
+            'name': 'Britannia Marie Gold',
+            'ean': ean,
+            'brand': 'Britannia',
+            'subCategory': 'Biscuits',
+            'imageUrl': null,
+          },
         }),
       );
 

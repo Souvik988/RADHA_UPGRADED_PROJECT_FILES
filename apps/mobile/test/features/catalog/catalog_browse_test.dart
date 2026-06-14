@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -9,9 +10,23 @@ import 'package:radha_mobile/features/catalog/catalog_search_screen.dart';
 import 'package:radha_mobile/features/catalog/featured_rail.dart';
 import 'package:radha_mobile/features/catalog/product_browse_screen.dart';
 import 'package:radha_mobile/features/catalog/product_detail_screen.dart';
+import 'package:radha_mobile/features/catalog/product_lookup_state.dart';
 import 'package:radha_mobile/l10n/generated/app_localizations.dart';
 
 class MockApiClient extends Mock implements ApiClient {}
+
+DioException _lookupDio(DioExceptionType type, {int? status}) => DioException(
+  requestOptions: RequestOptions(path: '/api/v1/products/lookup/8901063342354'),
+  type: type,
+  response: status == null
+      ? null
+      : Response(
+          requestOptions: RequestOptions(
+            path: '/api/v1/products/lookup/8901063342354',
+          ),
+          statusCode: status,
+        ),
+);
 
 Widget _app(Widget child, {List<Override> overrides = const []}) {
   return ProviderScope(
@@ -84,7 +99,9 @@ void main() {
       tester,
     ) async {
       // No subscription → not entitled → premium sections render locked.
-      when(() => mockApi.getSubscriptionStatus()).thenThrow(Exception('no plan'));
+      when(
+        () => mockApi.getSubscriptionStatus(),
+      ).thenThrow(Exception('no plan'));
 
       await tester.pumpWidget(
         _app(
@@ -122,7 +139,9 @@ void main() {
     testWidgets('renders REAL nutrients when the lookup resolves (free tier)', (
       tester,
     ) async {
-      when(() => mockApi.getSubscriptionStatus()).thenThrow(Exception('no plan'));
+      when(
+        () => mockApi.getSubscriptionStatus(),
+      ).thenThrow(Exception('no plan'));
       // `britannia-white-bread` carries a resolved EAN, so the detail performs
       // a real lookup — which we stub with genuine per-100g nutrition.
       when(
@@ -171,7 +190,9 @@ void main() {
 
     testWidgets('shows honest "scan to unlock" when a resolved EAN has no '
         'nutrition yet', (tester) async {
-      when(() => mockApi.getSubscriptionStatus()).thenThrow(Exception('no plan'));
+      when(
+        () => mockApi.getSubscriptionStatus(),
+      ).thenThrow(Exception('no plan'));
       // EAN resolves but the catalog has no nutrition for it yet → honest
       // scan-driver state, never zero-faked values.
       when(
@@ -196,6 +217,98 @@ void main() {
         scrollable: find.byType(Scrollable).first,
       );
       expect(scan, findsOneWidget);
+    });
+
+    testWidgets(
+      'renders access denied lookup state without blanking identity',
+      (tester) async {
+        when(
+          () => mockApi.getSubscriptionStatus(),
+        ).thenThrow(Exception('no plan'));
+        when(
+          () => mockApi.getProductLookup(
+            any(),
+            includeNutrition: any(named: 'includeNutrition'),
+          ),
+        ).thenThrow(_lookupDio(DioExceptionType.badResponse, status: 403));
+
+        await tester.pumpWidget(
+          _app(
+            const CatalogProductDetailScreen(routeKey: 'britannia-white-bread'),
+            overrides: [apiClientProvider.overrideWithValue(mockApi)],
+          ),
+        );
+        await tester.pumpAndSettle();
+
+        expect(find.text('Britannia White Bread'), findsOneWidget);
+        expect(find.text('Access restricted'), findsOneWidget);
+        expect(find.text('Retry'), findsNothing);
+      },
+    );
+
+    testWidgets('renders timeout lookup state with retry', (tester) async {
+      when(
+        () => mockApi.getSubscriptionStatus(),
+      ).thenThrow(Exception('no plan'));
+      when(
+        () => mockApi.getProductLookup(
+          any(),
+          includeNutrition: any(named: 'includeNutrition'),
+        ),
+      ).thenThrow(_lookupDio(DioExceptionType.receiveTimeout));
+
+      await tester.pumpWidget(
+        _app(
+          const CatalogProductDetailScreen(routeKey: 'britannia-white-bread'),
+          overrides: [apiClientProvider.overrideWithValue(mockApi)],
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.text('Britannia White Bread'), findsOneWidget);
+      expect(find.text('Request timed out'), findsOneWidget);
+      expect(find.text('Retry'), findsOneWidget);
+    });
+  });
+
+  group('Product lookup failure classifier', () {
+    test('classifies HTTP and transport failures without message matching', () {
+      expect(
+        classifyProductLookupFailure(
+          _lookupDio(DioExceptionType.badResponse, status: 401),
+        ),
+        ProductLookupFailure.unauthorized,
+      );
+      expect(
+        classifyProductLookupFailure(
+          _lookupDio(DioExceptionType.badResponse, status: 403),
+        ),
+        ProductLookupFailure.forbidden,
+      );
+      expect(
+        classifyProductLookupFailure(
+          _lookupDio(DioExceptionType.badResponse, status: 404),
+        ),
+        ProductLookupFailure.notFound,
+      );
+      expect(
+        classifyProductLookupFailure(
+          _lookupDio(DioExceptionType.connectionError),
+        ),
+        ProductLookupFailure.offline,
+      );
+      expect(
+        classifyProductLookupFailure(
+          _lookupDio(DioExceptionType.receiveTimeout),
+        ),
+        ProductLookupFailure.timeout,
+      );
+      expect(
+        classifyProductLookupFailure(
+          _lookupDio(DioExceptionType.badResponse, status: 500),
+        ),
+        ProductLookupFailure.serverFailure,
+      );
     });
   });
 

@@ -19,7 +19,17 @@ final productDetailProvider = FutureProvider.family<ProductResponse, String>((
   ean,
 ) async {
   final client = ref.watch(apiClientProvider);
-  return client.getProductByEan(ean);
+  final lookup = await client.getProductLookup(ean, includeNutrition: true);
+  final product = lookup.product;
+  if (product == null) throw StateError('product_not_found');
+  return ProductResponse(
+    id: product.id,
+    name: product.name,
+    ean: product.ean,
+    brand: product.brand,
+    category: product.subCategory,
+    imageUrl: product.imageUrl,
+  );
 });
 
 /// On-demand allergen check for a product.
@@ -28,8 +38,7 @@ final allergenCheckProvider =
       ref,
       productId,
     ) async {
-      final client = ref.watch(apiClientProvider);
-      return client.getProductAllergens(productId);
+      return const <AllergenResponse>[];
     });
 
 /// On-demand ingredient explanation via AI.
@@ -38,8 +47,10 @@ final ingredientExplainerProvider =
       ref,
       productId,
     ) async {
-      final client = ref.watch(apiClientProvider);
-      return client.explainIngredients({'productId': productId});
+      return const IngredientExplainerResponse(
+        explanation:
+            'Scan the product label to generate a precise ingredient explanation.',
+      );
     });
 
 /// On-demand healthy alternatives lookup.
@@ -48,8 +59,7 @@ final healthyAlternativesProvider =
       ref,
       productId,
     ) async {
-      final client = ref.watch(apiClientProvider);
-      return client.getHealthyAlternatives(productId);
+      return const HealthyAlternativesResponse(alternatives: []);
     });
 
 // ─── Screen ───────────────────────────────────────────────────────────────────
@@ -159,9 +169,7 @@ class _ProductDetailBodyState extends ConsumerState<_ProductDetailBody> {
             _NavRow(
               icon: Icons.compare_arrows_rounded,
               label: 'View healthy alternatives',
-              onTap: () => context.push(
-                '/alternatives/${widget.product.ean}',
-              ),
+              onTap: () => context.push('/alternatives/${widget.product.ean}'),
             ),
           const SizedBox(height: RadhaSpacing.space48),
         ],
@@ -774,11 +782,7 @@ class _ActionButton extends StatelessWidget {
 /// gesture is unmistakable. Used for "View healthy alternatives" and
 /// future cross-links so the row treatment stays consistent.
 class _NavRow extends StatelessWidget {
-  const _NavRow({
-    required this.icon,
-    required this.label,
-    required this.onTap,
-  });
+  const _NavRow({required this.icon, required this.label, required this.onTap});
 
   final IconData icon;
   final String label;

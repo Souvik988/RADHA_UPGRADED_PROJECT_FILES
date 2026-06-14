@@ -712,6 +712,12 @@ abstract class AppLocalizations {
   /// **'We couldn\'t explain these ingredients right now.'**
   String get catalogDetailIngredientExplainError;
 
+  /// No description provided for @catalogDetailIngredientNeedsLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Ingredient detail needs a clear label photo. Scan the pack label and RADHA will explain the real ingredient list.'**
+  String get catalogDetailIngredientNeedsLabel;
+
   /// No description provided for @catalogDetailPersonalisedFlagsTitle.
   ///
   /// In en, this message translates to:
@@ -735,6 +741,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No allergens detected in this product.'**
   String get catalogDetailNoAllergensDetected;
+
+  /// No description provided for @catalogDetailAllergenSignalDetected.
+  ///
+  /// In en, this message translates to:
+  /// **'This product reports possible allergens. Check the label before buying.'**
+  String get catalogDetailAllergenSignalDetected;
+
+  /// No description provided for @catalogDetailAllergenSignalUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Allergen details are not in the product record yet. Scan the label to personalise this safely.'**
+  String get catalogDetailAllergenSignalUnavailable;
 
   /// Allergen chip when the product contains something in the user's profile.
   ///
@@ -813,6 +831,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Please retry — RADHA will refresh your session and try again.'**
   String get catalogDetailNutritionSessionExpiredBody;
+
+  /// No description provided for @catalogDetailNutritionAccessDeniedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Access restricted'**
+  String get catalogDetailNutritionAccessDeniedTitle;
+
+  /// No description provided for @catalogDetailNutritionAccessDeniedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your account cannot read this nutrition record. The product information above is still available.'**
+  String get catalogDetailNutritionAccessDeniedBody;
+
+  /// No description provided for @catalogDetailNutritionTimeoutTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Request timed out'**
+  String get catalogDetailNutritionTimeoutTitle;
+
+  /// No description provided for @catalogDetailNutritionTimeoutBody.
+  ///
+  /// In en, this message translates to:
+  /// **'RADHA could not reach the nutrition service in time. Retry when your connection is stable.'**
+  String get catalogDetailNutritionTimeoutBody;
 
   /// No description provided for @catalogDetailNutritionServerTitle.
   ///

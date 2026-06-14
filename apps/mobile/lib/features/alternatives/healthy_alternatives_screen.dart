@@ -37,12 +37,15 @@ import 'package:radha_mobile/l10n/generated/app_localizations.dart';
 /// Provider for the source product's display data. Used so the header can
 /// say "Better choices than [productName]"; falls back to a generic
 /// header when the lookup fails or hasn't completed yet.
-final _sourceProductNameProvider =
-    FutureProvider.autoDispose.family<String?, String>((ref, ean) async {
+final _sourceProductNameProvider = FutureProvider.autoDispose
+    .family<String?, String>((ref, ean) async {
       try {
         final client = ref.watch(apiClientProvider);
-        final product = await client.getProductByEan(ean);
-        return product.name;
+        final lookup = await client.getProductLookup(
+          ean,
+          includeNutrition: false,
+        );
+        return lookup.product?.name;
       } catch (_) {
         return null;
       }
@@ -177,8 +180,7 @@ class _AlternativesBody extends ConsumerWidget {
       physics: const AlwaysScrollableScrollPhysics(),
       padding: const EdgeInsets.all(RadhaSpacing.space24),
       itemCount: result.alternatives.length,
-      separatorBuilder: (_, _) =>
-          const SizedBox(height: RadhaSpacing.space16),
+      separatorBuilder: (_, _) => const SizedBox(height: RadhaSpacing.space16),
       itemBuilder: (context, index) {
         final alt = result.alternatives[index];
         return _AlternativeCard(alternative: alt);
@@ -222,16 +224,12 @@ class _AlternativeCardState extends ConsumerState<_AlternativeCard> {
       ref.invalidate(shoppingListProvider);
       if (!mounted) return;
       messenger.showSnackBar(
-        SnackBar(
-          content: Text(l10n.healthyAlternativesAddedToList),
-        ),
+        SnackBar(content: Text(l10n.healthyAlternativesAddedToList)),
       );
     } catch (e) {
       if (!mounted) return;
       messenger.showSnackBar(
-        SnackBar(
-          content: Text(l10n.healthyAlternativesAddFailed),
-        ),
+        SnackBar(content: Text(l10n.healthyAlternativesAddFailed)),
       );
     } finally {
       if (mounted) setState(() => _addingToList = false);
@@ -332,8 +330,10 @@ class _AlternativeCardState extends ConsumerState<_AlternativeCard> {
                             height: 14,
                             child: CircularProgressIndicator(strokeWidth: 2),
                           )
-                        : const Icon(Icons.add_shopping_cart_outlined,
-                            size: 18),
+                        : const Icon(
+                            Icons.add_shopping_cart_outlined,
+                            size: 18,
+                          ),
                     label: Text(l10n.healthyAlternativesAddToList),
                   ),
                 ),

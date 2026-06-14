@@ -11,7 +11,7 @@ import 'package:mocktail/mocktail.dart';
 
 import 'package:radha_mobile/core/network/api_client.dart';
 import 'package:radha_mobile/core/network/dto/ai_dto.dart';
-import 'package:radha_mobile/core/network/dto/product_dto.dart';
+import 'package:radha_mobile/core/network/dto/product_lookup_dto.dart';
 import 'package:radha_mobile/features/alternatives/healthy_alternatives_screen.dart';
 import 'package:radha_mobile/l10n/generated/app_localizations.dart';
 
@@ -28,14 +28,19 @@ Widget _buildApp(ApiClient api, {String ean = '8901234567890'}) {
   );
 }
 
-ProductResponse _sourceProduct(String ean, {String name = 'Frosted Flakes'}) {
-  return ProductResponse(
-    id: 'src-1',
-    name: name,
-    ean: ean,
-    brand: 'Mega Brand',
-    category: 'Cereals',
-    imageUrl: null,
+ProductLookupResult _sourceProduct(
+  String ean, {
+  String name = 'Frosted Flakes',
+}) {
+  return ProductLookupResult(
+    found: true,
+    product: ProductLookupItem(
+      id: 'src-1',
+      name: name,
+      ean: ean,
+      brand: 'Mega Brand',
+      subCategory: 'Cereals',
+    ),
   );
 }
 
@@ -68,8 +73,12 @@ void main() {
       tester,
     ) async {
       const ean = '8901234567890';
-      when(() => api.getProductByEan(ean))
-          .thenAnswer((_) async => _sourceProduct(ean));
+      when(
+        () => api.getProductLookup(
+          ean,
+          includeNutrition: any(named: 'includeNutrition'),
+        ),
+      ).thenAnswer((_) async => _sourceProduct(ean));
       when(() => api.getHealthierAlternatives(ean)).thenAnswer(
         (_) async => [
           _alt(ean: '101', name: 'Whole Grain Oats', score: 92, price: 189),
@@ -81,10 +90,7 @@ void main() {
       await tester.pumpAndSettle();
 
       // Header title says "Better choices than [productName]".
-      expect(
-        find.text('Better choices than Frosted Flakes'),
-        findsOneWidget,
-      );
+      expect(find.text('Better choices than Frosted Flakes'), findsOneWidget);
 
       // Card content surfaces.
       expect(find.text('Whole Grain Oats'), findsOneWidget);
@@ -93,46 +99,47 @@ void main() {
       expect(find.text('₹189'), findsOneWidget);
 
       // Both per-card CTAs render.
-      expect(
-        find.text('Add to shopping list'),
-        findsAtLeastNWidgets(1),
-      );
+      expect(find.text('Add to shopping list'), findsAtLeastNWidgets(1));
       expect(find.text('View'), findsAtLeastNWidgets(1));
     });
 
-    testWidgets(
-      'shows empty state when the alternatives list is empty',
-      (tester) async {
-        const ean = '8901234567890';
-        when(() => api.getProductByEan(ean))
-            .thenAnswer((_) async => _sourceProduct(ean));
-        when(() => api.getHealthierAlternatives(ean))
-            .thenAnswer((_) async => const <HealthyAlternative>[]);
+    testWidgets('shows empty state when the alternatives list is empty', (
+      tester,
+    ) async {
+      const ean = '8901234567890';
+      when(
+        () => api.getProductLookup(
+          ean,
+          includeNutrition: any(named: 'includeNutrition'),
+        ),
+      ).thenAnswer((_) async => _sourceProduct(ean));
+      when(
+        () => api.getHealthierAlternatives(ean),
+      ).thenAnswer((_) async => const <HealthyAlternative>[]);
 
-        await tester.pumpWidget(_buildApp(api, ean: ean));
-        await tester.pumpAndSettle();
+      await tester.pumpWidget(_buildApp(api, ean: ean));
+      await tester.pumpAndSettle();
 
-        expect(
-          find.text('No healthier alternatives yet'),
-          findsOneWidget,
-        );
-        expect(
-          find.textContaining('No healthier alternatives found in the same'),
-          findsOneWidget,
-        );
-      },
-    );
+      expect(find.text('No healthier alternatives yet'), findsOneWidget);
+      expect(
+        find.textContaining('No healthier alternatives found in the same'),
+        findsOneWidget,
+      );
+    });
 
     testWidgets(
       'falls back to the generic title when source product fetch fails',
       (tester) async {
         const ean = '8901234567890';
-        when(() => api.getProductByEan(ean)).thenThrow(Exception('boom'));
-        when(() => api.getHealthierAlternatives(ean)).thenAnswer(
-          (_) async => [
-            _alt(ean: '101', name: 'Whole Grain Oats'),
-          ],
-        );
+        when(
+          () => api.getProductLookup(
+            ean,
+            includeNutrition: any(named: 'includeNutrition'),
+          ),
+        ).thenThrow(Exception('boom'));
+        when(
+          () => api.getHealthierAlternatives(ean),
+        ).thenAnswer((_) async => [_alt(ean: '101', name: 'Whole Grain Oats')]);
 
         await tester.pumpWidget(_buildApp(api, ean: ean));
         await tester.pumpAndSettle();

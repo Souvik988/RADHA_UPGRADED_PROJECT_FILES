@@ -1,14 +1,6 @@
 [
   {
     "method": "GET",
-    "path": "/api/v1/allergens/product/{productId}",
-    "clientMethod": "getProductAllergens",
-    "requestDto": "",
-    "responseDto": "List<AllergenResponse>",
-    "source": "apps/mobile/lib/core/network/api_client.dart"
-  },
-  {
-    "method": "GET",
     "path": "/api/v1/allergens/profile/{userId}",
     "clientMethod": "getAllergenProfile",
     "requestDto": "",
@@ -209,26 +201,10 @@
   },
   {
     "method": "GET",
-    "path": "/api/v1/healthy-alternatives/{productId}",
-    "clientMethod": "getHealthyAlternatives",
-    "requestDto": "",
-    "responseDto": "HealthyAlternativesResponse",
-    "source": "apps/mobile/lib/core/network/api_client.dart"
-  },
-  {
-    "method": "GET",
     "path": "/api/v1/ingredients/{slug}/explanation",
     "clientMethod": "getIngredientExplanation",
     "requestDto": "",
     "responseDto": "IngredientExplanation",
-    "source": "apps/mobile/lib/core/network/api_client.dart"
-  },
-  {
-    "method": "POST",
-    "path": "/api/v1/ingredients/explain",
-    "clientMethod": "explainIngredients",
-    "requestDto": "Map<String, dynamic> body,",
-    "responseDto": "IngredientExplainerResponse",
     "source": "apps/mobile/lib/core/network/api_client.dart"
   },
   {
@@ -321,26 +297,10 @@
   },
   {
     "method": "GET",
-    "path": "/api/v1/products/ean/{ean}",
-    "clientMethod": "getProductByEan",
-    "requestDto": "",
-    "responseDto": "ProductResponse",
-    "source": "apps/mobile/lib/core/network/api_client.dart"
-  },
-  {
-    "method": "GET",
     "path": "/api/v1/products/lookup/{ean}",
     "clientMethod": "getProductLookup",
     "requestDto": "",
     "responseDto": "ProductLookupResult",
-    "source": "apps/mobile/lib/core/network/api_client.dart"
-  },
-  {
-    "method": "GET",
-    "path": "/api/v1/public/products/{ean}",
-    "clientMethod": "getPublicProduct",
-    "requestDto": "",
-    "responseDto": "PublicProductResponse",
     "source": "apps/mobile/lib/core/network/api_client.dart"
   },
   {

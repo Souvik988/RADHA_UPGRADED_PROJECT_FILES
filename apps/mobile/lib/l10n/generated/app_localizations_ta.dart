@@ -369,6 +369,10 @@ class AppLocalizationsTa extends AppLocalizations {
       'இந்த சேர்வுகளை இப்போது விளக்க முடியவில்லை.';
 
   @override
+  String get catalogDetailIngredientNeedsLabel =>
+      'மூலப்பொருள் விவரத்திற்கு தெளிவான லேபிள் படம் தேவை. பேக் லேபிளை ஸ்கேன் செய்தால் RADHA உண்மையான மூலப்பொருள் பட்டியலை விளக்கும்.';
+
+  @override
   String get catalogDetailPersonalisedFlagsTitle => 'தனிப்பயன் எச்சரிக்கைகள்';
 
   @override
@@ -382,6 +386,14 @@ class AppLocalizationsTa extends AppLocalizations {
   @override
   String get catalogDetailNoAllergensDetected =>
       'இந்த தயாரிப்பில் ஒவ்வாமை தூண்டிகள் கண்டறியப்படவில்லை.';
+
+  @override
+  String get catalogDetailAllergenSignalDetected =>
+      'இந்த தயாரிப்பில் சாத்தியமான அலர்ஜன் தகவல் உள்ளது. வாங்குவதற்கு முன் லேபிளைச் சரிபார்க்கவும்.';
+
+  @override
+  String get catalogDetailAllergenSignalUnavailable =>
+      'அலர்ஜன் விவரம் இன்னும் இந்த தயாரிப்பு பதிவில் இல்லை. பாதுகாப்பாக தனிப்பயனாக்க லேபிளை ஸ்கேன் செய்யவும்.';
 
   @override
   String catalogDetailAllergenAvoided(String allergen) {
@@ -431,6 +443,21 @@ class AppLocalizationsTa extends AppLocalizations {
   @override
   String get catalogDetailNutritionSessionExpiredBody =>
       'மீண்டும் முயற்சிக்கவும் — RADHA உங்கள் அமர்வை புதுப்பித்து மீண்டும் முயறும்.';
+
+  @override
+  String get catalogDetailNutritionAccessDeniedTitle =>
+      'அணுகல் கட்டுப்படுத்தப்பட்டது';
+
+  @override
+  String get catalogDetailNutritionAccessDeniedBody =>
+      'இந்த ஊட்டச்சத்து பதிவை உங்கள் கணக்கு படிக்க முடியாது. மேலுள்ள தயாரிப்பு தகவல் தொடர்ந்து கிடைக்கும்.';
+
+  @override
+  String get catalogDetailNutritionTimeoutTitle => 'கோரிக்கை நேரம் முடிந்தது';
+
+  @override
+  String get catalogDetailNutritionTimeoutBody =>
+      'RADHA நேரத்தில் ஊட்டச்சத்து சேவையை அடைய முடியவில்லை. இணைப்பு நிலையாக இருக்கும் போது மீண்டும் முயற்சிக்கவும்.';
 
   @override
   String get catalogDetailNutritionServerTitle =>

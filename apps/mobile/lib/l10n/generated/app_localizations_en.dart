@@ -360,6 +360,10 @@ class AppLocalizationsEn extends AppLocalizations {
       'We couldn\'t explain these ingredients right now.';
 
   @override
+  String get catalogDetailIngredientNeedsLabel =>
+      'Ingredient detail needs a clear label photo. Scan the pack label and RADHA will explain the real ingredient list.';
+
+  @override
   String get catalogDetailPersonalisedFlagsTitle => 'Personalised flags';
 
   @override
@@ -373,6 +377,14 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get catalogDetailNoAllergensDetected =>
       'No allergens detected in this product.';
+
+  @override
+  String get catalogDetailAllergenSignalDetected =>
+      'This product reports possible allergens. Check the label before buying.';
+
+  @override
+  String get catalogDetailAllergenSignalUnavailable =>
+      'Allergen details are not in the product record yet. Scan the label to personalise this safely.';
 
   @override
   String catalogDetailAllergenAvoided(String allergen) {
@@ -420,6 +432,20 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get catalogDetailNutritionSessionExpiredBody =>
       'Please retry — RADHA will refresh your session and try again.';
+
+  @override
+  String get catalogDetailNutritionAccessDeniedTitle => 'Access restricted';
+
+  @override
+  String get catalogDetailNutritionAccessDeniedBody =>
+      'Your account cannot read this nutrition record. The product information above is still available.';
+
+  @override
+  String get catalogDetailNutritionTimeoutTitle => 'Request timed out';
+
+  @override
+  String get catalogDetailNutritionTimeoutBody =>
+      'RADHA could not reach the nutrition service in time. Retry when your connection is stable.';
 
   @override
   String get catalogDetailNutritionServerTitle => 'Couldn\'t load nutrition';

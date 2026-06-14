@@ -68,9 +68,6 @@ abstract class ApiClient {
   @POST('/api/v1/products')
   Future<ProductResponse> createProduct(@Body() CreateProductDto body);
 
-  @GET('/api/v1/products/ean/{ean}')
-  Future<ProductResponse> getProductByEan(@Path('ean') String ean);
-
   /// Rich lookup with real nutrition (drives the catalog product detail).
   @GET('/api/v1/products/lookup/{ean}')
   Future<ProductLookupResult> getProductLookup(
@@ -258,11 +255,6 @@ abstract class ApiClient {
   );
 
   // ─── Allergens ─────────────────────────────────────────────────────────
-  @GET('/api/v1/allergens/product/{productId}')
-  Future<List<AllergenResponse>> getProductAllergens(
-    @Path('productId') String productId,
-  );
-
   @GET('/api/v1/allergens/profile/{userId}')
   Future<AllergenProfileResponse> getAllergenProfile(
     @Path('userId') String userId,
@@ -284,17 +276,11 @@ abstract class ApiClient {
   );
 
   // ─── Ingredient Explainer ──────────────────────────────────────────────
-  @POST('/api/v1/ingredients/explain')
-  Future<IngredientExplainerResponse> explainIngredients(
-    @Body() Map<String, dynamic> body,
-  );
-
   /// BE-40 — `GET /api/v1/ingredients/:slug/explanation?locale=...`.
   ///
   /// Per-slug explanation surface used by the dedicated full-screen
-  /// explainer (FE-19). Distinct from `explainIngredients` (which posts a
-  /// list and returns a different shape) so the inline product-detail
-  /// blurb keeps working unchanged.
+  /// explainer (FE-19). Inline Product Detail no longer posts raw ingredient
+  /// lists; it routes users to the label-scan flow when a pack label is needed.
   @GET('/api/v1/ingredients/{slug}/explanation')
   Future<IngredientExplanation> getIngredientExplanation(
     @Path('slug') String slug, {
@@ -302,11 +288,6 @@ abstract class ApiClient {
   });
 
   // ─── Healthy Alternatives ──────────────────────────────────────────────
-  @GET('/api/v1/healthy-alternatives/{productId}')
-  Future<HealthyAlternativesResponse> getHealthyAlternatives(
-    @Path('productId') String productId,
-  );
-
   /// BE-41 — `GET /api/v1/products/:ean/alternatives`.
   ///
   /// Returns up to three healthier candidates for a source EAN. The
@@ -396,9 +377,6 @@ abstract class ApiClient {
   Future<void> deleteShoppingListItem(@Path('id') String id);
 
   // ─── Public Product ────────────────────────────────────────────────────
-  @GET('/api/v1/public/products/{ean}')
-  Future<PublicProductResponse> getPublicProduct(@Path('ean') String ean);
-
   // ─── Weekly Digest ─────────────────────────────────────────────────────
   @GET('/api/v1/weekly-digest')
   Future<WeeklyDigestResponse> getWeeklyDigest();

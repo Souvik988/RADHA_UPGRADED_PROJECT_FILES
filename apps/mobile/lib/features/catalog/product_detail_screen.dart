@@ -7,10 +7,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:share_plus/share_plus.dart';
 
-import 'package:radha_mobile/core/auth/auth_controller.dart';
 import 'package:radha_mobile/core/entitlements/entitlement_provider.dart';
 import 'package:radha_mobile/core/network/api_client.dart';
-import 'package:radha_mobile/core/network/dto/misc_dto.dart';
 import 'package:radha_mobile/core/network/dto/product_lookup_dto.dart';
 import 'package:radha_mobile/core/network/dto/saved_product_dto.dart';
 import 'package:radha_mobile/core/router/app_router.dart';
@@ -18,7 +16,6 @@ import 'package:radha_mobile/design/app_assets.dart';
 import 'package:radha_mobile/design/tokens.dart';
 import 'package:radha_mobile/design/widgets/brand_illustration.dart';
 import 'package:radha_mobile/design/widgets/mor_companion.dart';
-import 'package:radha_mobile/features/allergen/allergen_profile_screen.dart';
 import 'package:radha_mobile/features/catalog/catalog_health.dart';
 import 'package:radha_mobile/features/catalog/data/launch_catalog.dart';
 import 'package:radha_mobile/features/catalog/product_lookup_state.dart';
@@ -35,18 +32,8 @@ final _lookupProvider = FutureProvider.autoDispose
     });
 
 /// Plus — AI ingredient deep-dive (gated). Keyed by the catalog product id.
-final _ingredientExplainProvider = FutureProvider.autoDispose
-    .family<IngredientExplainerResponse, String>((ref, productId) async {
-      final client = ref.read(apiClientProvider);
-      return client.explainIngredients({'productId': productId});
-    });
 
 /// Plus — allergens on this product (gated, "For You" match).
-final _productAllergensProvider = FutureProvider.autoDispose
-    .family<List<AllergenResponse>, String>((ref, productId) async {
-      final client = ref.read(apiClientProvider);
-      return client.getProductAllergens(productId);
-    });
 
 // ─── Screen ───────────────────────────────────────────────────────────────
 
@@ -220,9 +207,9 @@ class _CatalogProductDetailScreenState
           // ── RADHA Plus — deep dive (gated) ───────────────────────────────
           const _PlusHeader(),
           const SizedBox(height: RadhaSpacing.space12),
-          _IngredientDeepDive(productId: productId),
+          _IngredientDeepDive(),
           const SizedBox(height: RadhaSpacing.space12),
-          _ForYouSection(productId: productId),
+          _ForYouSection(containsAllergens: nutrition?.containsAllergens),
           const SizedBox(height: RadhaSpacing.space24),
 
           // ── Better choice (reuse the dedicated alternatives screen) ──────
@@ -1211,11 +1198,11 @@ class _PlusHeader extends StatelessWidget {
 }
 
 class _IngredientDeepDive extends ConsumerWidget {
-  const _IngredientDeepDive({required this.productId});
-  final String? productId;
+  const _IngredientDeepDive();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final theme = Theme.of(context);
     final l10n = AppLocalizations.of(context);
     final entitled =
         ref
@@ -1225,7 +1212,7 @@ class _IngredientDeepDive extends ConsumerWidget {
             .contains(Feature.ingredientExplainer) ??
         false;
 
-    if (!entitled || productId == null) {
+    if (!entitled) {
       return _PlusLock(
         title: l10n.catalogDetailIngredientDeepDiveTitle,
         subtitle: l10n.catalogDetailIngredientDeepDiveLockedBody,
@@ -1233,27 +1220,30 @@ class _IngredientDeepDive extends ConsumerWidget {
       );
     }
 
-    final async = ref.watch(_ingredientExplainProvider(productId!));
     return _PlusCard(
       title: l10n.catalogDetailIngredientDeepDiveTitle,
-      child: async.when(
-        loading: () => const _LineSkeleton(),
-        error: (_, _) => Text(
-          l10n.catalogDetailIngredientExplainError,
-          style: Theme.of(context).textTheme.bodySmall,
-        ),
-        data: (r) => Text(
-          r.explanation,
-          style: Theme.of(context).textTheme.bodyMedium?.copyWith(height: 1.45),
-        ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            l10n.catalogDetailIngredientNeedsLabel,
+            style: theme.textTheme.bodyMedium?.copyWith(height: 1.45),
+          ),
+          const SizedBox(height: RadhaSpacing.space8),
+          TextButton.icon(
+            onPressed: () => context.push(AppRoute.labelScan),
+            icon: const Icon(Icons.document_scanner_outlined, size: 18),
+            label: Text(l10n.catalogDetailScanLabel),
+          ),
+        ],
       ),
     );
   }
 }
 
 class _ForYouSection extends ConsumerWidget {
-  const _ForYouSection({required this.productId});
-  final String? productId;
+  const _ForYouSection({required this.containsAllergens});
+  final bool? containsAllergens;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -1267,7 +1257,7 @@ class _ForYouSection extends ConsumerWidget {
             .contains(Feature.allergenProfile) ??
         false;
 
-    if (!entitled || productId == null) {
+    if (!entitled) {
       return _PlusLock(
         title: l10n.catalogDetailPersonalisedFlagsTitle,
         subtitle: l10n.catalogDetailPersonalisedFlagsLockedBody,
@@ -1275,83 +1265,47 @@ class _ForYouSection extends ConsumerWidget {
       );
     }
 
-    final user = ref.watch(currentUserProvider);
-    final allergensAsync = ref.watch(_productAllergensProvider(productId!));
-    final profileTags = user == null
-        ? const <String>{}
-        : ref
-              .watch(allergenProfileProvider(user.userId))
-              .maybeWhen(
-                data: (p) => p.allergens.toSet(),
-                orElse: () => const <String>{},
-              );
+    final (
+      IconData icon,
+      Color color,
+      String label,
+    ) = switch (containsAllergens) {
+      true => (
+        Icons.warning_amber_rounded,
+        RadhaColors.warning,
+        l10n.catalogDetailAllergenSignalDetected,
+      ),
+      false => (
+        Icons.check_circle_outline_rounded,
+        RadhaColors.success,
+        l10n.catalogDetailNoAllergensDetected,
+      ),
+      null => (
+        Icons.info_outline_rounded,
+        RadhaColors.inkMuted,
+        l10n.catalogDetailAllergenSignalUnavailable,
+      ),
+    };
 
     return _PlusCard(
       title: l10n.catalogDetailPersonalisedFlagsTitle,
-      child: allergensAsync.when(
-        loading: () => const _LineSkeleton(),
-        error: (_, _) => Text(
-          l10n.catalogDetailPersonaliseError,
-          style: theme.textTheme.bodySmall,
-        ),
-        data: (allergens) {
-          if (allergens.isEmpty) {
-            return Text(
-              l10n.catalogDetailNoAllergensDetected,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(icon, size: 18, color: color),
+          const SizedBox(width: RadhaSpacing.space8),
+          Expanded(
+            child: Text(
+              label,
               style: theme.textTheme.bodyMedium?.copyWith(
-                color: RadhaColors.success,
+                color: color,
+                height: 1.4,
               ),
-            );
-          }
-          return Wrap(
-            spacing: RadhaSpacing.space8,
-            runSpacing: RadhaSpacing.space8,
-            children: allergens.map((a) {
-              final hit = _matches(a.name, profileTags);
-              final color = hit ? RadhaColors.danger : RadhaColors.inkMuted;
-              return Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: RadhaSpacing.space12,
-                  vertical: RadhaSpacing.space8,
-                ),
-                decoration: BoxDecoration(
-                  color: color.withValues(alpha: hit ? 0.12 : 0.08),
-                  borderRadius: BorderRadius.circular(RadhaRadii.radiusFull),
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    if (hit) ...[
-                      Icon(Icons.warning_amber_rounded, size: 14, color: color),
-                      const SizedBox(width: RadhaSpacing.space4),
-                    ],
-                    Text(
-                      hit ? l10n.catalogDetailAllergenAvoided(a.name) : a.name,
-                      style: TextStyle(
-                        fontSize: 12.5,
-                        fontWeight: FontWeight.w700,
-                        color: color,
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            }).toList(),
-          );
-        },
+            ),
+          ),
+        ],
       ),
     );
-  }
-
-  bool _matches(String name, Set<String> tags) {
-    if (tags.isEmpty) return false;
-    final raw = name.toLowerCase().trim();
-    final norm = raw.replaceAll(' ', '_').replaceAll('-', '_');
-    if (tags.contains(norm)) return true;
-    for (final t in tags) {
-      if (raw.contains(t.replaceAll('_', ' ')) || norm.contains(t)) return true;
-    }
-    return false;
   }
 }
 
@@ -1656,14 +1610,27 @@ class _NutritionError extends StatelessWidget {
         l10n.catalogDetailNutritionSessionExpiredBody,
         RadhaColors.warning,
       ),
+      ProductLookupFailure.forbidden => (
+        Icons.lock_outline_rounded,
+        l10n.catalogDetailNutritionAccessDeniedTitle,
+        l10n.catalogDetailNutritionAccessDeniedBody,
+        RadhaColors.warning,
+      ),
       ProductLookupFailure.serverFailure => (
         Icons.error_outline_rounded,
         l10n.catalogDetailNutritionServerTitle,
         l10n.catalogDetailNutritionServerBody,
         RadhaColors.warning,
       ),
+      ProductLookupFailure.timeout => (
+        Icons.timer_off_outlined,
+        l10n.catalogDetailNutritionTimeoutTitle,
+        l10n.catalogDetailNutritionTimeoutBody,
+        RadhaColors.warning,
+      ),
     };
     final showScan = failure == ProductLookupFailure.notFound;
+    final showRetry = failure != ProductLookupFailure.forbidden;
 
     return Container(
       width: double.infinity,
@@ -1704,24 +1671,27 @@ class _NutritionError extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: RadhaSpacing.space12),
-          Row(
-            children: [
-              OutlinedButton.icon(
-                onPressed: onRetry,
-                icon: const Icon(Icons.refresh_rounded, size: 18),
-                label: Text(l10n.catalogRetry),
-              ),
-              if (showScan) ...[
-                const SizedBox(width: RadhaSpacing.space8),
-                TextButton.icon(
-                  onPressed: onScanLabel,
-                  icon: const Icon(Icons.document_scanner_outlined, size: 18),
-                  label: Text(l10n.catalogDetailScanLabel),
-                ),
+          if (showRetry || showScan) ...[
+            const SizedBox(height: RadhaSpacing.space12),
+            Row(
+              children: [
+                if (showRetry)
+                  OutlinedButton.icon(
+                    onPressed: onRetry,
+                    icon: const Icon(Icons.refresh_rounded, size: 18),
+                    label: Text(l10n.catalogRetry),
+                  ),
+                if (showScan) ...[
+                  const SizedBox(width: RadhaSpacing.space8),
+                  TextButton.icon(
+                    onPressed: onScanLabel,
+                    icon: const Icon(Icons.document_scanner_outlined, size: 18),
+                    label: Text(l10n.catalogDetailScanLabel),
+                  ),
+                ],
               ],
-            ],
-          ),
+            ),
+          ],
         ],
       ),
     );
@@ -1833,22 +1803,6 @@ class _NavRow extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-class _LineSkeleton extends StatelessWidget {
-  const _LineSkeleton();
-  @override
-  Widget build(BuildContext context) {
-    final c = Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.08);
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(height: 12, width: double.infinity, color: c),
-        const SizedBox(height: 8),
-        Container(height: 12, width: 220, color: c),
-      ],
     );
   }
 }

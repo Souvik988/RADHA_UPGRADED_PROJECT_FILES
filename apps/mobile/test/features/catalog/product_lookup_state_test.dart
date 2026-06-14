@@ -15,7 +15,7 @@ DioException _dio(DioExceptionType type, {int? status}) => DioException(
 
 void main() {
   group('classifyProductLookupFailure', () {
-    test('404 → notFound', () {
+    test('404 maps to notFound', () {
       expect(
         classifyProductLookupFailure(
           _dio(DioExceptionType.badResponse, status: 404),
@@ -24,7 +24,7 @@ void main() {
       );
     });
 
-    test('401 and 403 → unauthorized', () {
+    test('401 maps to unauthorized and 403 maps to forbidden', () {
       expect(
         classifyProductLookupFailure(
           _dio(DioExceptionType.badResponse, status: 401),
@@ -35,25 +35,42 @@ void main() {
         classifyProductLookupFailure(
           _dio(DioExceptionType.badResponse, status: 403),
         ),
-        ProductLookupFailure.unauthorized,
+        ProductLookupFailure.forbidden,
       );
     });
 
-    test('connection-class errors → offline', () {
+    test('connection error maps to offline', () {
+      expect(
+        classifyProductLookupFailure(_dio(DioExceptionType.connectionError)),
+        ProductLookupFailure.offline,
+      );
+    });
+
+    test('timeout-class errors map to timeout', () {
       for (final t in [
-        DioExceptionType.connectionError,
         DioExceptionType.connectionTimeout,
         DioExceptionType.receiveTimeout,
         DioExceptionType.sendTimeout,
       ]) {
         expect(
           classifyProductLookupFailure(_dio(t)),
-          ProductLookupFailure.offline,
+          ProductLookupFailure.timeout,
         );
       }
     });
 
-    test('500 → serverFailure', () {
+    test('408 and 504 map to timeout', () {
+      for (final status in [408, 504]) {
+        expect(
+          classifyProductLookupFailure(
+            _dio(DioExceptionType.badResponse, status: status),
+          ),
+          ProductLookupFailure.timeout,
+        );
+      }
+    });
+
+    test('500 maps to serverFailure', () {
       expect(
         classifyProductLookupFailure(
           _dio(DioExceptionType.badResponse, status: 500),
@@ -62,7 +79,7 @@ void main() {
       );
     });
 
-    test('non-Dio error → serverFailure', () {
+    test('non-Dio error maps to serverFailure', () {
       expect(
         classifyProductLookupFailure(StateError('boom')),
         ProductLookupFailure.serverFailure,
@@ -85,7 +102,15 @@ void main() {
     );
     expect(
       productLookupEventFor(ProductLookupFailure.unauthorized),
-      'lookup_server_failure',
+      'lookup_unauthorized',
+    );
+    expect(
+      productLookupEventFor(ProductLookupFailure.forbidden),
+      'lookup_forbidden',
+    );
+    expect(
+      productLookupEventFor(ProductLookupFailure.timeout),
+      'lookup_timeout',
     );
   });
 }

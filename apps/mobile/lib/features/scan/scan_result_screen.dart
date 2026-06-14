@@ -10,7 +10,7 @@ import 'package:share_plus/share_plus.dart';
 import '../../core/auth/auth_controller.dart';
 import '../../core/network/api_client.dart';
 import '../../core/network/dto/ean_dto.dart';
-import '../../core/network/dto/product_dto.dart';
+import '../../core/network/dto/product_lookup_dto.dart';
 import '../../core/router/app_router.dart';
 import '../../design/app_assets.dart';
 import '../../design/theme.dart';
@@ -22,9 +22,12 @@ import '../../design/widgets/primary_button.dart';
 /// FutureProvider that fetches a product by EAN. Auto-disposed so cache
 /// doesn't grow unbounded across many scan results.
 final _productByEanProvider = FutureProvider.autoDispose
-    .family<ProductResponse, String>((ref, ean) async {
+    .family<ProductLookupItem, String>((ref, ean) async {
       final client = ref.read(apiClientProvider);
-      return client.getProductByEan(ean);
+      final lookup = await client.getProductLookup(ean, includeNutrition: true);
+      final product = lookup.product;
+      if (product == null) throw StateError('product_not_found');
+      return product;
     });
 
 /// Composite key for the approved-EAN check — an EAN scoped to a store.
@@ -91,9 +94,8 @@ class ScanResultScreen extends ConsumerWidget {
           IconButton(
             icon: const Icon(Icons.ios_share_rounded),
             tooltip: 'Share',
-            onPressed: () => Share.share(
-              'I checked this product on RADHA — barcode $ean.',
-            ),
+            onPressed: () =>
+                Share.share('I checked this product on RADHA — barcode $ean.'),
           ),
         ],
       ),
@@ -117,7 +119,7 @@ class ScanResultScreen extends ConsumerWidget {
 class _ProductBody extends ConsumerStatefulWidget {
   const _ProductBody({required this.product, required this.ean});
 
-  final ProductResponse product;
+  final ProductLookupItem product;
   final String ean;
 
   @override
@@ -201,7 +203,7 @@ class _ProductBodyState extends ConsumerState<_ProductBody> {
 class _ProductHeader extends StatelessWidget {
   const _ProductHeader({required this.product, required this.ean});
 
-  final ProductResponse product;
+  final ProductLookupItem product;
   final String ean;
 
   @override
@@ -223,7 +225,7 @@ class _ProductHeader extends StatelessWidget {
                   height: 1.15,
                 ),
               ),
-              if (product.brand != null || product.category != null) ...[
+              if (product.brand != null || product.subCategory != null) ...[
                 const SizedBox(height: RadhaSpacing.space4),
                 Row(
                   children: [
@@ -238,17 +240,17 @@ class _ProductHeader extends StatelessWidget {
                           ),
                         ),
                       ),
-                    if (product.brand != null && product.category != null)
+                    if (product.brand != null && product.subCategory != null)
                       Text(
                         ' · ',
                         style: theme.textTheme.bodyMedium?.copyWith(
                           color: theme.colorScheme.onSurfaceVariant,
                         ),
                       ),
-                    if (product.category != null)
+                    if (product.subCategory != null)
                       Flexible(
                         child: Text(
-                          product.category!,
+                          product.subCategory!,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: theme.textTheme.bodyMedium?.copyWith(
@@ -421,7 +423,9 @@ class _PillFrame extends StatelessWidget {
     final Color border = tinted
         ? accent.withValues(alpha: 0.35)
         : theme.colorScheme.outline;
-    final Color foreground = tinted ? accent : theme.colorScheme.onSurfaceVariant;
+    final Color foreground = tinted
+        ? accent
+        : theme.colorScheme.onSurfaceVariant;
 
     return Semantics(
       label: 'Approval status: $label',
@@ -594,9 +598,10 @@ class _ScoreGaugeState extends State<_ScoreGauge>
       duration: const Duration(milliseconds: 900),
     );
     _ctrl = ctrl;
-    _anim = Tween<double>(begin: 0, end: widget.score! / 100).animate(
-      CurvedAnimation(parent: ctrl, curve: Curves.easeOutCubic),
-    );
+    _anim = Tween<double>(
+      begin: 0,
+      end: widget.score! / 100,
+    ).animate(CurvedAnimation(parent: ctrl, curve: Curves.easeOutCubic));
     if (reduceMotion) {
       ctrl.value = 1.0;
     } else {
