@@ -662,6 +662,12 @@ class _LikeConcern extends StatelessWidget {
     if (n.isProcessed == true) {
       concerns.add(('Ultra-processed', RadhaAssets.hiUltraProcessed));
     }
+    if ((n.transFat ?? 0) > 0) {
+      concerns.add(('Contains trans fat', RadhaAssets.hiAdditiveWarning));
+    }
+    if (n.containsAllergens == true) {
+      concerns.add(('Contains allergens', RadhaAssets.hiAllergenFlag));
+    }
 
     if (likes.isEmpty && concerns.isEmpty) return const SizedBox.shrink();
 

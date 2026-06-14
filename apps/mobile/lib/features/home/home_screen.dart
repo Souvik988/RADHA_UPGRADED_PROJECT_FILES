@@ -1497,6 +1497,13 @@ class _PromoBannerCarouselState extends State<_PromoBannerCarousel> {
           cta: 'Browse products',
           onTap: () => context.push(AppRoute.catalogSearch),
         ),
+        _PromoBanner(
+          asset: RadhaAssets.bannerHomePromoConsumer,
+          eyebrow: 'RADHA PLUS',
+          headline: 'Unlock ingredient deep-dives and allergen alerts',
+          cta: 'See plans',
+          onTap: () => context.push(AppRoute.subscription),
+        ),
       ];
     }
     return [
