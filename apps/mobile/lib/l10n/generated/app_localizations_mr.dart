@@ -9,6 +9,121 @@ class AppLocalizationsMr extends AppLocalizations {
   AppLocalizationsMr([String locale = 'mr']) : super(locale);
 
   @override
+  String get subTitle => 'सदस्यता';
+
+  @override
+  String get subUnlockHeadline => 'RADHA चे संपूर्ण चित्र अनलॉक करा';
+
+  @override
+  String get subLoadError => 'तुमची सदस्यता लोड करता आली नाही';
+
+  @override
+  String get subErrorBody => 'तुमचे कनेक्शन तपासा आणि पुन्हा प्रयत्न करा.';
+
+  @override
+  String get subChoosePlan => 'एक प्लॅन निवडा';
+
+  @override
+  String get subPlansLoadError => 'प्लॅन लोड करता आले नाहीत';
+
+  @override
+  String get subPlansUnavailable =>
+      'सध्या कोणतेही प्लॅन उपलब्ध नाहीत. कृपया नंतर पुन्हा प्रयत्न करा.';
+
+  @override
+  String get subSecurePayment => 'Razorpay द्वारे सुरक्षित पेमेंट';
+
+  @override
+  String get subCurrentPlan => 'सध्याचा प्लॅन';
+
+  @override
+  String subRenewsInDays(int days) {
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '$days दिवसांत नूतनीकरण',
+      one: '1 दिवसात नूतनीकरण',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get subBillingMonthly => 'मासिक';
+
+  @override
+  String get subBillingYearly => 'वार्षिक';
+
+  @override
+  String get subBilledYearly => 'वार्षिक बिलिंग';
+
+  @override
+  String get subPerMonth => '/महिना';
+
+  @override
+  String get subPerYear => '/वर्ष';
+
+  @override
+  String get subPopular => 'लोकप्रिय';
+
+  @override
+  String get subStatusTrial => 'ट्रायल';
+
+  @override
+  String subStatusDaysLeft(int days) {
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '$days दिवस शिल्लक',
+      one: '1 दिवस शिल्लक',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get subStatusActive => 'सक्रिय';
+
+  @override
+  String get subStatusPastDue => 'थकबाकी';
+
+  @override
+  String get subStatusPaused => 'थांबवले';
+
+  @override
+  String get subStatusCancelled => 'रद्द';
+
+  @override
+  String subUpgradeTo(String plan) {
+    return '$plan मध्ये अपग्रेड करा';
+  }
+
+  @override
+  String subChoosePlanNamed(String plan) {
+    return '$plan निवडा';
+  }
+
+  @override
+  String subYoureOnPlan(String plan) {
+    return 'तुम्ही $plan वर आहात';
+  }
+
+  @override
+  String subWelcome(String plan) {
+    return 'तुम्ही $plan वर आहात. RADHA $plan मध्ये स्वागत आहे!';
+  }
+
+  @override
+  String get subCheckoutCancelled => 'चेकआउट रद्द केले — तुमचा प्लॅन तसाच आहे.';
+
+  @override
+  String subPaymentPending(String supportRef) {
+    return 'पेमेंट मिळाले — आता त्याची खात्री केली जात आहे. संदर्भ $supportRef. थोड्या वेळात रिफ्रेश करण्यासाठी खाली ओढा.';
+  }
+
+  @override
+  String get subPaymentFailed =>
+      'पेमेंट अयशस्वी झाले. कृपया पुन्हा प्रयत्न करा.';
+
+  @override
   String get appName => 'RADHA';
 
   @override

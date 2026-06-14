@@ -6,6 +6,7 @@ import 'package:radha_mobile/core/network/api_client.dart';
 import 'package:radha_mobile/core/network/dto/payment_dto.dart';
 import 'package:radha_mobile/core/network/dto/subscription_status_dto.dart';
 import 'package:radha_mobile/design/theme.dart';
+import 'package:radha_mobile/l10n/generated/app_localizations.dart';
 import 'package:radha_mobile/features/subscription/payment/checkout_engine.dart';
 import 'package:radha_mobile/features/subscription/payment/checkout_models.dart';
 import 'package:radha_mobile/features/subscription/payment/razorpay_adapter.dart';
@@ -101,6 +102,8 @@ Widget _app(_FakeApi api) {
     ],
     child: MaterialApp(
       theme: radhaLightTheme(),
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
       home: const SubscriptionScreen(),
     ),
   );

@@ -9,6 +9,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:radha_mobile/l10n/generated/app_localizations.dart';
 
 import '../../core/entitlements/entitlement_provider.dart';
 import '../../core/network/api_client.dart';
@@ -53,6 +54,7 @@ class SubscriptionScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     final entitlement = ref.watch(entitlementProvider);
 
     return Scaffold(
@@ -60,7 +62,7 @@ class SubscriptionScreen extends ConsumerWidget {
       appBar: AppBar(
         backgroundColor: theme.colorScheme.surface,
         title: Text(
-          'Subscription',
+          l10n.subTitle,
           style: theme.textTheme.titleLarge?.copyWith(
             fontWeight: FontWeight.w800,
           ),
@@ -72,8 +74,8 @@ class SubscriptionScreen extends ConsumerWidget {
         ),
         error: (_, _) => Center(
           child: ErrorState(
-            title: "Couldn't load your subscription",
-            body: 'Check your connection and try again.',
+            title: l10n.subLoadError,
+            body: l10n.subErrorBody,
             onRetry: () => ref.invalidate(entitlementProvider),
           ),
         ),
@@ -98,6 +100,7 @@ class _SubscriptionBodyState extends ConsumerState<_SubscriptionBody> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     final state = widget.state;
     final plansAsync = ref.watch(subscriptionPlansProvider);
 
@@ -118,7 +121,7 @@ class _SubscriptionBodyState extends ConsumerState<_SubscriptionBody> {
         ),
         const SizedBox(height: RadhaSpacing.space8),
         Text(
-          'Unlock RADHA’s full picture',
+          l10n.subUnlockHeadline,
           textAlign: TextAlign.center,
           style: theme.textTheme.headlineSmall?.copyWith(
             fontWeight: FontWeight.w800,
@@ -131,7 +134,7 @@ class _SubscriptionBodyState extends ConsumerState<_SubscriptionBody> {
           children: [
             Expanded(
               child: Text(
-                'Choose a plan',
+                l10n.subChoosePlan,
                 style: theme.textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w700,
                 ),
@@ -150,14 +153,14 @@ class _SubscriptionBodyState extends ConsumerState<_SubscriptionBody> {
         plansAsync.when(
           loading: () => const _PlansSkeleton(),
           error: (_, _) => ErrorState(
-            title: "Couldn't load plans",
-            body: 'Check your connection and try again.',
+            title: l10n.subPlansLoadError,
+            body: l10n.subErrorBody,
             onRetry: () => ref.invalidate(subscriptionPlansProvider),
           ),
           data: (plans) {
             if (plans.isEmpty) {
               return Text(
-                'Plans are unavailable right now. Please try again later.',
+                l10n.subPlansUnavailable,
                 style: theme.textTheme.bodyMedium?.copyWith(
                   color: theme.colorScheme.onSurfaceVariant,
                 ),
@@ -188,7 +191,7 @@ class _SubscriptionBodyState extends ConsumerState<_SubscriptionBody> {
         const SizedBox(height: RadhaSpacing.space12),
         Center(
           child: Text(
-            'Secure payment via Razorpay',
+            l10n.subSecurePayment,
             style: theme.textTheme.bodySmall?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
             ),
@@ -204,6 +207,7 @@ class _SubscriptionBodyState extends ConsumerState<_SubscriptionBody> {
     setState(() => _busyPlanCode = plan.code);
     final engine = ref.read(checkoutEngineProvider);
     final messenger = ScaffoldMessenger.of(context);
+    final l10n = AppLocalizations.of(context);
 
     void snack(String msg) =>
         messenger.showSnackBar(SnackBar(content: Text(msg)));
@@ -219,16 +223,13 @@ class _SubscriptionBodyState extends ConsumerState<_SubscriptionBody> {
           await ref.read(entitlementProvider.notifier).refresh();
           if (!mounted) return;
           HapticFeedback.mediumImpact();
-          snack("You're on ${plan.name}. Welcome to RADHA ${plan.name}!");
+          snack(l10n.subWelcome(plan.name));
         case CheckoutCancelled():
-          snack('Checkout cancelled — your plan is unchanged.');
+          snack(l10n.subCheckoutCancelled);
         case CheckoutPending(:final supportRef):
-          snack(
-            'Payment received — confirming it now. '
-            'Ref $supportRef. Pull down to refresh in a moment.',
-          );
+          snack(l10n.subPaymentPending(supportRef));
         case CheckoutFailed(:final message):
-          snack(message ?? 'Payment failed. Please try again.');
+          snack(message ?? l10n.subPaymentFailed);
       }
     } finally {
       if (mounted) setState(() => _busyPlanCode = null);
@@ -245,6 +246,7 @@ class _CurrentPlanCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     final trialDays = state.trialDaysRemaining;
     final onTrial = state.status == 'trial' && trialDays != null;
 
@@ -261,7 +263,7 @@ class _CurrentPlanCard extends StatelessWidget {
           Row(
             children: [
               Text(
-                'Current plan',
+                l10n.subCurrentPlan,
                 style: theme.textTheme.labelMedium?.copyWith(
                   color: theme.colorScheme.onSurfaceVariant,
                 ),
@@ -280,7 +282,7 @@ class _CurrentPlanCard extends StatelessWidget {
           if (state.daysUntilRenewal != null && !onTrial) ...[
             const SizedBox(height: RadhaSpacing.space4),
             Text(
-              'Renews in ${state.daysUntilRenewal} days',
+              l10n.subRenewsInDays(state.daysUntilRenewal!),
               style: theme.textTheme.bodySmall?.copyWith(
                 color: theme.colorScheme.onSurfaceVariant,
               ),
@@ -313,18 +315,19 @@ class _StatusChipForState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     final (String label, Color color) = switch (state.status) {
       'trial' => (
         state.trialDaysRemaining != null
-            ? '${state.trialDaysRemaining} days left'
-            : 'Trial',
+            ? l10n.subStatusDaysLeft(state.trialDaysRemaining!)
+            : l10n.subStatusTrial,
         RadhaColors.primaryDeep,
       ),
-      'active' => ('Active', RadhaColors.success),
-      'past_due' => ('Past due', RadhaColors.warning),
-      'paused' => ('Paused', RadhaColors.warning),
-      'cancelled' => ('Cancelled', RadhaColors.danger),
-      'expired' => ('Expired', RadhaColors.danger),
+      'active' => (l10n.subStatusActive, RadhaColors.success),
+      'past_due' => (l10n.subStatusPastDue, RadhaColors.warning),
+      'paused' => (l10n.subStatusPaused, RadhaColors.warning),
+      'cancelled' => (l10n.subStatusCancelled, RadhaColors.danger),
+      'expired' => (l10n.expired, RadhaColors.danger),
       _ => (state.status, theme.colorScheme.onSurfaceVariant),
     };
     return Container(
@@ -357,6 +360,7 @@ class _BillingToggle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     Widget seg(String label, BillingCycle value) {
       final selected = cycle == value;
       return Semantics(
@@ -398,8 +402,8 @@ class _BillingToggle extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          seg('Monthly', BillingCycle.monthly),
-          seg('Yearly', BillingCycle.yearly),
+          seg(l10n.subBillingMonthly, BillingCycle.monthly),
+          seg(l10n.subBillingYearly, BillingCycle.yearly),
         ],
       ),
     );
@@ -430,6 +434,7 @@ class _PlanCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     final highlight = recommended && !isCurrent;
     final highlights = plan.features
         .where((f) => (f.description ?? '').isNotEmpty)
@@ -502,7 +507,7 @@ class _PlanCard extends StatelessWidget {
             _CurrentPill(name: plan.name)
           else if (highlight)
             PrimaryButton(
-              label: 'Upgrade to ${plan.name}',
+              label: l10n.subUpgradeTo(plan.name),
               expand: true,
               loading: busy,
               onPressed: disabled ? null : onUpgrade,
@@ -519,7 +524,7 @@ class _PlanCard extends StatelessWidget {
                       height: 18,
                       child: CircularProgressIndicator(strokeWidth: 2),
                     )
-                  : Text('Choose ${plan.name}'),
+                  : Text(l10n.subChoosePlanNamed(plan.name)),
             ),
         ],
       ),
@@ -535,12 +540,13 @@ class _PlanPrice extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     final yearly = cycle == BillingCycle.yearly;
     // Show the real monthly price always; for yearly, show the backend yearly
     // price when present, else state honestly that it's billed yearly at the
     // verified amount (no fabricated number).
     final amount = yearly ? plan.yearlyPrice : plan.price;
-    final suffix = yearly ? '/yr' : '/mo';
+    final suffix = yearly ? l10n.subPerYear : l10n.subPerMonth;
 
     if (yearly && plan.yearlyPrice == null) {
       return Column(
@@ -555,7 +561,7 @@ class _PlanPrice extends StatelessWidget {
             ),
           ),
           Text(
-            'billed yearly',
+            l10n.subBilledYearly,
             style: theme.textTheme.bodySmall?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
             ),
@@ -596,6 +602,7 @@ class _PopularBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     return Container(
       padding: const EdgeInsets.symmetric(
         horizontal: RadhaSpacing.space8,
@@ -606,7 +613,7 @@ class _PopularBadge extends StatelessWidget {
         borderRadius: BorderRadius.circular(RadhaRadii.radiusFull),
       ),
       child: Text(
-        'Popular',
+        l10n.subPopular,
         style: theme.textTheme.labelSmall?.copyWith(
           color: RadhaColors.onPrimary,
           fontWeight: FontWeight.w700,
@@ -622,6 +629,7 @@ class _CurrentPill extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.symmetric(vertical: RadhaSpacing.space12),
@@ -632,7 +640,7 @@ class _CurrentPill extends StatelessWidget {
         border: Border.all(color: RadhaColors.primary),
       ),
       child: Text(
-        "You're on $name",
+        l10n.subYoureOnPlan(name),
         style: theme.textTheme.labelLarge?.copyWith(
           color: RadhaColors.primaryDeep,
           fontWeight: FontWeight.w700,

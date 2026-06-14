@@ -106,6 +106,180 @@ abstract class AppLocalizations {
     Locale('te'),
   ];
 
+  /// Subscription screen app-bar title.
+  ///
+  /// In en, this message translates to:
+  /// **'Subscription'**
+  String get subTitle;
+
+  /// Paywall hero headline. RADHA is the brand mark, do not translate.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock RADHA’s full picture'**
+  String get subUnlockHeadline;
+
+  /// No description provided for @subLoadError.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t load your subscription'**
+  String get subLoadError;
+
+  /// No description provided for @subErrorBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Check your connection and try again.'**
+  String get subErrorBody;
+
+  /// No description provided for @subChoosePlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a plan'**
+  String get subChoosePlan;
+
+  /// No description provided for @subPlansLoadError.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t load plans'**
+  String get subPlansLoadError;
+
+  /// No description provided for @subPlansUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Plans are unavailable right now. Please try again later.'**
+  String get subPlansUnavailable;
+
+  /// Razorpay is the payment provider brand, do not translate.
+  ///
+  /// In en, this message translates to:
+  /// **'Secure payment via Razorpay'**
+  String get subSecurePayment;
+
+  /// No description provided for @subCurrentPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Current plan'**
+  String get subCurrentPlan;
+
+  /// Days until the paid plan renews.
+  ///
+  /// In en, this message translates to:
+  /// **'{days, plural, =1{Renews in 1 day} other{Renews in {days} days}}'**
+  String subRenewsInDays(int days);
+
+  /// No description provided for @subBillingMonthly.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly'**
+  String get subBillingMonthly;
+
+  /// No description provided for @subBillingYearly.
+  ///
+  /// In en, this message translates to:
+  /// **'Yearly'**
+  String get subBillingYearly;
+
+  /// No description provided for @subBilledYearly.
+  ///
+  /// In en, this message translates to:
+  /// **'billed yearly'**
+  String get subBilledYearly;
+
+  /// No description provided for @subPerMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'/mo'**
+  String get subPerMonth;
+
+  /// No description provided for @subPerYear.
+  ///
+  /// In en, this message translates to:
+  /// **'/yr'**
+  String get subPerYear;
+
+  /// No description provided for @subPopular.
+  ///
+  /// In en, this message translates to:
+  /// **'Popular'**
+  String get subPopular;
+
+  /// No description provided for @subStatusTrial.
+  ///
+  /// In en, this message translates to:
+  /// **'Trial'**
+  String get subStatusTrial;
+
+  /// Trial days-remaining chip.
+  ///
+  /// In en, this message translates to:
+  /// **'{days, plural, =1{1 day left} other{{days} days left}}'**
+  String subStatusDaysLeft(int days);
+
+  /// No description provided for @subStatusActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get subStatusActive;
+
+  /// No description provided for @subStatusPastDue.
+  ///
+  /// In en, this message translates to:
+  /// **'Past due'**
+  String get subStatusPastDue;
+
+  /// No description provided for @subStatusPaused.
+  ///
+  /// In en, this message translates to:
+  /// **'Paused'**
+  String get subStatusPaused;
+
+  /// No description provided for @subStatusCancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancelled'**
+  String get subStatusCancelled;
+
+  /// Upgrade CTA for the recommended plan.
+  ///
+  /// In en, this message translates to:
+  /// **'Upgrade to {plan}'**
+  String subUpgradeTo(String plan);
+
+  /// Choose CTA for a non-recommended plan.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose {plan}'**
+  String subChoosePlanNamed(String plan);
+
+  /// Current-plan pill label.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re on {plan}'**
+  String subYoureOnPlan(String plan);
+
+  /// Snackbar after a verified upgrade. RADHA is the brand mark.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re on {plan}. Welcome to RADHA {plan}!'**
+  String subWelcome(String plan);
+
+  /// No description provided for @subCheckoutCancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Checkout cancelled — your plan is unchanged.'**
+  String get subCheckoutCancelled;
+
+  /// Payment pending confirmation. supportRef is a short reference id.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment received — confirming it now. Ref {supportRef}. Pull down to refresh in a moment.'**
+  String subPaymentPending(String supportRef);
+
+  /// No description provided for @subPaymentFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment failed. Please try again.'**
+  String get subPaymentFailed;
+
   /// App name (brand mark, do not translate).
   ///
   /// In en, this message translates to:
