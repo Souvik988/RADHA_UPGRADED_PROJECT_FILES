@@ -497,6 +497,30 @@ class AppLocalizationsMr extends AppLocalizations {
       'अॅप वापरण्यासाठी तुम्हाला OTP ने पुन्हा साइन इन करावे लागेल.';
 
   @override
+  String get selectStoreTitle => 'स्टोअर निवडा';
+
+  @override
+  String get selectStoreHeading => 'एक स्टोअर निवडा';
+
+  @override
+  String get selectStoreBody =>
+      'आज तुम्ही ज्या स्टोअरमध्ये काम करत आहात ते निवडा. नंतर प्रोफाइलमधून स्टोअर बदलू शकता.';
+
+  @override
+  String get selectStoreEmptyTitle => 'अजून स्टोअर्स नाहीत';
+
+  @override
+  String get selectStoreEmptyBody =>
+      'तुमचे खाते अजून कोणत्याही स्टोअरशी जोडलेले नाही. प्रवेश देण्यासाठी तुमच्या व्यवस्थापकाला सांगा, मग परत येऊन एक निवडा.';
+
+  @override
+  String get selectStoreContactManager => 'तुमच्या व्यवस्थापकाला संपर्क करा';
+
+  @override
+  String get selectStoreContactManagerSnackbar =>
+      'स्टोअरमध्ये जोडण्यासाठी तुमच्या व्यवस्थापकाला संपर्क करा.';
+
+  @override
   String get appName => 'RADHA';
 
   @override

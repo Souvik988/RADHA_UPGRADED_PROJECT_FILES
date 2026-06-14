@@ -96,13 +96,14 @@ class _SelectStoreScreenState extends ConsumerState<SelectStoreScreen> {
     final stores = session?.stores ?? const <StoreAccess>[];
     final selectedStoreId = session?.selectedStoreId;
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     final reduceMotion =
         MediaQuery.maybeOf(context)?.disableAnimations ?? false;
 
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Select store',
+          l10n.selectStoreTitle,
           style: theme.textTheme.titleLarge?.copyWith(
             fontWeight: FontWeight.w800,
           ),
@@ -128,15 +129,14 @@ class _SelectStoreScreenState extends ConsumerState<SelectStoreScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Choose a store',
+                            l10n.selectStoreHeading,
                             style: theme.textTheme.headlineSmall?.copyWith(
                               fontWeight: FontWeight.w800,
                             ),
                           ),
                           const SizedBox(height: RadhaSpacing.space4),
                           Text(
-                            'Pick where you’re working today. You can switch '
-                            'stores later from your profile.',
+                            l10n.selectStoreBody,
                             style: theme.textTheme.bodyMedium?.copyWith(
                               color: theme.colorScheme.onSurfaceVariant,
                             ),
@@ -336,9 +336,8 @@ class _RoleBadge extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final scheme = theme.colorScheme;
-    final label = role.isEmpty
-        ? 'Member'
-        : role[0].toUpperCase() + role.substring(1);
+    final l10n = AppLocalizations.of(context);
+    final label = _roleLabel(role, l10n);
 
     return Container(
       padding: const EdgeInsets.symmetric(
@@ -359,6 +358,30 @@ class _RoleBadge extends StatelessWidget {
       ),
     );
   }
+
+  String _roleLabel(String role, AppLocalizations l10n) {
+    final raw = role.trim();
+    switch (raw.toLowerCase()) {
+      case 'owner':
+        return l10n.profileRoleOwner;
+      case 'manager':
+        return l10n.profileRoleManager;
+      case 'staff':
+        return l10n.profileRoleStaff;
+      case 'auditor':
+        return l10n.profileRoleAuditor;
+      case 'consumer':
+        return l10n.profileRoleConsumer;
+      case 'admin':
+      case 'tenant_admin':
+      case 'admin_lite':
+        return l10n.profileRoleAdmin;
+      case '':
+        return l10n.profileRoleMember;
+      default:
+        return raw[0].toUpperCase() + raw.substring(1);
+    }
+  }
 }
 
 /// Shown when the user has no `StoreAccess` rows. They can't proceed without
@@ -368,6 +391,7 @@ class _EmptyStores extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return Padding(
       padding: const EdgeInsets.symmetric(
         horizontal: RadhaSpacing.space16,
@@ -375,19 +399,16 @@ class _EmptyStores extends StatelessWidget {
       ),
       child: EmptyState(
         illustration: const MorCompanion(mood: MorMood.concern, size: 104),
-        title: 'No stores yet',
-        body: 'Your account is not associated with any store yet. Ask your '
-            'manager to grant access, then come back to pick one.',
-        actionLabel: 'Contact your manager',
+        title: l10n.selectStoreEmptyTitle,
+        body: l10n.selectStoreEmptyBody,
+        actionLabel: l10n.selectStoreContactManager,
         actionIcon: Icons.support_agent_outlined,
         onAction: () {
           // The empty state has no destination route in V1 — surface a
           // small toast so taps feel responsive without lying about
           // navigating somewhere.
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Reach out to your manager to be added to a store.'),
-            ),
+            SnackBar(content: Text(l10n.selectStoreContactManagerSnackbar)),
           );
         },
       ),

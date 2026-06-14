@@ -147,6 +147,14 @@
   "profileVersionUnavailable": "वर्ज़न उपलब्ध नहीं है",
   "profileSignOutConfirmBody": "ऐप इस्तेमाल करने के लिए आपको OTP से फिर साइन इन करना होगा।",
 
+  "selectStoreTitle": "स्टोर चुनें",
+  "selectStoreHeading": "एक स्टोर चुनें",
+  "selectStoreBody": "आज आप जहां काम कर रहे हैं वह स्टोर चुनें। बाद में आप प्रोफाइल से स्टोर बदल सकते हैं।",
+  "selectStoreEmptyTitle": "अभी कोई स्टोर नहीं",
+  "selectStoreEmptyBody": "आपका खाता अभी किसी स्टोर से जुड़ा नहीं है। अपने मैनेजर से एक्सेस देने को कहें, फिर वापस आकर स्टोर चुनें।",
+  "selectStoreContactManager": "अपने मैनेजर से संपर्क करें",
+  "selectStoreContactManagerSnackbar": "किसी स्टोर में जोड़े जाने के लिए अपने मैनेजर से संपर्क करें।",
+
   "appName": "RADHA",
   "tagline": "डेटा, स्वास्थ्य और ऑडिट के लिए रिटेल असिस्टेंट।",
   "continueLabel": "जारी रखें",

@@ -952,6 +952,48 @@ abstract class AppLocalizations {
   /// **'You will need to sign in again with an OTP to use the app.'**
   String get profileSignOutConfirmBody;
 
+  /// AppBar title on the store-selection screen after sign-in.
+  ///
+  /// In en, this message translates to:
+  /// **'Select store'**
+  String get selectStoreTitle;
+
+  /// Headline above the list of stores the user can access.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a store'**
+  String get selectStoreHeading;
+
+  /// Helper copy under the store-selection headline.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick where you\'re working today. You can switch stores later from your profile.'**
+  String get selectStoreBody;
+
+  /// Empty-state title when the signed-in user has no store access rows.
+  ///
+  /// In en, this message translates to:
+  /// **'No stores yet'**
+  String get selectStoreEmptyTitle;
+
+  /// Empty-state body when the signed-in user has no stores.
+  ///
+  /// In en, this message translates to:
+  /// **'Your account is not associated with any store yet. Ask your manager to grant access, then come back to pick one.'**
+  String get selectStoreEmptyBody;
+
+  /// Empty-state CTA label suggesting the user contact their manager for store access.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact your manager'**
+  String get selectStoreContactManager;
+
+  /// Snackbar after tapping the contact-manager CTA on the select-store empty state.
+  ///
+  /// In en, this message translates to:
+  /// **'Reach out to your manager to be added to a store.'**
+  String get selectStoreContactManagerSnackbar;
+
   /// App name (brand mark, do not translate).
   ///
   /// In en, this message translates to:

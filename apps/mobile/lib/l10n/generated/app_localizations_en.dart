@@ -495,6 +495,30 @@ class AppLocalizationsEn extends AppLocalizations {
       'You will need to sign in again with an OTP to use the app.';
 
   @override
+  String get selectStoreTitle => 'Select store';
+
+  @override
+  String get selectStoreHeading => 'Choose a store';
+
+  @override
+  String get selectStoreBody =>
+      'Pick where you\'re working today. You can switch stores later from your profile.';
+
+  @override
+  String get selectStoreEmptyTitle => 'No stores yet';
+
+  @override
+  String get selectStoreEmptyBody =>
+      'Your account is not associated with any store yet. Ask your manager to grant access, then come back to pick one.';
+
+  @override
+  String get selectStoreContactManager => 'Contact your manager';
+
+  @override
+  String get selectStoreContactManagerSnackbar =>
+      'Reach out to your manager to be added to a store.';
+
+  @override
   String get appName => 'RADHA';
 
   @override

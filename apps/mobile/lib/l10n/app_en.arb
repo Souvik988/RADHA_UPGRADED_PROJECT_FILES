@@ -181,6 +181,21 @@
   "profileSignOutConfirmBody": "You will need to sign in again with an OTP to use the app.",
   "@profileSignOutConfirmBody": { "description": "Confirmation dialog body shown before signing out from the Profile tab. OTP is a product term; do not translate OTP." },
 
+  "selectStoreTitle": "Select store",
+  "@selectStoreTitle": { "description": "AppBar title on the store-selection screen after sign-in." },
+  "selectStoreHeading": "Choose a store",
+  "@selectStoreHeading": { "description": "Headline above the list of stores the user can access." },
+  "selectStoreBody": "Pick where you're working today. You can switch stores later from your profile.",
+  "@selectStoreBody": { "description": "Helper copy under the store-selection headline." },
+  "selectStoreEmptyTitle": "No stores yet",
+  "@selectStoreEmptyTitle": { "description": "Empty-state title when the signed-in user has no store access rows." },
+  "selectStoreEmptyBody": "Your account is not associated with any store yet. Ask your manager to grant access, then come back to pick one.",
+  "@selectStoreEmptyBody": { "description": "Empty-state body when the signed-in user has no stores." },
+  "selectStoreContactManager": "Contact your manager",
+  "@selectStoreContactManager": { "description": "Empty-state CTA label suggesting the user contact their manager for store access." },
+  "selectStoreContactManagerSnackbar": "Reach out to your manager to be added to a store.",
+  "@selectStoreContactManagerSnackbar": { "description": "Snackbar after tapping the contact-manager CTA on the select-store empty state." },
+
   "appName": "RADHA",
   "@appName": { "description": "App name (brand mark, do not translate)." },
 

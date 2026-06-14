@@ -507,6 +507,30 @@ class AppLocalizationsTa extends AppLocalizations {
       'ஆப்பைப் பயன்படுத்த மீண்டும் OTP மூலம் உள்நுழைய வேண்டும்.';
 
   @override
+  String get selectStoreTitle => 'கடையைத் தேர்ந்தெடுக்கவும்';
+
+  @override
+  String get selectStoreHeading => 'ஒரு கடையைத் தேர்ந்தெடுக்கவும்';
+
+  @override
+  String get selectStoreBody =>
+      'இன்று நீங்கள் வேலை செய்யும் கடையைத் தேர்ந்தெடுக்கவும். பின்னர் சுயவிவரத்தில் இருந்து கடையை மாற்றலாம்.';
+
+  @override
+  String get selectStoreEmptyTitle => 'இன்னும் கடைகள் இல்லை';
+
+  @override
+  String get selectStoreEmptyBody =>
+      'உங்கள் கணக்கு இன்னும் எந்த கடையுடனும் இணைக்கப்படவில்லை. அணுகலை வழங்க மேலாளரிடம் கேட்டு, பின்னர் திரும்பி வந்து ஒன்றைத் தேர்ந்தெடுக்கவும்.';
+
+  @override
+  String get selectStoreContactManager => 'மேலாளரை தொடர்புகொள்ளவும்';
+
+  @override
+  String get selectStoreContactManagerSnackbar =>
+      'ஒரு கடையில் சேர்க்கப்பட உங்கள் மேலாளரை தொடர்புகொள்ளவும்.';
+
+  @override
   String get appName => 'RADHA';
 
   @override

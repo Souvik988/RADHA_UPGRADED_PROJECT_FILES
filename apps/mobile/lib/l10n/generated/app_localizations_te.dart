@@ -502,6 +502,30 @@ class AppLocalizationsTe extends AppLocalizations {
       'యాప్ ఉపయోగించడానికి మళ్లీ OTPతో సైన్ ఇన్ చేయాలి.';
 
   @override
+  String get selectStoreTitle => 'స్టోర్ ఎంచుకోండి';
+
+  @override
+  String get selectStoreHeading => 'ఒక స్టోర్ ఎంచుకోండి';
+
+  @override
+  String get selectStoreBody =>
+      'ఈ రోజు మీరు పని చేస్తున్న స్టోర్‌ను ఎంచుకోండి. తర్వాత ప్రొఫైల్ నుంచి స్టోర్‌ను మార్చవచ్చు.';
+
+  @override
+  String get selectStoreEmptyTitle => 'ఇంకా స్టోర్లు లేవు';
+
+  @override
+  String get selectStoreEmptyBody =>
+      'మీ ఖాతా ఇంకా ఏ స్టోర్‌తోనూ అనుసంధానించబడలేదు. యాక్సెస్ ఇవ్వమని మీ మేనేజర్‌ను అడిగి, తర్వాత తిరిగి వచ్చి ఒకటి ఎంచుకోండి.';
+
+  @override
+  String get selectStoreContactManager => 'మీ మేనేజర్‌ను సంప్రదించండి';
+
+  @override
+  String get selectStoreContactManagerSnackbar =>
+      'స్టోర్‌కు జోడించబడేందుకు మీ మేనేజర్‌ను సంప్రదించండి.';
+
+  @override
   String get appName => 'RADHA';
 
   @override
