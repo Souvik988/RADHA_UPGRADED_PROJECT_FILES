@@ -151,6 +151,58 @@ class AppLocalizationsEn extends AppLocalizations {
       'Search by product name or brand to see its health rating and what\'s inside.';
 
   @override
+  String get catalogProductsFallback => 'Products';
+
+  @override
+  String get catalogLoadErrorTitle => 'Couldn\'t load products';
+
+  @override
+  String catalogLoadErrorBody(String category) {
+    return 'We hit a snag loading $category. Please try again.';
+  }
+
+  @override
+  String get catalogSourceOffline => 'Offline — showing your saved catalog';
+
+  @override
+  String get catalogSourceUnavailable =>
+      'Live catalog unavailable — showing saved catalog';
+
+  @override
+  String get catalogRetry => 'Retry';
+
+  @override
+  String get catalogSortHealthiest => 'Healthiest';
+
+  @override
+  String get catalogSortAZ => 'A–Z';
+
+  @override
+  String get catalogVegOnly => 'Veg only';
+
+  @override
+  String get catalogVeg => 'Veg';
+
+  @override
+  String get catalogNoVegTitle => 'No veg items here yet';
+
+  @override
+  String catalogNoVegBody(String category) {
+    return 'Nothing in $category matches the veg filter right now.';
+  }
+
+  @override
+  String get catalogShowAll => 'Show all';
+
+  @override
+  String get catalogNoProductsTitle => 'No products yet';
+
+  @override
+  String catalogNoProductsBody(String category) {
+    return 'We\'re stocking the $category aisle. Meanwhile, scan any item to check its health and expiry.';
+  }
+
+  @override
   String get appName => 'RADHA';
 
   @override

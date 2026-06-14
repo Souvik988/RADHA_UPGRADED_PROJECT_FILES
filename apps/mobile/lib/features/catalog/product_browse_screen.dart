@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:radha_mobile/core/router/app_router.dart';
+import 'package:radha_mobile/l10n/generated/app_localizations.dart';
 import 'package:radha_mobile/design/app_assets.dart';
 import 'package:radha_mobile/design/tokens.dart';
 import 'package:radha_mobile/design/widgets/brand_illustration.dart';
@@ -38,10 +39,11 @@ class _ProductBrowseScreenState extends ConsumerState<ProductBrowseScreen> {
   CatalogSort _sort = CatalogSort.health;
   bool _vegOnly = false;
 
+  // Empty label = category not found; the display label falls back to a
+  // localized "Products" in build (the getter has no BuildContext for l10n).
   RadhaCategory get _category => kRadhaCategories.firstWhere(
     (c) => c.id == widget.categoryId,
-    orElse: () =>
-        RadhaCategory(id: widget.categoryId, label: 'Products', asset: ''),
+    orElse: () => RadhaCategory(id: widget.categoryId, label: '', asset: ''),
   );
 
   @override
@@ -71,7 +73,11 @@ class _ProductBrowseScreenState extends ConsumerState<ProductBrowseScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     final category = _category;
+    final categoryLabel = category.label.isEmpty
+        ? l10n.catalogProductsFallback
+        : category.label;
     final args = (widget.categoryId, _sort);
     final browse = ref.watch(categoryBrowseProvider(args));
 
@@ -80,7 +86,7 @@ class _ProductBrowseScreenState extends ConsumerState<ProductBrowseScreen> {
       appBar: AppBar(
         backgroundColor: theme.colorScheme.surface,
         title: Text(
-          category.label,
+          categoryLabel,
           style: theme.textTheme.titleLarge?.copyWith(
             fontWeight: FontWeight.w800,
           ),
@@ -105,10 +111,8 @@ class _ProductBrowseScreenState extends ConsumerState<ProductBrowseScreen> {
               loading: () => const _ProductGridSkeleton(),
               error: (_, _) => Center(
                 child: ErrorState(
-                  title: "Couldn't load products",
-                  body:
-                      'We hit a snag loading ${category.label.toLowerCase()}. '
-                      'Please try again.',
+                  title: l10n.catalogLoadErrorTitle,
+                  body: l10n.catalogLoadErrorBody(categoryLabel.toLowerCase()),
                   onRetry: () => ref.invalidate(categoryBrowseProvider(args)),
                 ),
               ),
@@ -119,7 +123,7 @@ class _ProductBrowseScreenState extends ConsumerState<ProductBrowseScreen> {
                     : all;
                 if (items.isEmpty) {
                   return _EmptyBody(
-                    category: category,
+                    categoryLabel: categoryLabel,
                     vegOnly: _vegOnly,
                     onScan: () => context.go(AppRoute.scan),
                     onClearVeg: () => setState(() => _vegOnly = false),
@@ -191,14 +195,15 @@ class _CatalogSourceBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     final offline = source == CatalogSource.offline;
     final tone = offline ? RadhaColors.complement : RadhaColors.warning;
     final icon = offline
         ? Icons.cloud_off_rounded
         : Icons.error_outline_rounded;
     final message = offline
-        ? 'Offline — showing your saved catalog'
-        : 'Live catalog unavailable — showing saved catalog';
+        ? l10n.catalogSourceOffline
+        : l10n.catalogSourceUnavailable;
 
     return Container(
       width: double.infinity,
@@ -239,7 +244,7 @@ class _CatalogSourceBanner extends StatelessWidget {
                 horizontal: RadhaSpacing.space8,
               ),
             ),
-            child: const Text('Retry'),
+            child: Text(l10n.catalogRetry),
           ),
         ],
       ),
@@ -265,6 +270,7 @@ class _ControlBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     return Padding(
       padding: const EdgeInsets.fromLTRB(
         RadhaSpacing.space20,
@@ -281,16 +287,16 @@ class _ControlBar extends StatelessWidget {
                 visualDensity: VisualDensity.compact,
                 textStyle: WidgetStatePropertyAll(theme.textTheme.labelLarge),
               ),
-              segments: const [
+              segments: [
                 ButtonSegment(
                   value: CatalogSort.health,
-                  label: Text('Healthiest'),
-                  icon: Icon(Icons.favorite_rounded, size: 16),
+                  label: Text(l10n.catalogSortHealthiest),
+                  icon: const Icon(Icons.favorite_rounded, size: 16),
                 ),
                 ButtonSegment(
                   value: CatalogSort.name,
-                  label: Text('A–Z'),
-                  icon: Icon(Icons.sort_by_alpha_rounded, size: 16),
+                  label: Text(l10n.catalogSortAZ),
+                  icon: const Icon(Icons.sort_by_alpha_rounded, size: 16),
                 ),
               ],
               selected: {sort},
@@ -316,8 +322,9 @@ class _VegToggle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     return Semantics(
-      label: 'Veg only',
+      label: l10n.catalogVegOnly,
       toggled: value,
       button: true,
       child: InkWell(
@@ -341,7 +348,7 @@ class _VegToggle extends StatelessWidget {
               const VegDot(isVeg: true, size: 14),
               const SizedBox(width: RadhaSpacing.space8),
               Text(
-                'Veg',
+                l10n.catalogVeg,
                 style: theme.textTheme.labelLarge?.copyWith(
                   fontWeight: FontWeight.w700,
                   color: value
@@ -570,19 +577,20 @@ class _Placeholder extends StatelessWidget {
 
 class _EmptyBody extends StatelessWidget {
   const _EmptyBody({
-    required this.category,
+    required this.categoryLabel,
     required this.vegOnly,
     required this.onScan,
     required this.onClearVeg,
   });
 
-  final RadhaCategory category;
+  final String categoryLabel;
   final bool vegOnly;
   final VoidCallback onScan;
   final VoidCallback onClearVeg;
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     if (vegOnly) {
       return Center(
         child: EmptyState(
@@ -591,11 +599,9 @@ class _EmptyBody extends StatelessWidget {
             size: 150,
           ),
           icon: Icons.eco_outlined,
-          title: 'No veg items here yet',
-          body:
-              "Nothing in ${category.label.toLowerCase()} matches the veg "
-              'filter right now.',
-          actionLabel: 'Show all',
+          title: l10n.catalogNoVegTitle,
+          body: l10n.catalogNoVegBody(categoryLabel.toLowerCase()),
+          actionLabel: l10n.catalogShowAll,
           actionIcon: Icons.clear_rounded,
           onAction: onClearVeg,
         ),
@@ -608,11 +614,9 @@ class _EmptyBody extends StatelessWidget {
           size: 150,
         ),
         icon: Icons.inventory_2_outlined,
-        title: 'No products yet',
-        body:
-            "We're stocking the ${category.label.toLowerCase()} aisle. "
-            'Meanwhile, scan any item to check its health and expiry.',
-        actionLabel: 'Scan a product',
+        title: l10n.catalogNoProductsTitle,
+        body: l10n.catalogNoProductsBody(categoryLabel.toLowerCase()),
+        actionLabel: l10n.catalogScanProduct,
         actionIcon: Icons.qr_code_scanner_rounded,
         onAction: onScan,
       ),

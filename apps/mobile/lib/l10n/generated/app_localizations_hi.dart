@@ -151,6 +151,59 @@ class AppLocalizationsHi extends AppLocalizations {
       'इसकी हेल्थ रेटिंग और सामग्री देखने के लिए उत्पाद का नाम या ब्रांड खोजें।';
 
   @override
+  String get catalogProductsFallback => 'उत्पाद';
+
+  @override
+  String get catalogLoadErrorTitle => 'उत्पाद लोड नहीं हो सके';
+
+  @override
+  String catalogLoadErrorBody(String category) {
+    return '$category लोड करने में दिक्कत हुई। कृपया फिर से कोशिश करें।';
+  }
+
+  @override
+  String get catalogSourceOffline =>
+      'ऑफ़लाइन — आपका सहेजा हुआ कैटलॉग दिखा रहे हैं';
+
+  @override
+  String get catalogSourceUnavailable =>
+      'लाइव कैटलॉग उपलब्ध नहीं — सहेजा हुआ कैटलॉग दिखा रहे हैं';
+
+  @override
+  String get catalogRetry => 'फिर से';
+
+  @override
+  String get catalogSortHealthiest => 'सबसे सेहतमंद';
+
+  @override
+  String get catalogSortAZ => 'नाम से';
+
+  @override
+  String get catalogVegOnly => 'केवल शाकाहारी';
+
+  @override
+  String get catalogVeg => 'शाकाहारी';
+
+  @override
+  String get catalogNoVegTitle => 'यहाँ अभी कोई शाकाहारी आइटम नहीं';
+
+  @override
+  String catalogNoVegBody(String category) {
+    return '$category में अभी शाकाहारी फ़िल्टर से कुछ मेल नहीं खाता।';
+  }
+
+  @override
+  String get catalogShowAll => 'सभी दिखाएँ';
+
+  @override
+  String get catalogNoProductsTitle => 'अभी कोई उत्पाद नहीं';
+
+  @override
+  String catalogNoProductsBody(String category) {
+    return 'हम $category सेक्शन भर रहे हैं। तब तक, किसी भी आइटम को स्कैन करके उसकी सेहत और एक्सपायरी जाँचें।';
+  }
+
+  @override
   String get appName => 'RADHA';
 
   @override

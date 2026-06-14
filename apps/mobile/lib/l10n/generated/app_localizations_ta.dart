@@ -153,6 +153,59 @@ class AppLocalizationsTa extends AppLocalizations {
       'அதன் ஹெல்த் மதிப்பீடு மற்றும் உள்ளடக்கத்தைக் காண தயாரிப்பு பெயர் அல்லது பிராண்டைத் தேடுங்கள்.';
 
   @override
+  String get catalogProductsFallback => 'தயாரிப்புகள்';
+
+  @override
+  String get catalogLoadErrorTitle => 'தயாரிப்புகளை ஏற்ற முடியவில்லை';
+
+  @override
+  String catalogLoadErrorBody(String category) {
+    return '$category ஏற்றுவதில் சிக்கல். மீண்டும் முயற்சிக்கவும்.';
+  }
+
+  @override
+  String get catalogSourceOffline =>
+      'ஆஃப்லைன் — சேமித்த பட்டியலைக் காட்டுகிறோம்';
+
+  @override
+  String get catalogSourceUnavailable =>
+      'நேரடி பட்டியல் கிடைக்கவில்லை — சேமித்த பட்டியலைக் காட்டுகிறோம்';
+
+  @override
+  String get catalogRetry => 'மீண்டும்';
+
+  @override
+  String get catalogSortHealthiest => 'ஆரோக்கியமானது';
+
+  @override
+  String get catalogSortAZ => 'பெயர் வரிசை';
+
+  @override
+  String get catalogVegOnly => 'சைவம் மட்டும்';
+
+  @override
+  String get catalogVeg => 'சைவம்';
+
+  @override
+  String get catalogNoVegTitle => 'இங்கே இன்னும் சைவ பொருட்கள் இல்லை';
+
+  @override
+  String catalogNoVegBody(String category) {
+    return '$category இல் இப்போது சைவ வடிகட்டிக்கு எதுவும் பொருந்தவில்லை.';
+  }
+
+  @override
+  String get catalogShowAll => 'அனைத்தையும் காட்டு';
+
+  @override
+  String get catalogNoProductsTitle => 'இன்னும் தயாரிப்புகள் இல்லை';
+
+  @override
+  String catalogNoProductsBody(String category) {
+    return '$category பிரிவை நிரப்பி வருகிறோம். அதுவரை, எந்தப் பொருளையும் ஸ்கேன் செய்து அதன் ஆரோக்கியம் மற்றும் காலாவதியைச் சரிபார்க்கவும்.';
+  }
+
+  @override
   String get appName => 'RADHA';
 
   @override

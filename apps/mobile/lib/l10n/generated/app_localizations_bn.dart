@@ -152,6 +152,59 @@ class AppLocalizationsBn extends AppLocalizations {
       'এর হেলথ রেটিং এবং উপাদান দেখতে পণ্যের নাম বা ব্র্যান্ড খুঁজুন।';
 
   @override
+  String get catalogProductsFallback => 'পণ্য';
+
+  @override
+  String get catalogLoadErrorTitle => 'পণ্য লোড করা যায়নি';
+
+  @override
+  String catalogLoadErrorBody(String category) {
+    return '$category লোড করতে সমস্যা হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।';
+  }
+
+  @override
+  String get catalogSourceOffline =>
+      'অফলাইন — আপনার সংরক্ষিত ক্যাটালগ দেখানো হচ্ছে';
+
+  @override
+  String get catalogSourceUnavailable =>
+      'লাইভ ক্যাটালগ অনুপলব্ধ — সংরক্ষিত ক্যাটালগ দেখানো হচ্ছে';
+
+  @override
+  String get catalogRetry => 'আবার';
+
+  @override
+  String get catalogSortHealthiest => 'সবচেয়ে স্বাস্থ্যকর';
+
+  @override
+  String get catalogSortAZ => 'নাম অনুসারে';
+
+  @override
+  String get catalogVegOnly => 'শুধু নিরামিষ';
+
+  @override
+  String get catalogVeg => 'নিরামিষ';
+
+  @override
+  String get catalogNoVegTitle => 'এখানে এখনও কোনও নিরামিষ আইটেম নেই';
+
+  @override
+  String catalogNoVegBody(String category) {
+    return '$category-এ এখন নিরামিষ ফিল্টারের সঙ্গে কিছু মেলে না।';
+  }
+
+  @override
+  String get catalogShowAll => 'সব দেখান';
+
+  @override
+  String get catalogNoProductsTitle => 'এখনও কোনও পণ্য নেই';
+
+  @override
+  String catalogNoProductsBody(String category) {
+    return 'আমরা $category বিভাগটি সাজাচ্ছি। ইতিমধ্যে, যেকোনও আইটেম স্ক্যান করে তার স্বাস্থ্য ও মেয়াদ পরীক্ষা করুন।';
+  }
+
+  @override
   String get appName => 'RADHA';
 
   @override

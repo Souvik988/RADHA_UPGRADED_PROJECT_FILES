@@ -328,6 +328,96 @@ abstract class AppLocalizations {
   /// **'Search by product name or brand to see its health rating and what\'s inside.'**
   String get catalogFindBody;
 
+  /// No description provided for @catalogProductsFallback.
+  ///
+  /// In en, this message translates to:
+  /// **'Products'**
+  String get catalogProductsFallback;
+
+  /// No description provided for @catalogLoadErrorTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t load products'**
+  String get catalogLoadErrorTitle;
+
+  /// Browse load error. category is the (lowercased) category name.
+  ///
+  /// In en, this message translates to:
+  /// **'We hit a snag loading {category}. Please try again.'**
+  String catalogLoadErrorBody(String category);
+
+  /// No description provided for @catalogSourceOffline.
+  ///
+  /// In en, this message translates to:
+  /// **'Offline — showing your saved catalog'**
+  String get catalogSourceOffline;
+
+  /// No description provided for @catalogSourceUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Live catalog unavailable — showing saved catalog'**
+  String get catalogSourceUnavailable;
+
+  /// No description provided for @catalogRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get catalogRetry;
+
+  /// No description provided for @catalogSortHealthiest.
+  ///
+  /// In en, this message translates to:
+  /// **'Healthiest'**
+  String get catalogSortHealthiest;
+
+  /// No description provided for @catalogSortAZ.
+  ///
+  /// In en, this message translates to:
+  /// **'A–Z'**
+  String get catalogSortAZ;
+
+  /// No description provided for @catalogVegOnly.
+  ///
+  /// In en, this message translates to:
+  /// **'Veg only'**
+  String get catalogVegOnly;
+
+  /// No description provided for @catalogVeg.
+  ///
+  /// In en, this message translates to:
+  /// **'Veg'**
+  String get catalogVeg;
+
+  /// No description provided for @catalogNoVegTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No veg items here yet'**
+  String get catalogNoVegTitle;
+
+  /// Empty state when the veg filter excludes everything. category is the (lowercased) category name.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing in {category} matches the veg filter right now.'**
+  String catalogNoVegBody(String category);
+
+  /// No description provided for @catalogShowAll.
+  ///
+  /// In en, this message translates to:
+  /// **'Show all'**
+  String get catalogShowAll;
+
+  /// No description provided for @catalogNoProductsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No products yet'**
+  String get catalogNoProductsTitle;
+
+  /// Empty category state. category is the (lowercased) category name.
+  ///
+  /// In en, this message translates to:
+  /// **'We\'re stocking the {category} aisle. Meanwhile, scan any item to check its health and expiry.'**
+  String catalogNoProductsBody(String category);
+
   /// App name (brand mark, do not translate).
   ///
   /// In en, this message translates to:
