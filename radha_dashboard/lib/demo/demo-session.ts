@@ -11,7 +11,11 @@
  */
 import 'server-only';
 
-export const DEMO_MODE = process.env.DEMO_MODE === 'true';
+// Demo mode (mock login + mock data) is force-disabled in production builds, so
+// a misconfigured env can never enable it — even if DEMO_MODE=true leaks into a
+// production deploy. Available only in development/test.
+export const DEMO_MODE =
+  process.env.DEMO_MODE === 'true' && process.env.NODE_ENV !== 'production';
 export const DEMO_SECRET = process.env.DEMO_SECRET ?? 'radha-demo-2025';
 
 export const DEMO_USERS = [

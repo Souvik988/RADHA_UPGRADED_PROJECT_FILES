@@ -45,8 +45,16 @@ export const BACKEND_TIMEOUT_MS = 30_000;
  */
 export const ROLLUP_MARKER = 'all';
 
-/** True when the request is running under a demo session or `DEMO_MODE`. */
+/**
+ * True when the request is running under a demo session or `DEMO_MODE`.
+ *
+ * Hard production guard: demo data/mock metrics are **impossible** in a
+ * production build (`NODE_ENV === 'production'`) regardless of env or a stray
+ * `_demo` cookie — so fabricated dashboard metrics can never ship. Demo mode
+ * remains available in development/test for backend-free exploration.
+ */
 export function isDemoRequest(session: SessionPayload | null): boolean {
+  if (process.env.NODE_ENV === 'production') return false;
   return (
     process.env.DEMO_MODE === 'true' ||
     Boolean((session as unknown as Record<string, unknown> | null)?._demo)
