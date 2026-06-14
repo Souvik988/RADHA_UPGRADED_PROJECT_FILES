@@ -1,0 +1,690 @@
+[
+  {
+    "method": "GET",
+    "path": "/api/v1/allergens/product/{productId}",
+    "clientMethod": "getProductAllergens",
+    "requestDto": "",
+    "responseDto": "List<AllergenResponse>",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/allergens/profile/{userId}",
+    "clientMethod": "getAllergenProfile",
+    "requestDto": "",
+    "responseDto": "AllergenProfileResponse",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "PUT",
+    "path": "/api/v1/allergens/profile/{userId}",
+    "clientMethod": "updateAllergenProfile",
+    "requestDto": "UpdateAllergenProfileDto body,",
+    "responseDto": "AllergenProfileResponse",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/auth/admin/login",
+    "clientMethod": "adminLogin",
+    "requestDto": "AdminLoginRequestDto body",
+    "responseDto": "LoginResponse",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/auth/logout",
+    "clientMethod": "logout",
+    "requestDto": "",
+    "responseDto": "void",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/auth/me",
+    "clientMethod": "me",
+    "requestDto": "",
+    "responseDto": "MeResponse",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/auth/otp/request",
+    "clientMethod": "requestOtp",
+    "requestDto": "OtpRequestRequestDto body",
+    "responseDto": "OtpRequestResponse",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/auth/otp/verify",
+    "clientMethod": "verifyOtp",
+    "requestDto": "VerifyOtpRequestDto body",
+    "responseDto": "LoginResponse",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/auth/refresh",
+    "clientMethod": "refreshToken",
+    "requestDto": "RefreshTokenRequestDto body",
+    "responseDto": "LoginResponse",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/catalog/categories",
+    "clientMethod": "getCatalogCategories",
+    "requestDto": "",
+    "responseDto": "List<CatalogCategory>",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/catalog/products",
+    "clientMethod": "getCatalogProducts",
+    "requestDto": "",
+    "responseDto": "CatalogBrowsePage",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/dashboard/summary",
+    "clientMethod": "getDashboardSummary",
+    "requestDto": "",
+    "responseDto": "DashboardSummaryResponse",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/ean-lists",
+    "clientMethod": "getEanLists",
+    "requestDto": "",
+    "responseDto": "List<EanListSummary>",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/ean-lists",
+    "clientMethod": "createEanList",
+    "requestDto": "CreateEanListDto body",
+    "responseDto": "EanListSummary",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/ean-lists/{id}/import",
+    "clientMethod": "importEanListInline",
+    "requestDto": "ImportEanInlineDto body,",
+    "responseDto": "EanImportInitResponse",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/ean-lists/imports/{batchId}",
+    "clientMethod": "getEanImportStatus",
+    "requestDto": "",
+    "responseDto": "EanImportStatusResponse",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/ean-lists/validate",
+    "clientMethod": "validateEan",
+    "requestDto": "ValidateEanDto body",
+    "responseDto": "EanValidationResult",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/ean-lists/validate/batch",
+    "clientMethod": "validateEanBatch",
+    "requestDto": "ValidateEanBatchDto body,",
+    "responseDto": "Map<String, EanValidationResult>",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/expiry",
+    "clientMethod": "getExpiries",
+    "requestDto": "",
+    "responseDto": "PaginatedExpiries",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/expiry",
+    "clientMethod": "createExpiry",
+    "requestDto": "CreateExpiryDto body",
+    "responseDto": "ExpiryResponse",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "DELETE",
+    "path": "/api/v1/expiry/{id}",
+    "clientMethod": "deleteExpiry",
+    "requestDto": "",
+    "responseDto": "void",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/expiry/{id}",
+    "clientMethod": "getExpiry",
+    "requestDto": "",
+    "responseDto": "ExpiryResponse",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/expiry/calendar",
+    "clientMethod": "getExpiryCalendar",
+    "requestDto": "",
+    "responseDto": "ExpiryCalendarResponse",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/grn",
+    "clientMethod": "getGrns",
+    "requestDto": "",
+    "responseDto": "PaginatedGrns",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/grn",
+    "clientMethod": "createGrn",
+    "requestDto": "CreateGrnDto body",
+    "responseDto": "GrnResponse",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/grn/{id}",
+    "clientMethod": "getGrn",
+    "requestDto": "",
+    "responseDto": "GrnResponse",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/healthy-alternatives/{productId}",
+    "clientMethod": "getHealthyAlternatives",
+    "requestDto": "",
+    "responseDto": "HealthyAlternativesResponse",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/ingredients/{slug}/explanation",
+    "clientMethod": "getIngredientExplanation",
+    "requestDto": "",
+    "responseDto": "IngredientExplanation",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/ingredients/explain",
+    "clientMethod": "explainIngredients",
+    "requestDto": "Map<String, dynamic> body,",
+    "responseDto": "IngredientExplainerResponse",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/inventory",
+    "clientMethod": "getInventory",
+    "requestDto": "",
+    "responseDto": "PaginatedInventory",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/inventory/{id}",
+    "clientMethod": "getInventoryItem",
+    "requestDto": "",
+    "responseDto": "InventoryItemResponse",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/inventory/adjust",
+    "clientMethod": "adjustStock",
+    "requestDto": "StockAdjustmentDto body",
+    "responseDto": "InventoryItemResponse",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/ocr/fallback",
+    "clientMethod": "ocrFallback",
+    "requestDto": "Map<String, dynamic> body",
+    "responseDto": "OcrFallbackResponse",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/onboarding/segment",
+    "clientMethod": "selectOnboardingSegment",
+    "requestDto": "SelectSegmentRequestDto body,",
+    "responseDto": "OnboardingRoutingResponse",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/payments/checkout",
+    "clientMethod": "createCheckout",
+    "requestDto": "CreateCheckoutDto body",
+    "responseDto": "CheckoutResponse",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/payments/verify",
+    "clientMethod": "verifyPayment",
+    "requestDto": "VerifyPaymentDto body",
+    "responseDto": "VerifyPaymentResponse",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/products",
+    "clientMethod": "getProducts",
+    "requestDto": "",
+    "responseDto": "PaginatedProducts",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/products",
+    "clientMethod": "createProduct",
+    "requestDto": "CreateProductDto body",
+    "responseDto": "ProductResponse",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/products/{ean}/alternatives",
+    "clientMethod": "getHealthierAlternatives",
+    "requestDto": "",
+    "responseDto": "List<HealthyAlternative>",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/products/{id}",
+    "clientMethod": "getProduct",
+    "requestDto": "",
+    "responseDto": "ProductResponse",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/products/ean/{ean}",
+    "clientMethod": "getProductByEan",
+    "requestDto": "",
+    "responseDto": "ProductResponse",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/products/lookup/{ean}",
+    "clientMethod": "getProductLookup",
+    "requestDto": "",
+    "responseDto": "ProductLookupResult",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/public/products/{ean}",
+    "clientMethod": "getPublicProduct",
+    "requestDto": "",
+    "responseDto": "PublicProductResponse",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/recalls",
+    "clientMethod": "getRecalls",
+    "requestDto": "",
+    "responseDto": "List<RecallResponse>",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/recalls/product/{productId}",
+    "clientMethod": "getProductRecalls",
+    "requestDto": "",
+    "responseDto": "List<RecallResponse>",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/referrals",
+    "clientMethod": "getReferrals",
+    "requestDto": "",
+    "responseDto": "List<ReferralResponse>",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/referrals",
+    "clientMethod": "createReferral",
+    "requestDto": "CreateReferralDto body",
+    "responseDto": "ReferralResponse",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/referrals/me",
+    "clientMethod": "getReferralStats",
+    "requestDto": "",
+    "responseDto": "ReferralStatsResponse",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/referrals/redeem",
+    "clientMethod": "redeemReferral",
+    "requestDto": "RedeemReferralDto body",
+    "responseDto": "void",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/reports",
+    "clientMethod": "getReports",
+    "requestDto": "",
+    "responseDto": "List<ReportSummary>",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/reports/{id}/download/{format}",
+    "clientMethod": "getReportDownloadUrl",
+    "requestDto": "",
+    "responseDto": "ReportDownloadUrlResponse",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/reports/{id}/export",
+    "clientMethod": "exportReport",
+    "requestDto": "ExportRequestDto body,",
+    "responseDto": "ExportResponseDto",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/reports/generate",
+    "clientMethod": "generateReport",
+    "requestDto": "GenerateReportRequestDto body,",
+    "responseDto": "GenerateReportResponseDto",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/reports/schedule",
+    "clientMethod": "createScheduledReport",
+    "requestDto": "CreateScheduleRequestDto body,",
+    "responseDto": "ScheduledReport",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/reports/scheduled",
+    "clientMethod": "getScheduledReports",
+    "requestDto": "",
+    "responseDto": "List<ScheduledReport>",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "DELETE",
+    "path": "/api/v1/reports/scheduled/{id}",
+    "clientMethod": "deleteScheduledReport",
+    "requestDto": "",
+    "responseDto": "void",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/reports/scheduled/{id}/pause",
+    "clientMethod": "pauseScheduledReport",
+    "requestDto": "",
+    "responseDto": "ScheduledReport",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/reports/scheduled/{id}/resume",
+    "clientMethod": "resumeScheduledReport",
+    "requestDto": "",
+    "responseDto": "ScheduledReport",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/saved-products",
+    "clientMethod": "getSavedProducts",
+    "requestDto": "",
+    "responseDto": "ListSavedProductsResponse",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/saved-products",
+    "clientMethod": "createSavedProduct",
+    "requestDto": "CreateSavedProductDto body,",
+    "responseDto": "SavedProductDto",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "DELETE",
+    "path": "/api/v1/saved-products/{id}",
+    "clientMethod": "deleteSavedProduct",
+    "requestDto": "",
+    "responseDto": "void",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/scan-sessions",
+    "clientMethod": "createScanSession",
+    "requestDto": "CreateScanSessionDto body,",
+    "responseDto": "ScanSessionResponse",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/scan-sessions/{id}/end",
+    "clientMethod": "endScanSession",
+    "requestDto": "EndScanSessionDto body,",
+    "responseDto": "ScanSessionResponse",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/scan-sessions/{id}/items",
+    "clientMethod": "recordScanItem",
+    "requestDto": "RecordScanItemDto body,",
+    "responseDto": "ScanItemResultResponse",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/scan-sessions/{id}/summary",
+    "clientMethod": "getScanSessionSummary",
+    "requestDto": "",
+    "responseDto": "ScanSessionSummary",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/scan-sessions/active",
+    "clientMethod": "getActiveScanSession",
+    "requestDto": "",
+    "responseDto": "ScanSessionResponse",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/shopping-list",
+    "clientMethod": "getShoppingList",
+    "requestDto": "",
+    "responseDto": "ShoppingListResponse",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/shopping-list/items",
+    "clientMethod": "addShoppingListItem",
+    "requestDto": "ShoppingListItemDto body,",
+    "responseDto": "ShoppingListItemResponse",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "DELETE",
+    "path": "/api/v1/shopping-list/items/{id}",
+    "clientMethod": "deleteShoppingListItem",
+    "requestDto": "",
+    "responseDto": "void",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "PATCH",
+    "path": "/api/v1/shopping-list/items/{id}",
+    "clientMethod": "updateShoppingListItem",
+    "requestDto": "UpdateShoppingListItemDto body,",
+    "responseDto": "ShoppingListItemResponse",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/subscriptions/cancel",
+    "clientMethod": "cancelSubscription",
+    "requestDto": "CancelSubscriptionRequestDto body",
+    "responseDto": "void",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/subscriptions/plans",
+    "clientMethod": "getSubscriptionPlans",
+    "requestDto": "",
+    "responseDto": "List<SubscriptionPlanDto>",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/subscriptions/reactivate",
+    "clientMethod": "reactivateSubscription",
+    "requestDto": "",
+    "responseDto": "void",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/subscriptions/status",
+    "clientMethod": "getSubscriptionStatus",
+    "requestDto": "",
+    "responseDto": "SubscriptionStatusDto",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/subscriptions/upgrade",
+    "clientMethod": "upgradeSubscriptionPlan",
+    "requestDto": "UpgradePlanRequestDto body",
+    "responseDto": "void",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/subscriptions/usage",
+    "clientMethod": "getSubscriptionUsage",
+    "requestDto": "",
+    "responseDto": "UsageStatsDto",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/sync/pull",
+    "clientMethod": "syncPull",
+    "requestDto": "",
+    "responseDto": "SyncPullResponse",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/sync/push",
+    "clientMethod": "syncPush",
+    "requestDto": "SyncPushDto body",
+    "responseDto": "void",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/sync/saved-products",
+    "clientMethod": "syncSavedProducts",
+    "requestDto": "Map<String, dynamic> body",
+    "responseDto": "void",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/tasks",
+    "clientMethod": "getTasks",
+    "requestDto": "",
+    "responseDto": "PaginatedTasks",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/tasks",
+    "clientMethod": "createTask",
+    "requestDto": "CreateTaskDto body",
+    "responseDto": "TaskResponse",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "DELETE",
+    "path": "/api/v1/tasks/{id}",
+    "clientMethod": "deleteTask",
+    "requestDto": "",
+    "responseDto": "void",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/tasks/{id}",
+    "clientMethod": "getTask",
+    "requestDto": "",
+    "responseDto": "TaskResponse",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "PATCH",
+    "path": "/api/v1/tasks/{id}",
+    "clientMethod": "updateTask",
+    "requestDto": "UpdateTaskDto body,",
+    "responseDto": "TaskResponse",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "PUT",
+    "path": "/api/v1/user/language",
+    "clientMethod": "updateUserLanguage",
+    "requestDto": "UpdateLanguageDto body",
+    "responseDto": "void",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/weekly-digest",
+    "clientMethod": "getWeeklyDigest",
+    "requestDto": "",
+    "responseDto": "WeeklyDigestResponse",
+    "source": "apps/mobile/lib/core/network/api_client.dart"
+  }
+]

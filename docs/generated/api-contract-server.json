@@ -1,0 +1,3581 @@
+[
+  {
+    "method": "POST",
+    "path": "/api/v1/account/activate-business",
+    "controller": "server/src/modules/business-activation/controllers/business-activation.controller.ts",
+    "handler": "activateBusiness",
+    "auth": "jwt",
+    "roles": [
+      "consumer"
+    ],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/account/touchpoints",
+    "controller": "server/src/modules/business-activation/controllers/business-activation.controller.ts",
+    "handler": "getTouchpoints",
+    "auth": "jwt",
+    "roles": [
+      "consumer"
+    ],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "DELETE",
+    "path": "/api/v1/admin/impersonate",
+    "controller": "server/src/modules/admin-impersonation/controllers/admin-impersonation.controller.ts",
+    "handler": "end",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/admin/impersonate",
+    "controller": "server/src/modules/admin-impersonation/controllers/admin-impersonation.controller.ts",
+    "handler": "start",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/admin/impersonations/audit",
+    "controller": "server/src/modules/admin-impersonation/controllers/admin-impersonation.controller.ts",
+    "handler": "listAudit",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/admin/learn/{id}/approve",
+    "controller": "server/src/modules/barcode-learning/controllers/admin-submission.controller.ts",
+    "handler": "approve",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/admin/learn/{id}/reject",
+    "controller": "server/src/modules/barcode-learning/controllers/admin-submission.controller.ts",
+    "handler": "reject",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/admin/learn/queue",
+    "controller": "server/src/modules/barcode-learning/controllers/admin-submission.controller.ts",
+    "handler": "listQueue",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/affiliate/clicks",
+    "controller": "server/src/modules/affiliate/controllers/affiliate.controller.ts",
+    "handler": "recordClick",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/affiliate/revenue",
+    "controller": "server/src/modules/affiliate/controllers/affiliate.controller.ts",
+    "handler": "recordRevenue",
+    "auth": "public",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/ai/image-fallback",
+    "controller": "server/src/modules/ai/ai.controller.ts",
+    "handler": "imageFallback",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "admin",
+      "consumer"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/ai/ingredients/{slug}/explanation",
+    "controller": "server/src/modules/ai/ai.controller.ts",
+    "handler": "explainIngredient",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "admin",
+      "consumer"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/ai/label/analyze",
+    "controller": "server/src/modules/ai/ai.controller.ts",
+    "handler": "analyzeLabel",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/ai/label/analyze-text",
+    "controller": "server/src/modules/ai/ai.controller.ts",
+    "handler": "analyzeLabelText",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "admin",
+      "consumer"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/ai/limits",
+    "controller": "server/src/modules/ai/ai.controller.ts",
+    "handler": "limit",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/ai/ocr/batch",
+    "controller": "server/src/modules/ai/ai.controller.ts",
+    "handler": "ocrBatch",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/ai/ocr/expiry",
+    "controller": "server/src/modules/ai/ai.controller.ts",
+    "handler": "ocrExpiry",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "admin",
+      "consumer"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/ai/ocr/text",
+    "controller": "server/src/modules/ai/ai.controller.ts",
+    "handler": "ocrText",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "admin",
+      "consumer"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/ai/report/summary",
+    "controller": "server/src/modules/ai/ai.controller.ts",
+    "handler": "reportSummary",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/ai/usage",
+    "controller": "server/src/modules/ai/ai.controller.ts",
+    "handler": "usage",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/allergen/profiles",
+    "controller": "server/src/modules/allergen/controllers/allergen.controller.ts",
+    "handler": "list",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/allergen/profiles",
+    "controller": "server/src/modules/allergen/controllers/allergen.controller.ts",
+    "handler": "create",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "DELETE",
+    "path": "/api/v1/allergen/profiles/{id}",
+    "controller": "server/src/modules/allergen/controllers/allergen.controller.ts",
+    "handler": "delete",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "PUT",
+    "path": "/api/v1/allergen/profiles/{id}",
+    "controller": "server/src/modules/allergen/controllers/allergen.controller.ts",
+    "handler": "update",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/allergen/profiles/{id}/activate",
+    "controller": "server/src/modules/allergen/controllers/allergen.controller.ts",
+    "handler": "activate",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/analytics/app/events",
+    "controller": "server/src/modules/analytics/analytics.controller.ts",
+    "handler": "trackAppEvent",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin",
+      "consumer"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/analytics/app/events/batch",
+    "controller": "server/src/modules/analytics/analytics.controller.ts",
+    "handler": "trackAppEventBatch",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin",
+      "consumer"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/analytics/app/me",
+    "controller": "server/src/modules/analytics/analytics.controller.ts",
+    "handler": "getMyActivity",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin",
+      "consumer"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/analytics/app/tenant",
+    "controller": "server/src/modules/analytics/analytics.controller.ts",
+    "handler": "getTenantActivity",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/analytics/funnel",
+    "controller": "server/src/modules/analytics/analytics.controller.ts",
+    "handler": "getFunnel",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "admin"
+    ],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/analytics/website/events",
+    "controller": "server/src/modules/analytics/public-analytics.controller.ts",
+    "handler": "trackWebsiteEvent",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/analytics/website/funnel",
+    "controller": "server/src/modules/analytics/analytics.controller.ts",
+    "handler": "getWebsiteFunnel",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "admin"
+    ],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/analytics/website/stats",
+    "controller": "server/src/modules/analytics/analytics.controller.ts",
+    "handler": "getWebsiteStats",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "admin"
+    ],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/auth/admin/invitations/accept",
+    "controller": "server/src/modules/auth/admin-auth.controller.ts",
+    "handler": "acceptInvitation",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/auth/admin/login",
+    "controller": "server/src/modules/auth/admin-auth.controller.ts",
+    "handler": "login",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/auth/email/verify",
+    "controller": "server/src/modules/auth/admin-auth.controller.ts",
+    "handler": "verifyEmail",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/auth/logout",
+    "controller": "server/src/modules/auth/auth.controller.ts",
+    "handler": "logout",
+    "auth": "jwt",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/auth/me",
+    "controller": "server/src/modules/auth/auth.controller.ts",
+    "handler": "me",
+    "auth": "jwt",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/auth/otp/request",
+    "controller": "server/src/modules/auth/auth.controller.ts",
+    "handler": "requestOtp",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/auth/otp/verify",
+    "controller": "server/src/modules/auth/auth.controller.ts",
+    "handler": "verifyOtp",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/auth/password/reset/complete",
+    "controller": "server/src/modules/auth/admin-auth.controller.ts",
+    "handler": "completeReset",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/auth/password/reset/request",
+    "controller": "server/src/modules/auth/admin-auth.controller.ts",
+    "handler": "requestReset",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/auth/refresh",
+    "controller": "server/src/modules/auth/auth.controller.ts",
+    "handler": "refreshAlias",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/auth/token/refresh",
+    "controller": "server/src/modules/auth/auth.controller.ts",
+    "handler": "refresh",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/badges/me",
+    "controller": "server/src/modules/verified-badge/controllers/verified-badge.controller.ts",
+    "handler": "getMyBadge",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/catalog/categories",
+    "controller": "server/src/modules/products/controllers/consumer-catalog.controller.ts",
+    "handler": "categories",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "consumer",
+      "admin"
+    ],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/catalog/products",
+    "controller": "server/src/modules/products/controllers/consumer-catalog.controller.ts",
+    "handler": "products",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "consumer",
+      "admin"
+    ],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/consumer/expiry-calendar",
+    "controller": "server/src/modules/expiry-calendar/controllers/expiry-calendar.controller.ts",
+    "handler": "byMonth",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "DELETE",
+    "path": "/api/v1/consumer/expiry-calendar/saved-products/{id}",
+    "controller": "server/src/modules/expiry-calendar/controllers/expiry-calendar.controller.ts",
+    "handler": "remove",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/consumer/expiry-calendar/saved-products/{id}/consumed",
+    "controller": "server/src/modules/expiry-calendar/controllers/expiry-calendar.controller.ts",
+    "handler": "markConsumed",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/dashboard",
+    "controller": "server/src/modules/client-dashboard/client-dashboard.controller.ts",
+    "handler": "getDashboard",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/dashboard/activity",
+    "controller": "server/src/modules/client-dashboard/client-dashboard.controller.ts",
+    "handler": "getActivity",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/dashboard/alerts",
+    "controller": "server/src/modules/client-dashboard/client-dashboard.controller.ts",
+    "handler": "getAlerts",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/dashboard/health-score",
+    "controller": "server/src/modules/client-dashboard/client-dashboard.controller.ts",
+    "handler": "getHealthScore",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/dashboard/kpis",
+    "controller": "server/src/modules/client-dashboard/client-dashboard.controller.ts",
+    "handler": "getKpis",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/dashboard/multi-store",
+    "controller": "server/src/modules/client-dashboard/client-dashboard.controller.ts",
+    "handler": "getMultiStore",
+    "auth": "jwt",
+    "roles": [
+      "owner"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/dashboard/quick-actions",
+    "controller": "server/src/modules/client-dashboard/client-dashboard.controller.ts",
+    "handler": "getQuickActions",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/dashboard/summary",
+    "controller": "server/src/modules/reports/reports-generation.controller.ts",
+    "handler": "dashboard",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/dashboard/team",
+    "controller": "server/src/modules/client-dashboard/client-dashboard.controller.ts",
+    "handler": "getTeam",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/dashboard/trends",
+    "controller": "server/src/modules/client-dashboard/client-dashboard.controller.ts",
+    "handler": "getTrends",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/ean-lists",
+    "controller": "server/src/modules/ean-lists/ean-lists.controller.ts",
+    "handler": "list",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/ean-lists",
+    "controller": "server/src/modules/ean-lists/ean-lists.controller.ts",
+    "handler": "create",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "DELETE",
+    "path": "/api/v1/ean-lists/{id}",
+    "controller": "server/src/modules/ean-lists/ean-lists.controller.ts",
+    "handler": "remove",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/ean-lists/{id}",
+    "controller": "server/src/modules/ean-lists/ean-lists.controller.ts",
+    "handler": "get",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "PATCH",
+    "path": "/api/v1/ean-lists/{id}",
+    "controller": "server/src/modules/ean-lists/ean-lists.controller.ts",
+    "handler": "update",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/ean-lists/{id}/activate",
+    "controller": "server/src/modules/ean-lists/ean-lists.controller.ts",
+    "handler": "activate",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/ean-lists/{id}/deactivate",
+    "controller": "server/src/modules/ean-lists/ean-lists.controller.ts",
+    "handler": "deactivate",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/ean-lists/{id}/import",
+    "controller": "server/src/modules/ean-lists/ean-lists.controller.ts",
+    "handler": "importInline",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/ean-lists/{id}/items",
+    "controller": "server/src/modules/ean-lists/ean-lists.controller.ts",
+    "handler": "listItems",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/ean-lists/imports/{batchId}",
+    "controller": "server/src/modules/ean-lists/ean-lists.controller.ts",
+    "handler": "importStatus",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/ean-lists/imports/{batchId}/cancel",
+    "controller": "server/src/modules/ean-lists/ean-lists.controller.ts",
+    "handler": "cancelImport",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/ean-lists/imports/{batchId}/errors",
+    "controller": "server/src/modules/ean-lists/ean-lists.controller.ts",
+    "handler": "importErrors",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/ean-lists/imports/{batchId}/errors/csv",
+    "controller": "server/src/modules/ean-lists/ean-lists.controller.ts",
+    "handler": "importErrorsCsv",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/ean-lists/validate",
+    "controller": "server/src/modules/ean-lists/ean-lists.controller.ts",
+    "handler": "validate",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/ean-lists/validate/batch",
+    "controller": "server/src/modules/ean-lists/ean-lists.controller.ts",
+    "handler": "validateBatch",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/expiry-alerts",
+    "controller": "server/src/modules/expiry/expiry.controller.ts",
+    "handler": "listAlerts",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/expiry-alerts/{id}/acknowledge",
+    "controller": "server/src/modules/expiry/expiry.controller.ts",
+    "handler": "acknowledge",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/expiry-alerts/{id}/resolve",
+    "controller": "server/src/modules/expiry/expiry.controller.ts",
+    "handler": "resolve",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/expiry-records",
+    "controller": "server/src/modules/expiry/expiry.controller.ts",
+    "handler": "list",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/expiry-records",
+    "controller": "server/src/modules/expiry/expiry.controller.ts",
+    "handler": "create",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/expiry-records/{id}",
+    "controller": "server/src/modules/expiry/expiry.controller.ts",
+    "handler": "getOne",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/expiry-records/expired",
+    "controller": "server/src/modules/expiry/expiry.controller.ts",
+    "handler": "expired",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/expiry-records/forecast",
+    "controller": "server/src/modules/expiry/expiry.controller.ts",
+    "handler": "forecast",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/expiry-records/near-expiry",
+    "controller": "server/src/modules/expiry/expiry.controller.ts",
+    "handler": "nearExpiry",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/expiry-records/recalculate",
+    "controller": "server/src/modules/expiry/expiry.controller.ts",
+    "handler": "recalculate",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/expiry-records/stats",
+    "controller": "server/src/modules/expiry/expiry.controller.ts",
+    "handler": "stats",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/expiry-records/stats/by-category",
+    "controller": "server/src/modules/expiry/expiry.controller.ts",
+    "handler": "statsByCategory",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/expiry-thresholds",
+    "controller": "server/src/modules/expiry/expiry.controller.ts",
+    "handler": "listThresholds",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "PUT",
+    "path": "/api/v1/expiry-thresholds",
+    "controller": "server/src/modules/expiry/expiry.controller.ts",
+    "handler": "upsertThreshold",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/expiry/ocr/validate",
+    "controller": "server/src/modules/expiry/expiry.controller.ts",
+    "handler": "validateOcr",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/family/accept",
+    "controller": "server/src/modules/subscriptions/controllers/family-sharing.controller.ts",
+    "handler": "accept",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/family/invite",
+    "controller": "server/src/modules/subscriptions/controllers/family-sharing.controller.ts",
+    "handler": "invite",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/family/members",
+    "controller": "server/src/modules/subscriptions/controllers/family-sharing.controller.ts",
+    "handler": "listMembers",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "DELETE",
+    "path": "/api/v1/family/members/{id}",
+    "controller": "server/src/modules/subscriptions/controllers/family-sharing.controller.ts",
+    "handler": "remove",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "admin"
+    ],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/feature-flags/me",
+    "controller": "server/src/modules/feature-flags/feature-flags.controller.ts",
+    "handler": "getMyFlags",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/grn",
+    "controller": "server/src/modules/grn/grn.controller.ts",
+    "handler": "list",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/grn",
+    "controller": "server/src/modules/grn/grn.controller.ts",
+    "handler": "create",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/grn/{id}",
+    "controller": "server/src/modules/grn/grn.controller.ts",
+    "handler": "get",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "PATCH",
+    "path": "/api/v1/grn/{id}",
+    "controller": "server/src/modules/grn/grn.controller.ts",
+    "handler": "update",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/grn/{id}/cancel",
+    "controller": "server/src/modules/grn/grn.controller.ts",
+    "handler": "cancel",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/grn/{id}/items",
+    "controller": "server/src/modules/grn/grn.controller.ts",
+    "handler": "addItems",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "DELETE",
+    "path": "/api/v1/grn/{id}/items/{itemId}",
+    "controller": "server/src/modules/grn/grn.controller.ts",
+    "handler": "removeItem",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "PATCH",
+    "path": "/api/v1/grn/{id}/items/{itemId}",
+    "controller": "server/src/modules/grn/grn.controller.ts",
+    "handler": "updateItem",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/grn/{id}/post",
+    "controller": "server/src/modules/grn/grn.controller.ts",
+    "handler": "post",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/grn/{id}/reverse",
+    "controller": "server/src/modules/grn/grn.controller.ts",
+    "handler": "reverse",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/grn/{id}/validate",
+    "controller": "server/src/modules/grn/grn.controller.ts",
+    "handler": "validate",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/grn/stats",
+    "controller": "server/src/modules/grn/grn.controller.ts",
+    "handler": "stats",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/health",
+    "controller": "server/src/modules/health/health.controller.ts",
+    "handler": "liveness",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/health-scoring/rules",
+    "controller": "server/src/modules/health-scoring/health-scoring.controller.ts",
+    "handler": "listRules",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/health-scoring/stats",
+    "controller": "server/src/modules/health-scoring/health-scoring.controller.ts",
+    "handler": "getStats",
+    "auth": "jwt",
+    "roles": [
+      "admin",
+      "owner"
+    ],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/health/config",
+    "controller": "server/src/modules/health/config-health.controller.ts",
+    "handler": "getMaskedConfig",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/health/ready",
+    "controller": "server/src/modules/health/health.controller.ts",
+    "handler": "readiness",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/ingredients/{slug}/explanation",
+    "controller": "server/src/modules/ingredient-explainer/controllers/ingredient-explainer.controller.ts",
+    "handler": "getExplanation",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/inventory/adjust",
+    "controller": "server/src/modules/inventory/inventory.controller.ts",
+    "handler": "adjust",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/inventory/category-breakdown",
+    "controller": "server/src/modules/inventory/inventory.controller.ts",
+    "handler": "categoryBreakdown",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/inventory/counts",
+    "controller": "server/src/modules/inventory/inventory.controller.ts",
+    "handler": "listStock",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/inventory/items/{id}",
+    "controller": "server/src/modules/inventory/inventory.controller.ts",
+    "handler": "getItem",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/inventory/low-stock",
+    "controller": "server/src/modules/inventory/inventory.controller.ts",
+    "handler": "lowStock",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/inventory/low-stock-rules",
+    "controller": "server/src/modules/inventory/inventory.controller.ts",
+    "handler": "listRules",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/inventory/low-stock-rules",
+    "controller": "server/src/modules/inventory/inventory.controller.ts",
+    "handler": "upsertRule",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "DELETE",
+    "path": "/api/v1/inventory/low-stock-rules/{id}",
+    "controller": "server/src/modules/inventory/inventory.controller.ts",
+    "handler": "deleteRule",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/inventory/movements",
+    "controller": "server/src/modules/inventory/inventory.controller.ts",
+    "handler": "movements",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/inventory/stock-counts",
+    "controller": "server/src/modules/inventory/inventory.controller.ts",
+    "handler": "listCounts",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/inventory/stock-counts",
+    "controller": "server/src/modules/inventory/inventory.controller.ts",
+    "handler": "startCount",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/inventory/stock-counts/{id}",
+    "controller": "server/src/modules/inventory/inventory.controller.ts",
+    "handler": "getCount",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/inventory/stock-counts/{id}/cancel",
+    "controller": "server/src/modules/inventory/inventory.controller.ts",
+    "handler": "cancelCount",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/inventory/stock-counts/{id}/complete",
+    "controller": "server/src/modules/inventory/inventory.controller.ts",
+    "handler": "completeCount",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/inventory/stock-counts/{id}/lines",
+    "controller": "server/src/modules/inventory/inventory.controller.ts",
+    "handler": "listLines",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/inventory/stock-counts/{id}/lines",
+    "controller": "server/src/modules/inventory/inventory.controller.ts",
+    "handler": "recordLine",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/inventory/stock-in",
+    "controller": "server/src/modules/inventory/inventory.controller.ts",
+    "handler": "stockIn",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/inventory/stock-out",
+    "controller": "server/src/modules/inventory/inventory.controller.ts",
+    "handler": "stockOut",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/inventory/summary",
+    "controller": "server/src/modules/inventory/inventory.controller.ts",
+    "handler": "summary",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/marketing/leads",
+    "controller": "server/src/modules/analytics/analytics.controller.ts",
+    "handler": "listLeads",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "admin"
+    ],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/marketing/leads",
+    "controller": "server/src/modules/analytics/public-analytics.controller.ts",
+    "handler": "createLead",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/marketing/leads/{id}",
+    "controller": "server/src/modules/analytics/analytics.controller.ts",
+    "handler": "getLead",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "admin"
+    ],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "PATCH",
+    "path": "/api/v1/marketing/leads/{id}",
+    "controller": "server/src/modules/analytics/analytics.controller.ts",
+    "handler": "updateLead",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "admin"
+    ],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/marketing/leads/{id}/convert",
+    "controller": "server/src/modules/analytics/analytics.controller.ts",
+    "handler": "convertLead",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "admin"
+    ],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/media",
+    "controller": "server/src/modules/media/media.controller.ts",
+    "handler": "list",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "DELETE",
+    "path": "/api/v1/media/{id}",
+    "controller": "server/src/modules/media/media.controller.ts",
+    "handler": "remove",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/media/{id}",
+    "controller": "server/src/modules/media/media.controller.ts",
+    "handler": "findOne",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/media/{id}/confirm",
+    "controller": "server/src/modules/media/media.controller.ts",
+    "handler": "confirm",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/media/{id}/invalidate",
+    "controller": "server/src/modules/media/media.controller.ts",
+    "handler": "invalidate",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/media/{id}/reprocess",
+    "controller": "server/src/modules/media/media.controller.ts",
+    "handler": "reprocess",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/media/{id}/variants",
+    "controller": "server/src/modules/media/media.controller.ts",
+    "handler": "listVariants",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/media/migrate-from-url",
+    "controller": "server/src/modules/media/media.controller.ts",
+    "handler": "migrate",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/media/presign",
+    "controller": "server/src/modules/media/media.controller.ts",
+    "handler": "initiate",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/notifications",
+    "controller": "server/src/modules/notifications/notifications.controller.ts",
+    "handler": "list",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin",
+      "consumer"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/notifications/{id}/read",
+    "controller": "server/src/modules/notifications/notifications.controller.ts",
+    "handler": "markRead",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin",
+      "consumer"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "DELETE",
+    "path": "/api/v1/notifications/fcm-token",
+    "controller": "server/src/modules/notifications/notifications.controller.ts",
+    "handler": "unregisterFcmToken",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin",
+      "consumer"
+    ],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/notifications/fcm-token",
+    "controller": "server/src/modules/notifications/notifications.controller.ts",
+    "handler": "registerFcmToken",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin",
+      "consumer"
+    ],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/notifications/preferences",
+    "controller": "server/src/modules/notifications/notifications.controller.ts",
+    "handler": "getPreferences",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin",
+      "consumer"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "PATCH",
+    "path": "/api/v1/notifications/preferences",
+    "controller": "server/src/modules/notifications/notifications.controller.ts",
+    "handler": "updatePreferences",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin",
+      "consumer"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/notifications/read-all",
+    "controller": "server/src/modules/notifications/notifications.controller.ts",
+    "handler": "readAll",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin",
+      "consumer"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/notifications/test",
+    "controller": "server/src/modules/notifications/notifications.controller.ts",
+    "handler": "test",
+    "auth": "jwt",
+    "roles": [
+      "admin",
+      "owner"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/onboarding/segment",
+    "controller": "server/src/modules/onboarding/controllers/onboarding.controller.ts",
+    "handler": "selectSegment",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/payments/checkout",
+    "controller": "server/src/modules/payments/payments.controller.ts",
+    "handler": "checkout",
+    "auth": "jwt",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/payments/refund",
+    "controller": "server/src/modules/payments/payments.controller.ts",
+    "handler": "refund",
+    "auth": "jwt",
+    "roles": [
+      "admin",
+      "owner"
+    ],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/payments/verify",
+    "controller": "server/src/modules/payments/payments.controller.ts",
+    "handler": "verify",
+    "auth": "jwt",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/payments/webhooks/razorpay",
+    "controller": "server/src/modules/payments/payments.controller.ts",
+    "handler": "razorpayWebhook",
+    "auth": "public",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/products",
+    "controller": "server/src/modules/products/products.controller.ts",
+    "handler": "search",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/products",
+    "controller": "server/src/modules/products/products.controller.ts",
+    "handler": "create",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/products/{ean}/alternatives",
+    "controller": "server/src/modules/affiliate/controllers/alternatives.controller.ts",
+    "handler": "list",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/products/{ean}/flag",
+    "controller": "server/src/modules/barcode-learning/controllers/consumer-submission.controller.ts",
+    "handler": "flag",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/products/{ean}/scan",
+    "controller": "server/src/modules/products/controllers/scan.controller.ts",
+    "handler": "scan",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "DELETE",
+    "path": "/api/v1/products/{id}",
+    "controller": "server/src/modules/products/products.controller.ts",
+    "handler": "remove",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/products/{id}",
+    "controller": "server/src/modules/products/products.controller.ts",
+    "handler": "get",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "PATCH",
+    "path": "/api/v1/products/{id}",
+    "controller": "server/src/modules/products/products.controller.ts",
+    "handler": "update",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/products/{id}/similar",
+    "controller": "server/src/modules/products/controllers/search.controller.ts",
+    "handler": "similar",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/products/{productId}/health",
+    "controller": "server/src/modules/health-scoring/health-scoring.controller.ts",
+    "handler": "getAssessment",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/products/{productId}/health/recompute",
+    "controller": "server/src/modules/health-scoring/health-scoring.controller.ts",
+    "handler": "recompute",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/products/autocomplete",
+    "controller": "server/src/modules/products/controllers/search.controller.ts",
+    "handler": "autocomplete",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/products/facets",
+    "controller": "server/src/modules/products/controllers/search.controller.ts",
+    "handler": "facets",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/products/health/bulk-recompute",
+    "controller": "server/src/modules/health-scoring/health-scoring.controller.ts",
+    "handler": "bulkRecompute",
+    "auth": "jwt",
+    "roles": [
+      "admin",
+      "owner"
+    ],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/products/health/filter",
+    "controller": "server/src/modules/health-scoring/health-scoring.controller.ts",
+    "handler": "filter",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/products/learn",
+    "controller": "server/src/modules/barcode-learning/controllers/consumer-submission.controller.ts",
+    "handler": "submit",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/products/lookup/{ean}",
+    "controller": "server/src/modules/products/products.controller.ts",
+    "handler": "lookupByEan",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "consumer",
+      "admin"
+    ],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/products/lookup/batch",
+    "controller": "server/src/modules/products/products.controller.ts",
+    "handler": "lookupBatch",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/products/popular",
+    "controller": "server/src/modules/products/controllers/search.controller.ts",
+    "handler": "popular",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "PUT",
+    "path": "/api/v1/products/scan-mode-preference",
+    "controller": "server/src/modules/products/controllers/scan.controller.ts",
+    "handler": "setPreference",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/products/search",
+    "controller": "server/src/modules/products/controllers/search.controller.ts",
+    "handler": "fullSearch",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/public/products/{slug}",
+    "controller": "server/src/modules/public-product/controllers/public-product.controller.ts",
+    "handler": "findBySlug",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/public/products/sitemap.xml",
+    "controller": "server/src/modules/public-product/controllers/public-product.controller.ts",
+    "handler": "sitemap",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/recall/alerts",
+    "controller": "server/src/modules/recall/controllers/recall.controller.ts",
+    "handler": "listAlerts",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/recall/alerts/{id}/acknowledge",
+    "controller": "server/src/modules/recall/controllers/recall.controller.ts",
+    "handler": "acknowledge",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/referrals/apply",
+    "controller": "server/src/modules/referrals/referrals.controller.ts",
+    "handler": "apply",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/referrals/me",
+    "controller": "server/src/modules/referrals/referrals.controller.ts",
+    "handler": "getMine",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/report-files/{id}/download",
+    "controller": "server/src/modules/reports/reports.controller.ts",
+    "handler": "downloadById",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/reports",
+    "controller": "server/src/modules/reports/reports-generation.controller.ts",
+    "handler": "list",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/reports/{id}",
+    "controller": "server/src/modules/reports/reports-generation.controller.ts",
+    "handler": "get",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/reports/{id}/cancel",
+    "controller": "server/src/modules/reports/reports-generation.controller.ts",
+    "handler": "cancel",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/reports/{id}/download/{format}",
+    "controller": "server/src/modules/reports/reports.controller.ts",
+    "handler": "downloadByFormat",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/reports/{id}/export",
+    "controller": "server/src/modules/reports/reports.controller.ts",
+    "handler": "exportExisting",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/reports/{id}/files",
+    "controller": "server/src/modules/reports/reports.controller.ts",
+    "handler": "listFiles",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/reports/aggregate",
+    "controller": "server/src/modules/reports/reports-generation.controller.ts",
+    "handler": "aggregate",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/reports/export",
+    "controller": "server/src/modules/reports/reports.controller.ts",
+    "handler": "exportAdHoc",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/reports/generate",
+    "controller": "server/src/modules/reports/reports-generation.controller.ts",
+    "handler": "generate",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/reports/schedule",
+    "controller": "server/src/modules/reports/reports-generation.controller.ts",
+    "handler": "scheduleCreate",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/reports/scheduled",
+    "controller": "server/src/modules/reports/reports-generation.controller.ts",
+    "handler": "scheduleList",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "DELETE",
+    "path": "/api/v1/reports/scheduled/{id}",
+    "controller": "server/src/modules/reports/reports-generation.controller.ts",
+    "handler": "scheduleCancel",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/reports/scheduled/{id}",
+    "controller": "server/src/modules/reports/reports-generation.controller.ts",
+    "handler": "scheduleGet",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/reports/scheduled/{id}/pause",
+    "controller": "server/src/modules/reports/reports-generation.controller.ts",
+    "handler": "schedulePause",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/reports/scheduled/{id}/resume",
+    "controller": "server/src/modules/reports/reports-generation.controller.ts",
+    "handler": "scheduleResume",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/saved-products",
+    "controller": "server/src/modules/saved-products/saved-products.controller.ts",
+    "handler": "list",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/saved-products",
+    "controller": "server/src/modules/saved-products/saved-products.controller.ts",
+    "handler": "create",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "DELETE",
+    "path": "/api/v1/saved-products/{id}",
+    "controller": "server/src/modules/saved-products/saved-products.controller.ts",
+    "handler": "remove",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/scan-sessions",
+    "controller": "server/src/modules/scans/scans.controller.ts",
+    "handler": "list",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/scan-sessions",
+    "controller": "server/src/modules/scans/scans.controller.ts",
+    "handler": "create",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/scan-sessions/{id}",
+    "controller": "server/src/modules/scans/scans.controller.ts",
+    "handler": "get",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/scan-sessions/{id}/abandon",
+    "controller": "server/src/modules/scans/scans.controller.ts",
+    "handler": "abandon",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/scan-sessions/{id}/bulk-sync",
+    "controller": "server/src/modules/scans/scans.controller.ts",
+    "handler": "bulkSync",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/scan-sessions/{id}/end",
+    "controller": "server/src/modules/scans/scans.controller.ts",
+    "handler": "end",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/scan-sessions/{id}/items",
+    "controller": "server/src/modules/scans/scans.controller.ts",
+    "handler": "listItems",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/scan-sessions/{id}/items",
+    "controller": "server/src/modules/scans/scans.controller.ts",
+    "handler": "recordItem",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "DELETE",
+    "path": "/api/v1/scan-sessions/{id}/items/{itemId}",
+    "controller": "server/src/modules/scans/scans.controller.ts",
+    "handler": "removeItem",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/scan-sessions/{id}/items/batch",
+    "controller": "server/src/modules/scans/scans.controller.ts",
+    "handler": "recordBatch",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/scan-sessions/{id}/summary",
+    "controller": "server/src/modules/scans/scans.controller.ts",
+    "handler": "summarise",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/scan-sessions/active",
+    "controller": "server/src/modules/scans/scans.controller.ts",
+    "handler": "active",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/scan-sessions/sync-batches",
+    "controller": "server/src/modules/scans/scans.controller.ts",
+    "handler": "listBatches",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/scan-sessions/sync-batches/{batchId}",
+    "controller": "server/src/modules/scans/scans.controller.ts",
+    "handler": "batchStatus",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/scan-sessions/sync-batches/{batchId}/cancel",
+    "controller": "server/src/modules/scans/scans.controller.ts",
+    "handler": "cancelBatch",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/scan/image-fallback",
+    "controller": "server/src/modules/image-fallback/controllers/image-fallback.controller.ts",
+    "handler": "fallback",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/shopping-lists",
+    "controller": "server/src/modules/shopping-list/controllers/shopping-list.controller.ts",
+    "handler": "list",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/shopping-lists",
+    "controller": "server/src/modules/shopping-list/controllers/shopping-list.controller.ts",
+    "handler": "create",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/shopping-lists/{id}",
+    "controller": "server/src/modules/shopping-list/controllers/shopping-list.controller.ts",
+    "handler": "get",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "PATCH",
+    "path": "/api/v1/shopping-lists/{id}",
+    "controller": "server/src/modules/shopping-list/controllers/shopping-list.controller.ts",
+    "handler": "update",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/shopping-lists/{id}/items",
+    "controller": "server/src/modules/shopping-list/controllers/shopping-list.controller.ts",
+    "handler": "addItem",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "DELETE",
+    "path": "/api/v1/shopping-lists/{id}/items/{itemId}",
+    "controller": "server/src/modules/shopping-list/controllers/shopping-list.controller.ts",
+    "handler": "deleteItem",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "PATCH",
+    "path": "/api/v1/shopping-lists/{id}/items/{itemId}",
+    "controller": "server/src/modules/shopping-list/controllers/shopping-list.controller.ts",
+    "handler": "updateItem",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/shopping-lists/{id}/whatsapp-format",
+    "controller": "server/src/modules/shopping-list/controllers/shopping-list.controller.ts",
+    "handler": "formatForWhatsApp",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/stores",
+    "controller": "server/src/modules/stores/stores.controller.ts",
+    "handler": "list",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/stores",
+    "controller": "server/src/modules/stores/stores.controller.ts",
+    "handler": "create",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "admin"
+    ],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/stores/{storeId}",
+    "controller": "server/src/modules/stores/stores.controller.ts",
+    "handler": "get",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/stores/{storeId}/access",
+    "controller": "server/src/modules/stores/stores.controller.ts",
+    "handler": "grant",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "admin"
+    ],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "DELETE",
+    "path": "/api/v1/stores/{storeId}/access/{userId}",
+    "controller": "server/src/modules/stores/stores.controller.ts",
+    "handler": "revoke",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "admin"
+    ],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/subscriptions/cancel",
+    "controller": "server/src/modules/subscriptions/subscriptions.controller.ts",
+    "handler": "cancel",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/subscriptions/plans",
+    "controller": "server/src/modules/subscriptions/subscriptions.controller.ts",
+    "handler": "listPlans",
+    "auth": "public",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "DELETE",
+    "path": "/api/v1/subscriptions/premium-consumer",
+    "controller": "server/src/modules/subscriptions/controllers/premium-consumer.controller.ts",
+    "handler": "cancel",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "admin"
+    ],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/subscriptions/premium-consumer",
+    "controller": "server/src/modules/subscriptions/controllers/premium-consumer.controller.ts",
+    "handler": "subscribe",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "admin"
+    ],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/subscriptions/reactivate",
+    "controller": "server/src/modules/subscriptions/subscriptions.controller.ts",
+    "handler": "reactivate",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/subscriptions/status",
+    "controller": "server/src/modules/subscriptions/subscriptions.controller.ts",
+    "handler": "getStatus",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/subscriptions/upgrade",
+    "controller": "server/src/modules/subscriptions/subscriptions.controller.ts",
+    "handler": "upgrade",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/subscriptions/usage",
+    "controller": "server/src/modules/subscriptions/subscriptions.controller.ts",
+    "handler": "getUsage",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/suppliers",
+    "controller": "server/src/modules/suppliers/suppliers.controller.ts",
+    "handler": "list",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/suppliers",
+    "controller": "server/src/modules/suppliers/suppliers.controller.ts",
+    "handler": "create",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "DELETE",
+    "path": "/api/v1/suppliers/{id}",
+    "controller": "server/src/modules/suppliers/suppliers.controller.ts",
+    "handler": "remove",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/suppliers/{id}",
+    "controller": "server/src/modules/suppliers/suppliers.controller.ts",
+    "handler": "get",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "PATCH",
+    "path": "/api/v1/suppliers/{id}",
+    "controller": "server/src/modules/suppliers/suppliers.controller.ts",
+    "handler": "update",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/suppliers/{id}/activate",
+    "controller": "server/src/modules/suppliers/suppliers.controller.ts",
+    "handler": "activate",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/suppliers/{id}/blacklist",
+    "controller": "server/src/modules/suppliers/suppliers.controller.ts",
+    "handler": "blacklist",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/suppliers/{id}/contacts",
+    "controller": "server/src/modules/suppliers/suppliers.controller.ts",
+    "handler": "listContacts",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/suppliers/{id}/contacts",
+    "controller": "server/src/modules/suppliers/suppliers.controller.ts",
+    "handler": "addContact",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/suppliers/{id}/deactivate",
+    "controller": "server/src/modules/suppliers/suppliers.controller.ts",
+    "handler": "deactivate",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/suppliers/{id}/performance",
+    "controller": "server/src/modules/suppliers/suppliers.controller.ts",
+    "handler": "getPerformance",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "DELETE",
+    "path": "/api/v1/suppliers/contacts/{contactId}",
+    "controller": "server/src/modules/suppliers/suppliers.controller.ts",
+    "handler": "removeContact",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/suppliers/export",
+    "controller": "server/src/modules/suppliers/suppliers.controller.ts",
+    "handler": "exportAll",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/suppliers/import",
+    "controller": "server/src/modules/suppliers/suppliers.controller.ts",
+    "handler": "bulkImport",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/suppliers/search",
+    "controller": "server/src/modules/suppliers/suppliers.controller.ts",
+    "handler": "search",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/sync/allergen-profiles",
+    "controller": "server/src/modules/sync/controllers/sync.controller.ts",
+    "handler": "syncAllergenProfiles",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/sync/changes",
+    "controller": "server/src/modules/sync/controllers/sync.controller.ts",
+    "handler": "getChanges",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/sync/saved-products",
+    "controller": "server/src/modules/sync/controllers/sync.controller.ts",
+    "handler": "syncSavedProducts",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/sync/scans",
+    "controller": "server/src/modules/sync/controllers/sync.controller.ts",
+    "handler": "syncScans",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/task-templates",
+    "controller": "server/src/modules/tasks/tasks.controller.ts",
+    "handler": "listTemplates",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/task-templates",
+    "controller": "server/src/modules/tasks/tasks.controller.ts",
+    "handler": "createTemplate",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "DELETE",
+    "path": "/api/v1/task-templates/{id}",
+    "controller": "server/src/modules/tasks/tasks.controller.ts",
+    "handler": "deleteTemplate",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/task-templates/{id}",
+    "controller": "server/src/modules/tasks/tasks.controller.ts",
+    "handler": "getTemplate",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "PATCH",
+    "path": "/api/v1/task-templates/{id}",
+    "controller": "server/src/modules/tasks/tasks.controller.ts",
+    "handler": "updateTemplate",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/task-templates/{id}/instantiate",
+    "controller": "server/src/modules/tasks/tasks.controller.ts",
+    "handler": "instantiateTemplate",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/tasks",
+    "controller": "server/src/modules/tasks/tasks.controller.ts",
+    "handler": "list",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/tasks",
+    "controller": "server/src/modules/tasks/tasks.controller.ts",
+    "handler": "create",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "DELETE",
+    "path": "/api/v1/tasks/{id}",
+    "controller": "server/src/modules/tasks/tasks.controller.ts",
+    "handler": "remove",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/tasks/{id}",
+    "controller": "server/src/modules/tasks/tasks.controller.ts",
+    "handler": "get",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "PATCH",
+    "path": "/api/v1/tasks/{id}",
+    "controller": "server/src/modules/tasks/tasks.controller.ts",
+    "handler": "update",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/tasks/{id}/cancel",
+    "controller": "server/src/modules/tasks/tasks.controller.ts",
+    "handler": "cancel",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/tasks/{id}/complete",
+    "controller": "server/src/modules/tasks/tasks.controller.ts",
+    "handler": "complete",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/tasks/{id}/evidence",
+    "controller": "server/src/modules/tasks/tasks.controller.ts",
+    "handler": "addEvidence",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/tasks/{id}/reassign",
+    "controller": "server/src/modules/tasks/tasks.controller.ts",
+    "handler": "reassign",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/tasks/{id}/reject",
+    "controller": "server/src/modules/tasks/tasks.controller.ts",
+    "handler": "reject",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/tasks/{id}/start",
+    "controller": "server/src/modules/tasks/tasks.controller.ts",
+    "handler": "start",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/tasks/auto-from-alert",
+    "controller": "server/src/modules/tasks/tasks.controller.ts",
+    "handler": "autoFromAlert",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "DELETE",
+    "path": "/api/v1/tasks/evidence/{evidenceId}",
+    "controller": "server/src/modules/tasks/tasks.controller.ts",
+    "handler": "removeEvidence",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/tasks/my",
+    "controller": "server/src/modules/tasks/tasks.controller.ts",
+    "handler": "myTasks",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/tasks/stats",
+    "controller": "server/src/modules/tasks/tasks.controller.ts",
+    "handler": "stats",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "required"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/tenants/me",
+    "controller": "server/src/modules/tenants/tenants.controller.ts",
+    "handler": "me",
+    "auth": "jwt",
+    "roles": [
+      "owner",
+      "manager",
+      "staff",
+      "auditor",
+      "admin"
+    ],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/tenants/onboard",
+    "controller": "server/src/modules/tenants/tenants.controller.ts",
+    "handler": "onboard",
+    "auth": "public",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "PUT",
+    "path": "/api/v1/users/me/language",
+    "controller": "server/src/modules/user-language/controllers/user-language.controller.ts",
+    "handler": "updateLanguage",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/verify/{tenantSlug}",
+    "controller": "server/src/modules/verified-badge/controllers/verified-badge.controller.ts",
+    "handler": "verifyBySlug",
+    "auth": "public",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/webhooks/deliveries",
+    "controller": "server/src/modules/webhooks/controllers/webhooks.controller.ts",
+    "handler": "listDeliveries",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/webhooks/deliveries/{id}/replay",
+    "controller": "server/src/modules/webhooks/controllers/webhooks.controller.ts",
+    "handler": "replayDelivery",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/webhooks/endpoints",
+    "controller": "server/src/modules/webhooks/controllers/webhooks.controller.ts",
+    "handler": "listEndpoints",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/webhooks/endpoints",
+    "controller": "server/src/modules/webhooks/controllers/webhooks.controller.ts",
+    "handler": "createEndpoint",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  },
+  {
+    "method": "DELETE",
+    "path": "/api/v1/webhooks/endpoints/{id}",
+    "controller": "server/src/modules/webhooks/controllers/webhooks.controller.ts",
+    "handler": "deleteEndpoint",
+    "auth": "unspecified",
+    "roles": [],
+    "tenant": "unspecified"
+  }
+]

@@ -12,6 +12,8 @@
     "lint": "pnpm -r lint",
     "test": "pnpm -r test",
     "format": "pnpm -r format",
+    "contracts:generate": "node tools/generate-api-contract-matrix.mjs",
+    "contracts:check": "node tools/generate-api-contract-matrix.mjs --check",
     "server:dev": "pnpm --filter @radha/server start:dev",
     "server:worker": "pnpm --filter @radha/server start:worker",
     "server:scheduler": "pnpm --filter @radha/server start:scheduler"

@@ -1,0 +1,644 @@
+[
+  {
+    "method": "GET",
+    "path": "/api/admin/feature-flags",
+    "backendTargets": [],
+    "source": "app/api/admin/feature-flags/route.ts"
+  },
+  {
+    "method": "POST",
+    "path": "/api/admin/impersonate",
+    "backendTargets": [],
+    "source": "app/api/admin/impersonate/route.ts"
+  },
+  {
+    "method": "POST",
+    "path": "/api/admin/impersonate/stop",
+    "backendTargets": [],
+    "source": "app/api/admin/impersonate/stop/route.ts"
+  },
+  {
+    "method": "GET",
+    "path": "/api/admin/impersonation-audit",
+    "backendTargets": [],
+    "source": "app/api/admin/impersonation-audit/route.ts"
+  },
+  {
+    "method": "GET",
+    "path": "/api/admin/webhooks",
+    "backendTargets": [],
+    "source": "app/api/admin/webhooks/route.ts"
+  },
+  {
+    "method": "POST",
+    "path": "/api/admin/webhooks",
+    "backendTargets": [],
+    "source": "app/api/admin/webhooks/route.ts"
+  },
+  {
+    "method": "DELETE",
+    "path": "/api/admin/webhooks/{id}",
+    "backendTargets": [],
+    "source": "app/api/admin/webhooks/[id]/route.ts"
+  },
+  {
+    "method": "PATCH",
+    "path": "/api/admin/webhooks/{id}",
+    "backendTargets": [],
+    "source": "app/api/admin/webhooks/[id]/route.ts"
+  },
+  {
+    "method": "GET",
+    "path": "/api/admin/webhooks/{id}/deliveries",
+    "backendTargets": [],
+    "source": "app/api/admin/webhooks/[id]/deliveries/route.ts"
+  },
+  {
+    "method": "POST",
+    "path": "/api/admin/webhooks/{id}/deliveries/{deliveryId}/replay",
+    "backendTargets": [],
+    "source": "app/api/admin/webhooks/[id]/deliveries/[deliveryId]/replay/route.ts"
+  },
+  {
+    "method": "GET",
+    "path": "/api/analytics/leads",
+    "backendTargets": [],
+    "source": "app/api/analytics/leads/route.ts"
+  },
+  {
+    "method": "GET",
+    "path": "/api/analytics/leads/{id}",
+    "backendTargets": [],
+    "source": "app/api/analytics/leads/[id]/route.ts"
+  },
+  {
+    "method": "PATCH",
+    "path": "/api/analytics/leads/{id}",
+    "backendTargets": [],
+    "source": "app/api/analytics/leads/[id]/route.ts"
+  },
+  {
+    "method": "POST",
+    "path": "/api/analytics/leads/{id}/convert",
+    "backendTargets": [],
+    "source": "app/api/analytics/leads/[id]/convert/route.ts"
+  },
+  {
+    "method": "GET",
+    "path": "/api/analytics/tenant-activity",
+    "backendTargets": [],
+    "source": "app/api/analytics/tenant-activity/route.ts"
+  },
+  {
+    "method": "GET",
+    "path": "/api/analytics/website",
+    "backendTargets": [],
+    "source": "app/api/analytics/website/route.ts"
+  },
+  {
+    "method": "GET",
+    "path": "/api/audit/ean-lists",
+    "backendTargets": [],
+    "source": "app/api/audit/ean-lists/route.ts"
+  },
+  {
+    "method": "POST",
+    "path": "/api/audit/ean-lists",
+    "backendTargets": [],
+    "source": "app/api/audit/ean-lists/route.ts"
+  },
+  {
+    "method": "DELETE",
+    "path": "/api/audit/ean-lists/{id}",
+    "backendTargets": [],
+    "source": "app/api/audit/ean-lists/[id]/route.ts"
+  },
+  {
+    "method": "GET",
+    "path": "/api/audit/ean-lists/{id}",
+    "backendTargets": [],
+    "source": "app/api/audit/ean-lists/[id]/route.ts"
+  },
+  {
+    "method": "PATCH",
+    "path": "/api/audit/ean-lists/{id}",
+    "backendTargets": [],
+    "source": "app/api/audit/ean-lists/[id]/route.ts"
+  },
+  {
+    "method": "POST",
+    "path": "/api/audit/ean-lists/{id}/activate",
+    "backendTargets": [],
+    "source": "app/api/audit/ean-lists/[id]/activate/route.ts"
+  },
+  {
+    "method": "POST",
+    "path": "/api/audit/ean-lists/{id}/deactivate",
+    "backendTargets": [],
+    "source": "app/api/audit/ean-lists/[id]/deactivate/route.ts"
+  },
+  {
+    "method": "POST",
+    "path": "/api/audit/ean-lists/{id}/import",
+    "backendTargets": [],
+    "source": "app/api/audit/ean-lists/[id]/import/route.ts"
+  },
+  {
+    "method": "GET",
+    "path": "/api/audit/ean-lists/{id}/items",
+    "backendTargets": [],
+    "source": "app/api/audit/ean-lists/[id]/items/route.ts"
+  },
+  {
+    "method": "GET",
+    "path": "/api/audit/imports/{batchId}",
+    "backendTargets": [],
+    "source": "app/api/audit/imports/[batchId]/route.ts"
+  },
+  {
+    "method": "POST",
+    "path": "/api/audit/imports/{batchId}/cancel",
+    "backendTargets": [],
+    "source": "app/api/audit/imports/[batchId]/cancel/route.ts"
+  },
+  {
+    "method": "GET",
+    "path": "/api/audit/kpis",
+    "backendTargets": [],
+    "source": "app/api/audit/kpis/route.ts"
+  },
+  {
+    "method": "POST",
+    "path": "/api/audit/scan",
+    "backendTargets": [],
+    "source": "app/api/audit/scan/route.ts"
+  },
+  {
+    "method": "GET",
+    "path": "/api/audit/scan-sessions",
+    "backendTargets": [],
+    "source": "app/api/audit/scan-sessions/route.ts"
+  },
+  {
+    "method": "POST",
+    "path": "/api/audit/sync-batches/{batchId}/cancel",
+    "backendTargets": [],
+    "source": "app/api/audit/sync-batches/[batchId]/cancel/route.ts"
+  },
+  {
+    "method": "POST",
+    "path": "/api/auth/invite-accept",
+    "backendTargets": [],
+    "source": "app/api/auth/invite-accept/route.ts"
+  },
+  {
+    "method": "POST",
+    "path": "/api/auth/login",
+    "backendTargets": [],
+    "source": "app/api/auth/login/route.ts"
+  },
+  {
+    "method": "POST",
+    "path": "/api/auth/logout",
+    "backendTargets": [],
+    "source": "app/api/auth/logout/route.ts"
+  },
+  {
+    "method": "GET",
+    "path": "/api/auth/me",
+    "backendTargets": [],
+    "source": "app/api/auth/me/route.ts"
+  },
+  {
+    "method": "POST",
+    "path": "/api/auth/refresh",
+    "backendTargets": [],
+    "source": "app/api/auth/refresh/route.ts"
+  },
+  {
+    "method": "POST",
+    "path": "/api/auth/reset-complete",
+    "backendTargets": [],
+    "source": "app/api/auth/reset-complete/route.ts"
+  },
+  {
+    "method": "POST",
+    "path": "/api/auth/reset-request",
+    "backendTargets": [],
+    "source": "app/api/auth/reset-request/route.ts"
+  },
+  {
+    "method": "POST",
+    "path": "/api/auth/verify-email",
+    "backendTargets": [],
+    "source": "app/api/auth/verify-email/route.ts"
+  },
+  {
+    "method": "GET",
+    "path": "/api/billing/plans",
+    "backendTargets": [],
+    "source": "app/api/billing/plans/route.ts"
+  },
+  {
+    "method": "GET",
+    "path": "/api/billing/subscription",
+    "backendTargets": [],
+    "source": "app/api/billing/subscription/route.ts"
+  },
+  {
+    "method": "GET",
+    "path": "/api/billing/usage",
+    "backendTargets": [],
+    "source": "app/api/billing/usage/route.ts"
+  },
+  {
+    "method": "POST",
+    "path": "/api/billing/verify",
+    "backendTargets": [],
+    "source": "app/api/billing/verify/route.ts"
+  },
+  {
+    "method": "GET",
+    "path": "/api/expiry",
+    "backendTargets": [],
+    "source": "app/api/expiry/route.ts"
+  },
+  {
+    "method": "POST",
+    "path": "/api/expiry",
+    "backendTargets": [],
+    "source": "app/api/expiry/route.ts"
+  },
+  {
+    "method": "DELETE",
+    "path": "/api/expiry/{id}",
+    "backendTargets": [],
+    "source": "app/api/expiry/[id]/route.ts"
+  },
+  {
+    "method": "PATCH",
+    "path": "/api/expiry/{id}",
+    "backendTargets": [],
+    "source": "app/api/expiry/[id]/route.ts"
+  },
+  {
+    "method": "POST",
+    "path": "/api/expiry/{id}/acknowledge",
+    "backendTargets": [],
+    "source": "app/api/expiry/[id]/acknowledge/route.ts"
+  },
+  {
+    "method": "GET",
+    "path": "/api/expiry/calendar",
+    "backendTargets": [],
+    "source": "app/api/expiry/calendar/route.ts"
+  },
+  {
+    "method": "GET",
+    "path": "/api/expiry/kpis",
+    "backendTargets": [],
+    "source": "app/api/expiry/kpis/route.ts"
+  },
+  {
+    "method": "GET",
+    "path": "/api/expiry/thresholds",
+    "backendTargets": [],
+    "source": "app/api/expiry/thresholds/route.ts"
+  },
+  {
+    "method": "PUT",
+    "path": "/api/expiry/thresholds",
+    "backendTargets": [],
+    "source": "app/api/expiry/thresholds/route.ts"
+  },
+  {
+    "method": "GET",
+    "path": "/api/grn",
+    "backendTargets": [],
+    "source": "app/api/grn/route.ts"
+  },
+  {
+    "method": "POST",
+    "path": "/api/grn",
+    "backendTargets": [],
+    "source": "app/api/grn/route.ts"
+  },
+  {
+    "method": "DELETE",
+    "path": "/api/grn/{id}",
+    "backendTargets": [],
+    "source": "app/api/grn/[id]/route.ts"
+  },
+  {
+    "method": "GET",
+    "path": "/api/grn/{id}",
+    "backendTargets": [],
+    "source": "app/api/grn/[id]/route.ts"
+  },
+  {
+    "method": "PATCH",
+    "path": "/api/grn/{id}",
+    "backendTargets": [],
+    "source": "app/api/grn/[id]/route.ts"
+  },
+  {
+    "method": "GET",
+    "path": "/api/grn/{id}/items",
+    "backendTargets": [],
+    "source": "app/api/grn/[id]/items/route.ts"
+  },
+  {
+    "method": "POST",
+    "path": "/api/grn/{id}/items",
+    "backendTargets": [],
+    "source": "app/api/grn/[id]/items/route.ts"
+  },
+  {
+    "method": "DELETE",
+    "path": "/api/grn/{id}/items/{itemId}",
+    "backendTargets": [],
+    "source": "app/api/grn/[id]/items/[itemId]/route.ts"
+  },
+  {
+    "method": "POST",
+    "path": "/api/grn/{id}/receive",
+    "backendTargets": [],
+    "source": "app/api/grn/[id]/receive/route.ts"
+  },
+  {
+    "method": "GET",
+    "path": "/api/grn/kpis",
+    "backendTargets": [],
+    "source": "app/api/grn/kpis/route.ts"
+  },
+  {
+    "method": "GET",
+    "path": "/api/inventory",
+    "backendTargets": [],
+    "source": "app/api/inventory/route.ts"
+  },
+  {
+    "method": "PATCH",
+    "path": "/api/inventory/{id}/min-stock",
+    "backendTargets": [],
+    "source": "app/api/inventory/[id]/min-stock/route.ts"
+  },
+  {
+    "method": "GET",
+    "path": "/api/inventory/kpis",
+    "backendTargets": [],
+    "source": "app/api/inventory/kpis/route.ts"
+  },
+  {
+    "method": "GET",
+    "path": "/api/inventory/low-stock",
+    "backendTargets": [],
+    "source": "app/api/inventory/low-stock/route.ts"
+  },
+  {
+    "method": "GET",
+    "path": "/api/inventory/movements",
+    "backendTargets": [],
+    "source": "app/api/inventory/movements/route.ts"
+  },
+  {
+    "method": "POST",
+    "path": "/api/inventory/movements",
+    "backendTargets": [],
+    "source": "app/api/inventory/movements/route.ts"
+  },
+  {
+    "method": "GET",
+    "path": "/api/notifications",
+    "backendTargets": [],
+    "source": "app/api/notifications/route.ts"
+  },
+  {
+    "method": "POST",
+    "path": "/api/notifications/{id}/read",
+    "backendTargets": [],
+    "source": "app/api/notifications/[id]/read/route.ts"
+  },
+  {
+    "method": "GET",
+    "path": "/api/notifications/preferences",
+    "backendTargets": [],
+    "source": "app/api/notifications/preferences/route.ts"
+  },
+  {
+    "method": "PATCH",
+    "path": "/api/notifications/preferences",
+    "backendTargets": [],
+    "source": "app/api/notifications/preferences/route.ts"
+  },
+  {
+    "method": "POST",
+    "path": "/api/notifications/read-all",
+    "backendTargets": [],
+    "source": "app/api/notifications/read-all/route.ts"
+  },
+  {
+    "method": "POST",
+    "path": "/api/notifications/test",
+    "backendTargets": [],
+    "source": "app/api/notifications/test/route.ts"
+  },
+  {
+    "method": "GET",
+    "path": "/api/overview/activity",
+    "backendTargets": [],
+    "source": "app/api/overview/activity/route.ts"
+  },
+  {
+    "method": "GET",
+    "path": "/api/overview/alerts",
+    "backendTargets": [],
+    "source": "app/api/overview/alerts/route.ts"
+  },
+  {
+    "method": "GET",
+    "path": "/api/overview/health-score",
+    "backendTargets": [],
+    "source": "app/api/overview/health-score/route.ts"
+  },
+  {
+    "method": "GET",
+    "path": "/api/overview/kpis",
+    "backendTargets": [],
+    "source": "app/api/overview/kpis/route.ts"
+  },
+  {
+    "method": "GET",
+    "path": "/api/overview/multi-store",
+    "backendTargets": [],
+    "source": "app/api/overview/multi-store/route.ts"
+  },
+  {
+    "method": "GET",
+    "path": "/api/overview/trends",
+    "backendTargets": [],
+    "source": "app/api/overview/trends/route.ts"
+  },
+  {
+    "method": "GET",
+    "path": "/api/product-image",
+    "backendTargets": [],
+    "source": "app/api/product-image/route.ts"
+  },
+  {
+    "method": "GET",
+    "path": "/api/reports",
+    "backendTargets": [],
+    "source": "app/api/reports/route.ts"
+  },
+  {
+    "method": "DELETE",
+    "path": "/api/reports/{id}",
+    "backendTargets": [],
+    "source": "app/api/reports/[id]/route.ts"
+  },
+  {
+    "method": "GET",
+    "path": "/api/reports/{id}",
+    "backendTargets": [],
+    "source": "app/api/reports/[id]/route.ts"
+  },
+  {
+    "method": "POST",
+    "path": "/api/reports/{id}/export",
+    "backendTargets": [],
+    "source": "app/api/reports/[id]/export/route.ts"
+  },
+  {
+    "method": "GET",
+    "path": "/api/reports/{id}/files",
+    "backendTargets": [],
+    "source": "app/api/reports/[id]/files/route.ts"
+  },
+  {
+    "method": "POST",
+    "path": "/api/reports/export",
+    "backendTargets": [],
+    "source": "app/api/reports/export/route.ts"
+  },
+  {
+    "method": "POST",
+    "path": "/api/settings/change-password",
+    "backendTargets": [],
+    "source": "app/api/settings/change-password/route.ts"
+  },
+  {
+    "method": "GET",
+    "path": "/api/settings/language",
+    "backendTargets": [],
+    "source": "app/api/settings/language/route.ts"
+  },
+  {
+    "method": "PUT",
+    "path": "/api/settings/language",
+    "backendTargets": [],
+    "source": "app/api/settings/language/route.ts"
+  },
+  {
+    "method": "PATCH",
+    "path": "/api/settings/profile",
+    "backendTargets": [],
+    "source": "app/api/settings/profile/route.ts"
+  },
+  {
+    "method": "GET",
+    "path": "/api/settings/tenant",
+    "backendTargets": [],
+    "source": "app/api/settings/tenant/route.ts"
+  },
+  {
+    "method": "GET",
+    "path": "/api/stores",
+    "backendTargets": [],
+    "source": "app/api/stores/route.ts"
+  },
+  {
+    "method": "GET",
+    "path": "/api/suppliers",
+    "backendTargets": [],
+    "source": "app/api/suppliers/route.ts"
+  },
+  {
+    "method": "POST",
+    "path": "/api/suppliers",
+    "backendTargets": [],
+    "source": "app/api/suppliers/route.ts"
+  },
+  {
+    "method": "DELETE",
+    "path": "/api/suppliers/{id}",
+    "backendTargets": [],
+    "source": "app/api/suppliers/[id]/route.ts"
+  },
+  {
+    "method": "GET",
+    "path": "/api/suppliers/{id}",
+    "backendTargets": [],
+    "source": "app/api/suppliers/[id]/route.ts"
+  },
+  {
+    "method": "PATCH",
+    "path": "/api/suppliers/{id}",
+    "backendTargets": [],
+    "source": "app/api/suppliers/[id]/route.ts"
+  },
+  {
+    "method": "GET",
+    "path": "/api/suppliers/{id}/performance",
+    "backendTargets": [],
+    "source": "app/api/suppliers/[id]/performance/route.ts"
+  },
+  {
+    "method": "POST",
+    "path": "/api/suppliers/import",
+    "backendTargets": [],
+    "source": "app/api/suppliers/import/route.ts"
+  },
+  {
+    "method": "GET",
+    "path": "/api/tasks",
+    "backendTargets": [],
+    "source": "app/api/tasks/route.ts"
+  },
+  {
+    "method": "POST",
+    "path": "/api/tasks",
+    "backendTargets": [],
+    "source": "app/api/tasks/route.ts"
+  },
+  {
+    "method": "DELETE",
+    "path": "/api/tasks/{id}",
+    "backendTargets": [],
+    "source": "app/api/tasks/[id]/route.ts"
+  },
+  {
+    "method": "GET",
+    "path": "/api/tasks/{id}",
+    "backendTargets": [],
+    "source": "app/api/tasks/[id]/route.ts"
+  },
+  {
+    "method": "PATCH",
+    "path": "/api/tasks/{id}",
+    "backendTargets": [],
+    "source": "app/api/tasks/[id]/route.ts"
+  },
+  {
+    "method": "POST",
+    "path": "/api/tasks/{id}/transition",
+    "backendTargets": [],
+    "source": "app/api/tasks/[id]/transition/route.ts"
+  },
+  {
+    "method": "GET",
+    "path": "/api/tasks/templates",
+    "backendTargets": [],
+    "source": "app/api/tasks/templates/route.ts"
+  }
+]
