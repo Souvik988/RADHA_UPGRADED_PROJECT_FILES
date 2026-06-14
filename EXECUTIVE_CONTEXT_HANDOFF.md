@@ -1,309 +1,490 @@
-# RADHA — Executive Context Handoff
-> **For the incoming executive developer.** Paste this whole file into your new IDE/agent as the
-> first message. It is self-contained: read it top-to-bottom once, then start at §10 (Roadmap).
-> Author: outgoing executive developer. Date: **2026-06-14**. Branch HEAD at handoff: **`0742d93`**.
+# RADHA Application Context Handoff
+
+Copy-paste this whole file into the next IDE/agent as the first message.
+It is self-contained and focused on the application work in this repository.
+
+Author: outgoing executive developer
+Date: 2026-06-14
+Application code baseline covered here: `0422cc8 feat(mobile): localize select store screen`
+Branch: `codex/radha-production-converged`
+Canonical worktree for the work described here:
+`C:\Users\sayan\Downloads\RADHA_UPGRADED_PROJECT_FILES new\radha-production-converged`
+
+This handoff intentionally covers the application implementation state, recent app changes,
+verification gates, and next engineering steps. It excludes unrelated production-history notes.
 
 ---
 
-## 0. Who you are, and the bar you hold
+## 0. Executive Role And Quality Bar
 
-You are the **executive director AND lead developer** of RADHA. You do not wait to be told what to
-build — you make decisions, you verify with evidence, and you ship best-in-class work. The owner
-(non-technical, communicates fast/voice-to-text, infer intent) wants **decisions made, not menus**,
-and **best-in-class output, not the safe/cheap option**. When something fails, you fix it and report
-back — you don't surface a list of options.
+You are the executive director and lead developer for RADHA. The owner expects decisive,
+production-minded execution, not a menu of options. Make the best reasonable decision, implement it,
+verify it with evidence, and report clearly.
 
-**The five non-negotiables (this is the "quality of working" you must match or exceed):**
+Non-negotiables:
 
-1. **Live-verify everything. Never trust "it looks wired."** The single biggest lesson of this
-   project: a static audit (code is present, imports look right, contracts match) marked five whole
-   features "WIRED" that were **completely broken at runtime**. They were only caught by *actually
-   running the backend and hitting the endpoints*. Static green ≠ working. Build it, run it, hit it,
-   look at the real output. (See §6 for the methodology and the re-runnable verification tool.)
-2. **No fabricated data, ever.** No invented nutrition numbers, no guessed EANs, no placeholder
-   metrics shipped as if real, no health claim on unrated items. If the data isn't there, show an
-   honest empty/locked state. The owner cares about this deeply — a misleading number is worse than
-   a clear "we don't have this yet."
-3. **Function before decoration. But then make it beautiful.** Get the structure working and proven
-   first; visuals on top of broken functions are meaningless. Once it works, every screen gets tuned
-   motion/haptics + designed empty/error/loading/offline states. No generic Material defaults.
-4. **Don't churn polished, tested code to force-fit something.** If an asset/feature needs a new
-   surface, build the surface deliberately — don't jam it into a screen that already works well and
-   has passing tests. Minimal, surgical, correct.
-5. **Keep every change green and commit it.** Each unit: make the change → run the gate (§7) → commit
-   with a conventional message. Never leave a half-localized screen or a broken build. Small,
-   reviewable, green commits.
+1. Live-verify important behavior. Static wiring is not proof that a feature works.
+2. Never fabricate product, health, nutrition, pricing, tenant, or dashboard data.
+3. Function first, then polish. A beautiful broken screen is still broken.
+4. Keep changes scoped. Do not churn stable, tested code to force-fit unrelated work.
+5. Leave each logical unit green and committed unless the owner explicitly asks otherwise.
+
+RADHA must be treated as a production system that can grow to 10 million users: tenant-safe,
+privacy-first, indexed, observable, and fast.
 
 ---
 
-## 1. What RADHA is (one paragraph)
+## 1. What RADHA Is
 
-**RADHA = Retail Assistant for Data, Health & Audits** — a mobile-first retail-audit platform for
-Indian retail teams + a consumer "know what you eat" browse/scan experience. Capabilities: barcode/EAN
-scan + product lookup (Open Food Facts fallback), rule-based health indicators, expiry tracking,
-approved-EAN verification, bulk audit scan sessions, manager→staff tasks, Excel/PDF reports +
-dashboards, lightweight inventory + GRN, subscriptions (3-month trial; ₹49/99/199), free-first
-AI/OCR. **Out of scope (V1):** GST invoicing, POS cart, payment collection, sales ledger, full
-accounting. Surfaces: **Flutter app** (`apps/mobile`) · marketing site (not started) · private owner
-dashboard (`radha_dashboard`, lives on the export branch) · **NestJS API+Worker+Scheduler** (`server/`).
+RADHA is a mobile-first retail audit platform for Indian retail teams, plus a consumer product
+browse/scan experience. Core capabilities include barcode/EAN scan, product lookup, rule-based
+health indicators, expiry tracking, approved-EAN verification, bulk audit sessions, manager-to-staff
+tasks, reports, lightweight inventory, GRN, subscriptions, and offline-aware mobile flows.
 
----
+Out of scope for V1: GST invoicing, POS cart, payment collection, sales ledger, and full accounting.
 
-## 2. Where everything lives (READ FIRST — there are two git worktrees)
+Primary surfaces:
 
-- **Outer folder** `…/RADHA_UPGRADED_PROJECT_FILES new/` is a **non-git wrapper** (just the CWD).
-- **Canonical monorepo (do all current work here):**
-  `…/RADHA_UPGRADED_PROJECT_FILES new/radha-production-converged/`
-  branch **`codex/radha-production-converged`**. Contains `apps/mobile/` (Flutter, package
-  `radha_mobile`), `server/` (NestJS), `packages/shared-types/`.
-- **Export worktree** `…/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/`
-  branch `codex/radha-production-convergence`. Contains **`radha_dashboard/`** (Next.js 15.3 owner
-  dashboard) — **the dashboard lives ONLY here**, not in the monorepo yet.
-- Remote `origin` = `github.com/Souvik988/RADHA_UPGRADED_PROJECT_FILES`. **Nothing is pushed** — all
-  work is local commits on the two branches. (Pushing is the owner's call; don't push unless asked.)
-- Canonical agent guide: `radha-production-converged/CLAUDE.md` (full engineering guardrails).
-- The master status map you drive repairs from: **`radha-production-converged/docs/RADHA_MASTER_FUNCTION_MATRIX.md`**.
-
-**⚠️ GIT HAZARD:** an external auto-commit/reset tool has been seen resetting the **export** branch.
-The converged branch + bundles are unaffected. After any commit, verify it stuck:
-`git cat-file -e HEAD:<path/to/file>`. Safety bundles exist at `…/radha-functional-convergence.bundle`.
+- Flutter mobile app: `apps/mobile`
+- NestJS API/worker/scheduler: `server`
+- Shared contracts: `packages/shared-types`
+- Owner dashboard exists in the export worktree, not yet converged into the monorepo
 
 ---
 
-## 3. Environment + bring-up (de-risked recipe — this is turnkey, follow exactly)
+## 2. Worktree And Git Reality
 
-- **Host:** Windows 11, shell is **PowerShell** (`;` to chain, `$env:VAR`, `$null`). A Bash tool is
-  also available. **Never** run watchers/dev-servers/`--watch` in a blocking foreground tool — run
-  them in the background.
-- **Toolchain:** Node v24, pnpm 8.15.0 (`corepack`/repo-pinned), Flutter at
-  **`C:/src/flutter/bin/flutter.bat`** (3.44 / Dart 3.12).
-- **Docker (already up & healthy):** `radha-postgres` → `localhost:5433` (db `radha_dev`, user
-  `radha`, pw `radha_dev_password`), `radha-redis` → `localhost:6380`. *(Ignore the unrelated
-  `roomance-*` containers on 5432/6379.)*
+There are multiple folders under:
+`C:\Users\sayan\Downloads\RADHA_UPGRADED_PROJECT_FILES new`
 
-### Bring the backend up live (the unblock — the handoff that preceded me got this WRONG; do this):
+Use this worktree for the application work described in this handoff:
+`C:\Users\sayan\Downloads\RADHA_UPGRADED_PROJECT_FILES new\radha-production-converged`
+
+Current branch:
+`codex/radha-production-converged`
+
+Remote tracking state before this handoff document was updated:
+`ahead 23` from `origin/main`
+
+Important: do not push unless the owner asks.
+
+Known dirty files before this handoff update:
+
+- `EXECUTIVE_CONTEXT_HANDOFF.md` - intentionally being updated now
+- `apps/mobile/windows/flutter/generated_plugin_registrant.cc` - pre-existing generated change
+- `apps/mobile/windows/flutter/generated_plugin_registrant.h` - pre-existing generated change
+- `apps/mobile/windows/flutter/generated_plugins.cmake` - pre-existing generated change
+
+Do not stage or revert the Windows generated plugin files unless you intentionally regenerate and
+validate the Windows Flutter embedding. They were not part of the localization units.
+
+After every commit, verify important committed files still exist at HEAD with:
+
 ```powershell
-cd radha-production-converged
-pnpm install                                  # workspaces
-pnpm --filter @radha/shared-types build       # ❗ CRITICAL: install does NOT build this; without
-                                              #   it tsc fails with 12 "Cannot find module
-                                              #   '@radha/shared-types'" errors and the server won't boot
-# server/.env — create it with the REAL container creds + the init-only salt:
-#   NODE_ENV=development  PORT=3000
-#   DB_HOST=localhost DB_PORT=5433 DB_NAME=radha_dev DB_USER=radha DB_PASSWORD=radha_dev_password DB_SSL=false
-#   REDIS_HOST=localhost REDIS_PORT=6380
-#   SMS_PROVIDER=mock                          # OTP is returned in the API response (devOtp) in dev
-#   JWT_ACCESS_SECRET=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-#   JWT_REFRESH_SECRET=bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-#   LOG_FORMAT=pretty LOG_LEVEL=debug
-#   ANALYTICS_HASH_SALT=radha_dev_analytics_salt_0123456789_abcdef   # ❗ NOT in the zod schema; the
-#                                              #   analytics module's onModuleInit hard-requires >=32
-#                                              #   chars. Missing it passes env-validation then CRASHES
-#                                              #   Nest bootstrap with AnalyticsSaltMissingError.
-#   RAZORPAY_KEY_ID=  RAZORPAY_KEY_SECRET=  RAZORPAY_WEBHOOK_SECRET=  # blank => deterministic mock; boots fine
-cd server
-pnpm db:migrate                               # all 31 migrations already applied; idempotent
-npx tsx src/db/seeds/subscription-plans.seed.ts   # seeds 4 plans + 44 entitlements (needed for /subscriptions)
-pnpm build                                    # nest build + tsc-alias (rewrites @/ and @radha/shared-types in dist)
-# Run the COMPILED dist, NOT `nest start --watch` (watch is ~3 min/compile and flaky on Windows):
-#   node dist/main.api      (run in background; boots in seconds)
+git cat-file -e HEAD:apps/mobile/lib/features/select_store/select_store_screen.dart
 ```
-Health checks: `GET http://localhost:3000/api/v1/health` → `{"status":"ok"}`,
-`GET /api/v1/health/ready` → `{database:"ok"}`. (A non-fatal `bullmq.init.failed` log line is fine —
-Redis queues degrade but the REST API serves. The API wraps every response as `{success,data,meta}`.)
 
-> **Backend is running right now** on `:3000` (HEAD `0742d93`). If you restart it: `pnpm build` then
-> `node dist/main.api`. To re-pick-up source changes you must rebuild (dist is compiled, not watched).
+This protects against earlier reset/auto-commit hazards seen in the project history.
 
 ---
 
-## 4. How to get an authenticated session for live testing (no UI needed)
+## 3. Environment Notes
 
-Dev mode hands you everything over HTTP. All bodies are `{success,data,meta}` — read `.data`.
-1. `POST /api/v1/tenants/onboard` *(public)* with `{businessName, subdomain, ownerName, email,
-   mobile, storeName}` (mobile = a **bare 10-digit** Indian number starting 6–9) → creates
-   tenant + **owner** user + store + admin store-access. As of D9 it also starts the trial subscription.
-2. `POST /api/v1/auth/otp/request {mobile, platform:"mobile"}` → response `.data.devOtp` + `.data.requestId`.
-3. `POST /api/v1/auth/otp/verify {mobile, otp, requestId}` → `.data.accessToken` (role=owner, real tenant+store).
-   - OTP-login with a *fresh* mobile (never onboarded) instead → a **consumer** token (no tenant).
-4. Send `Authorization: Bearer <token>`. Owner token unlocks all tenant-scoped domains; consumer
-   token is for the consumer/catalog surface.
+Host shell is Windows PowerShell. Use Windows-safe commands.
 
----
+Mobile work:
 
-## 5. What I shipped this session (7 commits — do NOT redo) + prior state
+```powershell
+cd "C:\Users\sayan\Downloads\RADHA_UPGRADED_PROJECT_FILES new\radha-production-converged\apps\mobile"
+flutter gen-l10n
+flutter analyze --fatal-infos
+flutter test
+```
 
-**Backend — brought live + 5 real defects fixed, live-verified 38/38:**
-- `d1826c4` **D5–D8**: `InventoryModule` & `ClientDashboardModule` were defined but **never imported**
-  in `app.module.ts` → all `/inventory/*` and `/dashboard` KPI routes 404'd. Wired both. · `consumer`
-  role lacked `products:read` → consumer catalog browse + `/products/lookup/:ean` returned 403
-  (mobile's fake-ApiClient tests never hit the real guard) → granted it in `role-permissions.map.ts`.
-  · `client-dashboard kpi.service` counted `products.is_active` (a column that doesn't exist; also not
-  store-scoped) → `/dashboard` + `/dashboard/kpis` **500** → rewrote to store-scoped
-  `inventory_items.is_low_stock`.
-- `38c5675` **D9**: public `tenants/onboard` never called `startTrial` → `/subscriptions/status` 404
-  for self-service tenants → now calls `SubscriptionsService.startTrial` post-commit (TenantsModule
-  imports SubscriptionsModule), mirroring `business-activation`. Verified live (returns `trial`).
+Backend work:
 
-**Mobile L1 localization (each: 6 ARB locales en/hi/ta/te/bn/mr + AppLocalizations wiring, green):**
-- `52ce51c` subscription_screen + a reusable **JSON ARB-completeness test**
-  (`apps/mobile/test/l10n/arb_completeness_test.dart`) that fails CI if any locale drifts.
-- `27ade54` catalog_search_screen · `4c26498` product_browse_screen · `0742d93` featured_rail
-  → **the entire catalog *browse* cluster is now localized.**
+```powershell
+cd "C:\Users\sayan\Downloads\RADHA_UPGRADED_PROJECT_FILES new\radha-production-converged"
+pnpm install
+pnpm --filter @radha/shared-types build
+cd server
+pnpm build
+```
 
-**Assets:** `27fee0f` wired 3 previously-unused v3 assets (2 product-detail health badges driven by
-**real** nutrition fields `transFat`/`containsAllergens`; the consumer-home "RADHA Plus" promo banner).
-
-**Verification gates passing at handoff:** backend live **38/38**; tenant spec 12/12; mobile
-**`flutter test` 234/234**; `flutter analyze --fatal-infos` clean.
-
-**Prior work (already built before this session — trust the filesystem + a fresh build over any stale
-status table):** backend is feature-complete (~43 modules, 31 migrations, 2059 jest); mobile is a
-substantial Flutter app (~25 feature folders, 6 locales, scanner/OCR/browse/subscription/payment all
-built); the owner dashboard exists on the export branch (Next.js, ~155 vitest). The owner generated a
-v3 art set (Mor mascot scenes, state illos, banners, onboarding, health badges, category cutouts) —
-all 40 files are present under `apps/mobile/assets/v2/` and bundled.
+Do not run long-lived watchers in foreground agent tools. If a server is needed, run a compiled
+server or background process and verify it with HTTP.
 
 ---
 
-## 6. THE methodology (internalize this — it's how you find what's actually broken)
+## 4. Recent Application Work Completed
 
-The `docs/RADHA_MASTER_FUNCTION_MATRIX.md` cross-maps 39 mobile routes + 82 ApiClient endpoints, 33
-dashboard pages + 84 BFF proxies, 52 backend controllers across 8 domains + auth/RBAC. The static
-audit marked things "WIRED" that were broken. **Your job is to flip every row from static-WIRED to
-LIVE-VERIFIED** by running the real stack.
+The last three application units completed in the current continuation were all mobile L1
+localization work. They are already committed. Do not redo them.
 
-**The re-runnable live sweep:** there is a Node script (Node 24 has global `fetch`) that onboards a
-tenant, OTP-logs-in a consumer + owner, and probes a representative endpoint per domain, printing a
-PASS/FAIL table. It lived at `C:\Users\sayan\AppData\Local\Temp\radha-verify.mjs` (a temp file — it
-may be cleared; **if so, recreate it** from the recipe in §4: onboard → login → loop GETs with the
-token, unwrap `.data`, print status). Run with `node <path>` while the backend is up. Current result:
-**38/38**. Use it (or rebuild it) after any backend change.
+### 4.1 Product Detail Localization
 
-For a domain to be "done": hit the endpoint with the right role, confirm the mobile screen AND
-dashboard page render real data + all four states (loading/empty/error/offline), classify every
-control (button/filter/export), check role/tenant/entitlement gating, then update the matrix row +
-commit.
+Commit:
+`9a5a7ec localize catalog product detail`
 
----
+Files changed:
 
-## 7. Validation gates (run before declaring anything done)
+- `apps/mobile/lib/features/catalog/product_detail_screen.dart`
+- `apps/mobile/test/features/product/product_detail_screen_test.dart`
+- `apps/mobile/lib/l10n/app_en.arb`
+- `apps/mobile/lib/l10n/app_hi.arb`
+- `apps/mobile/lib/l10n/app_ta.arb`
+- `apps/mobile/lib/l10n/app_te.arb`
+- `apps/mobile/lib/l10n/app_bn.arb`
+- `apps/mobile/lib/l10n/app_mr.arb`
+- generated l10n files under `apps/mobile/lib/l10n/generated`
 
-- **Backend:** from `server/` → `pnpm build` (tsc clean) + targeted `npx jest <path> --runInBand`
-  (full `pnpm test` = 2059 tests, slow; run targeted unless finishing a phase). Then restart
-  `node dist/main.api` and re-run the live sweep (§6).
-  - *Test note:* the machine is loaded (backend + Docker), so bcrypt-heavy jest suites can hit the 5s
-    timeout under parallel load — that's a CONTENTION flake, not a real failure. Re-run the suite
-    `--runInBand` to confirm; it passes alone.
-- **Mobile:** from `apps/mobile/` →
-  `C:/src/flutter/bin/flutter.bat analyze --fatal-infos` (must be "No issues found!") **and**
-  `C:/src/flutter/bin/flutter.bat test` (234/234 at handoff; keep it ≥ that).
+What changed:
 
----
+- Moved product-detail user-facing copy into `AppLocalizations`.
+- Localized product detail section headings, nutrient labels, insight labels, gated-feature copy,
+  lookup failure states, save/share snackbars, and appbar copy.
+- Refactored copy that had been embedded in constants/tuples so it resolves through `l10n` at build
+  time.
+- Updated the product detail widget test harness for localization delegates and supported locales.
 
-## 8. Conventions you MUST follow (so your work is consistent with mine)
+Verification used for that unit:
 
-**Localization (the ARB pattern I established — follow it exactly):**
-- l10n is `flutter gen-l10n` driven; config in `apps/mobile/l10n.yaml`; ARBs in `apps/mobile/lib/l10n/`
-  (`app_en.arb` is the template). Idiom in screens: `final l10n = AppLocalizations.of(context);` then
-  `l10n.keyName` (import `package:radha_mobile/l10n/generated/app_localizations.dart`).
-- To add strings: add `"key": "value"` to **all 6** ARB files (insert before the `"appName"` line is the
-  uniform anchor I used). Put `@key` metadata (`description` + `placeholders`) **only in `app_en.arb`**.
-  Params: `"{name}"` with `placeholders: { name: { type: "String"|"int" } }`. Plurals (used by the
-  app): `"{n, plural, =1{...} other{{n} ...}}"`. Keep brand marks (RADHA, Razorpay, OTP) untranslated.
-  Then run `C:/src/flutter/bin/flutter.bat gen-l10n`.
-- **Translate properly** into hi/ta/te/bn/mr — natural, formal-imperative register matching the
-  existing ~285 keys; don't leave English in non-en locales. The `arb_completeness_test.dart` will
-  FAIL the build if a locale is missing a key — that's your safety net; keep it green.
-- **Test infra:** any widget test that pumps a now-localized screen must add
-  `localizationsDelegates: AppLocalizations.localizationsDelegates` + `supportedLocales:
-  AppLocalizations.supportedLocales` to its `MaterialApp` (I did this for subscription/catalog/home
-  tests — do it for any new one).
+- `flutter gen-l10n`
+- focused product detail tests
+- `flutter analyze --fatal-infos`
 
-**Backend layering (from CLAUDE.md, always-on):** Controller (transport-only, DTO-validated,
-guarded) → Service (logic + transaction + audit-log) → Repository (tenant/store-scoped,
-cursor-paginated, no `SELECT *`, indexes lead with `tenant_id`). External providers only via
-`integrations/*`. Migrations are immutable — add new numbered SQL files. No hardcoded secrets, never
-log PII. BullMQ consumers idempotent + DLQ + retry.
+### 4.2 Profile Screen Localization
 
-**Commits:** conventional (`feat(mobile): …`, `fix(server): …`), one logical unit each, body explains
-the *why*, end with `Co-Authored-By: …`. After committing, `git cat-file -e HEAD:<file>` to defeat the
-reset hazard. Note: build_runner/gen-l10n regenerate files — commit the semantically-changed ones;
-the repo is CRLF and tooling writes LF, so expect harmless line-ending warnings.
+Commit:
+`e536a51 feat(mobile): localize profile screen`
 
-**Flutter gotchas:** tests that build the theme need
-`setUpAll(() => GoogleFonts.config.allowRuntimeFetching = false)` and must be `testWidgets`. Tapping
-below the fold needs `await tester.ensureVisible(finder)` first. `ButtonSegment`/widget lists that
-were `const` can't hold `l10n.x` — drop the `const` (keep `const` on the inner Icons).
+Files changed:
 
----
+- `apps/mobile/lib/features/profile/profile_screen.dart`
+- `apps/mobile/test/features/profile/profile_screen_test.dart`
+- six ARB source files
+- generated l10n files
 
-## 9. The owner's v3 assets — status
+What changed:
 
-All 40 files are present under `apps/mobile/assets/v2/` and declared in `pubspec.yaml`; `RadhaAssets`
-(`lib/design/app_assets.dart`) already maps them. **~34 are integrated** (referenced + now rendering;
-3 newly wired this session). **6 remain UNUSED because they need new surfaces** (don't force-fit them):
-- `morSceneOffline` + `stateOffline` → a **dedicated full-screen offline state** (today there's only a
-  32px connectivity banner, whose own comment says the full Mor-offline hero "belongs on a dedicated
-  offline surface"). Build that surface.
-- `onboardHealth` / `onboardAudit` / `onboardGrowth` → **illustrated onboarding capability pages**
-  (today page 2 is plain Material-icon rows; restructure into illustrated value pages — design pass).
-- `splashLockup` → an alternate splash lockup (the current splash is already polished + animated +
-  tested; only swap if you intentionally redesign it). The 4 Mor *sheets*
-  (turnaround/expressions/glyph/parts) are design references — correctly NOT bundled.
+- Moved profile screen account, preferences, about, guest/user names, version text, sign-out dialog,
+  and role labels into `AppLocalizations`.
+- Reused existing l10n keys where suitable instead of duplicating copy.
+- Added role mapping for known backend/user roles.
+- Added focused profile widget tests covering localized actions/account state and sign-out
+  confirmation.
 
----
+Verification used for that unit:
 
-## 10. ROADMAP — what to do next, in priority order (start here)
+- `flutter gen-l10n`
+- `flutter test test/l10n/arb_completeness_test.dart test/features/profile/profile_screen_test.dart`
+- `flutter analyze --fatal-infos`
+- full `flutter test` passed with 236 tests at that point
 
-**P0 — Finish L1 localization (the thread I was on; do this first, it's bounded & high-value):**
-- `apps/mobile/lib/features/catalog/product_detail_screen.dart` — the **last** catalog screen, ~49
-  hardcoded strings across 1830 lines: section headers (Key nutrients / All nutrients / For you /
-  What should concern you), the **nutrient-label tuples** (Energy/Total Fat/Carbohydrates/Protein/
-  Fibre/Sodium/Total Sugars — these are in `const`/tuple lists, refactor to resolve `l10n` in build),
-  insight labels, gated-feature copy (Ingredient deep-dive), lookup-failure states (notFound/offline/
-  unauthorized/serverFailure), save/share snackbars, appbar. Follow the §8 ARB pattern. It's large —
-  do it as one focused unit; add the localizationsDelegates to its test (`product_detail_screen_test`).
-- Then sweep any remaining English in mobile (scan/expiry/inventory/grn/reports/profile screens) the
-  same way until every user-facing string is in ARB and the completeness test still passes.
+### 4.3 Select Store Localization
 
-**P1 — Live-verify + repair every domain against the running backend (the core mandate):**
-- Re-run / rebuild the live sweep (§6). Then go domain-by-domain (matrix order A→H): for each, drive
-  the **mobile app** (needs an emulator — `flutter run`; the package is `com.radha.radha_mobile`,
-  adb at `$env:LOCALAPPDATA\Android\Sdk\platform-tools\adb.exe`) AND the **dashboard** against the
-  live backend, confirm real data + all 4 states + control classification + role/tenant/entitlement
-  gating, fix what's broken, flip the matrix row, commit. Cross-client sync (mobile write →
-  dashboard reflects) is part of "done."
-- **Test-mode payment** (still BLOCKED): add the owner's Razorpay TEST keys to `server/.env`, run the
-  subscription upgrade end-to-end on a device → verify `/payments/verify` activates the plan +
-  entitlement refresh.
+Commit:
+`0422cc8 feat(mobile): localize select store screen`
 
-**P2 — Build the 6 unused-asset surfaces (§9)** — dedicated offline screen, illustrated onboarding,
-(optionally) splash lockup. Designed, not force-fit. Every new screen gets the 4 states + tuned motion.
+Files changed:
 
-**P3 — Dashboard (export worktree `radha_dashboard/`):** D3 (`expiry/scope-change.test.tsx` scope
-type drift — decide if `scope` is an intended field), D4 (`npm i -D @playwright/test && npx playwright
-install` → wire dashboard E2E). Set `DEMO_MODE=false` and verify live login against the backend.
+- `apps/mobile/lib/features/select_store/select_store_screen.dart`
+- `apps/mobile/test/features/select_store/select_store_screen_test.dart`
+- six ARB source files
+- generated l10n files
 
-**P4 (big, optional):** port `radha_dashboard` into the monorepo `apps/owner-dashboard` for one-tree
-convergence; then marketing site; then AWS prod deploy (RDS/ElastiCache/S3/CloudFront — a
-`DEPLOY_AWS.md` runbook + Dockerfiles already exist) + RDS backups.
+What changed:
+
+- Localized select-store title, heading, helper body, empty state title/body, CTA, snackbar, and
+  known role badges.
+- Role badge behavior now maps known roles to existing localized profile role labels.
+- Unknown role values still fall back to a humanized raw role string so backend drift is not hidden.
+- Added focused widget tests for both populated and empty store states.
+
+Verification used for that unit:
+
+```powershell
+dart format apps/mobile/lib/features/select_store/select_store_screen.dart apps/mobile/test/features/select_store/select_store_screen_test.dart
+flutter gen-l10n
+flutter test test/l10n/arb_completeness_test.dart test/features/select_store/select_store_screen_test.dart
+flutter analyze --fatal-infos
+flutter test
+git diff --check -- apps/mobile/lib/features/select_store/select_store_screen.dart apps/mobile/lib/l10n apps/mobile/test/features/select_store/select_store_screen_test.dart
+```
+
+Final full mobile gate after this unit:
+
+- `flutter analyze --fatal-infos`: passed
+- `flutter test`: 238 tests passed
+- `git diff --check`: passed for the scoped select-store diff
+- post-commit `git cat-file -e HEAD:<path>` checks: passed
 
 ---
 
-## 11. How to think (executive direction)
+## 5. Current Mobile Localization State
 
-- **The backend is the source of truth.** Mobile + dashboard must derive everything from it (plans,
-  entitlements, health, prices) — never hardcode a plan→feature map or a fabricated number.
-- **Move in green, committed units.** A change that isn't verified + committed didn't happen. Prefer
-  many small proven commits over one big unverified one.
-- **When you find a defect, fix the class of it, not just the instance.** (Example: the consumer
-  `products:read` fix unblocked browse, lookup, AND alternatives — one permission, whole flow.)
-- **Be honest in docs and reports.** If a test was skipped, say so. If something needs an emulator you
-  don't have, say so and do the parts you can. Update `docs/RADHA_MASTER_FUNCTION_MATRIX.md` as you go.
-- **Match the craft:** premium feel, 60fps, designed states everywhere, tuned motion/haptics, no
-  generic defaults, accurate localization in all 6 languages. This app is meant to be best-in-class
-  Indian retail software. Build like it.
+The established l10n system:
 
-> Start now: confirm the gate is green (§7), bring the backend up if it isn't (§3), then take P0
-> (`product_detail_screen` localization) to completion as your first committed unit. Go hard.
+- Config: `apps/mobile/l10n.yaml`
+- ARB source files: `apps/mobile/lib/l10n/app_*.arb`
+- Template locale: `apps/mobile/lib/l10n/app_en.arb`
+- Generated files: `apps/mobile/lib/l10n/generated`
+- Runtime import:
+  `package:radha_mobile/l10n/generated/app_localizations.dart`
+
+Pattern to follow inside widgets:
+
+```dart
+final l10n = AppLocalizations.of(context);
+```
+
+Then use `l10n.keyName` for all user-facing copy.
+
+Already localized in recent work:
+
+- subscription screen and ARB completeness infrastructure
+- catalog search screen
+- product browse screen
+- featured products rail
+- catalog product detail screen
+- profile screen
+- select-store screen
+
+The mobile app now has six supported locales wired through generated l10n:
+
+- English
+- Hindi
+- Tamil
+- Telugu
+- Bengali
+- Marathi
+
+ARB rule:
+
+- Add every new key to all six ARB files.
+- Put `@key` metadata only in `app_en.arb`.
+- Keep brand names such as RADHA, OTP, Razorpay, and plan/product names untranslated unless the
+  existing copy already localizes them.
+- After editing ARBs, run `flutter gen-l10n`.
+- Keep `test/l10n/arb_completeness_test.dart` green.
+
+Widget test rule:
+
+Any widget test that pumps a localized screen must include:
+
+```dart
+localizationsDelegates: AppLocalizations.localizationsDelegates,
+supportedLocales: AppLocalizations.supportedLocales,
+```
+
+---
+
+## 6. Current Validation Evidence
+
+Latest evidence from the current worktree:
+
+- Branch: `codex/radha-production-converged`
+- Latest application commit covered: `0422cc8`
+- Full mobile test suite: `238` tests passed
+- Analyzer: `flutter analyze --fatal-infos` passed
+- Select-store scoped diff check: passed
+- No app-localization files are left unstaged after the select-store commit
+
+The current remaining dirty files before this handoff update were unrelated to the localization
+work except for the handoff file itself.
+
+Use tests as evidence only when they cover the requirement. For backend/API behavior, a green mobile
+widget test is not enough; hit the real backend.
+
+---
+
+## 7. Backend And Live Verification Context
+
+Backend is expected to be feature-complete enough for live domain verification, but do not assume a
+feature works until it is run.
+
+Important backend facts from the prior context:
+
+- NestJS API lives in `server`
+- Shared contracts live in `packages/shared-types`
+- The API response envelope is generally `{ success, data, meta }`
+- Docker services, if running, use:
+  - Postgres on `localhost:5433`
+  - Redis on `localhost:6380`
+- The compiled backend should be run from `server` with `node dist/main.api` after `pnpm build`
+- For live testing, create a tenant with `/api/v1/tenants/onboard`, then OTP-login with dev OTP
+
+Do not use static inspection as final proof for backend domains. For a domain to be called done:
+
+- Hit the endpoint with the correct role/token
+- Confirm tenant/store scoping
+- Confirm the mobile screen renders real data
+- Confirm loading, empty, error, and offline states where applicable
+- Confirm entitlement/role gating
+- Update the function matrix if the verification status changes
+
+Master matrix:
+`docs/RADHA_MASTER_FUNCTION_MATRIX.md`
+
+---
+
+## 8. Production Architecture Direction
+
+The owner wants the application engineered for 10 million users and privacy by design.
+
+Core architecture principles:
+
+- Tenant data isolation is mandatory.
+- Raw subscriber/user generated data must not be exposed to the platform dashboard by default.
+- Dashboard and reports should read derived rollups/aggregates, not raw tenant content.
+- High-volume tables need tenant-leading indexes and cursor/keyset pagination.
+- Heavy work belongs in worker/scheduler queues, not synchronous mobile-facing requests.
+- No fabricated metrics, mock plans, or placeholder product claims in production paths.
+
+Backend layering rule:
+
+- Controller: transport only, guarded, DTO-validated
+- Service: business logic, transactions, audit logging
+- Repository: tenant/store-scoped data access, cursor pagination, no layer skipping
+
+Migration rule:
+
+- Existing migrations are immutable.
+- Add new numbered SQL migrations.
+- Keep schema, migrations, and docs in sync.
+
+Privacy/scaling roadmap to preserve:
+
+- Generalize existing AES-256-GCM style encryption into a proper tenant crypto/KMS abstraction.
+- Store sensitive raw UGC encrypted per tenant.
+- Keep non-sensitive derived rollups queryable for the owner dashboard.
+- Gate any platform raw-data access behind explicit audited break-glass/admin impersonation.
+- Add or verify tenant-leading composite/partial indexes for scans, inventory, expiry, tasks, GRN,
+  audit logs, usage events, media metadata, and products.
+
+---
+
+## 9. Recommended Next Work
+
+Start with bounded, green application units.
+
+### P0: Continue Mobile L1 Localization Sweep
+
+The product detail, profile, and select-store screens are done. Continue with the remaining screens
+that still have user-facing English outside ARB.
+
+Suggested discovery commands:
+
+```powershell
+cd "C:\Users\sayan\Downloads\RADHA_UPGRADED_PROJECT_FILES new\radha-production-converged\apps\mobile"
+rg '"[A-Z][^"]{2,}"' lib/features
+rg "Text\\(|SnackBar|Dialog|AppBar|label:|hintText:|helperText:" lib/features
+```
+
+Pick one screen or feature cluster at a time. For each unit:
+
+1. Inspect the screen and its tests.
+2. Add all new keys to six ARB files.
+3. Add English metadata only in `app_en.arb`.
+4. Run `flutter gen-l10n`.
+5. Update widget tests with localization delegates where needed.
+6. Run focused tests plus `test/l10n/arb_completeness_test.dart`.
+7. Run `flutter analyze --fatal-infos`.
+8. Run full `flutter test` for broad safety when the change touches shared l10n/generated code.
+9. Commit the logical unit.
+
+Likely next feature areas to inspect:
+
+- scan flows
+- expiry flows
+- inventory and GRN flows
+- reports
+- tasks
+- settings/support
+- remaining dialogs/snackbars/empty states
+
+### P1: Live-Verify Functional Domains
+
+After L1 localization is no longer the active thread, move domain-by-domain through the master
+function matrix:
+
+`docs/RADHA_MASTER_FUNCTION_MATRIX.md`
+
+For each domain, verify against the live backend and, where applicable, mobile UI. Commit fixes in
+small units.
+
+### P2: Production Hardening
+
+Once core functional behavior is live-verified:
+
+- tenant encryption/KMS abstraction
+- rollups-only dashboard data access
+- high-volume index migration review
+- queue idempotency and DLQ review
+- observability and launch gates
+
+### P3: Owner Dashboard Convergence
+
+The dashboard lives in the export worktree today. Do not assume it is in this monorepo until it has
+been intentionally ported. When owner-dashboard work resumes, verify real backend login and data
+reads with demo mode off.
+
+---
+
+## 10. Commit And Verification Discipline
+
+Use conventional commits:
+
+```text
+feat(mobile): localize <screen name>
+fix(server): <specific runtime defect>
+docs: refresh application context handoff
+```
+
+Commit body should explain why the change exists, not just what files changed.
+
+End commits with:
+
+```text
+Co-Authored-By: Codex <codex@openai.com>
+```
+
+Before finalizing any unit:
+
+```powershell
+git status --short --branch
+git diff --check -- <scoped paths>
+```
+
+After committing:
+
+```powershell
+git status --short --branch
+git show --stat --oneline --name-only HEAD
+git cat-file -e HEAD:<important-file>
+```
+
+Do not stage unrelated dirty files. Current unrelated dirty files are the Windows Flutter generated
+plugin files listed in section 2.
+
+---
+
+## 11. How To Think While Continuing
+
+RADHA is not a prototype anymore. Treat it like a serious Indian retail product:
+
+- Keep the backend as the source of truth.
+- Keep mobile and dashboard clients honest to backend contracts.
+- Prefer evidence over confidence.
+- Prefer one green committed unit over a large unverified batch.
+- Keep localization natural in all six locales.
+- Build all states: loading, empty, error, offline, success.
+- Never hide missing data behind confident-looking placeholder copy.
+- Preserve user trust and tenant privacy.
+
+Immediate next action for the next developer:
+
+1. Confirm the worktree status.
+2. Do not touch the unrelated Windows generated plugin files.
+3. Start the next mobile L1 localization screen with the ARB pattern above, or continue live-domain
+   verification if localization is paused by the owner.
