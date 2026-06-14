@@ -23,6 +23,7 @@ import '../../core/router/app_router.dart';
 import '../../design/app_assets.dart';
 import '../../design/tokens.dart';
 import '../../design/widgets/mor_companion.dart';
+import '../../l10n/generated/app_localizations.dart';
 
 /// Cached `PackageInfo`. The bootstrap controller already loads this on cold
 /// start, so reading it again here is essentially a no-op on real devices.
@@ -39,6 +40,7 @@ class ProfileScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     final user = ref.watch(currentUserProvider);
     final session = ref.watch(authControllerProvider).valueOrNull;
     final packageInfoAsync = ref.watch(_packageInfoProvider);
@@ -46,14 +48,14 @@ class ProfileScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Profile',
+          l10n.profile,
           style: theme.textTheme.titleLarge?.copyWith(
             fontWeight: FontWeight.w800,
           ),
         ),
         actions: [
           IconButton(
-            tooltip: 'Settings',
+            tooltip: l10n.settings,
             icon: const Icon(Icons.settings_outlined),
             onPressed: () => context.push(AppRoute.settings),
           ),
@@ -69,54 +71,52 @@ class ProfileScreen extends ConsumerWidget {
           },
           child: ListView(
             physics: const AlwaysScrollableScrollPhysics(),
-            padding: const EdgeInsets.symmetric(
-              vertical: RadhaSpacing.space16,
-            ),
+            padding: const EdgeInsets.symmetric(vertical: RadhaSpacing.space16),
             children: [
               const SizedBox(height: RadhaSpacing.space8),
               _IdentityCard(user: user, tenantId: session?.tenantId),
               const SizedBox(height: RadhaSpacing.space24),
-              const _SectionLabel(label: 'Account'),
+              _SectionLabel(label: l10n.profileSectionAccount),
               _ActionRow(
                 icon: Icons.storefront_outlined,
-                label: 'Manage stores',
+                label: l10n.profileManageStores,
                 subtitle: user?.selectedStoreName,
                 onTap: () => context.push(AppRoute.selectStore),
               ),
               _ActionRow(
                 icon: Icons.bookmark_outline_rounded,
-                label: 'Saved products',
+                label: l10n.savedProductsTitle,
                 onTap: () => context.push(AppRoute.savedProducts),
               ),
               _ActionRow(
                 icon: Icons.card_membership_outlined,
-                label: 'Subscription',
+                label: l10n.subTitle,
                 onTap: () => context.push(AppRoute.subscription),
               ),
               _ActionRow(
                 icon: Icons.share_outlined,
-                label: 'Referrals',
+                label: l10n.referrals,
                 onTap: () => context.push(AppRoute.referrals),
               ),
               const SizedBox(height: RadhaSpacing.space24),
-              const _SectionLabel(label: 'Preferences'),
+              _SectionLabel(label: l10n.profileSectionPreferences),
               _ActionRow(
                 icon: Icons.no_food_outlined,
-                label: 'Allergen profile',
+                label: l10n.settingsAllergens,
                 onTap: () => context.push(AppRoute.allergens),
               ),
               _ActionRow(
                 icon: Icons.shopping_basket_outlined,
-                label: 'Shopping list',
+                label: l10n.profileShoppingList,
                 onTap: () => context.push(AppRoute.shoppingList),
               ),
               _ActionRow(
                 icon: Icons.language_outlined,
-                label: 'Language',
+                label: l10n.language,
                 onTap: () => context.push(AppRoute.settingsLanguage),
               ),
               const SizedBox(height: RadhaSpacing.space24),
-              const _SectionLabel(label: 'About'),
+              _SectionLabel(label: l10n.profileSectionAbout),
               _AboutCard(packageInfoAsync: packageInfoAsync),
               const SizedBox(height: RadhaSpacing.space24),
               const _SignOutRow(),
@@ -141,8 +141,9 @@ class _IdentityCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final scheme = theme.colorScheme;
+    final l10n = AppLocalizations.of(context);
 
-    final displayName = _displayName(user);
+    final displayName = _displayName(user, l10n);
     final primaryRole = (user?.roles.isNotEmpty == true)
         ? user!.roles.first
         : null;
@@ -204,9 +205,9 @@ class _IdentityCard extends StatelessWidget {
   /// Picks the best string we have for the user. The auth session today
   /// only carries `userId`, but if the API later includes a `name` field
   /// in `CurrentUser` it will surface here automatically.
-  static String _displayName(CurrentUser? user) {
-    if (user == null) return 'Guest';
-    if (user.userId.isEmpty) return 'You';
+  static String _displayName(CurrentUser? user, AppLocalizations l10n) {
+    if (user == null) return l10n.profileGuestName;
+    if (user.userId.isEmpty) return l10n.profileYouName;
     return user.userId;
   }
 }
@@ -250,9 +251,8 @@ class _RoleChip extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final scheme = theme.colorScheme;
-    final label = role.isEmpty
-        ? 'Member'
-        : role[0].toUpperCase() + role.substring(1);
+    final l10n = AppLocalizations.of(context);
+    final label = _roleLabel(role, l10n);
 
     return Container(
       padding: const EdgeInsets.symmetric(
@@ -271,6 +271,30 @@ class _RoleChip extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String _roleLabel(String role, AppLocalizations l10n) {
+    final raw = role.trim();
+    switch (raw.toLowerCase()) {
+      case 'owner':
+        return l10n.profileRoleOwner;
+      case 'manager':
+        return l10n.profileRoleManager;
+      case 'staff':
+        return l10n.profileRoleStaff;
+      case 'auditor':
+        return l10n.profileRoleAuditor;
+      case 'consumer':
+        return l10n.profileRoleConsumer;
+      case 'admin':
+      case 'tenant_admin':
+      case 'admin_lite':
+        return l10n.profileRoleAdmin;
+      case '':
+        return l10n.profileRoleMember;
+      default:
+        return raw[0].toUpperCase() + raw.substring(1);
+    }
   }
 }
 
@@ -381,6 +405,7 @@ class _AboutCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final scheme = theme.colorScheme;
+    final l10n = AppLocalizations.of(context);
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: RadhaSpacing.space16),
@@ -408,7 +433,7 @@ class _AboutCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'RADHA',
+                      l10n.appName,
                       style: theme.textTheme.titleSmall?.copyWith(
                         color: scheme.onSurface,
                       ),
@@ -416,19 +441,22 @@ class _AboutCard extends StatelessWidget {
                     const SizedBox(height: 2),
                     packageInfoAsync.when(
                       loading: () => Text(
-                        'Loading version…',
+                        l10n.profileVersionLoading,
                         style: theme.textTheme.bodySmall?.copyWith(
                           color: scheme.onSurfaceVariant,
                         ),
                       ),
                       error: (_, _) => Text(
-                        'Version unavailable',
+                        l10n.profileVersionUnavailable,
                         style: theme.textTheme.bodySmall?.copyWith(
                           color: scheme.onSurfaceVariant,
                         ),
                       ),
                       data: (info) => Text(
-                        'Version ${info.version} (${info.buildNumber})',
+                        l10n.settingsVersionValue(
+                          info.version,
+                          info.buildNumber,
+                        ),
                         style: theme.textTheme.bodySmall?.copyWith(
                           color: scheme.onSurfaceVariant,
                         ),
@@ -459,22 +487,21 @@ class _SignOutRowState extends ConsumerState<_SignOutRow> {
 
   Future<void> _confirmAndSignOut() async {
     if (_busy) return;
+    final l10n = AppLocalizations.of(context);
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (dialogContext) {
         return AlertDialog(
-          title: const Text('Sign out'),
-          content: const Text(
-            'You will need to sign in again with an OTP to use the app.',
-          ),
+          title: Text(l10n.signOut),
+          content: Text(l10n.profileSignOutConfirmBody),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(dialogContext).pop(false),
-              child: const Text('Cancel'),
+              child: Text(l10n.cancel),
             ),
             TextButton(
               onPressed: () => Navigator.of(dialogContext).pop(true),
-              child: const Text('Sign out'),
+              child: Text(l10n.signOut),
             ),
           ],
         );
@@ -501,6 +528,7 @@ class _SignOutRowState extends ConsumerState<_SignOutRow> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final scheme = theme.colorScheme;
+    final l10n = AppLocalizations.of(context);
 
     return InkWell(
       onTap: _busy ? null : _confirmAndSignOut,
@@ -516,7 +544,7 @@ class _SignOutRowState extends ConsumerState<_SignOutRow> {
             const SizedBox(width: RadhaSpacing.space16),
             Expanded(
               child: Text(
-                'Sign out',
+                l10n.signOut,
                 style: theme.textTheme.titleSmall?.copyWith(
                   color: scheme.error,
                 ),

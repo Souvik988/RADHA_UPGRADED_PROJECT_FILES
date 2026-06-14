@@ -443,6 +443,58 @@ class AppLocalizationsEn extends AppLocalizations {
   String get catalogDetailScanToUnlock => 'Scan to unlock';
 
   @override
+  String get profileSectionAccount => 'Account';
+
+  @override
+  String get profileManageStores => 'Manage stores';
+
+  @override
+  String get profileSectionPreferences => 'Preferences';
+
+  @override
+  String get profileShoppingList => 'Shopping list';
+
+  @override
+  String get profileSectionAbout => 'About';
+
+  @override
+  String get profileGuestName => 'Guest';
+
+  @override
+  String get profileYouName => 'You';
+
+  @override
+  String get profileRoleMember => 'Member';
+
+  @override
+  String get profileRoleOwner => 'Owner';
+
+  @override
+  String get profileRoleManager => 'Manager';
+
+  @override
+  String get profileRoleStaff => 'Staff';
+
+  @override
+  String get profileRoleAuditor => 'Auditor';
+
+  @override
+  String get profileRoleConsumer => 'Consumer';
+
+  @override
+  String get profileRoleAdmin => 'Admin';
+
+  @override
+  String get profileVersionLoading => 'Loading version…';
+
+  @override
+  String get profileVersionUnavailable => 'Version unavailable';
+
+  @override
+  String get profileSignOutConfirmBody =>
+      'You will need to sign in again with an OTP to use the app.';
+
+  @override
   String get appName => 'RADHA';
 
   @override

@@ -446,6 +446,58 @@ class AppLocalizationsBn extends AppLocalizations {
   String get catalogDetailScanToUnlock => 'আনলক করতে স্ক্যান করুন';
 
   @override
+  String get profileSectionAccount => 'অ্যাকাউন্ট';
+
+  @override
+  String get profileManageStores => 'স্টোর পরিচালনা করুন';
+
+  @override
+  String get profileSectionPreferences => 'পছন্দ';
+
+  @override
+  String get profileShoppingList => 'শপিং তালিকা';
+
+  @override
+  String get profileSectionAbout => 'সম্পর্কে';
+
+  @override
+  String get profileGuestName => 'অতিথি';
+
+  @override
+  String get profileYouName => 'আপনি';
+
+  @override
+  String get profileRoleMember => 'সদস্য';
+
+  @override
+  String get profileRoleOwner => 'মালিক';
+
+  @override
+  String get profileRoleManager => 'ম্যানেজার';
+
+  @override
+  String get profileRoleStaff => 'স্টাফ';
+
+  @override
+  String get profileRoleAuditor => 'অডিটর';
+
+  @override
+  String get profileRoleConsumer => 'ভোক্তা';
+
+  @override
+  String get profileRoleAdmin => 'অ্যাডমিন';
+
+  @override
+  String get profileVersionLoading => 'ভার্সন লোড হচ্ছে…';
+
+  @override
+  String get profileVersionUnavailable => 'ভার্সন পাওয়া যায়নি';
+
+  @override
+  String get profileSignOutConfirmBody =>
+      'অ্যাপ ব্যবহার করতে আপনাকে আবার OTP দিয়ে সাইন ইন করতে হবে।';
+
+  @override
   String get appName => 'RADHA';
 
   @override

@@ -455,6 +455,58 @@ class AppLocalizationsTa extends AppLocalizations {
   String get catalogDetailScanToUnlock => 'திறக்க ஸ்கேன் செய்';
 
   @override
+  String get profileSectionAccount => 'கணக்கு';
+
+  @override
+  String get profileManageStores => 'கடைகளை நிர்வகிக்கவும்';
+
+  @override
+  String get profileSectionPreferences => 'விருப்பங்கள்';
+
+  @override
+  String get profileShoppingList => 'ஷாப்பிங் பட்டியல்';
+
+  @override
+  String get profileSectionAbout => 'பற்றி';
+
+  @override
+  String get profileGuestName => 'விருந்தினர்';
+
+  @override
+  String get profileYouName => 'நீங்கள்';
+
+  @override
+  String get profileRoleMember => 'உறுப்பினர்';
+
+  @override
+  String get profileRoleOwner => 'உரிமையாளர்';
+
+  @override
+  String get profileRoleManager => 'மேலாளர்';
+
+  @override
+  String get profileRoleStaff => 'பணியாளர்';
+
+  @override
+  String get profileRoleAuditor => 'ஆடிட்டர்';
+
+  @override
+  String get profileRoleConsumer => 'நுகர்வோர்';
+
+  @override
+  String get profileRoleAdmin => 'நிர்வாகி';
+
+  @override
+  String get profileVersionLoading => 'பதிப்பு ஏற்றப்படுகிறது…';
+
+  @override
+  String get profileVersionUnavailable => 'பதிப்பு கிடைக்கவில்லை';
+
+  @override
+  String get profileSignOutConfirmBody =>
+      'ஆப்பைப் பயன்படுத்த மீண்டும் OTP மூலம் உள்நுழைய வேண்டும்.';
+
+  @override
   String get appName => 'RADHA';
 
   @override

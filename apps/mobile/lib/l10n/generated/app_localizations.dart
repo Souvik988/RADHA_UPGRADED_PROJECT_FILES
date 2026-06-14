@@ -850,6 +850,108 @@ abstract class AppLocalizations {
   /// **'Scan to unlock'**
   String get catalogDetailScanToUnlock;
 
+  /// Section header on the Profile tab for account-related links.
+  ///
+  /// In en, this message translates to:
+  /// **'Account'**
+  String get profileSectionAccount;
+
+  /// Profile row label that opens store selection / store management.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage stores'**
+  String get profileManageStores;
+
+  /// Section header on the Profile tab for user preference links.
+  ///
+  /// In en, this message translates to:
+  /// **'Preferences'**
+  String get profileSectionPreferences;
+
+  /// Profile row label that opens the shopping list.
+  ///
+  /// In en, this message translates to:
+  /// **'Shopping list'**
+  String get profileShoppingList;
+
+  /// Section header on the Profile tab for app metadata.
+  ///
+  /// In en, this message translates to:
+  /// **'About'**
+  String get profileSectionAbout;
+
+  /// Fallback display name when no user session is loaded.
+  ///
+  /// In en, this message translates to:
+  /// **'Guest'**
+  String get profileGuestName;
+
+  /// Fallback display name when the signed-in user id is unexpectedly empty.
+  ///
+  /// In en, this message translates to:
+  /// **'You'**
+  String get profileYouName;
+
+  /// Fallback role chip label on the Profile tab.
+  ///
+  /// In en, this message translates to:
+  /// **'Member'**
+  String get profileRoleMember;
+
+  /// Role chip label for business owner users.
+  ///
+  /// In en, this message translates to:
+  /// **'Owner'**
+  String get profileRoleOwner;
+
+  /// Role chip label for store managers.
+  ///
+  /// In en, this message translates to:
+  /// **'Manager'**
+  String get profileRoleManager;
+
+  /// Role chip label for staff users.
+  ///
+  /// In en, this message translates to:
+  /// **'Staff'**
+  String get profileRoleStaff;
+
+  /// Role chip label for auditor users.
+  ///
+  /// In en, this message translates to:
+  /// **'Auditor'**
+  String get profileRoleAuditor;
+
+  /// Role chip label for consumer users.
+  ///
+  /// In en, this message translates to:
+  /// **'Consumer'**
+  String get profileRoleConsumer;
+
+  /// Role chip label for platform or tenant admins.
+  ///
+  /// In en, this message translates to:
+  /// **'Admin'**
+  String get profileRoleAdmin;
+
+  /// Profile about-card text while app version is loading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading version…'**
+  String get profileVersionLoading;
+
+  /// Profile about-card text when app version cannot be read.
+  ///
+  /// In en, this message translates to:
+  /// **'Version unavailable'**
+  String get profileVersionUnavailable;
+
+  /// Confirmation dialog body shown before signing out from the Profile tab. OTP is a product term; do not translate OTP.
+  ///
+  /// In en, this message translates to:
+  /// **'You will need to sign in again with an OTP to use the app.'**
+  String get profileSignOutConfirmBody;
+
   /// App name (brand mark, do not translate).
   ///
   /// In en, this message translates to:

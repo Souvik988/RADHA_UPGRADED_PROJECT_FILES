@@ -443,6 +443,58 @@ class AppLocalizationsHi extends AppLocalizations {
   String get catalogDetailScanToUnlock => 'अनलॉक करने के लिए स्कैन करें';
 
   @override
+  String get profileSectionAccount => 'खाता';
+
+  @override
+  String get profileManageStores => 'स्टोर प्रबंधित करें';
+
+  @override
+  String get profileSectionPreferences => 'पसंदें';
+
+  @override
+  String get profileShoppingList => 'शॉपिंग सूची';
+
+  @override
+  String get profileSectionAbout => 'जानकारी';
+
+  @override
+  String get profileGuestName => 'अतिथि';
+
+  @override
+  String get profileYouName => 'आप';
+
+  @override
+  String get profileRoleMember => 'सदस्य';
+
+  @override
+  String get profileRoleOwner => 'मालिक';
+
+  @override
+  String get profileRoleManager => 'मैनेजर';
+
+  @override
+  String get profileRoleStaff => 'स्टाफ';
+
+  @override
+  String get profileRoleAuditor => 'ऑडिटर';
+
+  @override
+  String get profileRoleConsumer => 'उपभोक्ता';
+
+  @override
+  String get profileRoleAdmin => 'एडमिन';
+
+  @override
+  String get profileVersionLoading => 'वर्ज़न लोड हो रहा है…';
+
+  @override
+  String get profileVersionUnavailable => 'वर्ज़न उपलब्ध नहीं है';
+
+  @override
+  String get profileSignOutConfirmBody =>
+      'ऐप इस्तेमाल करने के लिए आपको OTP से फिर साइन इन करना होगा।';
+
+  @override
   String get appName => 'RADHA';
 
   @override

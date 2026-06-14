@@ -445,6 +445,58 @@ class AppLocalizationsMr extends AppLocalizations {
   String get catalogDetailScanToUnlock => 'अनलॉक करण्यासाठी स्कॅन करा';
 
   @override
+  String get profileSectionAccount => 'खाते';
+
+  @override
+  String get profileManageStores => 'स्टोअर्स व्यवस्थापित करा';
+
+  @override
+  String get profileSectionPreferences => 'प्राधान्ये';
+
+  @override
+  String get profileShoppingList => 'खरेदी यादी';
+
+  @override
+  String get profileSectionAbout => 'माहिती';
+
+  @override
+  String get profileGuestName => 'अतिथी';
+
+  @override
+  String get profileYouName => 'तुम्ही';
+
+  @override
+  String get profileRoleMember => 'सदस्य';
+
+  @override
+  String get profileRoleOwner => 'मालक';
+
+  @override
+  String get profileRoleManager => 'व्यवस्थापक';
+
+  @override
+  String get profileRoleStaff => 'स्टाफ';
+
+  @override
+  String get profileRoleAuditor => 'ऑडिटर';
+
+  @override
+  String get profileRoleConsumer => 'ग्राहक';
+
+  @override
+  String get profileRoleAdmin => 'अॅडमिन';
+
+  @override
+  String get profileVersionLoading => 'आवृत्ती लोड होत आहे…';
+
+  @override
+  String get profileVersionUnavailable => 'आवृत्ती उपलब्ध नाही';
+
+  @override
+  String get profileSignOutConfirmBody =>
+      'अॅप वापरण्यासाठी तुम्हाला OTP ने पुन्हा साइन इन करावे लागेल.';
+
+  @override
   String get appName => 'RADHA';
 
   @override

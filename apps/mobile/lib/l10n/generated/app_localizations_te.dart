@@ -450,6 +450,58 @@ class AppLocalizationsTe extends AppLocalizations {
   String get catalogDetailScanToUnlock => 'అన్‌లాక్ చేయడానికి స్కాన్ చేయండి';
 
   @override
+  String get profileSectionAccount => 'ఖాతా';
+
+  @override
+  String get profileManageStores => 'స్టోర్లను నిర్వహించండి';
+
+  @override
+  String get profileSectionPreferences => 'ప్రాధాన్యతలు';
+
+  @override
+  String get profileShoppingList => 'షాపింగ్ జాబితా';
+
+  @override
+  String get profileSectionAbout => 'గురించి';
+
+  @override
+  String get profileGuestName => 'అతిథి';
+
+  @override
+  String get profileYouName => 'మీరు';
+
+  @override
+  String get profileRoleMember => 'సభ్యుడు';
+
+  @override
+  String get profileRoleOwner => 'యజమాని';
+
+  @override
+  String get profileRoleManager => 'మేనేజర్';
+
+  @override
+  String get profileRoleStaff => 'సిబ్బంది';
+
+  @override
+  String get profileRoleAuditor => 'ఆడిటర్';
+
+  @override
+  String get profileRoleConsumer => 'వినియోగదారు';
+
+  @override
+  String get profileRoleAdmin => 'అడ్మిన్';
+
+  @override
+  String get profileVersionLoading => 'వెర్షన్ లోడ్ అవుతోంది…';
+
+  @override
+  String get profileVersionUnavailable => 'వెర్షన్ అందుబాటులో లేదు';
+
+  @override
+  String get profileSignOutConfirmBody =>
+      'యాప్ ఉపయోగించడానికి మళ్లీ OTPతో సైన్ ఇన్ చేయాలి.';
+
+  @override
   String get appName => 'RADHA';
 
   @override
