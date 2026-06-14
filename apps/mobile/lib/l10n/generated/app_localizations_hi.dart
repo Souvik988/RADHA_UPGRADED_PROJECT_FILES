@@ -204,6 +204,12 @@ class AppLocalizationsHi extends AppLocalizations {
   }
 
   @override
+  String get catalogFeaturedTitle => 'खास उत्पाद';
+
+  @override
+  String get catalogHealthyPicksTitle => 'सेहतमंद चुनिंदा';
+
+  @override
   String get appName => 'RADHA';
 
   @override

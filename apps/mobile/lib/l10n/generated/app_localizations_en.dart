@@ -203,6 +203,12 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get catalogFeaturedTitle => 'Featured products';
+
+  @override
+  String get catalogHealthyPicksTitle => 'Healthy picks';
+
+  @override
   String get appName => 'RADHA';
 
   @override

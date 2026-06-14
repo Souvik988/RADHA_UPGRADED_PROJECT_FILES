@@ -55,6 +55,8 @@
   "catalogShowAll": "সব দেখান",
   "catalogNoProductsTitle": "এখনও কোনও পণ্য নেই",
   "catalogNoProductsBody": "আমরা {category} বিভাগটি সাজাচ্ছি। ইতিমধ্যে, যেকোনও আইটেম স্ক্যান করে তার স্বাস্থ্য ও মেয়াদ পরীক্ষা করুন।",
+  "catalogFeaturedTitle": "বিশেষ পণ্য",
+  "catalogHealthyPicksTitle": "স্বাস্থ্যকর বাছাই",
 
   "appName": "RADHA",
   "tagline": "ডেটা, স্বাস্থ্য এবং অডিটের জন্য খুচরা সহকারী।",

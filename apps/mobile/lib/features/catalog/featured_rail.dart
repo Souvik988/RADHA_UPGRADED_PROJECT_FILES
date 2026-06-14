@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:radha_mobile/core/router/app_router.dart';
+import 'package:radha_mobile/l10n/generated/app_localizations.dart';
 import 'package:radha_mobile/design/tokens.dart';
 import 'package:radha_mobile/design/widgets/skeleton_loader.dart';
 import 'package:radha_mobile/features/catalog/catalog_health.dart';
@@ -22,6 +23,7 @@ class FeaturedProductsRail extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     final async = ref.watch(featuredProductsProvider);
 
     // "Healthy picks" is an honest claim only once the rail actually carries
@@ -32,7 +34,9 @@ class FeaturedProductsRail extends ConsumerWidget {
           (p) => p.healthGrade != null || p.healthScore != null,
         ) ??
         false;
-    final title = hasRatings ? 'Healthy picks' : 'Featured products';
+    final title = hasRatings
+        ? l10n.catalogHealthyPicksTitle
+        : l10n.catalogFeaturedTitle;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

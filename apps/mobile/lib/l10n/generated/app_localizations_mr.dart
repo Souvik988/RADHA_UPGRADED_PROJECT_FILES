@@ -204,6 +204,12 @@ class AppLocalizationsMr extends AppLocalizations {
   }
 
   @override
+  String get catalogFeaturedTitle => 'खास उत्पादने';
+
+  @override
+  String get catalogHealthyPicksTitle => 'आरोग्यदायी निवडी';
+
+  @override
   String get appName => 'RADHA';
 
   @override

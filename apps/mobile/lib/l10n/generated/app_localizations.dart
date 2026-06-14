@@ -418,6 +418,18 @@ abstract class AppLocalizations {
   /// **'We\'re stocking the {category} aisle. Meanwhile, scan any item to check its health and expiry.'**
   String catalogNoProductsBody(String category);
 
+  /// No description provided for @catalogFeaturedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Featured products'**
+  String get catalogFeaturedTitle;
+
+  /// No description provided for @catalogHealthyPicksTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Healthy picks'**
+  String get catalogHealthyPicksTitle;
+
   /// App name (brand mark, do not translate).
   ///
   /// In en, this message translates to:

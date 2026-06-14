@@ -55,6 +55,8 @@
   "catalogShowAll": "அனைத்தையும் காட்டு",
   "catalogNoProductsTitle": "இன்னும் தயாரிப்புகள் இல்லை",
   "catalogNoProductsBody": "{category} பிரிவை நிரப்பி வருகிறோம். அதுவரை, எந்தப் பொருளையும் ஸ்கேன் செய்து அதன் ஆரோக்கியம் மற்றும் காலாவதியைச் சரிபார்க்கவும்.",
+  "catalogFeaturedTitle": "சிறப்பு தயாரிப்புகள்",
+  "catalogHealthyPicksTitle": "ஆரோக்கியத் தேர்வுகள்",
 
   "appName": "RADHA",
   "tagline": "தரவு, ஆரோக்கியம் மற்றும் தணிக்கைக்கான சில்லறை உதவியாளர்.",

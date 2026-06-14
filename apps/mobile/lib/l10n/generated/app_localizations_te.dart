@@ -205,6 +205,12 @@ class AppLocalizationsTe extends AppLocalizations {
   }
 
   @override
+  String get catalogFeaturedTitle => 'ప్రత్యేక ఉత్పత్తులు';
+
+  @override
+  String get catalogHealthyPicksTitle => 'ఆరోగ్యకర ఎంపికలు';
+
+  @override
   String get appName => 'RADHA';
 
   @override

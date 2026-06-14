@@ -205,6 +205,12 @@ class AppLocalizationsBn extends AppLocalizations {
   }
 
   @override
+  String get catalogFeaturedTitle => 'বিশেষ পণ্য';
+
+  @override
+  String get catalogHealthyPicksTitle => 'স্বাস্থ্যকর বাছাই';
+
+  @override
   String get appName => 'RADHA';
 
   @override

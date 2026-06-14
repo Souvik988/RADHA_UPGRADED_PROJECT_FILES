@@ -69,6 +69,8 @@
   "catalogNoProductsTitle": "No products yet",
   "catalogNoProductsBody": "We're stocking the {category} aisle. Meanwhile, scan any item to check its health and expiry.",
   "@catalogNoProductsBody": { "description": "Empty category state. category is the (lowercased) category name.", "placeholders": { "category": { "type": "String" } } },
+  "catalogFeaturedTitle": "Featured products",
+  "catalogHealthyPicksTitle": "Healthy picks",
 
   "appName": "RADHA",
   "@appName": { "description": "App name (brand mark, do not translate)." },

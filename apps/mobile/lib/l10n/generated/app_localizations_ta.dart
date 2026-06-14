@@ -206,6 +206,12 @@ class AppLocalizationsTa extends AppLocalizations {
   }
 
   @override
+  String get catalogFeaturedTitle => 'சிறப்பு தயாரிப்புகள்';
+
+  @override
+  String get catalogHealthyPicksTitle => 'ஆரோக்கியத் தேர்வுகள்';
+
+  @override
   String get appName => 'RADHA';
 
   @override

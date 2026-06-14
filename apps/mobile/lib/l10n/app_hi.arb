@@ -55,6 +55,8 @@
   "catalogShowAll": "सभी दिखाएँ",
   "catalogNoProductsTitle": "अभी कोई उत्पाद नहीं",
   "catalogNoProductsBody": "हम {category} सेक्शन भर रहे हैं। तब तक, किसी भी आइटम को स्कैन करके उसकी सेहत और एक्सपायरी जाँचें।",
+  "catalogFeaturedTitle": "खास उत्पाद",
+  "catalogHealthyPicksTitle": "सेहतमंद चुनिंदा",
 
   "appName": "RADHA",
   "tagline": "डेटा, स्वास्थ्य और ऑडिट के लिए रिटेल असिस्टेंट।",

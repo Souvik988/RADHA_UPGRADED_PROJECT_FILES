@@ -55,6 +55,8 @@
   "catalogShowAll": "అన్నీ చూపించు",
   "catalogNoProductsTitle": "ఇంకా ఉత్పత్తులు లేవు",
   "catalogNoProductsBody": "మేము {category} విభాగాన్ని నింపుతున్నాం. ఈలోపు, ఏదైనా వస్తువును స్కాన్ చేసి దాని ఆరోగ్యం మరియు గడువును తనిఖీ చేయండి.",
+  "catalogFeaturedTitle": "ప్రత్యేక ఉత్పత్తులు",
+  "catalogHealthyPicksTitle": "ఆరోగ్యకర ఎంపికలు",
 
   "appName": "RADHA",
   "tagline": "డేటా, ఆరోగ్యం మరియు ఆడిట్‌ల కోసం రిటైల్ అసిస్టెంట్.",

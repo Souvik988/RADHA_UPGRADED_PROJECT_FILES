@@ -14,6 +14,7 @@ import 'package:radha_mobile/core/network/dto/task_dto.dart';
 import 'package:radha_mobile/design/widgets/skeleton_loader.dart';
 import 'package:radha_mobile/features/home/home_screen.dart';
 import 'package:radha_mobile/features/home/providers/home_summary_providers.dart';
+import 'package:radha_mobile/l10n/generated/app_localizations.dart';
 
 class _MockApiClient extends Mock implements ApiClient {}
 
@@ -36,7 +37,11 @@ final _testSession = AuthSession(
 Widget _buildHarness({required List<Override> overrides}) {
   return ProviderScope(
     overrides: overrides,
-    child: const MaterialApp(home: Scaffold(body: HomeScreen())),
+    child: MaterialApp(
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      home: const Scaffold(body: HomeScreen()),
+    ),
   );
 }
 
