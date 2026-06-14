@@ -212,6 +212,249 @@ class AppLocalizationsTa extends AppLocalizations {
   String get catalogHealthyPicksTitle => 'ஆரோக்கியத் தேர்வுகள்';
 
   @override
+  String get catalogDetailProductFallback => 'தயாரிப்பு';
+
+  @override
+  String get catalogDetailTitle => 'தயாரிப்பு';
+
+  @override
+  String get catalogDetailShareTooltip => 'பகிர்';
+
+  @override
+  String get catalogDetailSeeHealthierOptions =>
+      'ஆரோக்கியமான மாற்றுகளைப் பார்க்கவும்';
+
+  @override
+  String get catalogDetailSavedSnackbar =>
+      'சேமிக்கப்பட்டது — இது ஒருநாள் ரீகால் செய்யப்பட்டால் நாங்கள் எச்சரிப்போம்.';
+
+  @override
+  String get catalogDetailSaveFailedSnackbar =>
+      'சேமிக்க முடியவில்லை. மீண்டும் முயற்சிக்கவும்.';
+
+  @override
+  String catalogDetailShareRating(String rating, String label) {
+    return ' — RADHA ஆரோக்கிய மதிப்பீடு $rating/5 ($label)';
+  }
+
+  @override
+  String catalogDetailShareText(String productName, String ratingSummary) {
+    return 'RADHA-வில் \"$productName\" சரிபார்க்கப்பட்டது$ratingSummary.';
+  }
+
+  @override
+  String get catalogDetailSavedTooltip => 'சேமிக்கப்பட்டது';
+
+  @override
+  String get catalogDetailHealthPendingTitle =>
+      'ஆரோக்கிய மதிப்பீடு இன்னும் வரவில்லை';
+
+  @override
+  String get catalogDetailHealthPendingBody =>
+      'இந்த தயாரிப்பை ஸ்கேன் செய்து அதன் முழு ஆரோக்கிய பகுப்பாய்வை RADHA-வில் பெறுங்கள்.';
+
+  @override
+  String get catalogDetailHealthRatingLabel => 'RADHA ஆரோக்கிய மதிப்பீடு';
+
+  @override
+  String get catalogDetailHealthExcellent => 'சிறந்தது';
+
+  @override
+  String get catalogDetailHealthGood => 'நன்று';
+
+  @override
+  String get catalogDetailHealthFair => 'சராசரி';
+
+  @override
+  String get catalogDetailHealthPoor => 'பலவீனம்';
+
+  @override
+  String get catalogDetailHealthAvoid => 'தவிர்க்கவும்';
+
+  @override
+  String get catalogDetailInsightHighProtein => 'அதிக புரதம்';
+
+  @override
+  String get catalogDetailInsightGoodFibre => 'நல்ல நார்ச்சத்து';
+
+  @override
+  String get catalogDetailInsightMinimallyProcessed =>
+      'குறைவாக செயலாக்கப்பட்டது';
+
+  @override
+  String get catalogDetailConcernHighSugar => 'அதிக சர்க்கரை';
+
+  @override
+  String get catalogDetailConcernHighSaturatedFat =>
+      'அதிக செறிவூட்டப்பட்ட கொழுப்பு';
+
+  @override
+  String get catalogDetailConcernHighSodium => 'அதிக சோடியம்';
+
+  @override
+  String get catalogDetailConcernUltraProcessed => 'அல்ட்ரா-செயலாக்கப்பட்டது';
+
+  @override
+  String get catalogDetailConcernContainsTransFat => 'டிரான்ஸ் கொழுப்பு உள்ளது';
+
+  @override
+  String get catalogDetailConcernContainsAllergens => 'ஒவ்வாமை தூண்டிகள் உள்ளன';
+
+  @override
+  String get catalogDetailLikeHeading => 'உங்களுக்கு பிடிக்கும் அம்சங்கள்';
+
+  @override
+  String get catalogDetailConcernHeading => 'கவனிக்க வேண்டியவை';
+
+  @override
+  String get catalogDetailNutritionSourceNote =>
+      'தயாரிப்பின் உண்மையான ஊட்டச்சத்து தரவை அடிப்படையாகக் கொண்டது (100 கிராமுக்கு).';
+
+  @override
+  String get catalogDetailKeyNutrients => 'முக்கிய ஊட்டச்சத்துகள்';
+
+  @override
+  String get catalogDetailNutrientProtein => 'புரதம்';
+
+  @override
+  String get catalogDetailNutrientTotalSugars => 'மொத்த சர்க்கரை';
+
+  @override
+  String get catalogDetailNutrientEnergy => 'ஆற்றல்';
+
+  @override
+  String get catalogDetailAllNutrients => 'அனைத்து ஊட்டச்சத்துகள்';
+
+  @override
+  String get catalogDetailNutrientTotalFat => 'மொத்த கொழுப்பு';
+
+  @override
+  String get catalogDetailNutrientSaturatedFat => 'செறிவூட்டப்பட்ட கொழுப்பு';
+
+  @override
+  String get catalogDetailNutrientCarbohydrates => 'கார்போஹைட்ரேட்டுகள்';
+
+  @override
+  String get catalogDetailNutrientFibre => 'நார்ச்சத்து';
+
+  @override
+  String get catalogDetailNutrientSodium => 'சோடியம்';
+
+  @override
+  String get catalogDetailPer100g => '100 கிராமுக்கு';
+
+  @override
+  String get catalogDetailPer50g => '50 கிராமுக்கு';
+
+  @override
+  String get catalogDetailRdaNote =>
+      'குறிப்பு தினசரி உட்கொள்ளலின் % (வயது வந்தோர்).';
+
+  @override
+  String get catalogDetailRadhaPlus => 'RADHA Plus';
+
+  @override
+  String get catalogDetailForYou => 'உங்களுக்காக';
+
+  @override
+  String get catalogDetailIngredientDeepDiveTitle =>
+      'சேர்வுப் பொருள் விரிவாய்வு';
+
+  @override
+  String get catalogDetailIngredientDeepDiveLockedBody =>
+      'ஒவ்வொரு சேர்வையும் பாதுகாப்பு கருத்துடன் புரிந்து கொள்ளுங்கள் — அது என்ன, ஏன் சேர்க்கப்பட்டது, கவலைப்பட வேண்டுமா என்பதும்.';
+
+  @override
+  String get catalogDetailIngredientExplainError =>
+      'இந்த சேர்வுகளை இப்போது விளக்க முடியவில்லை.';
+
+  @override
+  String get catalogDetailPersonalisedFlagsTitle => 'தனிப்பயன் எச்சரிக்கைகள்';
+
+  @override
+  String get catalogDetailPersonalisedFlagsLockedBody =>
+      'இந்த தயாரிப்பை உங்கள் சேமித்த ஒவ்வாமைகள் மற்றும் ஆரோக்கிய இலக்குகளுடன் ஒப்பிடுங்கள் — உங்களுக்கு சரியா தவறா என்பதை நாங்கள் காட்டுவோம்.';
+
+  @override
+  String get catalogDetailPersonaliseError =>
+      'இதை இப்போது தனிப்பயனாக்க முடியவில்லை.';
+
+  @override
+  String get catalogDetailNoAllergensDetected =>
+      'இந்த தயாரிப்பில் ஒவ்வாமை தூண்டிகள் கண்டறியப்படவில்லை.';
+
+  @override
+  String catalogDetailAllergenAvoided(String allergen) {
+    return '$allergen — இதை நீங்கள் தவிர்க்கிறீர்கள்';
+  }
+
+  @override
+  String catalogDetailUnlockWithPlan(String plan) {
+    return '$plan மூலம் திறக்கவும்';
+  }
+
+  @override
+  String get catalogDetailWouldBuyQuestion =>
+      'இந்த தயாரிப்பை நீங்கள் வாங்குவீர்களா?';
+
+  @override
+  String get catalogDetailWouldBuyThanks => 'பகிர்ந்ததற்கு நன்றி!';
+
+  @override
+  String get catalogDetailWouldBuyYes => 'ஆம்';
+
+  @override
+  String get catalogDetailWouldBuyNo => 'இல்லை';
+
+  @override
+  String get catalogDetailWouldBuyAlreadyBought => 'ஏற்கனவே வாங்கியது';
+
+  @override
+  String get catalogDetailNutritionNotFoundTitle =>
+      'இந்த பதிவு இன்னும் எங்களிடம் இல்லை';
+
+  @override
+  String get catalogDetailNutritionNotFoundBody =>
+      'இந்த தயாரிப்பின் முழு ஊட்டச்சத்து RADHA-வில் இன்னும் இல்லை. உண்மையான தரவை பெற அதன் பார்கோடு அல்லது லேபிளை ஸ்கேன் செய்யுங்கள்.';
+
+  @override
+  String get catalogDetailNutritionOfflineTitle =>
+      'நீங்கள் ஆஃப்லைனில் உள்ளீர்கள்';
+
+  @override
+  String get catalogDetailNutritionOfflineBody =>
+      'ஊட்டச்சத்தை ஏற்ற முடியவில்லை. மேலுள்ள தயாரிப்பு விவரங்கள் அப்படியே உள்ளன — மீண்டும் இணைந்து முயற்சிக்கவும்.';
+
+  @override
+  String get catalogDetailNutritionSessionExpiredTitle => 'அமர்வு காலாவதியானது';
+
+  @override
+  String get catalogDetailNutritionSessionExpiredBody =>
+      'மீண்டும் முயற்சிக்கவும் — RADHA உங்கள் அமர்வை புதுப்பித்து மீண்டும் முயறும்.';
+
+  @override
+  String get catalogDetailNutritionServerTitle =>
+      'ஊட்டச்சத்தை ஏற்ற முடியவில்லை';
+
+  @override
+  String get catalogDetailNutritionServerBody =>
+      'விவரங்களை பெறும்போது ஏதோ தவறு நடந்தது. மேலுள்ள தயாரிப்பு தகவல் பாதிக்கப்படவில்லை.';
+
+  @override
+  String get catalogDetailScanLabel => 'லேபிளை ஸ்கேன் செய்';
+
+  @override
+  String get catalogDetailFullNutritionPendingTitle =>
+      'முழு ஊட்டச்சத்து இன்னும் இல்லை';
+
+  @override
+  String get catalogDetailFullNutritionPendingBody =>
+      'இந்த தயாரிப்பின் பார்கோடை ஸ்கேன் செய்து உண்மையான ஊட்டச்சத்து மற்றும் ஆரோக்கிய பகுப்பாய்வை RADHA-வில் பெறுங்கள் — ஒரு நொடி தான் ஆகும்.';
+
+  @override
+  String get catalogDetailScanToUnlock => 'திறக்க ஸ்கேன் செய்';
+
+  @override
   String get appName => 'RADHA';
 
   @override

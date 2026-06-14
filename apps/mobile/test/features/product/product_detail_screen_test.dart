@@ -7,6 +7,7 @@ import 'package:radha_mobile/core/network/api_client.dart';
 import 'package:radha_mobile/core/network/dto/misc_dto.dart';
 import 'package:radha_mobile/core/network/dto/product_dto.dart';
 import 'package:radha_mobile/features/product/product_detail_screen.dart';
+import 'package:radha_mobile/l10n/generated/app_localizations.dart';
 
 class MockApiClient extends Mock implements ApiClient {}
 
@@ -20,7 +21,11 @@ void main() {
   Widget buildSubject(String ean) {
     return ProviderScope(
       overrides: [apiClientProvider.overrideWithValue(mockClient)],
-      child: MaterialApp(home: ProductDetailScreen(ean: ean)),
+      child: MaterialApp(
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        home: ProductDetailScreen(ean: ean),
+      ),
     );
   }
 

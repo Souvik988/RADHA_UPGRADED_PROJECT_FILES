@@ -430,6 +430,426 @@ abstract class AppLocalizations {
   /// **'Healthy picks'**
   String get catalogHealthyPicksTitle;
 
+  /// No description provided for @catalogDetailProductFallback.
+  ///
+  /// In en, this message translates to:
+  /// **'Product'**
+  String get catalogDetailProductFallback;
+
+  /// No description provided for @catalogDetailTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Product'**
+  String get catalogDetailTitle;
+
+  /// No description provided for @catalogDetailShareTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Share'**
+  String get catalogDetailShareTooltip;
+
+  /// No description provided for @catalogDetailSeeHealthierOptions.
+  ///
+  /// In en, this message translates to:
+  /// **'See healthier options'**
+  String get catalogDetailSeeHealthierOptions;
+
+  /// No description provided for @catalogDetailSavedSnackbar.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved — we\'ll alert you if it\'s ever recalled.'**
+  String get catalogDetailSavedSnackbar;
+
+  /// No description provided for @catalogDetailSaveFailedSnackbar.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not save. Please try again.'**
+  String get catalogDetailSaveFailedSnackbar;
+
+  /// Optional suffix in native share text with the product health rating.
+  ///
+  /// In en, this message translates to:
+  /// **' — RADHA health rating {rating}/5 ({label})'**
+  String catalogDetailShareRating(String rating, String label);
+
+  /// Native share text for a catalog product.
+  ///
+  /// In en, this message translates to:
+  /// **'Checked \"{productName}\" on RADHA{ratingSummary}.'**
+  String catalogDetailShareText(String productName, String ratingSummary);
+
+  /// No description provided for @catalogDetailSavedTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved'**
+  String get catalogDetailSavedTooltip;
+
+  /// No description provided for @catalogDetailHealthPendingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Health rating not in yet'**
+  String get catalogDetailHealthPendingTitle;
+
+  /// No description provided for @catalogDetailHealthPendingBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan this product to pull its full health analysis into RADHA.'**
+  String get catalogDetailHealthPendingBody;
+
+  /// No description provided for @catalogDetailHealthRatingLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'RADHA Health Rating'**
+  String get catalogDetailHealthRatingLabel;
+
+  /// No description provided for @catalogDetailHealthExcellent.
+  ///
+  /// In en, this message translates to:
+  /// **'Excellent'**
+  String get catalogDetailHealthExcellent;
+
+  /// No description provided for @catalogDetailHealthGood.
+  ///
+  /// In en, this message translates to:
+  /// **'Good'**
+  String get catalogDetailHealthGood;
+
+  /// No description provided for @catalogDetailHealthFair.
+  ///
+  /// In en, this message translates to:
+  /// **'Fair'**
+  String get catalogDetailHealthFair;
+
+  /// No description provided for @catalogDetailHealthPoor.
+  ///
+  /// In en, this message translates to:
+  /// **'Poor'**
+  String get catalogDetailHealthPoor;
+
+  /// No description provided for @catalogDetailHealthAvoid.
+  ///
+  /// In en, this message translates to:
+  /// **'Avoid'**
+  String get catalogDetailHealthAvoid;
+
+  /// No description provided for @catalogDetailInsightHighProtein.
+  ///
+  /// In en, this message translates to:
+  /// **'High protein'**
+  String get catalogDetailInsightHighProtein;
+
+  /// No description provided for @catalogDetailInsightGoodFibre.
+  ///
+  /// In en, this message translates to:
+  /// **'Good fibre'**
+  String get catalogDetailInsightGoodFibre;
+
+  /// No description provided for @catalogDetailInsightMinimallyProcessed.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimally processed'**
+  String get catalogDetailInsightMinimallyProcessed;
+
+  /// No description provided for @catalogDetailConcernHighSugar.
+  ///
+  /// In en, this message translates to:
+  /// **'High sugar'**
+  String get catalogDetailConcernHighSugar;
+
+  /// No description provided for @catalogDetailConcernHighSaturatedFat.
+  ///
+  /// In en, this message translates to:
+  /// **'High saturated fat'**
+  String get catalogDetailConcernHighSaturatedFat;
+
+  /// No description provided for @catalogDetailConcernHighSodium.
+  ///
+  /// In en, this message translates to:
+  /// **'High sodium'**
+  String get catalogDetailConcernHighSodium;
+
+  /// No description provided for @catalogDetailConcernUltraProcessed.
+  ///
+  /// In en, this message translates to:
+  /// **'Ultra-processed'**
+  String get catalogDetailConcernUltraProcessed;
+
+  /// No description provided for @catalogDetailConcernContainsTransFat.
+  ///
+  /// In en, this message translates to:
+  /// **'Contains trans fat'**
+  String get catalogDetailConcernContainsTransFat;
+
+  /// No description provided for @catalogDetailConcernContainsAllergens.
+  ///
+  /// In en, this message translates to:
+  /// **'Contains allergens'**
+  String get catalogDetailConcernContainsAllergens;
+
+  /// No description provided for @catalogDetailLikeHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'What you\'ll like'**
+  String get catalogDetailLikeHeading;
+
+  /// No description provided for @catalogDetailConcernHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'What should concern you'**
+  String get catalogDetailConcernHeading;
+
+  /// No description provided for @catalogDetailNutritionSourceNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Based on the product\'s real nutrition (per 100 g).'**
+  String get catalogDetailNutritionSourceNote;
+
+  /// No description provided for @catalogDetailKeyNutrients.
+  ///
+  /// In en, this message translates to:
+  /// **'Key nutrients'**
+  String get catalogDetailKeyNutrients;
+
+  /// No description provided for @catalogDetailNutrientProtein.
+  ///
+  /// In en, this message translates to:
+  /// **'Protein'**
+  String get catalogDetailNutrientProtein;
+
+  /// No description provided for @catalogDetailNutrientTotalSugars.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Sugars'**
+  String get catalogDetailNutrientTotalSugars;
+
+  /// No description provided for @catalogDetailNutrientEnergy.
+  ///
+  /// In en, this message translates to:
+  /// **'Energy'**
+  String get catalogDetailNutrientEnergy;
+
+  /// No description provided for @catalogDetailAllNutrients.
+  ///
+  /// In en, this message translates to:
+  /// **'All nutrients'**
+  String get catalogDetailAllNutrients;
+
+  /// No description provided for @catalogDetailNutrientTotalFat.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Fat'**
+  String get catalogDetailNutrientTotalFat;
+
+  /// No description provided for @catalogDetailNutrientSaturatedFat.
+  ///
+  /// In en, this message translates to:
+  /// **'Saturated Fat'**
+  String get catalogDetailNutrientSaturatedFat;
+
+  /// No description provided for @catalogDetailNutrientCarbohydrates.
+  ///
+  /// In en, this message translates to:
+  /// **'Carbohydrates'**
+  String get catalogDetailNutrientCarbohydrates;
+
+  /// No description provided for @catalogDetailNutrientFibre.
+  ///
+  /// In en, this message translates to:
+  /// **'Fibre'**
+  String get catalogDetailNutrientFibre;
+
+  /// No description provided for @catalogDetailNutrientSodium.
+  ///
+  /// In en, this message translates to:
+  /// **'Sodium'**
+  String get catalogDetailNutrientSodium;
+
+  /// No description provided for @catalogDetailPer100g.
+  ///
+  /// In en, this message translates to:
+  /// **'Per 100 g'**
+  String get catalogDetailPer100g;
+
+  /// No description provided for @catalogDetailPer50g.
+  ///
+  /// In en, this message translates to:
+  /// **'Per 50 g'**
+  String get catalogDetailPer50g;
+
+  /// No description provided for @catalogDetailRdaNote.
+  ///
+  /// In en, this message translates to:
+  /// **'% of reference daily intake (adult).'**
+  String get catalogDetailRdaNote;
+
+  /// No description provided for @catalogDetailRadhaPlus.
+  ///
+  /// In en, this message translates to:
+  /// **'RADHA Plus'**
+  String get catalogDetailRadhaPlus;
+
+  /// No description provided for @catalogDetailForYou.
+  ///
+  /// In en, this message translates to:
+  /// **'For you'**
+  String get catalogDetailForYou;
+
+  /// No description provided for @catalogDetailIngredientDeepDiveTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Ingredient deep-dive'**
+  String get catalogDetailIngredientDeepDiveTitle;
+
+  /// No description provided for @catalogDetailIngredientDeepDiveLockedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'See every ingredient explained with a safety verdict — what it is, why it\'s there, and whether to worry.'**
+  String get catalogDetailIngredientDeepDiveLockedBody;
+
+  /// No description provided for @catalogDetailIngredientExplainError.
+  ///
+  /// In en, this message translates to:
+  /// **'We couldn\'t explain these ingredients right now.'**
+  String get catalogDetailIngredientExplainError;
+
+  /// No description provided for @catalogDetailPersonalisedFlagsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Personalised flags'**
+  String get catalogDetailPersonalisedFlagsTitle;
+
+  /// No description provided for @catalogDetailPersonalisedFlagsLockedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Match this product against your saved allergens & health goals — we\'ll flag what\'s right (or wrong) for you.'**
+  String get catalogDetailPersonalisedFlagsLockedBody;
+
+  /// No description provided for @catalogDetailPersonaliseError.
+  ///
+  /// In en, this message translates to:
+  /// **'We couldn\'t personalise this right now.'**
+  String get catalogDetailPersonaliseError;
+
+  /// No description provided for @catalogDetailNoAllergensDetected.
+  ///
+  /// In en, this message translates to:
+  /// **'No allergens detected in this product.'**
+  String get catalogDetailNoAllergensDetected;
+
+  /// Allergen chip when the product contains something in the user's profile.
+  ///
+  /// In en, this message translates to:
+  /// **'{allergen} — you avoid this'**
+  String catalogDetailAllergenAvoided(String allergen);
+
+  /// Upsell CTA label for a gated catalog detail feature.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock with {plan}'**
+  String catalogDetailUnlockWithPlan(String plan);
+
+  /// No description provided for @catalogDetailWouldBuyQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Would you buy this product?'**
+  String get catalogDetailWouldBuyQuestion;
+
+  /// No description provided for @catalogDetailWouldBuyThanks.
+  ///
+  /// In en, this message translates to:
+  /// **'Thanks for sharing!'**
+  String get catalogDetailWouldBuyThanks;
+
+  /// No description provided for @catalogDetailWouldBuyYes.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes'**
+  String get catalogDetailWouldBuyYes;
+
+  /// No description provided for @catalogDetailWouldBuyNo.
+  ///
+  /// In en, this message translates to:
+  /// **'No'**
+  String get catalogDetailWouldBuyNo;
+
+  /// No description provided for @catalogDetailWouldBuyAlreadyBought.
+  ///
+  /// In en, this message translates to:
+  /// **'Already bought'**
+  String get catalogDetailWouldBuyAlreadyBought;
+
+  /// No description provided for @catalogDetailNutritionNotFoundTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'We don\'t have this record yet'**
+  String get catalogDetailNutritionNotFoundTitle;
+
+  /// No description provided for @catalogDetailNutritionNotFoundBody.
+  ///
+  /// In en, this message translates to:
+  /// **'RADHA doesn\'t have this product\'s full nutrition yet. Scan its barcode or label to pull in the real data.'**
+  String get catalogDetailNutritionNotFoundBody;
+
+  /// No description provided for @catalogDetailNutritionOfflineTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re offline'**
+  String get catalogDetailNutritionOfflineTitle;
+
+  /// No description provided for @catalogDetailNutritionOfflineBody.
+  ///
+  /// In en, this message translates to:
+  /// **'We couldn\'t load nutrition. Your product details above are still here — reconnect and retry.'**
+  String get catalogDetailNutritionOfflineBody;
+
+  /// No description provided for @catalogDetailNutritionSessionExpiredTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Session expired'**
+  String get catalogDetailNutritionSessionExpiredTitle;
+
+  /// No description provided for @catalogDetailNutritionSessionExpiredBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Please retry — RADHA will refresh your session and try again.'**
+  String get catalogDetailNutritionSessionExpiredBody;
+
+  /// No description provided for @catalogDetailNutritionServerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t load nutrition'**
+  String get catalogDetailNutritionServerTitle;
+
+  /// No description provided for @catalogDetailNutritionServerBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong fetching the details. The product info above is unaffected.'**
+  String get catalogDetailNutritionServerBody;
+
+  /// No description provided for @catalogDetailScanLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan label'**
+  String get catalogDetailScanLabel;
+
+  /// No description provided for @catalogDetailFullNutritionPendingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Full nutrition isn\'t in yet'**
+  String get catalogDetailFullNutritionPendingTitle;
+
+  /// No description provided for @catalogDetailFullNutritionPendingBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan this product\'s barcode to pull its real nutrition & health analysis into RADHA — it only takes a second.'**
+  String get catalogDetailFullNutritionPendingBody;
+
+  /// No description provided for @catalogDetailScanToUnlock.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan to unlock'**
+  String get catalogDetailScanToUnlock;
+
   /// App name (brand mark, do not translate).
   ///
   /// In en, this message translates to:

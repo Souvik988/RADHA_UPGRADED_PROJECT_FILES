@@ -210,6 +210,239 @@ class AppLocalizationsHi extends AppLocalizations {
   String get catalogHealthyPicksTitle => 'सेहतमंद चुनिंदा';
 
   @override
+  String get catalogDetailProductFallback => 'उत्पाद';
+
+  @override
+  String get catalogDetailTitle => 'उत्पाद';
+
+  @override
+  String get catalogDetailShareTooltip => 'साझा करें';
+
+  @override
+  String get catalogDetailSeeHealthierOptions => 'सेहतमंद विकल्प देखें';
+
+  @override
+  String get catalogDetailSavedSnackbar =>
+      'सहेजा गया — अगर कभी रिकॉल होगा तो हम आपको बताएंगे।';
+
+  @override
+  String get catalogDetailSaveFailedSnackbar =>
+      'सहेजा नहीं जा सका। कृपया फिर से कोशिश करें।';
+
+  @override
+  String catalogDetailShareRating(String rating, String label) {
+    return ' — RADHA हेल्थ रेटिंग $rating/5 ($label)';
+  }
+
+  @override
+  String catalogDetailShareText(String productName, String ratingSummary) {
+    return 'RADHA पर \"$productName\" जांचा$ratingSummary.';
+  }
+
+  @override
+  String get catalogDetailSavedTooltip => 'सहेजा गया';
+
+  @override
+  String get catalogDetailHealthPendingTitle => 'हेल्थ रेटिंग अभी नहीं आई';
+
+  @override
+  String get catalogDetailHealthPendingBody =>
+      'इस उत्पाद को स्कैन करें ताकि इसका पूरा हेल्थ विश्लेषण RADHA में आ सके।';
+
+  @override
+  String get catalogDetailHealthRatingLabel => 'RADHA हेल्थ रेटिंग';
+
+  @override
+  String get catalogDetailHealthExcellent => 'उत्कृष्ट';
+
+  @override
+  String get catalogDetailHealthGood => 'अच्छा';
+
+  @override
+  String get catalogDetailHealthFair => 'ठीक';
+
+  @override
+  String get catalogDetailHealthPoor => 'कमज़ोर';
+
+  @override
+  String get catalogDetailHealthAvoid => 'बचें';
+
+  @override
+  String get catalogDetailInsightHighProtein => 'उच्च प्रोटीन';
+
+  @override
+  String get catalogDetailInsightGoodFibre => 'अच्छा फाइबर';
+
+  @override
+  String get catalogDetailInsightMinimallyProcessed => 'कम प्रोसेस्ड';
+
+  @override
+  String get catalogDetailConcernHighSugar => 'अधिक चीनी';
+
+  @override
+  String get catalogDetailConcernHighSaturatedFat => 'अधिक संतृप्त वसा';
+
+  @override
+  String get catalogDetailConcernHighSodium => 'अधिक सोडियम';
+
+  @override
+  String get catalogDetailConcernUltraProcessed => 'अल्ट्रा-प्रोसेस्ड';
+
+  @override
+  String get catalogDetailConcernContainsTransFat => 'ट्रांस फैट है';
+
+  @override
+  String get catalogDetailConcernContainsAllergens => 'एलर्जन हैं';
+
+  @override
+  String get catalogDetailLikeHeading => 'आपको क्या पसंद आएगा';
+
+  @override
+  String get catalogDetailConcernHeading => 'ध्यान देने वाली बातें';
+
+  @override
+  String get catalogDetailNutritionSourceNote =>
+      'उत्पाद के वास्तविक पोषण (प्रति 100 ग्राम) पर आधारित।';
+
+  @override
+  String get catalogDetailKeyNutrients => 'मुख्य पोषक तत्व';
+
+  @override
+  String get catalogDetailNutrientProtein => 'प्रोटीन';
+
+  @override
+  String get catalogDetailNutrientTotalSugars => 'कुल चीनी';
+
+  @override
+  String get catalogDetailNutrientEnergy => 'ऊर्जा';
+
+  @override
+  String get catalogDetailAllNutrients => 'सभी पोषक तत्व';
+
+  @override
+  String get catalogDetailNutrientTotalFat => 'कुल वसा';
+
+  @override
+  String get catalogDetailNutrientSaturatedFat => 'संतृप्त वसा';
+
+  @override
+  String get catalogDetailNutrientCarbohydrates => 'कार्बोहाइड्रेट';
+
+  @override
+  String get catalogDetailNutrientFibre => 'फाइबर';
+
+  @override
+  String get catalogDetailNutrientSodium => 'सोडियम';
+
+  @override
+  String get catalogDetailPer100g => 'प्रति 100 ग्राम';
+
+  @override
+  String get catalogDetailPer50g => 'प्रति 50 ग्राम';
+
+  @override
+  String get catalogDetailRdaNote => 'संदर्भ दैनिक सेवन (वयस्क) का %।';
+
+  @override
+  String get catalogDetailRadhaPlus => 'RADHA Plus';
+
+  @override
+  String get catalogDetailForYou => 'आपके लिए';
+
+  @override
+  String get catalogDetailIngredientDeepDiveTitle => 'सामग्री डीप-डाइव';
+
+  @override
+  String get catalogDetailIngredientDeepDiveLockedBody =>
+      'हर सामग्री को सुरक्षा राय के साथ समझें — यह क्या है, क्यों डाली गई है, और चिंता करनी चाहिए या नहीं।';
+
+  @override
+  String get catalogDetailIngredientExplainError =>
+      'अभी इन सामग्रियों को समझाया नहीं जा सका।';
+
+  @override
+  String get catalogDetailPersonalisedFlagsTitle => 'व्यक्तिगत संकेत';
+
+  @override
+  String get catalogDetailPersonalisedFlagsLockedBody =>
+      'इस उत्पाद को आपके सहेजे हुए एलर्जन और हेल्थ लक्ष्यों से मिलाएं — हम बताएंगे क्या आपके लिए सही या गलत है।';
+
+  @override
+  String get catalogDetailPersonaliseError =>
+      'अभी इसे आपके लिए व्यक्तिगत नहीं कर सके।';
+
+  @override
+  String get catalogDetailNoAllergensDetected =>
+      'इस उत्पाद में कोई एलर्जन नहीं मिला।';
+
+  @override
+  String catalogDetailAllergenAvoided(String allergen) {
+    return '$allergen — आप इससे बचते हैं';
+  }
+
+  @override
+  String catalogDetailUnlockWithPlan(String plan) {
+    return '$plan से अनलॉक करें';
+  }
+
+  @override
+  String get catalogDetailWouldBuyQuestion => 'क्या आप यह उत्पाद खरीदेंगे?';
+
+  @override
+  String get catalogDetailWouldBuyThanks => 'साझा करने के लिए धन्यवाद!';
+
+  @override
+  String get catalogDetailWouldBuyYes => 'हाँ';
+
+  @override
+  String get catalogDetailWouldBuyNo => 'नहीं';
+
+  @override
+  String get catalogDetailWouldBuyAlreadyBought => 'पहले ही खरीदा';
+
+  @override
+  String get catalogDetailNutritionNotFoundTitle =>
+      'यह रिकॉर्ड अभी हमारे पास नहीं है';
+
+  @override
+  String get catalogDetailNutritionNotFoundBody =>
+      'RADHA के पास इस उत्पाद का पूरा पोषण अभी नहीं है। असली डेटा लाने के लिए इसका बारकोड या लेबल स्कैन करें।';
+
+  @override
+  String get catalogDetailNutritionOfflineTitle => 'आप ऑफलाइन हैं';
+
+  @override
+  String get catalogDetailNutritionOfflineBody =>
+      'पोषण लोड नहीं हो सका। ऊपर की उत्पाद जानकारी सुरक्षित है — फिर कनेक्ट होकर दोबारा कोशिश करें।';
+
+  @override
+  String get catalogDetailNutritionSessionExpiredTitle => 'सेशन समाप्त हो गया';
+
+  @override
+  String get catalogDetailNutritionSessionExpiredBody =>
+      'कृपया फिर से कोशिश करें — RADHA आपका सेशन ताज़ा करके फिर प्रयास करेगा।';
+
+  @override
+  String get catalogDetailNutritionServerTitle => 'पोषण लोड नहीं हो सका';
+
+  @override
+  String get catalogDetailNutritionServerBody =>
+      'विवरण लाते समय कुछ गलत हुआ। ऊपर की उत्पाद जानकारी प्रभावित नहीं हुई है।';
+
+  @override
+  String get catalogDetailScanLabel => 'लेबल स्कैन करें';
+
+  @override
+  String get catalogDetailFullNutritionPendingTitle => 'पूरा पोषण अभी नहीं आया';
+
+  @override
+  String get catalogDetailFullNutritionPendingBody =>
+      'इस उत्पाद का बारकोड स्कैन करें ताकि वास्तविक पोषण और हेल्थ विश्लेषण RADHA में आ सके — इसमें बस एक सेकंड लगेगा।';
+
+  @override
+  String get catalogDetailScanToUnlock => 'अनलॉक करने के लिए स्कैन करें';
+
+  @override
   String get appName => 'RADHA';
 
   @override

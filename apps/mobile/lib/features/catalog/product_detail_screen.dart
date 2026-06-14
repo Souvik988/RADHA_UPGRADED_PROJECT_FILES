@@ -23,6 +23,7 @@ import 'package:radha_mobile/features/catalog/catalog_health.dart';
 import 'package:radha_mobile/features/catalog/data/launch_catalog.dart';
 import 'package:radha_mobile/features/catalog/product_lookup_state.dart';
 import 'package:radha_mobile/features/catalog/providers/product_browse_providers.dart';
+import 'package:radha_mobile/l10n/generated/app_localizations.dart';
 
 // ─── Providers ──────────────────────────────────────────────────────────────
 
@@ -85,13 +86,15 @@ class _CatalogProductDetailScreenState
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
 
     // ── Resolve identity (extra → launch manifest → route key) ──────────────
     final initial = widget.initial;
     final launch =
         launchProductBySlug(widget.routeKey) ??
         launchProductByEan(widget.routeKey);
-    final name = initial?.name ?? launch?.name ?? 'Product';
+    final name =
+        initial?.name ?? launch?.name ?? l10n.catalogDetailProductFallback;
     final brand = initial?.brand ?? launch?.brand;
     final weight = initial?.netWeight ?? launch?.netWeight;
     final assetImg = initial?.assetImage ?? launch?.asset;
@@ -134,14 +137,14 @@ class _CatalogProductDetailScreenState
       appBar: AppBar(
         backgroundColor: theme.colorScheme.surface,
         title: Text(
-          'Product',
+          l10n.catalogDetailTitle,
           style: theme.textTheme.titleLarge?.copyWith(
             fontWeight: FontWeight.w800,
           ),
         ),
         actions: [
           IconButton(
-            tooltip: 'Share',
+            tooltip: l10n.catalogDetailShareTooltip,
             icon: const Icon(Icons.ios_share_rounded),
             onPressed: () => _share(name, grade: grade, score: score),
           ),
@@ -226,7 +229,7 @@ class _CatalogProductDetailScreenState
           if (ean != null)
             _NavRow(
               icon: Icons.compare_arrows_rounded,
-              label: 'See healthier options',
+              label: l10n.catalogDetailSeeHealthierOptions,
               onTap: () => context.push('/alternatives/$ean'),
             ),
           const SizedBox(height: RadhaSpacing.space24),
@@ -252,6 +255,7 @@ class _CatalogProductDetailScreenState
   Future<void> _toggleSave(String name, String? ean, String? productId) async {
     if (_saving) return;
     final messenger = ScaffoldMessenger.of(context);
+    final l10n = AppLocalizations.of(context);
     HapticFeedback.selectionClick();
     setState(() => _saving = true);
     try {
@@ -270,25 +274,27 @@ class _CatalogProductDetailScreenState
         _saving = false;
       });
       messenger.showSnackBar(
-        const SnackBar(
-          content: Text("Saved — we'll alert you if it's ever recalled."),
-        ),
+        SnackBar(content: Text(l10n.catalogDetailSavedSnackbar)),
       );
     } catch (_) {
       if (!mounted) return;
       setState(() => _saving = false);
       messenger.showSnackBar(
-        const SnackBar(content: Text('Could not save. Please try again.')),
+        SnackBar(content: Text(l10n.catalogDetailSaveFailedSnackbar)),
       );
     }
   }
 
   void _share(String name, {String? grade, num? score}) {
+    final l10n = AppLocalizations.of(context);
     final five = healthOutOfFive(grade: grade, score: score);
     final rating = five != null
-        ? ' — RADHA health rating ${five.toStringAsFixed(1)}/5 (${healthLabel(grade: grade, score: score)})'
+        ? l10n.catalogDetailShareRating(
+            five.toStringAsFixed(1),
+            _localizedHealthLabel(l10n, grade: grade, score: score),
+          )
         : '';
-    Share.share('Checked "$name" on RADHA$rating.');
+    Share.share(l10n.catalogDetailShareText(name, rating));
   }
 
   void _showAllNutrients(
@@ -432,8 +438,9 @@ class _SaveHeart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return IconButton(
-      tooltip: saved ? 'Saved' : 'Save',
+      tooltip: saved ? l10n.catalogDetailSavedTooltip : l10n.save,
       onPressed: (saving || saved) ? null : onTap,
       icon: saving
           ? const SizedBox(
@@ -506,6 +513,7 @@ class _HealthRatingCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     final five = healthOutOfFive(grade: grade, score: score);
     final color = healthColor(grade: grade, score: score);
 
@@ -526,15 +534,14 @@ class _HealthRatingCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Health rating not in yet',
+                    l10n.catalogDetailHealthPendingTitle,
                     style: theme.textTheme.titleSmall?.copyWith(
                       fontWeight: FontWeight.w700,
                     ),
                   ),
                   const SizedBox(height: RadhaSpacing.space4),
                   Text(
-                    'Scan this product to pull its full health analysis into '
-                    'RADHA.',
+                    l10n.catalogDetailHealthPendingBody,
                     style: theme.textTheme.bodySmall?.copyWith(
                       color: theme.colorScheme.onSurfaceVariant,
                     ),
@@ -563,7 +570,7 @@ class _HealthRatingCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'RADHA Health Rating',
+                  l10n.catalogDetailHealthRatingLabel,
                   style: theme.textTheme.labelMedium?.copyWith(
                     color: theme.colorScheme.onSurfaceVariant,
                   ),
@@ -588,7 +595,7 @@ class _HealthRatingCard extends StatelessWidget {
                     ),
                     const SizedBox(width: RadhaSpacing.space8),
                     Text(
-                      healthLabel(grade: grade, score: score),
+                      _localizedHealthLabel(l10n, grade: grade, score: score),
                       style: theme.textTheme.titleSmall?.copyWith(
                         fontWeight: FontWeight.w700,
                         color: color,
@@ -641,32 +648,58 @@ class _LikeConcern extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     // (label, illustrated-badge asset) — derived from REAL nutrient values.
     final likes = <(String, String?)>[];
     final concerns = <(String, String?)>[];
     final n = nutrition;
     if ((n.protein ?? 0) >= 8) {
-      likes.add(('High protein', RadhaAssets.hiProteinGood));
+      likes.add((
+        l10n.catalogDetailInsightHighProtein,
+        RadhaAssets.hiProteinGood,
+      ));
     }
-    if ((n.fiber ?? 0) >= 3) likes.add(('Good fibre', RadhaAssets.hiFiberGood));
-    if (n.isProcessed == false) likes.add(('Minimally processed', null));
+    if ((n.fiber ?? 0) >= 3) {
+      likes.add((l10n.catalogDetailInsightGoodFibre, RadhaAssets.hiFiberGood));
+    }
+    if (n.isProcessed == false) {
+      likes.add((l10n.catalogDetailInsightMinimallyProcessed, null));
+    }
     if ((n.sugars ?? 0) >= 15) {
-      concerns.add(('High sugar', RadhaAssets.hiSugarHigh));
+      concerns.add((
+        l10n.catalogDetailConcernHighSugar,
+        RadhaAssets.hiSugarHigh,
+      ));
     }
     if ((n.saturatedFat ?? 0) >= 5) {
-      concerns.add(('High saturated fat', RadhaAssets.hiFatHigh));
+      concerns.add((
+        l10n.catalogDetailConcernHighSaturatedFat,
+        RadhaAssets.hiFatHigh,
+      ));
     }
     if ((n.sodium ?? 0) >= 0.6) {
-      concerns.add(('High sodium', RadhaAssets.hiSodiumHigh));
+      concerns.add((
+        l10n.catalogDetailConcernHighSodium,
+        RadhaAssets.hiSodiumHigh,
+      ));
     }
     if (n.isProcessed == true) {
-      concerns.add(('Ultra-processed', RadhaAssets.hiUltraProcessed));
+      concerns.add((
+        l10n.catalogDetailConcernUltraProcessed,
+        RadhaAssets.hiUltraProcessed,
+      ));
     }
     if ((n.transFat ?? 0) > 0) {
-      concerns.add(('Contains trans fat', RadhaAssets.hiAdditiveWarning));
+      concerns.add((
+        l10n.catalogDetailConcernContainsTransFat,
+        RadhaAssets.hiAdditiveWarning,
+      ));
     }
     if (n.containsAllergens == true) {
-      concerns.add(('Contains allergens', RadhaAssets.hiAllergenFlag));
+      concerns.add((
+        l10n.catalogDetailConcernContainsAllergens,
+        RadhaAssets.hiAllergenFlag,
+      ));
     }
 
     if (likes.isEmpty && concerns.isEmpty) return const SizedBox.shrink();
@@ -678,7 +711,7 @@ class _LikeConcern extends StatelessWidget {
           _MiniHeading(
             icon: Icons.thumb_up_alt_rounded,
             color: RadhaColors.success,
-            label: "What you'll like",
+            label: l10n.catalogDetailLikeHeading,
           ),
           const SizedBox(height: RadhaSpacing.space8),
           Wrap(
@@ -700,7 +733,7 @@ class _LikeConcern extends StatelessWidget {
           _MiniHeading(
             icon: Icons.warning_amber_rounded,
             color: RadhaColors.warning,
-            label: 'What should concern you',
+            label: l10n.catalogDetailConcernHeading,
           ),
           const SizedBox(height: RadhaSpacing.space8),
           Wrap(
@@ -721,7 +754,7 @@ class _LikeConcern extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(top: RadhaSpacing.space8),
           child: Text(
-            'Based on the product’s real nutrition (per 100 g).',
+            l10n.catalogDetailNutritionSourceNote,
             style: theme.textTheme.bodySmall?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
               fontStyle: FontStyle.italic,
@@ -845,6 +878,7 @@ class _KeyNutrients extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     return Container(
       padding: const EdgeInsets.all(RadhaSpacing.space16),
       decoration: BoxDecoration(
@@ -855,7 +889,7 @@ class _KeyNutrients extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Key nutrients',
+            l10n.catalogDetailKeyNutrients,
             style: theme.textTheme.titleSmall?.copyWith(
               fontWeight: FontWeight.w700,
             ),
@@ -863,21 +897,21 @@ class _KeyNutrients extends StatelessWidget {
           const SizedBox(height: RadhaSpacing.space12),
           if (nutrition.protein != null)
             _NutrientRow(
-              label: 'Protein',
+              label: l10n.catalogDetailNutrientProtein,
               value: nutrition.protein!,
               unit: 'g',
               rdaPct: _rdaPct('protein', nutrition.protein!),
             ),
           if (nutrition.sugars != null)
             _NutrientRow(
-              label: 'Total Sugars',
+              label: l10n.catalogDetailNutrientTotalSugars,
               value: nutrition.sugars!,
               unit: 'g',
               rdaPct: _rdaPct('sugars', nutrition.sugars!),
             ),
           if (nutrition.calories != null)
             _NutrientRow(
-              label: 'Energy',
+              label: l10n.catalogDetailNutrientEnergy,
               value: nutrition.calories!,
               unit: 'kcal',
               rdaPct: _rdaPct('calories', nutrition.calories!),
@@ -888,7 +922,7 @@ class _KeyNutrients extends StatelessWidget {
             child: TextButton.icon(
               onPressed: onAllNutrients,
               icon: const Icon(Icons.expand_more_rounded, size: 18),
-              label: const Text('All nutrients'),
+              label: Text(l10n.catalogDetailAllNutrients),
             ),
           ),
         ],
@@ -957,18 +991,68 @@ class _AllNutrientsSheetState extends State<_AllNutrientsSheet> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     final n = widget.nutrition;
     final factor = _per100 ? 1.0 : 0.5;
-    final rows = <(String, double?, String)>[
-      ('Energy', n.calories, 'kcal'),
-      ('Total Fat', n.fat, 'g'),
-      ('  Saturated Fat', n.saturatedFat, 'g'),
-      ('Carbohydrates', n.carbohydrates, 'g'),
-      ('  Total Sugars', n.sugars, 'g'),
-      ('Protein', n.protein, 'g'),
-      ('Fibre', n.fiber, 'g'),
-      ('Sodium', n.sodium, 'g'),
-    ];
+    final rows =
+        <({String key, String label, double? value, String unit, bool nested})>[
+          (
+            key: 'calories',
+            label: l10n.catalogDetailNutrientEnergy,
+            value: n.calories,
+            unit: 'kcal',
+            nested: false,
+          ),
+          (
+            key: 'fat',
+            label: l10n.catalogDetailNutrientTotalFat,
+            value: n.fat,
+            unit: 'g',
+            nested: false,
+          ),
+          (
+            key: 'saturatedFat',
+            label: l10n.catalogDetailNutrientSaturatedFat,
+            value: n.saturatedFat,
+            unit: 'g',
+            nested: true,
+          ),
+          (
+            key: 'carbohydrates',
+            label: l10n.catalogDetailNutrientCarbohydrates,
+            value: n.carbohydrates,
+            unit: 'g',
+            nested: false,
+          ),
+          (
+            key: 'sugars',
+            label: l10n.catalogDetailNutrientTotalSugars,
+            value: n.sugars,
+            unit: 'g',
+            nested: true,
+          ),
+          (
+            key: 'protein',
+            label: l10n.catalogDetailNutrientProtein,
+            value: n.protein,
+            unit: 'g',
+            nested: false,
+          ),
+          (
+            key: 'fiber',
+            label: l10n.catalogDetailNutrientFibre,
+            value: n.fiber,
+            unit: 'g',
+            nested: false,
+          ),
+          (
+            key: 'sodium',
+            label: l10n.catalogDetailNutrientSodium,
+            value: n.sodium,
+            unit: 'g',
+            nested: false,
+          ),
+        ];
 
     return SafeArea(
       child: Padding(
@@ -997,7 +1081,7 @@ class _AllNutrientsSheetState extends State<_AllNutrientsSheet> {
               children: [
                 Expanded(
                   child: Text(
-                    'All nutrients',
+                    l10n.catalogDetailAllNutrients,
                     style: theme.textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.w800,
                     ),
@@ -1007,9 +1091,15 @@ class _AllNutrientsSheetState extends State<_AllNutrientsSheet> {
                   style: const ButtonStyle(
                     visualDensity: VisualDensity.compact,
                   ),
-                  segments: const [
-                    ButtonSegment(value: true, label: Text('Per 100 g')),
-                    ButtonSegment(value: false, label: Text('Per 50 g')),
+                  segments: [
+                    ButtonSegment(
+                      value: true,
+                      label: Text(l10n.catalogDetailPer100g),
+                    ),
+                    ButtonSegment(
+                      value: false,
+                      label: Text(l10n.catalogDetailPer50g),
+                    ),
                   ],
                   selected: {_per100},
                   showSelectedIcon: false,
@@ -1019,7 +1109,7 @@ class _AllNutrientsSheetState extends State<_AllNutrientsSheet> {
             ),
             const SizedBox(height: RadhaSpacing.space12),
             ...rows
-                .where((r) => r.$2 != null)
+                .where((r) => r.value != null)
                 .map(
                   (r) => Padding(
                     padding: const EdgeInsets.symmetric(
@@ -1029,19 +1119,19 @@ class _AllNutrientsSheetState extends State<_AllNutrientsSheet> {
                       children: [
                         Expanded(
                           child: Text(
-                            r.$1.trim(),
+                            r.label,
                             style: theme.textTheme.bodyMedium?.copyWith(
-                              fontWeight: r.$1.startsWith('  ')
+                              fontWeight: r.nested
                                   ? FontWeight.w400
                                   : FontWeight.w600,
-                              color: r.$1.startsWith('  ')
+                              color: r.nested
                                   ? theme.colorScheme.onSurfaceVariant
                                   : null,
                             ),
                           ),
                         ),
                         Text(
-                          '${_fmt(r.$2! * factor)} ${r.$3}',
+                          '${_fmt(r.value! * factor)} ${r.unit}',
                           style: theme.textTheme.bodyMedium?.copyWith(
                             fontWeight: FontWeight.w700,
                           ),
@@ -1049,10 +1139,7 @@ class _AllNutrientsSheetState extends State<_AllNutrientsSheet> {
                         SizedBox(
                           width: 56,
                           child: Text(
-                            _rdaLabel(
-                              r.$1.trim().toLowerCase(),
-                              r.$2! * factor,
-                            ),
+                            _rdaLabel(r.key, r.value! * factor),
                             textAlign: TextAlign.right,
                             style: theme.textTheme.bodySmall?.copyWith(
                               color: theme.colorScheme.onSurfaceVariant,
@@ -1065,7 +1152,7 @@ class _AllNutrientsSheetState extends State<_AllNutrientsSheet> {
                 ),
             const SizedBox(height: RadhaSpacing.space8),
             Text(
-              '% of reference daily intake (adult).',
+              l10n.catalogDetailRdaNote,
               style: theme.textTheme.bodySmall?.copyWith(
                 color: theme.colorScheme.onSurfaceVariant,
                 fontStyle: FontStyle.italic,
@@ -1078,20 +1165,8 @@ class _AllNutrientsSheetState extends State<_AllNutrientsSheet> {
   }
 
   String _rdaLabel(String key, double value) {
-    final pct = _rdaPct(_rdaKeyFor(key), value);
+    final pct = _rdaPct(key, value);
     return pct == null ? '—' : '${pct.round()}%';
-  }
-
-  String _rdaKeyFor(String label) {
-    if (label.contains('energy')) return 'calories';
-    if (label.contains('saturated')) return 'saturatedFat';
-    if (label.contains('fat')) return 'fat';
-    if (label.contains('carbo')) return 'carbohydrates';
-    if (label.contains('sugar')) return 'sugars';
-    if (label.contains('protein')) return 'protein';
-    if (label.contains('fibre') || label.contains('fiber')) return 'fiber';
-    if (label.contains('sodium')) return 'sodium';
-    return '';
   }
 }
 
@@ -1103,6 +1178,7 @@ class _PlusHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     return Row(
       children: [
         Container(
@@ -1113,9 +1189,9 @@ class _PlusHeader extends StatelessWidget {
             ),
             borderRadius: BorderRadius.circular(RadhaRadii.radiusFull),
           ),
-          child: const Text(
-            'RADHA Plus',
-            style: TextStyle(
+          child: Text(
+            l10n.catalogDetailRadhaPlus,
+            style: const TextStyle(
               color: Colors.white,
               fontSize: 12,
               fontWeight: FontWeight.w800,
@@ -1124,7 +1200,7 @@ class _PlusHeader extends StatelessWidget {
         ),
         const SizedBox(width: RadhaSpacing.space8),
         Text(
-          'For you',
+          l10n.catalogDetailForYou,
           style: theme.textTheme.titleSmall?.copyWith(
             fontWeight: FontWeight.w700,
           ),
@@ -1140,6 +1216,7 @@ class _IngredientDeepDive extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context);
     final entitled =
         ref
             .watch(entitlementProvider)
@@ -1150,21 +1227,19 @@ class _IngredientDeepDive extends ConsumerWidget {
 
     if (!entitled || productId == null) {
       return _PlusLock(
-        title: 'Ingredient deep-dive',
-        subtitle:
-            'See every ingredient explained with a safety verdict — what it is, '
-            'why it’s there, and whether to worry.',
+        title: l10n.catalogDetailIngredientDeepDiveTitle,
+        subtitle: l10n.catalogDetailIngredientDeepDiveLockedBody,
         feature: Feature.ingredientExplainer,
       );
     }
 
     final async = ref.watch(_ingredientExplainProvider(productId!));
     return _PlusCard(
-      title: 'Ingredient deep-dive',
+      title: l10n.catalogDetailIngredientDeepDiveTitle,
       child: async.when(
         loading: () => const _LineSkeleton(),
         error: (_, _) => Text(
-          "We couldn't explain these ingredients right now.",
+          l10n.catalogDetailIngredientExplainError,
           style: Theme.of(context).textTheme.bodySmall,
         ),
         data: (r) => Text(
@@ -1183,6 +1258,7 @@ class _ForYouSection extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     final entitled =
         ref
             .watch(entitlementProvider)
@@ -1193,10 +1269,8 @@ class _ForYouSection extends ConsumerWidget {
 
     if (!entitled || productId == null) {
       return _PlusLock(
-        title: 'Personalised flags',
-        subtitle:
-            'Match this product against your saved allergens & health goals — '
-            'we’ll flag what’s right (or wrong) for you.',
+        title: l10n.catalogDetailPersonalisedFlagsTitle,
+        subtitle: l10n.catalogDetailPersonalisedFlagsLockedBody,
         feature: Feature.allergenProfile,
       );
     }
@@ -1213,17 +1287,17 @@ class _ForYouSection extends ConsumerWidget {
               );
 
     return _PlusCard(
-      title: 'Personalised flags',
+      title: l10n.catalogDetailPersonalisedFlagsTitle,
       child: allergensAsync.when(
         loading: () => const _LineSkeleton(),
         error: (_, _) => Text(
-          "We couldn't personalise this right now.",
+          l10n.catalogDetailPersonaliseError,
           style: theme.textTheme.bodySmall,
         ),
         data: (allergens) {
           if (allergens.isEmpty) {
             return Text(
-              'No allergens detected in this product.',
+              l10n.catalogDetailNoAllergensDetected,
               style: theme.textTheme.bodyMedium?.copyWith(
                 color: RadhaColors.success,
               ),
@@ -1252,7 +1326,7 @@ class _ForYouSection extends ConsumerWidget {
                       const SizedBox(width: RadhaSpacing.space4),
                     ],
                     Text(
-                      hit ? '${a.name} — you avoid this' : a.name,
+                      hit ? l10n.catalogDetailAllergenAvoided(a.name) : a.name,
                       style: TextStyle(
                         fontSize: 12.5,
                         fontWeight: FontWeight.w700,
@@ -1295,6 +1369,7 @@ class _PlusLock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     return ClipRRect(
       borderRadius: BorderRadius.circular(RadhaRadii.radiusLg),
       child: Stack(
@@ -1364,7 +1439,9 @@ class _PlusLock extends StatelessWidget {
                             ),
                             icon: const Icon(Icons.bolt_rounded, size: 16),
                             label: Text(
-                              'Unlock with ${requiredPlanFor(feature)}',
+                              l10n.catalogDetailUnlockWithPlan(
+                                requiredPlanFor(feature),
+                              ),
                             ),
                           ),
                         ],
@@ -1423,6 +1500,7 @@ class _WouldYouBuy extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     return Container(
       padding: const EdgeInsets.all(RadhaSpacing.space16),
       decoration: BoxDecoration(
@@ -1435,8 +1513,8 @@ class _WouldYouBuy extends StatelessWidget {
         children: [
           Text(
             choice == null
-                ? 'Would you buy this product?'
-                : 'Thanks for sharing!',
+                ? l10n.catalogDetailWouldBuyQuestion
+                : l10n.catalogDetailWouldBuyThanks,
             style: theme.textTheme.titleSmall?.copyWith(
               fontWeight: FontWeight.w800,
               color: RadhaColors.primaryDeep,
@@ -1446,7 +1524,7 @@ class _WouldYouBuy extends StatelessWidget {
           Row(
             children: [
               _BuyChip(
-                label: 'Yes',
+                label: l10n.catalogDetailWouldBuyYes,
                 icon: Icons.check_rounded,
                 selected: choice == 'yes',
                 color: RadhaColors.success,
@@ -1454,7 +1532,7 @@ class _WouldYouBuy extends StatelessWidget {
               ),
               const SizedBox(width: RadhaSpacing.space8),
               _BuyChip(
-                label: 'No',
+                label: l10n.catalogDetailWouldBuyNo,
                 icon: Icons.close_rounded,
                 selected: choice == 'no',
                 color: RadhaColors.danger,
@@ -1462,7 +1540,7 @@ class _WouldYouBuy extends StatelessWidget {
               ),
               const SizedBox(width: RadhaSpacing.space8),
               _BuyChip(
-                label: 'Already bought',
+                label: l10n.catalogDetailWouldBuyAlreadyBought,
                 icon: Icons.shopping_bag_outlined,
                 selected: choice == 'bought',
                 color: RadhaColors.inkMuted,
@@ -1553,6 +1631,7 @@ class _NutritionError extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     final (
       IconData icon,
       String title,
@@ -1561,29 +1640,26 @@ class _NutritionError extends StatelessWidget {
     ) = switch (failure) {
       ProductLookupFailure.notFound => (
         Icons.search_off_rounded,
-        "We don't have this record yet",
-        "RADHA doesn't have this product's full nutrition yet. Scan its "
-            "barcode or label to pull in the real data.",
+        l10n.catalogDetailNutritionNotFoundTitle,
+        l10n.catalogDetailNutritionNotFoundBody,
         RadhaColors.complement,
       ),
       ProductLookupFailure.offline => (
         Icons.cloud_off_rounded,
-        "You're offline",
-        "We couldn't load nutrition. Your product details above are still "
-            "here — reconnect and retry.",
+        l10n.catalogDetailNutritionOfflineTitle,
+        l10n.catalogDetailNutritionOfflineBody,
         RadhaColors.complement,
       ),
       ProductLookupFailure.unauthorized => (
         Icons.lock_clock_rounded,
-        'Session expired',
-        'Please retry — RADHA will refresh your session and try again.',
+        l10n.catalogDetailNutritionSessionExpiredTitle,
+        l10n.catalogDetailNutritionSessionExpiredBody,
         RadhaColors.warning,
       ),
       ProductLookupFailure.serverFailure => (
         Icons.error_outline_rounded,
-        "Couldn't load nutrition",
-        "Something went wrong fetching the details. The product info above "
-            "is unaffected.",
+        l10n.catalogDetailNutritionServerTitle,
+        l10n.catalogDetailNutritionServerBody,
         RadhaColors.warning,
       ),
     };
@@ -1634,14 +1710,14 @@ class _NutritionError extends StatelessWidget {
               OutlinedButton.icon(
                 onPressed: onRetry,
                 icon: const Icon(Icons.refresh_rounded, size: 18),
-                label: const Text('Retry'),
+                label: Text(l10n.catalogRetry),
               ),
               if (showScan) ...[
                 const SizedBox(width: RadhaSpacing.space8),
                 TextButton.icon(
                   onPressed: onScanLabel,
                   icon: const Icon(Icons.document_scanner_outlined, size: 18),
-                  label: const Text('Scan label'),
+                  label: Text(l10n.catalogDetailScanLabel),
                 ),
               ],
             ],
@@ -1659,6 +1735,7 @@ class _ScanToUnlock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     return Container(
       padding: const EdgeInsets.all(RadhaSpacing.space16),
       decoration: BoxDecoration(
@@ -1678,15 +1755,14 @@ class _ScanToUnlock extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Full nutrition isn’t in yet',
+                      l10n.catalogDetailFullNutritionPendingTitle,
                       style: theme.textTheme.titleSmall?.copyWith(
                         fontWeight: FontWeight.w700,
                       ),
                     ),
                     const SizedBox(height: RadhaSpacing.space4),
                     Text(
-                      'Scan this product’s barcode to pull its real nutrition & '
-                      'health analysis into RADHA — it only takes a second.',
+                      l10n.catalogDetailFullNutritionPendingBody,
                       style: theme.textTheme.bodySmall?.copyWith(
                         color: theme.colorScheme.onSurfaceVariant,
                         height: 1.4,
@@ -1701,7 +1777,7 @@ class _ScanToUnlock extends StatelessWidget {
           FilledButton.icon(
             onPressed: onScan,
             icon: const Icon(Icons.qr_code_scanner_rounded, size: 18),
-            label: const Text('Scan to unlock'),
+            label: Text(l10n.catalogDetailScanToUnlock),
           ),
         ],
       ),
@@ -1808,6 +1884,20 @@ String _fmt(double v) {
   if (v >= 100) return v.round().toString();
   if (v == v.roundToDouble()) return v.round().toString();
   return v.toStringAsFixed(1);
+}
+
+String _localizedHealthLabel(
+  AppLocalizations l10n, {
+  String? grade,
+  num? score,
+}) {
+  final five = healthOutOfFive(grade: grade, score: score);
+  if (five == null) return '';
+  if (five >= 4.0) return l10n.catalogDetailHealthExcellent;
+  if (five >= 3.0) return l10n.catalogDetailHealthGood;
+  if (five >= 2.0) return l10n.catalogDetailHealthFair;
+  if (five >= 1.0) return l10n.catalogDetailHealthPoor;
+  return l10n.catalogDetailHealthAvoid;
 }
 
 /// Reference daily intake (adult) for RDA% — published reference values, not

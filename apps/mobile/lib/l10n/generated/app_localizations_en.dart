@@ -209,6 +209,240 @@ class AppLocalizationsEn extends AppLocalizations {
   String get catalogHealthyPicksTitle => 'Healthy picks';
 
   @override
+  String get catalogDetailProductFallback => 'Product';
+
+  @override
+  String get catalogDetailTitle => 'Product';
+
+  @override
+  String get catalogDetailShareTooltip => 'Share';
+
+  @override
+  String get catalogDetailSeeHealthierOptions => 'See healthier options';
+
+  @override
+  String get catalogDetailSavedSnackbar =>
+      'Saved — we\'ll alert you if it\'s ever recalled.';
+
+  @override
+  String get catalogDetailSaveFailedSnackbar =>
+      'Could not save. Please try again.';
+
+  @override
+  String catalogDetailShareRating(String rating, String label) {
+    return ' — RADHA health rating $rating/5 ($label)';
+  }
+
+  @override
+  String catalogDetailShareText(String productName, String ratingSummary) {
+    return 'Checked \"$productName\" on RADHA$ratingSummary.';
+  }
+
+  @override
+  String get catalogDetailSavedTooltip => 'Saved';
+
+  @override
+  String get catalogDetailHealthPendingTitle => 'Health rating not in yet';
+
+  @override
+  String get catalogDetailHealthPendingBody =>
+      'Scan this product to pull its full health analysis into RADHA.';
+
+  @override
+  String get catalogDetailHealthRatingLabel => 'RADHA Health Rating';
+
+  @override
+  String get catalogDetailHealthExcellent => 'Excellent';
+
+  @override
+  String get catalogDetailHealthGood => 'Good';
+
+  @override
+  String get catalogDetailHealthFair => 'Fair';
+
+  @override
+  String get catalogDetailHealthPoor => 'Poor';
+
+  @override
+  String get catalogDetailHealthAvoid => 'Avoid';
+
+  @override
+  String get catalogDetailInsightHighProtein => 'High protein';
+
+  @override
+  String get catalogDetailInsightGoodFibre => 'Good fibre';
+
+  @override
+  String get catalogDetailInsightMinimallyProcessed => 'Minimally processed';
+
+  @override
+  String get catalogDetailConcernHighSugar => 'High sugar';
+
+  @override
+  String get catalogDetailConcernHighSaturatedFat => 'High saturated fat';
+
+  @override
+  String get catalogDetailConcernHighSodium => 'High sodium';
+
+  @override
+  String get catalogDetailConcernUltraProcessed => 'Ultra-processed';
+
+  @override
+  String get catalogDetailConcernContainsTransFat => 'Contains trans fat';
+
+  @override
+  String get catalogDetailConcernContainsAllergens => 'Contains allergens';
+
+  @override
+  String get catalogDetailLikeHeading => 'What you\'ll like';
+
+  @override
+  String get catalogDetailConcernHeading => 'What should concern you';
+
+  @override
+  String get catalogDetailNutritionSourceNote =>
+      'Based on the product\'s real nutrition (per 100 g).';
+
+  @override
+  String get catalogDetailKeyNutrients => 'Key nutrients';
+
+  @override
+  String get catalogDetailNutrientProtein => 'Protein';
+
+  @override
+  String get catalogDetailNutrientTotalSugars => 'Total Sugars';
+
+  @override
+  String get catalogDetailNutrientEnergy => 'Energy';
+
+  @override
+  String get catalogDetailAllNutrients => 'All nutrients';
+
+  @override
+  String get catalogDetailNutrientTotalFat => 'Total Fat';
+
+  @override
+  String get catalogDetailNutrientSaturatedFat => 'Saturated Fat';
+
+  @override
+  String get catalogDetailNutrientCarbohydrates => 'Carbohydrates';
+
+  @override
+  String get catalogDetailNutrientFibre => 'Fibre';
+
+  @override
+  String get catalogDetailNutrientSodium => 'Sodium';
+
+  @override
+  String get catalogDetailPer100g => 'Per 100 g';
+
+  @override
+  String get catalogDetailPer50g => 'Per 50 g';
+
+  @override
+  String get catalogDetailRdaNote => '% of reference daily intake (adult).';
+
+  @override
+  String get catalogDetailRadhaPlus => 'RADHA Plus';
+
+  @override
+  String get catalogDetailForYou => 'For you';
+
+  @override
+  String get catalogDetailIngredientDeepDiveTitle => 'Ingredient deep-dive';
+
+  @override
+  String get catalogDetailIngredientDeepDiveLockedBody =>
+      'See every ingredient explained with a safety verdict — what it is, why it\'s there, and whether to worry.';
+
+  @override
+  String get catalogDetailIngredientExplainError =>
+      'We couldn\'t explain these ingredients right now.';
+
+  @override
+  String get catalogDetailPersonalisedFlagsTitle => 'Personalised flags';
+
+  @override
+  String get catalogDetailPersonalisedFlagsLockedBody =>
+      'Match this product against your saved allergens & health goals — we\'ll flag what\'s right (or wrong) for you.';
+
+  @override
+  String get catalogDetailPersonaliseError =>
+      'We couldn\'t personalise this right now.';
+
+  @override
+  String get catalogDetailNoAllergensDetected =>
+      'No allergens detected in this product.';
+
+  @override
+  String catalogDetailAllergenAvoided(String allergen) {
+    return '$allergen — you avoid this';
+  }
+
+  @override
+  String catalogDetailUnlockWithPlan(String plan) {
+    return 'Unlock with $plan';
+  }
+
+  @override
+  String get catalogDetailWouldBuyQuestion => 'Would you buy this product?';
+
+  @override
+  String get catalogDetailWouldBuyThanks => 'Thanks for sharing!';
+
+  @override
+  String get catalogDetailWouldBuyYes => 'Yes';
+
+  @override
+  String get catalogDetailWouldBuyNo => 'No';
+
+  @override
+  String get catalogDetailWouldBuyAlreadyBought => 'Already bought';
+
+  @override
+  String get catalogDetailNutritionNotFoundTitle =>
+      'We don\'t have this record yet';
+
+  @override
+  String get catalogDetailNutritionNotFoundBody =>
+      'RADHA doesn\'t have this product\'s full nutrition yet. Scan its barcode or label to pull in the real data.';
+
+  @override
+  String get catalogDetailNutritionOfflineTitle => 'You\'re offline';
+
+  @override
+  String get catalogDetailNutritionOfflineBody =>
+      'We couldn\'t load nutrition. Your product details above are still here — reconnect and retry.';
+
+  @override
+  String get catalogDetailNutritionSessionExpiredTitle => 'Session expired';
+
+  @override
+  String get catalogDetailNutritionSessionExpiredBody =>
+      'Please retry — RADHA will refresh your session and try again.';
+
+  @override
+  String get catalogDetailNutritionServerTitle => 'Couldn\'t load nutrition';
+
+  @override
+  String get catalogDetailNutritionServerBody =>
+      'Something went wrong fetching the details. The product info above is unaffected.';
+
+  @override
+  String get catalogDetailScanLabel => 'Scan label';
+
+  @override
+  String get catalogDetailFullNutritionPendingTitle =>
+      'Full nutrition isn\'t in yet';
+
+  @override
+  String get catalogDetailFullNutritionPendingBody =>
+      'Scan this product\'s barcode to pull its real nutrition & health analysis into RADHA — it only takes a second.';
+
+  @override
+  String get catalogDetailScanToUnlock => 'Scan to unlock';
+
+  @override
   String get appName => 'RADHA';
 
   @override
