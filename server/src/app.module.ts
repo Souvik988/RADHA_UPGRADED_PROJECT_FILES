@@ -21,6 +21,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { BarcodeLearningModule } from './modules/barcode-learning/barcode-learning.module';
 import { BusinessActivationModule } from './modules/business-activation/business-activation.module';
 import { CatalogImportModule } from './modules/catalog-import/catalog-import.module';
+import { ClientDashboardModule } from './modules/client-dashboard/client-dashboard.module';
 import { EanListsModule } from './modules/ean-lists/ean-lists.module';
 import { ExpiryModule } from './modules/expiry/expiry.module';
 import { ExpiryCalendarModule } from './modules/expiry-calendar/expiry-calendar.module';
@@ -29,6 +30,7 @@ import { GrnModule } from './modules/grn/grn.module';
 import { HealthModule } from './modules/health/health.module';
 import { HealthScoringModule } from './modules/health-scoring/health-scoring.module';
 import { ImageFallbackModule } from './modules/image-fallback/image-fallback.module';
+import { InventoryModule } from './modules/inventory/inventory.module';
 import { IngredientExplainerModule } from './modules/ingredient-explainer/ingredient-explainer.module';
 import { MediaModule } from './modules/media/media.module';
 import { NotificationsModule } from './modules/notifications/notifications.module';
@@ -94,7 +96,9 @@ import { ObservabilityModule } from './observability/observability.module';
     NotificationsModule,
     OnboardingModule,
     SuppliersModule,
+    InventoryModule,
     GrnModule,
+    ClientDashboardModule,
     JobsModule,
     // Cron scheduler is gated on RADHA_PROCESS so @Cron() decorators
     // only fire on the scheduler process. main.api.ts / main.worker.ts /

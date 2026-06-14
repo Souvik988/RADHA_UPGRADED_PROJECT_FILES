@@ -78,9 +78,10 @@ export class KpiService {
       conn.execute<InventoryRow>(sql`
         SELECT
           count(*)::int                                                AS total,
-          count(*) FILTER (WHERE p.is_active = false)::int             AS low_stock
-        FROM products p
-        WHERE p.deleted_at IS NULL
+          count(*) FILTER (WHERE is_low_stock = 1)::int                AS low_stock
+        FROM inventory_items
+        WHERE store_id = ${storeId}
+          AND deleted_at IS NULL
       `),
       conn.execute<EanRow>(sql`
         SELECT

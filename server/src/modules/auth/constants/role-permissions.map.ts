@@ -129,6 +129,12 @@ export const AUDITOR_PERMISSIONS: ReadonlySet<Permission> = new Set<Permission>(
 
 /** BE-08 v2 ADDENDUM (Req 1, 26, 27, 30–35): Consumer permission set. */
 export const CONSUMER_PERMISSIONS: ReadonlySet<Permission> = new Set<Permission>([
+  // Read-only product access: the consumer-accessible catalog browse
+  // (`GET /catalog/*`), product detail (`GET /products/lookup/:ean`) and
+  // alternatives all list `consumer` in @Roles and require `products:read`.
+  // Without this grant the PermissionsGuard blocks the core consumer browse
+  // flow with 403. Write/delete remain owner/manager-only.
+  'products:read',
   'consumer:scan',
   'consumer:save_product',
   'consumer:expiry_calendar:read',

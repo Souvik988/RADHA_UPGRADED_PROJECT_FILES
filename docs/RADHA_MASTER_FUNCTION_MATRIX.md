@@ -13,13 +13,22 @@ The single map that drives domain-by-domain repair. Cross-references **mobile ro
   object-syntax `@Controller({path,version})` so a few prefixes (tasks/expiry/reports) are
   proven via the ApiClient + dashboard proxies rather than the prefix grep.
 
-## Methodology & the global live blocker
-This is a **static** audit (code presence + contract match). **No backend is running here**
-(`server/node_modules` absent, nothing on `:3000`), **no device/emulator**, and
-`@playwright/test` isn't installed — so the **Live result for every row is `BLOCKED_EXTERNAL`**
-(runtime unverified). The per-row **Status** therefore reflects *static wiring + contract +
-test* evidence. Per-**control** classification (every button/filter/export) is done inside
-each domain's Phase-6 repair pass, not pre-enumerated here.
+## Methodology & live-verification status
+Originally a **static** audit (code presence + contract match). **As of 2026-06-14 the
+backend is running live** (`node dist/main.api` on `:3000` against the Docker
+Postgres `:5433` / Redis `:6380` stack) and every backend domain has been **live-verified
+over HTTP** — see the *Live API verification* section below. The mobile UI render +
+test-mode Razorpay still need a device/emulator, and `@playwright/test` is still absent for
+dashboard E2E, so those two axes remain `BLOCKED_EXTERNAL`. Per-**control** classification
+(every button/filter/export) is done inside each domain's Phase-6 repair pass.
+
+### Live API verification (2026-06-14)
+Scripted sweep: OTP→token for a **consumer** and an **onboarded owner+tenant+store**
+(`POST /tenants/onboard` → OTP login), then a representative GET per domain.
+**Result: 37/38 endpoints return correct data/auth** (the 1 non-200 is correct 404
+semantics — see D9). The sweep caught **4 live defects the static audit had marked
+"WIRED"**, all fixed this session (D5–D8). Backend boot also required building
+`@radha/shared-types` and adding the init-time-only `ANALYTICS_HASH_SALT` env.
 
 **Status legend** (mandate set): WORKING · PARTIAL · UI_ONLY · API_DISCONNECTED ·
 CONTRACT_MISMATCH · SILENT_FAILURE · DEAD_ACTION · BACKEND_MISSING · MOBILE_MISSING ·
@@ -148,9 +157,19 @@ Here **WIRED** = all required layers present + contract matches statically (live
 | D3 | Dashboard | `expiry/scope-change.test.tsx` `scope` type drift | OPEN (test-only; needs feature-intent decision) |
 | D4 | Dashboard | `@playwright/test` not installed | OPEN (env: `npm i -D @playwright/test`) |
 | L1 | Mobile | subscription/catalog strings English-only | OPEN (l10n across 6 ARB) |
+| D5 | Backend | `InventoryModule` defined but never imported in `app.module.ts` → all `/inventory/*` 404 | **FIXED** (live-found; wired into AppModule) |
+| D6 | Backend | `ClientDashboardModule` never imported → `/dashboard` (root, kpis, alerts, trends, team…) 404 | **FIXED** (wired into AppModule) |
+| D7 | Backend | `consumer` role missing `products:read` → consumer catalog browse + `/products/lookup/:ean` 403 (core consumer flow; mobile tests use a fake ApiClient so never hit the real guard) | **FIXED** (`role-permissions.map.ts`) |
+| D8 | Backend | `client-dashboard kpi.service` counted `products.is_active` (nonexistent column, not store-scoped) → `/dashboard` + `/dashboard/kpis` **500** | **FIXED** (rewrote to store-scoped `inventory_items.is_low_stock`) |
+| D9 | Backend | Public `POST /tenants/onboard` self-service path does **not** call `startTrial`, so the tenant has no `tenant_subscriptions` row → `GET /subscriptions/status` 404. (Primary mobile path `business-activation` *does* call `startTrial`, so it's unaffected.) | OPEN (self-service path only; spawn follow-up) |
 
 ## Repair order (drives Phase 6) & gating
 A Catalog ✅ (mobile done+tested) → B Scanner → C Expiry/Tasks → D Inventory/GRN →
 E Consumer Safety → **F Subscription/Payments ✅ (mobile done+tested; live test-mode pending)** →
-G Reports/OHS → H Profile/Settings/Platform. Each domain's live verification + per-control
-classification + cross-client sync is **BLOCKED_EXTERNAL** until a backend is running.
+G Reports/OHS → H Profile/Settings/Platform.
+
+**Backend live-verification: DONE (2026-06-14)** — all 8 domains + auth/RBAC return real
+data/auth over HTTP (37/38; D5–D8 fixed). RBAC spot-checks pass live: consumer→`/inventory`
+403, no-token→`/dashboard/summary` 401, consumer→catalog 200 after D7. **Still
+`BLOCKED_EXTERNAL`:** mobile UI render (needs emulator), test-mode Razorpay payment
+(needs emulator + keys), dashboard E2E (needs `@playwright/test`).
