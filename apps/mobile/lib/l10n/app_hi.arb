@@ -31,6 +31,15 @@
   "subPaymentPending": "भुगतान मिल गया — इसे अभी सत्यापित किया जा रहा है। संदर्भ {supportRef}. थोड़ी देर में रिफ्रेश करने के लिए नीचे खींचें।",
   "subPaymentFailed": "भुगतान विफल रहा। कृपया फिर से कोशिश करें।",
 
+  "catalogSearchBarHint": "अपने लिए सही उत्पाद खोजें",
+  "catalogSearchHint": "उत्पाद या ब्रांड खोजें",
+  "catalogSearchClear": "साफ़ करें",
+  "catalogNoMatchesTitle": "कोई मिलान नहीं",
+  "catalogNoMatchesBody": "हमें “{query}” के लिए कोई उत्पाद नहीं मिला। कोई दूसरा नाम आज़माएँ, या आइटम को स्कैन करें।",
+  "catalogScanProduct": "उत्पाद स्कैन करें",
+  "catalogFindTitle": "उत्पाद खोजें",
+  "catalogFindBody": "इसकी हेल्थ रेटिंग और सामग्री देखने के लिए उत्पाद का नाम या ब्रांड खोजें।",
+
   "appName": "RADHA",
   "tagline": "डेटा, स्वास्थ्य और ऑडिट के लिए रिटेल असिस्टेंट।",
   "continueLabel": "जारी रखें",

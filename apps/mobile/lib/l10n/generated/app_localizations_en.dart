@@ -124,6 +124,33 @@ class AppLocalizationsEn extends AppLocalizations {
   String get subPaymentFailed => 'Payment failed. Please try again.';
 
   @override
+  String get catalogSearchBarHint => 'Search products to find what fits you';
+
+  @override
+  String get catalogSearchHint => 'Search products or brands';
+
+  @override
+  String get catalogSearchClear => 'Clear';
+
+  @override
+  String get catalogNoMatchesTitle => 'No matches';
+
+  @override
+  String catalogNoMatchesBody(String query) {
+    return 'We couldn\'t find products for “$query”. Try a different name, or scan the item instead.';
+  }
+
+  @override
+  String get catalogScanProduct => 'Scan a product';
+
+  @override
+  String get catalogFindTitle => 'Find a product';
+
+  @override
+  String get catalogFindBody =>
+      'Search by product name or brand to see its health rating and what\'s inside.';
+
+  @override
   String get appName => 'RADHA';
 
   @override

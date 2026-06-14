@@ -124,6 +124,33 @@ class AppLocalizationsHi extends AppLocalizations {
   String get subPaymentFailed => 'भुगतान विफल रहा। कृपया फिर से कोशिश करें।';
 
   @override
+  String get catalogSearchBarHint => 'अपने लिए सही उत्पाद खोजें';
+
+  @override
+  String get catalogSearchHint => 'उत्पाद या ब्रांड खोजें';
+
+  @override
+  String get catalogSearchClear => 'साफ़ करें';
+
+  @override
+  String get catalogNoMatchesTitle => 'कोई मिलान नहीं';
+
+  @override
+  String catalogNoMatchesBody(String query) {
+    return 'हमें “$query” के लिए कोई उत्पाद नहीं मिला। कोई दूसरा नाम आज़माएँ, या आइटम को स्कैन करें।';
+  }
+
+  @override
+  String get catalogScanProduct => 'उत्पाद स्कैन करें';
+
+  @override
+  String get catalogFindTitle => 'उत्पाद खोजें';
+
+  @override
+  String get catalogFindBody =>
+      'इसकी हेल्थ रेटिंग और सामग्री देखने के लिए उत्पाद का नाम या ब्रांड खोजें।';
+
+  @override
   String get appName => 'RADHA';
 
   @override

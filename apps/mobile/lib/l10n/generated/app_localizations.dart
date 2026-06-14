@@ -280,6 +280,54 @@ abstract class AppLocalizations {
   /// **'Payment failed. Please try again.'**
   String get subPaymentFailed;
 
+  /// No description provided for @catalogSearchBarHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search products to find what fits you'**
+  String get catalogSearchBarHint;
+
+  /// No description provided for @catalogSearchHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search products or brands'**
+  String get catalogSearchHint;
+
+  /// No description provided for @catalogSearchClear.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear'**
+  String get catalogSearchClear;
+
+  /// No description provided for @catalogNoMatchesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No matches'**
+  String get catalogNoMatchesTitle;
+
+  /// Catalog search empty state. query is the user's search text.
+  ///
+  /// In en, this message translates to:
+  /// **'We couldn\'t find products for “{query}”. Try a different name, or scan the item instead.'**
+  String catalogNoMatchesBody(String query);
+
+  /// No description provided for @catalogScanProduct.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan a product'**
+  String get catalogScanProduct;
+
+  /// No description provided for @catalogFindTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Find a product'**
+  String get catalogFindTitle;
+
+  /// No description provided for @catalogFindBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Search by product name or brand to see its health rating and what\'s inside.'**
+  String get catalogFindBody;
+
   /// App name (brand mark, do not translate).
   ///
   /// In en, this message translates to:

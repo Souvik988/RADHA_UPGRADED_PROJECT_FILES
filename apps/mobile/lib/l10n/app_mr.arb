@@ -31,6 +31,15 @@
   "subPaymentPending": "पेमेंट मिळाले — आता त्याची खात्री केली जात आहे. संदर्भ {supportRef}. थोड्या वेळात रिफ्रेश करण्यासाठी खाली ओढा.",
   "subPaymentFailed": "पेमेंट अयशस्वी झाले. कृपया पुन्हा प्रयत्न करा.",
 
+  "catalogSearchBarHint": "तुमच्यासाठी योग्य उत्पादन शोधा",
+  "catalogSearchHint": "उत्पादन किंवा ब्रँड शोधा",
+  "catalogSearchClear": "साफ करा",
+  "catalogNoMatchesTitle": "जुळणी नाही",
+  "catalogNoMatchesBody": "आम्हाला “{query}” साठी कोणतेही उत्पादन सापडले नाही. दुसरे नाव वापरून पहा, किंवा वस्तू स्कॅन करा.",
+  "catalogScanProduct": "उत्पादन स्कॅन करा",
+  "catalogFindTitle": "उत्पादन शोधा",
+  "catalogFindBody": "त्याचे हेल्थ रेटिंग आणि घटक पाहण्यासाठी उत्पादनाचे नाव किंवा ब्रँड शोधा.",
+
   "appName": "RADHA",
   "tagline": "डेटा, आरोग्य आणि ऑडिटसाठी रिटेल असिस्टंट.",
   "continueLabel": "सुरू ठेवा",

@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:radha_mobile/core/router/app_router.dart';
+import 'package:radha_mobile/l10n/generated/app_localizations.dart';
 import 'package:radha_mobile/design/app_assets.dart';
 import 'package:radha_mobile/design/tokens.dart';
 import 'package:radha_mobile/design/widgets/brand_illustration.dart';
@@ -23,6 +24,7 @@ class CatalogSearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     return Material(
       color: theme.colorScheme.surfaceContainerHighest,
       borderRadius: BorderRadius.circular(RadhaRadii.radiusFull),
@@ -46,7 +48,7 @@ class CatalogSearchBar extends StatelessWidget {
               ),
               const SizedBox(width: RadhaSpacing.space12),
               Text(
-                'Search products to find what fits you',
+                l10n.catalogSearchBarHint,
                 style: theme.textTheme.bodyMedium?.copyWith(
                   color: theme.colorScheme.onSurfaceVariant,
                 ),
@@ -102,6 +104,7 @@ class _CatalogSearchScreenState extends ConsumerState<CatalogSearchScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     final results = ref.watch(catalogSearchProvider(_query));
 
     return Scaffold(
@@ -117,7 +120,7 @@ class _CatalogSearchScreenState extends ConsumerState<CatalogSearchScreen> {
           onChanged: _onChanged,
           style: theme.textTheme.titleMedium,
           decoration: InputDecoration(
-            hintText: 'Search products or brands',
+            hintText: l10n.catalogSearchHint,
             border: InputBorder.none,
             hintStyle: theme.textTheme.titleMedium?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
@@ -127,7 +130,7 @@ class _CatalogSearchScreenState extends ConsumerState<CatalogSearchScreen> {
         actions: [
           if (_controller.text.isNotEmpty)
             IconButton(
-              tooltip: 'Clear',
+              tooltip: l10n.catalogSearchClear,
               icon: const Icon(Icons.close_rounded),
               onPressed: _clear,
             ),
@@ -146,11 +149,9 @@ class _CatalogSearchScreenState extends ConsumerState<CatalogSearchScreen> {
                         RadhaAssets.stateNoResults,
                         size: 160,
                       ),
-                      title: 'No matches',
-                      body:
-                          "We couldn't find products for “$_query”. "
-                          'Try a different name, or scan the item instead.',
-                      actionLabel: 'Scan a product',
+                      title: l10n.catalogNoMatchesTitle,
+                      body: l10n.catalogNoMatchesBody(_query),
+                      actionLabel: l10n.catalogScanProduct,
                       actionIcon: Icons.qr_code_scanner_rounded,
                       onAction: () => context.go(AppRoute.scan),
                     ),
@@ -321,6 +322,7 @@ class _SearchPrompt extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(RadhaSpacing.space32),
@@ -330,15 +332,14 @@ class _SearchPrompt extends StatelessWidget {
             const BrandIllustration(RadhaAssets.morSceneSearch, size: 132),
             const SizedBox(height: RadhaSpacing.space16),
             Text(
-              'Find a product',
+              l10n.catalogFindTitle,
               style: theme.textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.w700,
               ),
             ),
             const SizedBox(height: RadhaSpacing.space8),
             Text(
-              'Search by product name or brand to see its health rating and '
-              "what's inside.",
+              l10n.catalogFindBody,
               textAlign: TextAlign.center,
               style: theme.textTheme.bodyMedium?.copyWith(
                 color: theme.colorScheme.onSurfaceVariant,

@@ -126,6 +126,33 @@ class AppLocalizationsTa extends AppLocalizations {
       'கட்டணம் தோல்வியடைந்தது. மீண்டும் முயற்சிக்கவும்.';
 
   @override
+  String get catalogSearchBarHint => 'உங்களுக்கு ஏற்ற தயாரிப்பைத் தேடுங்கள்';
+
+  @override
+  String get catalogSearchHint => 'தயாரிப்பு அல்லது பிராண்டைத் தேடுங்கள்';
+
+  @override
+  String get catalogSearchClear => 'அழி';
+
+  @override
+  String get catalogNoMatchesTitle => 'பொருத்தம் இல்லை';
+
+  @override
+  String catalogNoMatchesBody(String query) {
+    return '“$query” க்கான தயாரிப்புகள் கிடைக்கவில்லை. வேறு பெயரை முயற்சிக்கவும், அல்லது பொருளை ஸ்கேன் செய்யவும்.';
+  }
+
+  @override
+  String get catalogScanProduct => 'தயாரிப்பை ஸ்கேன் செய்யவும்';
+
+  @override
+  String get catalogFindTitle => 'தயாரிப்பைக் கண்டறியவும்';
+
+  @override
+  String get catalogFindBody =>
+      'அதன் ஹெல்த் மதிப்பீடு மற்றும் உள்ளடக்கத்தைக் காண தயாரிப்பு பெயர் அல்லது பிராண்டைத் தேடுங்கள்.';
+
+  @override
   String get appName => 'RADHA';
 
   @override

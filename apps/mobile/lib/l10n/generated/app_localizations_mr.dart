@@ -124,6 +124,33 @@ class AppLocalizationsMr extends AppLocalizations {
       'पेमेंट अयशस्वी झाले. कृपया पुन्हा प्रयत्न करा.';
 
   @override
+  String get catalogSearchBarHint => 'तुमच्यासाठी योग्य उत्पादन शोधा';
+
+  @override
+  String get catalogSearchHint => 'उत्पादन किंवा ब्रँड शोधा';
+
+  @override
+  String get catalogSearchClear => 'साफ करा';
+
+  @override
+  String get catalogNoMatchesTitle => 'जुळणी नाही';
+
+  @override
+  String catalogNoMatchesBody(String query) {
+    return 'आम्हाला “$query” साठी कोणतेही उत्पादन सापडले नाही. दुसरे नाव वापरून पहा, किंवा वस्तू स्कॅन करा.';
+  }
+
+  @override
+  String get catalogScanProduct => 'उत्पादन स्कॅन करा';
+
+  @override
+  String get catalogFindTitle => 'उत्पादन शोधा';
+
+  @override
+  String get catalogFindBody =>
+      'त्याचे हेल्थ रेटिंग आणि घटक पाहण्यासाठी उत्पादनाचे नाव किंवा ब्रँड शोधा.';
+
+  @override
   String get appName => 'RADHA';
 
   @override

@@ -41,6 +41,16 @@
   "@subPaymentPending": { "description": "Payment pending confirmation. supportRef is a short reference id.", "placeholders": { "supportRef": { "type": "String" } } },
   "subPaymentFailed": "Payment failed. Please try again.",
 
+  "catalogSearchBarHint": "Search products to find what fits you",
+  "catalogSearchHint": "Search products or brands",
+  "catalogSearchClear": "Clear",
+  "catalogNoMatchesTitle": "No matches",
+  "catalogNoMatchesBody": "We couldn't find products for “{query}”. Try a different name, or scan the item instead.",
+  "@catalogNoMatchesBody": { "description": "Catalog search empty state. query is the user's search text.", "placeholders": { "query": { "type": "String" } } },
+  "catalogScanProduct": "Scan a product",
+  "catalogFindTitle": "Find a product",
+  "catalogFindBody": "Search by product name or brand to see its health rating and what's inside.",
+
   "appName": "RADHA",
   "@appName": { "description": "App name (brand mark, do not translate)." },
 

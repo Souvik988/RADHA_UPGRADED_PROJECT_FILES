@@ -125,6 +125,33 @@ class AppLocalizationsBn extends AppLocalizations {
       'পেমেন্ট ব্যর্থ হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।';
 
   @override
+  String get catalogSearchBarHint => 'আপনার জন্য উপযুক্ত পণ্য খুঁজুন';
+
+  @override
+  String get catalogSearchHint => 'পণ্য বা ব্র্যান্ড খুঁজুন';
+
+  @override
+  String get catalogSearchClear => 'মুছুন';
+
+  @override
+  String get catalogNoMatchesTitle => 'কোনও মিল নেই';
+
+  @override
+  String catalogNoMatchesBody(String query) {
+    return 'আমরা “$query”-এর জন্য কোনও পণ্য খুঁজে পাইনি। অন্য একটি নাম চেষ্টা করুন, বা পণ্যটি স্ক্যান করুন।';
+  }
+
+  @override
+  String get catalogScanProduct => 'পণ্য স্ক্যান করুন';
+
+  @override
+  String get catalogFindTitle => 'পণ্য খুঁজুন';
+
+  @override
+  String get catalogFindBody =>
+      'এর হেলথ রেটিং এবং উপাদান দেখতে পণ্যের নাম বা ব্র্যান্ড খুঁজুন।';
+
+  @override
   String get appName => 'RADHA';
 
   @override

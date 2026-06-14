@@ -125,6 +125,33 @@ class AppLocalizationsTe extends AppLocalizations {
       'చెల్లింపు విఫలమైంది. దయచేసి మళ్ళీ ప్రయత్నించండి.';
 
   @override
+  String get catalogSearchBarHint => 'మీకు సరిపోయే ఉత్పత్తిని కనుగొనండి';
+
+  @override
+  String get catalogSearchHint => 'ఉత్పత్తి లేదా బ్రాండ్‌ను శోధించండి';
+
+  @override
+  String get catalogSearchClear => 'క్లియర్ చేయి';
+
+  @override
+  String get catalogNoMatchesTitle => 'సరిపోలికలు లేవు';
+
+  @override
+  String catalogNoMatchesBody(String query) {
+    return '“$query” కోసం ఉత్పత్తులు కనుగొనబడలేదు. వేరే పేరు ప్రయత్నించండి, లేదా వస్తువును స్కాన్ చేయండి.';
+  }
+
+  @override
+  String get catalogScanProduct => 'ఉత్పత్తిని స్కాన్ చేయండి';
+
+  @override
+  String get catalogFindTitle => 'ఉత్పత్తిని కనుగొనండి';
+
+  @override
+  String get catalogFindBody =>
+      'దాని హెల్త్ రేటింగ్ మరియు పదార్థాలను చూడటానికి ఉత్పత్తి పేరు లేదా బ్రాండ్‌ను శోధించండి.';
+
+  @override
   String get appName => 'RADHA';
 
   @override
