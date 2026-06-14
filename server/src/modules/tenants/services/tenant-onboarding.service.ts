@@ -6,6 +6,8 @@ import { ConfigService } from '@/config/config.service';
 import { DbService } from '@/db/db.service';
 import { TenantRow, StoreRow, stores, tenants, userStoreAccess } from '@/db/schema/tenants';
 import { UserRow, users } from '@/db/schema/users';
+import { LoggerService } from '@/logging/logger.service';
+import { SubscriptionsService } from '@/modules/subscriptions/subscriptions.service';
 import { AuditLogService } from '@/observability/audit-log.service';
 
 import { OnboardTenantDto } from '../dto/onboard-tenant.dto';
@@ -37,8 +39,14 @@ export interface OnboardingResult {
  *   - Validates subdomain.
  *   - In a single transaction: creates tenant + owner + first store +
  *     user_store_access(admin).
- *   - Trial end-date is set to +90 days; the actual subscription row
- *     is created in BE-28.
+ *   - After the transaction commits, starts the trial subscription via
+ *     `SubscriptionsService.startTrial` (BE-28) so the tenant gets a
+ *     `tenant_subscriptions` row and `GET /subscriptions/status`
+ *     resolves (otherwise it 404s and the mobile entitlement provider
+ *     breaks — defect D9). This mirrors how `business-activation`
+ *     starts the trial *after* its own transaction, because the
+ *     subscription repositories use the global pool rather than this
+ *     onboarding `tx`.
  */
 @Injectable()
 export class TenantOnboardingService {
@@ -47,6 +55,8 @@ export class TenantOnboardingService {
     private readonly tenants: TenantsRepository,
     private readonly audit: AuditLogService,
     private readonly _config: ConfigService,
+    private readonly subscriptions: SubscriptionsService,
+    private readonly logger: LoggerService,
   ) {}
 
   async validateSubdomain(subdomain: string): Promise<{ valid: boolean; reason?: string }> {
@@ -138,9 +148,23 @@ export class TenantOnboardingService {
       metadata: { onboarding: true, subdomain: dto.subdomain },
     });
 
-    return {
-      ...result,
-      trialEndsAt: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
-    };
+    // Start the trial subscription post-commit. A failure here is
+    // non-fatal — the tenant/owner/store are already persisted, so we
+    // log loudly (this is how a missing `trial` plan seed would surface)
+    // and fall back to a computed trial-end date rather than orphaning
+    // the onboarding response or leaving a half-created tenant.
+    const fallbackTrialEndsAt = new Date(Date.now() + 90 * 24 * 60 * 60 * 1000);
+    let trialEndsAt = fallbackTrialEndsAt;
+    try {
+      const subscription = await this.subscriptions.startTrial(result.tenant.id);
+      trialEndsAt = subscription.trialEndsAt ?? subscription.currentPeriodEnd ?? fallbackTrialEndsAt;
+    } catch (err) {
+      this.logger.error('tenant.onboard.trial_start_failed', {
+        tenantId: result.tenant.id,
+        error: { name: (err as Error).name, message: (err as Error).message },
+      });
+    }
+
+    return { ...result, trialEndsAt };
   }
 }
