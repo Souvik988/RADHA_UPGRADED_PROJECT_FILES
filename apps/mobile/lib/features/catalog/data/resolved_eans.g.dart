@@ -9,6 +9,13 @@
 // none are guessed. Unresolved products are absent (app shows "scan to unlock").
 
 const Map<String, String> kResolvedEans = <String, String>{
-  'amul-ghee': '8901262030366',
-  'britannia-white-bread': '8901063342354',
+  'amul-butter': '8901262010016',
+  'amul-ice-cream-vanilla': '8901262173490',
+  'everest-turmeric': '3948764022913',
+  'farm-eggs': '8906064511297',
+  'haldiram-aloo-bhujia': '8904004400731',
+  'india-gate-basmati': '0690225101103',
+  'nescafe-classic': '8901058007169',
+  'paneer': '8901262180115',
+  'real-mango-juice': '8901207004391',
 };

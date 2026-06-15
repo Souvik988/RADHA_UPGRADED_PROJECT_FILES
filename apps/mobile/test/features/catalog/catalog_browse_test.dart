@@ -10,6 +10,7 @@ import 'package:radha_mobile/features/catalog/catalog_search_screen.dart';
 import 'package:radha_mobile/features/catalog/featured_rail.dart';
 import 'package:radha_mobile/features/catalog/product_browse_screen.dart';
 import 'package:radha_mobile/features/catalog/product_detail_screen.dart';
+import 'package:radha_mobile/features/catalog/providers/product_browse_providers.dart';
 import 'package:radha_mobile/features/catalog/product_lookup_state.dart';
 import 'package:radha_mobile/l10n/generated/app_localizations.dart';
 
@@ -170,7 +171,16 @@ void main() {
 
       await tester.pumpWidget(
         _app(
-          const CatalogProductDetailScreen(routeKey: 'britannia-white-bread'),
+          const CatalogProductDetailScreen(
+            routeKey: 'britannia-white-bread',
+            // Explicit EAN so these tests are deterministic and independent of
+            // whatever the OFF import resolved into resolved_eans.g.dart (D11).
+            initial: BrowseProduct(
+              routeKey: 'britannia-white-bread',
+              name: 'Britannia White Bread',
+              ean: '8901063342354',
+            ),
+          ),
           overrides: [apiClientProvider.overrideWithValue(mockApi)],
         ),
       );
@@ -204,7 +214,16 @@ void main() {
 
       await tester.pumpWidget(
         _app(
-          const CatalogProductDetailScreen(routeKey: 'britannia-white-bread'),
+          const CatalogProductDetailScreen(
+            routeKey: 'britannia-white-bread',
+            // Explicit EAN so these tests are deterministic and independent of
+            // whatever the OFF import resolved into resolved_eans.g.dart (D11).
+            initial: BrowseProduct(
+              routeKey: 'britannia-white-bread',
+              name: 'Britannia White Bread',
+              ean: '8901063342354',
+            ),
+          ),
           overrides: [apiClientProvider.overrideWithValue(mockApi)],
         ),
       );
@@ -219,32 +238,40 @@ void main() {
       expect(scan, findsOneWidget);
     });
 
-    testWidgets(
-      'renders access denied lookup state without blanking identity',
-      (tester) async {
-        when(
-          () => mockApi.getSubscriptionStatus(),
-        ).thenThrow(Exception('no plan'));
-        when(
-          () => mockApi.getProductLookup(
-            any(),
-            includeNutrition: any(named: 'includeNutrition'),
-          ),
-        ).thenThrow(_lookupDio(DioExceptionType.badResponse, status: 403));
+    testWidgets('renders access denied lookup state without blanking identity', (
+      tester,
+    ) async {
+      when(
+        () => mockApi.getSubscriptionStatus(),
+      ).thenThrow(Exception('no plan'));
+      when(
+        () => mockApi.getProductLookup(
+          any(),
+          includeNutrition: any(named: 'includeNutrition'),
+        ),
+      ).thenThrow(_lookupDio(DioExceptionType.badResponse, status: 403));
 
-        await tester.pumpWidget(
-          _app(
-            const CatalogProductDetailScreen(routeKey: 'britannia-white-bread'),
-            overrides: [apiClientProvider.overrideWithValue(mockApi)],
+      await tester.pumpWidget(
+        _app(
+          const CatalogProductDetailScreen(
+            routeKey: 'britannia-white-bread',
+            // Explicit EAN so these tests are deterministic and independent of
+            // whatever the OFF import resolved into resolved_eans.g.dart (D11).
+            initial: BrowseProduct(
+              routeKey: 'britannia-white-bread',
+              name: 'Britannia White Bread',
+              ean: '8901063342354',
+            ),
           ),
-        );
-        await tester.pumpAndSettle();
+          overrides: [apiClientProvider.overrideWithValue(mockApi)],
+        ),
+      );
+      await tester.pumpAndSettle();
 
-        expect(find.text('Britannia White Bread'), findsOneWidget);
-        expect(find.text('Access restricted'), findsOneWidget);
-        expect(find.text('Retry'), findsNothing);
-      },
-    );
+      expect(find.text('Britannia White Bread'), findsOneWidget);
+      expect(find.text('Access restricted'), findsOneWidget);
+      expect(find.text('Retry'), findsNothing);
+    });
 
     testWidgets('renders timeout lookup state with retry', (tester) async {
       when(
@@ -259,7 +286,16 @@ void main() {
 
       await tester.pumpWidget(
         _app(
-          const CatalogProductDetailScreen(routeKey: 'britannia-white-bread'),
+          const CatalogProductDetailScreen(
+            routeKey: 'britannia-white-bread',
+            // Explicit EAN so these tests are deterministic and independent of
+            // whatever the OFF import resolved into resolved_eans.g.dart (D11).
+            initial: BrowseProduct(
+              routeKey: 'britannia-white-bread',
+              name: 'Britannia White Bread',
+              ean: '8901063342354',
+            ),
+          ),
           overrides: [apiClientProvider.overrideWithValue(mockApi)],
         ),
       );
