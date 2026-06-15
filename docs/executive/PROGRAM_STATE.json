@@ -1,0 +1,44 @@
+{
+  "schema": "radha.program_state/v1",
+  "generatedAt": "2026-06-15T00:00:00Z",
+  "generatedBy": "Executive Engineering Director (autonomous session)",
+  "repository": "Souvik988/RADHA_UPGRADED_PROJECT_FILES",
+  "branch": "codex/radha-final-convergence",
+  "commit": "4bf72ee04014086801e423ade6d752a8745a8405",
+  "mainComparison": { "base": "origin/main", "aheadBy": 26, "note": "verify with git after each fetch" },
+  "activeWave": "W0 — program bootstrap + independent re-verification",
+  "completedWaves": [
+    "Backend bring-up + live verification 38/38 (D5-D9 fixed)",
+    "Mobile L1 localization: subscription, catalog (search/browse/rail/detail), profile, select-store",
+    "Subscription/entitlement/payment convergence (server-driven, CheckoutEngine)",
+    "API contract matrix tooling + contracts:check gate"
+  ],
+  "currentDomain": "Cross-cutting: program control plane + scope freeze",
+  "testCounts": {
+    "flutterTests": { "claimed": 243, "reverifiedThisTurn": 243, "result": "PASS", "analyze": "clean" },
+    "backendFocusedTests": { "claimed": 41, "reverifiedThisTurn": "pending" },
+    "dashboardVitest": { "claimed": 155, "reverifiedThisTurn": "pending" }
+  },
+  "contractMismatchCounts": { "unexplained": 0, "source": "contracts:check PASS (re-run 2026-06-15)" },
+  "defectCounts": { "P0": 0, "P1": 0, "P2": 0, "P3": 0, "note": "register initialized; populated as found" },
+  "externalBlockers": [
+    "ANDROID_DEVICE: no emulator/physical device attached this session (blocks F, parts of B/I)",
+    "RAZORPAY_TEST_KEYS: owner test-mode keys not provided (blocks live payment verification, I)",
+    "AWS_ACCOUNT: no staging account/credentials (blocks M, parts of K/L)",
+    "KMS: no KMS endpoint (blocks production tenant-encryption hardening, J)",
+    "OWNER_DECISION: production credentials, legal/privacy sign-off, financial AWS provisioning"
+  ],
+  "lastVerifiedDevice": null,
+  "lastVerifiedBackendEnv": "local dist (node dist/main.api) — 38/38 sweep on a prior session; needs re-run on this branch",
+  "lastVerifiedDashboardEnv": null,
+  "lastPaymentTest": null,
+  "lastStagingDeployment": null,
+  "completionScore": { "value": 53, "unit": "percent", "method": "weighted scorecard §4", "confidence": "medium", "source": "docs/executive/RADHA_COMPLETION_SCORECARD.md" },
+  "releaseGate": { "status": "NOT_MET", "blockingGates": ["F android-native", "D dashboard-e2e", "G cross-client", "I payment-live", "J security/privacy", "K observability", "L performance/scale", "M deploy/backup/restore"] },
+  "nextActions": [
+    "Finish re-verifying claimed gates (flutter analyze/test, backend test, server build) — fill EVIDENCE_LEDGER",
+    "Complete any remaining hardcoded-English sweep (extend static literal check)",
+    "Stand up reproducible local staging + deterministic seed (§11)",
+    "Android native validation harness when a device is available (§12)"
+  ]
+}
