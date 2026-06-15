@@ -29,7 +29,7 @@
     "OWNER_DECISION: production credentials, legal/privacy sign-off, financial AWS provisioning"
   ],
   "lastVerifiedDevice": null,
-  "lastVerifiedBackendEnv": "local dist (node dist/main.api) — 38/38 sweep on a prior session; needs re-run on this branch",
+  "lastVerifiedBackendEnv": "local dist (node dist/main.api) on codex/radha-final-convergence @ dbae9e2 — live sweep PASS 38/38 (2026-06-15)",
   "lastVerifiedDashboardEnv": null,
   "lastPaymentTest": null,
   "lastStagingDeployment": null,

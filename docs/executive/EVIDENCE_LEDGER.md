@@ -22,8 +22,8 @@ Branch `codex/radha-final-convergence` @ `4bf72ee`. Ledger opened 2026-06-15.
 | Claim | Class | Note |
 |---|---|---|
 | 41 focused backend tests pass | ASSUMED | re-run `pnpm --filter @radha/server test` (targeted) on this branch |
-| Server build passes | ASSUMED | re-run `pnpm build` on this branch |
-| 38/38 representative backend endpoints live-verified | ASSUMED (was VERIFIED_LIVE_API on a prior branch) | rebuild dist on this branch + re-run the live sweep |
+| ~~Server build passes~~ → **VERIFIED_AUTOMATED** | VERIFIED_AUTOMATED | `pnpm build` (shared-types + nest build + tsc-alias) → exit 0 (2026-06-15) |
+| 38/38 representative backend endpoints live-verified ON THIS BRANCH | **VERIFIED_LIVE_API** | rebuilt dist + `node dist/main.api` (health 200) + live sweep `radha-verify.mjs` → "PASS 38 / 38" incl. D9 status=trial (2026-06-15) |
 | Dashboard 155 vitest pass | ASSUMED | on the export worktree; re-run there |
 
 ## EXTERNAL_BLOCKED (cannot be VERIFIED in this environment — owner/credential dependent)
