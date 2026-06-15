@@ -50,6 +50,7 @@ import '../../core/onboarding/onboarding_flag_controller.dart';
 import '../../core/router/app_router.dart';
 import '../../design/app_assets.dart';
 import '../../design/tokens.dart';
+import '../../l10n/generated/app_localizations.dart';
 import '../../design/widgets/brand_illustration.dart';
 import '../../design/widgets/mor_companion.dart';
 import '../../design/widgets/primary_button.dart';
@@ -137,6 +138,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     final isLastPage = _pageIndex == _kPageCount - 1;
     final isSegmentPage = _pageIndex == _kSegmentPageIndex;
     final canAdvance = !isSegmentPage || _selectedSegment != null;
@@ -163,7 +165,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
             _BottomBar(
               pageIndex: _pageIndex,
               pageCount: _kPageCount,
-              ctaLabel: isLastPage ? 'Get started' : 'Continue',
+              ctaLabel: isLastPage ? l10n.getStarted : l10n.continueLabel,
               ctaEnabled: canAdvance,
               loading: _submitting,
               onPressed: canAdvance ? _advance : null,
@@ -183,6 +185,7 @@ class _WelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     return Padding(
       padding: const EdgeInsets.symmetric(
         horizontal: RadhaSpacing.space32,
@@ -193,7 +196,7 @@ class _WelcomePage extends StatelessWidget {
         children: [
           const Spacer(flex: 2),
           Text(
-            'RADHA',
+            l10n.appName,
             style: theme.textTheme.displaySmall?.copyWith(
               letterSpacing: -1.0,
               color: theme.colorScheme.onSurface,
@@ -201,14 +204,14 @@ class _WelcomePage extends StatelessWidget {
           ),
           const SizedBox(height: RadhaSpacing.space12),
           Text(
-            'Retail Assistant for Data, Health & Audits.',
+            l10n.tagline,
             style: theme.textTheme.titleMedium?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
             ),
           ),
           const SizedBox(height: RadhaSpacing.space32),
           Text(
-            'Scan, track, audit your stock without the spreadsheets.',
+            l10n.onboardingWelcomeValue,
             style: theme.textTheme.headlineSmall?.copyWith(
               color: theme.colorScheme.onSurface,
               height: 1.3,
@@ -237,6 +240,7 @@ class _CapabilitiesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     return Padding(
       padding: const EdgeInsets.symmetric(
         horizontal: RadhaSpacing.space32,
@@ -247,7 +251,7 @@ class _CapabilitiesPage extends StatelessWidget {
         children: [
           const Spacer(),
           Text(
-            'Built for the floor,\nnot the back office.',
+            l10n.onboardingCapabilitiesTitle,
             style: theme.textTheme.headlineLarge?.copyWith(
               color: theme.colorScheme.onSurface,
               height: 1.15,
@@ -255,22 +259,22 @@ class _CapabilitiesPage extends StatelessWidget {
             ),
           ),
           const SizedBox(height: RadhaSpacing.space32),
-          const _CapabilityRow(
+          _CapabilityRow(
             icon: Icons.qr_code_scanner_outlined,
-            title: 'Scan products in one tap',
-            subtitle: 'EAN lookup with health and approval pre-checked.',
+            title: l10n.onboardingCapScanTitle,
+            subtitle: l10n.onboardingCapScanBody,
           ),
           const SizedBox(height: RadhaSpacing.space24),
-          const _CapabilityRow(
+          _CapabilityRow(
             icon: Icons.event_outlined,
-            title: 'Catch expiry before it costs you',
-            subtitle: 'OCR-assisted dates and per-category thresholds.',
+            title: l10n.onboardingCapExpiryTitle,
+            subtitle: l10n.onboardingCapExpiryBody,
           ),
           const SizedBox(height: RadhaSpacing.space24),
-          const _CapabilityRow(
+          _CapabilityRow(
             icon: Icons.checklist_outlined,
-            title: 'Run audits the team can finish',
-            subtitle: 'Tasks, evidence and bulk scan sessions.',
+            title: l10n.onboardingCapAuditTitle,
+            subtitle: l10n.onboardingCapAuditBody,
           ),
           const Spacer(flex: 2),
         ],
@@ -350,42 +354,42 @@ class _SegmentChoice {
   final String subtitle;
 }
 
-const List<_SegmentChoice> _segmentChoices = <_SegmentChoice>[
+List<_SegmentChoice> _segmentChoices(AppLocalizations l10n) => <_SegmentChoice>[
   _SegmentChoice(
     segment: OnboardingSegmentDto.personal,
     icon: Icons.person_outline,
-    title: 'Personal',
-    subtitle: 'Just shopping for myself',
+    title: l10n.segmentPersonalTitle,
+    subtitle: l10n.segmentPersonalBody,
   ),
   _SegmentChoice(
     segment: OnboardingSegmentDto.parent,
     icon: Icons.family_restroom_outlined,
-    title: 'Parent',
-    subtitle: 'Shopping for my family / kids',
+    title: l10n.segmentParentTitle,
+    subtitle: l10n.segmentParentBody,
   ),
   _SegmentChoice(
     segment: OnboardingSegmentDto.businessOwner,
     icon: Icons.storefront_outlined,
-    title: 'Business owner',
-    subtitle: 'I run a small retail store',
+    title: l10n.segmentBusinessTitle,
+    subtitle: l10n.segmentBusinessBody,
   ),
   _SegmentChoice(
     segment: OnboardingSegmentDto.pharmacy,
     icon: Icons.local_pharmacy_outlined,
-    title: 'Pharmacy',
-    subtitle: 'I run a pharmacy / chemist',
+    title: l10n.segmentPharmacyTitle,
+    subtitle: l10n.segmentPharmacyBody,
   ),
   _SegmentChoice(
     segment: OnboardingSegmentDto.institution,
     icon: Icons.apartment_outlined,
-    title: 'Institution',
-    subtitle: 'School / hostel / canteen',
+    title: l10n.segmentInstitutionTitle,
+    subtitle: l10n.segmentInstitutionBody,
   ),
   _SegmentChoice(
     segment: OnboardingSegmentDto.auditorInvited,
     icon: Icons.verified_user_outlined,
-    title: 'Auditor (invited)',
-    subtitle: 'I have an invite code',
+    title: l10n.segmentAuditorTitle,
+    subtitle: l10n.segmentAuditorBody,
   ),
 ];
 
@@ -398,6 +402,8 @@ class _SegmentPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
+    final choices = _segmentChoices(l10n);
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(
@@ -417,7 +423,7 @@ class _SegmentPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Who are you here as?',
+                  l10n.onboardingSegmentTitle,
                   style: theme.textTheme.headlineMedium?.copyWith(
                     color: theme.colorScheme.onSurface,
                     letterSpacing: -0.5,
@@ -425,7 +431,7 @@ class _SegmentPage extends StatelessWidget {
                 ),
                 const SizedBox(height: RadhaSpacing.space8),
                 Text(
-                  'Pick the closest fit. You can change later in Settings.',
+                  l10n.onboardingSegmentSubtitle,
                   style: theme.textTheme.bodyMedium?.copyWith(
                     color: theme.colorScheme.onSurfaceVariant,
                   ),
@@ -443,9 +449,9 @@ class _SegmentPage extends StatelessWidget {
                 crossAxisSpacing: RadhaSpacing.space12,
                 childAspectRatio: 0.95,
               ),
-              itemCount: _segmentChoices.length,
+              itemCount: choices.length,
               itemBuilder: (context, index) {
-                final choice = _segmentChoices[index];
+                final choice = choices[index];
                 final isSelected = selected == choice.segment;
                 return _SegmentCard(
                   choice: choice,

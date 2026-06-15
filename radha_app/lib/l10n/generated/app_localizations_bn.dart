@@ -840,4 +840,663 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get ohsErrorTitle => 'Could not load your dashboard';
+
+  @override
+  String get expiryTabNear => 'শীঘ্রই মেয়াদ';
+
+  @override
+  String get expiryTabSafe => 'নিরাপদ';
+
+  @override
+  String get expiryCalendarTooltip => 'ক্যালেন্ডার ভিউ';
+
+  @override
+  String get expiryEmptyExpiredTitle => 'কিছুই মেয়াদোত্তীর্ণ নয়';
+
+  @override
+  String get expiryEmptyNearTitle => 'সব ঠিক আছে';
+
+  @override
+  String get expiryEmptyDefaultTitle => 'এখনও কোনো রেকর্ড নেই';
+
+  @override
+  String get expiryEmptyBody => 'এই বিভাগে কোনো রেকর্ড নেই।';
+
+  @override
+  String expiryProductShort(String id) {
+    return 'পণ্য $id';
+  }
+
+  @override
+  String expiryBatch(String batch) {
+    return 'ব্যাচ $batch';
+  }
+
+  @override
+  String expiryQty(String qty) {
+    return 'পরিমাণ $qty';
+  }
+
+  @override
+  String expiryExp(String date) {
+    return 'মেয়াদ $date';
+  }
+
+  @override
+  String get expiryPillToday => 'আজ';
+
+  @override
+  String get expiryPillTomorrow => 'আগামীকাল';
+
+  @override
+  String expiryPillDays(int days) {
+    return '${days}d';
+  }
+
+  @override
+  String get expiryPillSoon => 'শীঘ্রই';
+
+  @override
+  String get expiryLoadError => 'মেয়াদের রেকর্ড লোড করা যায়নি।';
+
+  @override
+  String get expiryCouldNotLoadSemantic => 'লোড করা যায়নি';
+
+  @override
+  String get inventoryTitle => 'ইনভেন্টরি';
+
+  @override
+  String get inventorySearchTooltip => 'ইনভেন্টরি খুঁজুন';
+
+  @override
+  String get inventorySearchHint => 'পণ্য বা EAN দিয়ে খুঁজুন...';
+
+  @override
+  String get inventoryStockMovement => 'স্টক মুভমেন্ট';
+
+  @override
+  String get inventoryLowStockAlerts => 'কম স্টক সতর্কতা';
+
+  @override
+  String get inventoryLoadError => 'ইনভেন্টরি লোড করা যায়নি';
+
+  @override
+  String get inventoryEmpty => 'কোনো ইনভেন্টরি আইটেম পাওয়া যায়নি';
+
+  @override
+  String inventoryNoMatches(String query) {
+    return '\"$query\" এর জন্য কোনো মিল নেই';
+  }
+
+  @override
+  String inventoryProductShort(String id) {
+    return 'পণ্য $id';
+  }
+
+  @override
+  String get inventoryBelowThreshold => 'সীমার নিচে';
+
+  @override
+  String get inventoryInStock => 'স্টকে আছে';
+
+  @override
+  String get inventoryUnitsLabel => 'ইউনিট';
+
+  @override
+  String get inventoryTotalQuantity => 'মোট পরিমাণ';
+
+  @override
+  String get inventoryLowStockThreshold => 'কম-স্টক সীমা';
+
+  @override
+  String inventoryQtyUnits(int count) {
+    return '$count ইউনিট';
+  }
+
+  @override
+  String get inventoryBatchLedgerHint =>
+      'সম্পূর্ণ ব্যাচ লেজার দেখতে \"স্টক মুভমেন্ট\" ট্যাপ করুন।';
+
+  @override
+  String get inventoryLowStockBadge => 'কম স্টক';
+
+  @override
+  String get tasksTitle => 'কাজ';
+
+  @override
+  String get tasksTabMine => 'আমার কাজ';
+
+  @override
+  String get tasksTabAll => 'সব';
+
+  @override
+  String get tasksNewTask => 'নতুন কাজ';
+
+  @override
+  String get tasksEmptyTitle => 'এখানে কোনো কাজ নেই';
+
+  @override
+  String get tasksEmptyBody => 'এই ভিউতে বরাদ্দ করা কাজগুলি এখানে দেখা যাবে।';
+
+  @override
+  String get tasksLoadError => 'কাজ লোড করা যায়নি';
+
+  @override
+  String get taskEvidence => 'প্রমাণ';
+
+  @override
+  String get priorityHigh => 'উচ্চ';
+
+  @override
+  String get priorityMedium => 'মাঝারি';
+
+  @override
+  String get priorityLow => 'নিম্ন';
+
+  @override
+  String get priorityUrgent => 'জরুরি';
+
+  @override
+  String get taskStatusOpen => 'খোলা';
+
+  @override
+  String get taskStatusPending => 'মুলতুবি';
+
+  @override
+  String get taskStatusInProgress => 'চলমান';
+
+  @override
+  String get taskStatusCompleted => 'সম্পন্ন';
+
+  @override
+  String get taskStatusCancelled => 'বাতিল';
+
+  @override
+  String get scanTitle => 'একটি পণ্য স্ক্যান করুন';
+
+  @override
+  String get scanAlignHint => 'ফ্রেমের মধ্যে বারকোড সারিবদ্ধ করুন';
+
+  @override
+  String get scanBatchHint =>
+      'ব্যাচ মোড — স্ক্যান করতে থাকুন, আইটেম স্বয়ংক্রিয়ভাবে যোগ হবে';
+
+  @override
+  String scanBatchAdded(String code, int count) {
+    return '$code যোগ করা হয়েছে · $count স্ক্যান করা হয়েছে';
+  }
+
+  @override
+  String scanBatchDone(int count) {
+    return 'সম্পন্ন · $count';
+  }
+
+  @override
+  String get scanLabelAction => 'লেবেল স্ক্যান';
+
+  @override
+  String get scanGalleryAction => 'গ্যালারি';
+
+  @override
+  String get scanEnterManually => 'ম্যানুয়ালি লিখুন';
+
+  @override
+  String get scanBulkAudit => 'বাল্ক অডিট';
+
+  @override
+  String get scanHistoryAction => 'ইতিহাস';
+
+  @override
+  String get scanFlash => 'ফ্ল্যাশ';
+
+  @override
+  String get scanTroubleTitle => 'স্ক্যান করতে সমস্যা?';
+
+  @override
+  String get scanTroubleBody =>
+      'কম আলো বা ক্ষতিগ্রস্ত বারকোড? ফ্ল্যাশ চালু করুন, অথবা পরিবর্তে লেবেল পড়ুন।';
+
+  @override
+  String get scanGalleryNoBarcode =>
+      'কোনো বারকোড পাওয়া যায়নি। টিপ: উপাদান পড়তে \'লেবেল স্ক্যান\' ব্যবহার করুন।';
+
+  @override
+  String get scanInvalidEan => 'একটি বৈধ EAN-8, EAN-13, বা UPC-A কোড লিখুন';
+
+  @override
+  String get scanWebTitle => 'স্ক্যান';
+
+  @override
+  String get scanWebUnavailable =>
+      'ওয়েবে ক্যামেরা স্ক্যানিং উপলব্ধ নয়।\nবারকোড ম্যানুয়ালি লিখুন:';
+
+  @override
+  String get scanEanFieldLabel => 'EAN / UPC কোড';
+
+  @override
+  String get scanEanHintExample => 'যেমন 5901234123457';
+
+  @override
+  String get scanLookUp => 'খুঁজুন';
+
+  @override
+  String get scanEnterBarcode => 'বারকোড লিখুন';
+
+  @override
+  String get scanHistoryTitle => 'স্ক্যান ইতিহাস';
+
+  @override
+  String get scanNoHistory => 'এই সেশনে এখনও কোনো স্ক্যান নেই।';
+
+  @override
+  String get homeGreetingMorning => 'সুপ্রভাত';
+
+  @override
+  String get homeGreetingAfternoon => 'শুভ অপরাহ্ন';
+
+  @override
+  String get homeGreetingEvening => 'শুভ সন্ধ্যা';
+
+  @override
+  String get homeGreetingFallbackName => 'বন্ধু';
+
+  @override
+  String get homeTrialEnded =>
+      'ফ্রি ট্রায়াল শেষ — অ্যাক্সেস ধরে রাখতে আপগ্রেড করুন';
+
+  @override
+  String homeTrialDaysLeft(int days) {
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '$days দিন',
+      one: '1 দিন',
+    );
+    return 'ফ্রি ট্রায়াল · $_temp0 বাকি';
+  }
+
+  @override
+  String get homeUpgradeArrow => 'আপগ্রেড →';
+
+  @override
+  String get homeKpiSaved => 'সংরক্ষিত';
+
+  @override
+  String get homeKpiNearExpiry => 'শীঘ্রই মেয়াদ';
+
+  @override
+  String get homeKpiRecallAlerts => 'রিকল সতর্কতা';
+
+  @override
+  String get homeKpiOpenTasks => 'খোলা কাজ';
+
+  @override
+  String get homeKpiLowStock => 'কম স্টক';
+
+  @override
+  String get homeEyebrowFoodSafety => 'খাদ্য সুরক্ষা সতর্কতা';
+
+  @override
+  String get homeEyebrowToday => 'আজকের কাজ';
+
+  @override
+  String get homeEyebrowHealthScan => 'আপনার হেলথ স্ক্যান';
+
+  @override
+  String get homeEyebrowScanToLearn => 'স্ক্যান করে জানুন';
+
+  @override
+  String get homeEyebrowAllClear => 'সব ঠিক আছে';
+
+  @override
+  String homeStoryRecall(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countটি রিকল করা পণ্য — দেখুন আপনার বাড়িতে কী আছে',
+      one: '1টি রিকল করা পণ্য — দেখুন আপনার বাড়িতে কী আছে',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String homeStoryNearExpiryConsumer(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other:
+          '$countটি সংরক্ষিত আইটেম এই সপ্তাহে মেয়াদ শেষ হচ্ছে — ব্যবহার করুন',
+      one: '1টি সংরক্ষিত আইটেম এই সপ্তাহে মেয়াদ শেষ হচ্ছে — ব্যবহার করুন',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get homeStoryKnowWhatYouEat => 'আপনি কী খান তা জানুন';
+
+  @override
+  String get homeStoryScanInside =>
+      'যেকোনো খাদ্য বারকোডে ক্যামেরা তাক করুন — ভেতরে কী আছে দেখুন';
+
+  @override
+  String homeStoryNearExpiryBusiness(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countটি আইটেম শীঘ্রই মেয়াদ — তাক পরিষ্কার করুন',
+      one: '1টি আইটেম শীঘ্রই মেয়াদ — তাক পরিষ্কার করুন',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String homeStoryOpenTasks(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countটি কাজে আজ আপনাকে দরকার',
+      one: '1টি কাজে আজ আপনাকে দরকার',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String homeStoryLowStock(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countটি আইটেমের স্টক কমে যাচ্ছে',
+      one: '1টি আইটেমের স্টক কমে যাচ্ছে',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get homeStoreToday => 'এই যে আজ আপনার দোকান';
+
+  @override
+  String get homeStoreAllGood => 'শাবাশ! আপনার দোকান আজ দারুণ অবস্থায় আছে';
+
+  @override
+  String get homeCtaViewRecallAlerts => 'রিকল সতর্কতা দেখুন';
+
+  @override
+  String get homeCtaCheckExpiry => 'মেয়াদ দেখুন';
+
+  @override
+  String get homeCtaOpenExpiry => 'মেয়াদ খুলুন';
+
+  @override
+  String get homeCtaViewTasks => 'কাজ দেখুন';
+
+  @override
+  String get homeCtaCheckInventory => 'ইনভেন্টরি দেখুন';
+
+  @override
+  String get homeCtaOpenTasks => 'কাজ খুলুন';
+
+  @override
+  String get homeCtaRunAudit => 'একটি দ্রুত অডিট চালান';
+
+  @override
+  String get homeQuickActions => 'দ্রুত ক্রিয়া';
+
+  @override
+  String get homeQuickScan => 'স্ক্যান';
+
+  @override
+  String get homeQuickShopping => 'শপিং';
+
+  @override
+  String get homeQuickAddExpiry => 'মেয়াদ যোগ করুন';
+
+  @override
+  String get homeQuickNewTask => 'নতুন কাজ';
+
+  @override
+  String get homeRecentTasks => 'সাম্প্রতিক কাজ';
+
+  @override
+  String get homeSeeAll => 'সব দেখুন';
+
+  @override
+  String get homeNoOpenTasks => 'কোনো খোলা কাজ নেই — একটি তৈরি করুন';
+
+  @override
+  String homeTaskAssignedTo(String name) {
+    return '$name কে বরাদ্দ করা হয়েছে';
+  }
+
+  @override
+  String get homeTaskOverdue => 'বকেয়া';
+
+  @override
+  String get homeTaskDueToday => 'আজ দেয়';
+
+  @override
+  String get homeTaskDueTomorrow => 'আগামীকাল দেয়';
+
+  @override
+  String homeTaskDueInDays(int days) {
+    return '$days দিনে দেয়';
+  }
+
+  @override
+  String homeTaskDueOn(String date) {
+    return 'দেয় $date';
+  }
+
+  @override
+  String get homeHowHelps => 'RADHA কীভাবে আপনাকে সাহায্য করে';
+
+  @override
+  String get homeScanBarcodeTitle => 'যেকোনো খাদ্য বারকোড স্ক্যান করুন';
+
+  @override
+  String get homeScanBarcodeBody =>
+      'হেলথ রেটিং, উপাদান, এবং কী লক্ষ্য রাখতে হবে — সব দেখুন।';
+
+  @override
+  String get homeRecallTitle => 'সুরক্ষা রিকল সতর্কতা';
+
+  @override
+  String get homeRecallBody => 'রিকল করা খাদ্য পণ্য সম্পর্কে অবগত থাকুন।';
+
+  @override
+  String get homePromoKnowFoodEyebrow => 'আপনার খাবার জানুন';
+
+  @override
+  String get homePromoKnowFoodHeadline =>
+      'লেবেল স্ক্যান করুন — সত্যিই ভেতরে কী আছে দেখুন';
+
+  @override
+  String get homePromoKnowFoodCta => 'স্ক্যান করে জানুন';
+
+  @override
+  String get homePromoExpiryEyebrow => 'কোনো তারিখ মিস করবেন না';
+
+  @override
+  String get homePromoExpiryHeadline =>
+      'প্রতিটি মেয়াদ হাতছাড়া হওয়ার আগে ধরুন';
+
+  @override
+  String get homePromoExpiryCta => 'মেয়াদ ট্র্যাক করুন';
+
+  @override
+  String get homePromoFestiveEyebrow => 'উৎসবের বাছাই';
+
+  @override
+  String get homePromoFestiveHeadline =>
+      'মরশুমের কেনাকাটা করুন, স্বাস্থ্যকর উপায়ে';
+
+  @override
+  String get homePromoFestiveCta => 'পণ্য ব্রাউজ করুন';
+
+  @override
+  String get homePromoBazaarEyebrow => 'আজকের বাজার';
+
+  @override
+  String get homePromoBazaarHeadline => 'মিনিটেই আপনার তাক অডিট করুন';
+
+  @override
+  String get homePromoBazaarCta => 'অডিট শুরু করুন';
+
+  @override
+  String get homeShopByCategory => 'বিভাগ অনুযায়ী কিনুন';
+
+  @override
+  String get homeShopByCategorySubtitle =>
+      'স্ক্যান বা ব্রাউজ করতে একটি আইলে ট্যাপ করুন';
+
+  @override
+  String get onboardingWelcomeValue =>
+      'স্ক্যান করুন, ট্র্যাক করুন, আপনার স্টক অডিট করুন — স্প্রেডশিট ছাড়াই।';
+
+  @override
+  String get onboardingCapabilitiesTitle =>
+      'দোকানের মেঝের জন্য তৈরি,\nব্যাক অফিসের জন্য নয়।';
+
+  @override
+  String get onboardingCapScanTitle => 'এক ট্যাপে পণ্য স্ক্যান করুন';
+
+  @override
+  String get onboardingCapScanBody =>
+      'হেলথ এবং অনুমোদন পূর্ব-যাচাইকৃত EAN লুকআপ।';
+
+  @override
+  String get onboardingCapExpiryTitle => 'ক্ষতির আগে মেয়াদ ধরুন';
+
+  @override
+  String get onboardingCapExpiryBody =>
+      'OCR-সহায়ক তারিখ এবং প্রতি-বিভাগ সীমা।';
+
+  @override
+  String get onboardingCapAuditTitle => 'এমন অডিট চালান যা দল শেষ করতে পারে';
+
+  @override
+  String get onboardingCapAuditBody => 'কাজ, প্রমাণ এবং বাল্ক স্ক্যান সেশন।';
+
+  @override
+  String get onboardingSegmentTitle => 'আপনি এখানে কে হিসেবে আছেন?';
+
+  @override
+  String get onboardingSegmentSubtitle =>
+      'সবচেয়ে কাছের বিকল্পটি বেছে নিন। আপনি পরে সেটিংসে পরিবর্তন করতে পারবেন।';
+
+  @override
+  String get segmentPersonalTitle => 'ব্যক্তিগত';
+
+  @override
+  String get segmentPersonalBody => 'শুধু নিজের জন্য কেনাকাটা';
+
+  @override
+  String get segmentParentTitle => 'অভিভাবক';
+
+  @override
+  String get segmentParentBody => 'আমার পরিবার / সন্তানদের জন্য কেনাকাটা';
+
+  @override
+  String get segmentBusinessTitle => 'ব্যবসার মালিক';
+
+  @override
+  String get segmentBusinessBody => 'আমি একটি ছোট খুচরা দোকান চালাই';
+
+  @override
+  String get segmentPharmacyTitle => 'ফার্মেসি';
+
+  @override
+  String get segmentPharmacyBody => 'আমি একটি ফার্মেসি / কেমিস্ট চালাই';
+
+  @override
+  String get segmentInstitutionTitle => 'প্রতিষ্ঠান';
+
+  @override
+  String get segmentInstitutionBody => 'স্কুল / হোস্টেল / ক্যান্টিন';
+
+  @override
+  String get segmentAuditorTitle => 'অডিটর (আমন্ত্রিত)';
+
+  @override
+  String get segmentAuditorBody => 'আমার কাছে একটি আমন্ত্রণ কোড আছে';
+
+  @override
+  String get allergenTitle => 'অ্যালার্জেন';
+
+  @override
+  String get allergenLoadError => 'আপনার অ্যালার্জেন প্রোফাইল লোড করা যায়নি।';
+
+  @override
+  String get allergenHeading => 'আপনার অ্যালার্জেন';
+
+  @override
+  String get allergenIntro =>
+      'আপনার যেগুলিতে প্রতিক্রিয়া হয় সেই অ্যালার্জেনগুলিতে ট্যাপ করুন। স্ক্যান করা পণ্যে সেগুলি থাকলে আমরা আপনাকে সতর্ক করব।';
+
+  @override
+  String allergenTracked(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countটি অ্যালার্জেন ট্র্যাক করা হচ্ছে',
+      one: '1টি অ্যালার্জেন ট্র্যাক করা হচ্ছে',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get allergenNoneTracked => 'এখনও কোনো অ্যালার্জেন ট্র্যাক করা হয়নি';
+
+  @override
+  String get allergenSavedCleared => 'অ্যালার্জেন প্রোফাইল সাফ করা হয়েছে।';
+
+  @override
+  String get allergenSaved => 'অ্যালার্জেন প্রোফাইল সংরক্ষিত হয়েছে।';
+
+  @override
+  String get allergenSaveError => 'আপনার অ্যালার্জেন সংরক্ষণ করা যায়নি।';
+
+  @override
+  String get allergenPeanut => 'চিনাবাদাম';
+
+  @override
+  String get allergenTreeNut => 'গাছের বাদাম';
+
+  @override
+  String get allergenDairy => 'দুগ্ধজাত';
+
+  @override
+  String get allergenEggs => 'ডিম';
+
+  @override
+  String get allergenSoy => 'সয়া';
+
+  @override
+  String get allergenWheat => 'গম';
+
+  @override
+  String get allergenFish => 'মাছ';
+
+  @override
+  String get allergenShellfish => 'শেলফিশ';
+
+  @override
+  String get allergenSesame => 'তিল';
+
+  @override
+  String get allergenGluten => 'গ্লুটেন';
+
+  @override
+  String get allergenMustard => 'সরিষা';
+
+  @override
+  String get allergenCelery => 'সেলারি';
+
+  @override
+  String get allergenLupin => 'লুপিন';
+
+  @override
+  String get allergenMolluscs => 'মলাস্ক';
+
+  @override
+  String get allergenSulphites => 'সালফাইট';
 }

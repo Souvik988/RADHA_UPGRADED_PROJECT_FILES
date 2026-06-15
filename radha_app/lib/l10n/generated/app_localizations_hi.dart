@@ -841,4 +841,663 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get ohsErrorTitle => 'Could not load your dashboard';
+
+  @override
+  String get expiryTabNear => 'जल्द समाप्त';
+
+  @override
+  String get expiryTabSafe => 'सुरक्षित';
+
+  @override
+  String get expiryCalendarTooltip => 'कैलेंडर दृश्य';
+
+  @override
+  String get expiryEmptyExpiredTitle => 'कुछ भी एक्सपायर नहीं';
+
+  @override
+  String get expiryEmptyNearTitle => 'सब ठीक है';
+
+  @override
+  String get expiryEmptyDefaultTitle => 'अभी कोई रिकॉर्ड नहीं';
+
+  @override
+  String get expiryEmptyBody => 'इस श्रेणी में कोई रिकॉर्ड नहीं है।';
+
+  @override
+  String expiryProductShort(String id) {
+    return 'उत्पाद $id';
+  }
+
+  @override
+  String expiryBatch(String batch) {
+    return 'बैच $batch';
+  }
+
+  @override
+  String expiryQty(String qty) {
+    return 'मात्रा $qty';
+  }
+
+  @override
+  String expiryExp(String date) {
+    return 'एक्सपायरी $date';
+  }
+
+  @override
+  String get expiryPillToday => 'आज';
+
+  @override
+  String get expiryPillTomorrow => 'कल';
+
+  @override
+  String expiryPillDays(int days) {
+    return '${days}d';
+  }
+
+  @override
+  String get expiryPillSoon => 'जल्द';
+
+  @override
+  String get expiryLoadError => 'एक्सपायरी रिकॉर्ड लोड नहीं हो सके।';
+
+  @override
+  String get expiryCouldNotLoadSemantic => 'लोड नहीं हो सका';
+
+  @override
+  String get inventoryTitle => 'इन्वेंटरी';
+
+  @override
+  String get inventorySearchTooltip => 'इन्वेंटरी खोजें';
+
+  @override
+  String get inventorySearchHint => 'उत्पाद या EAN से खोजें...';
+
+  @override
+  String get inventoryStockMovement => 'स्टॉक मूवमेंट';
+
+  @override
+  String get inventoryLowStockAlerts => 'कम स्टॉक अलर्ट';
+
+  @override
+  String get inventoryLoadError => 'इन्वेंटरी लोड नहीं हो सकी';
+
+  @override
+  String get inventoryEmpty => 'कोई इन्वेंटरी आइटम नहीं मिला';
+
+  @override
+  String inventoryNoMatches(String query) {
+    return '\"$query\" के लिए कोई मिलान नहीं';
+  }
+
+  @override
+  String inventoryProductShort(String id) {
+    return 'उत्पाद $id';
+  }
+
+  @override
+  String get inventoryBelowThreshold => 'सीमा से नीचे';
+
+  @override
+  String get inventoryInStock => 'स्टॉक में';
+
+  @override
+  String get inventoryUnitsLabel => 'यूनिट';
+
+  @override
+  String get inventoryTotalQuantity => 'कुल मात्रा';
+
+  @override
+  String get inventoryLowStockThreshold => 'कम-स्टॉक सीमा';
+
+  @override
+  String inventoryQtyUnits(int count) {
+    return '$count यूनिट';
+  }
+
+  @override
+  String get inventoryBatchLedgerHint =>
+      'पूरा बैच लेज़र देखने के लिए \"स्टॉक मूवमेंट\" टैप करें।';
+
+  @override
+  String get inventoryLowStockBadge => 'कम स्टॉक';
+
+  @override
+  String get tasksTitle => 'कार्य';
+
+  @override
+  String get tasksTabMine => 'मेरे कार्य';
+
+  @override
+  String get tasksTabAll => 'सभी';
+
+  @override
+  String get tasksNewTask => 'नया कार्य';
+
+  @override
+  String get tasksEmptyTitle => 'यहाँ कोई कार्य नहीं';
+
+  @override
+  String get tasksEmptyBody => 'इस दृश्य को सौंपे गए कार्य यहाँ दिखेंगे।';
+
+  @override
+  String get tasksLoadError => 'कार्य लोड नहीं हो सके';
+
+  @override
+  String get taskEvidence => 'साक्ष्य';
+
+  @override
+  String get priorityHigh => 'उच्च';
+
+  @override
+  String get priorityMedium => 'मध्यम';
+
+  @override
+  String get priorityLow => 'निम्न';
+
+  @override
+  String get priorityUrgent => 'अत्यावश्यक';
+
+  @override
+  String get taskStatusOpen => 'खुला';
+
+  @override
+  String get taskStatusPending => 'लंबित';
+
+  @override
+  String get taskStatusInProgress => 'जारी है';
+
+  @override
+  String get taskStatusCompleted => 'पूर्ण';
+
+  @override
+  String get taskStatusCancelled => 'रद्द';
+
+  @override
+  String get scanTitle => 'उत्पाद स्कैन करें';
+
+  @override
+  String get scanAlignHint => 'बारकोड को फ्रेम के भीतर रखें';
+
+  @override
+  String get scanBatchHint =>
+      'बैच मोड — स्कैन करते रहें, आइटम स्वतः जुड़ते जाएँगे';
+
+  @override
+  String scanBatchAdded(String code, int count) {
+    return '$code जोड़ा · $count स्कैन किए गए';
+  }
+
+  @override
+  String scanBatchDone(int count) {
+    return 'पूर्ण · $count';
+  }
+
+  @override
+  String get scanLabelAction => 'लेबल स्कैन';
+
+  @override
+  String get scanGalleryAction => 'गैलरी';
+
+  @override
+  String get scanEnterManually => 'मैन्युअल रूप से दर्ज करें';
+
+  @override
+  String get scanBulkAudit => 'बल्क ऑडिट';
+
+  @override
+  String get scanHistoryAction => 'इतिहास';
+
+  @override
+  String get scanFlash => 'फ्लैश';
+
+  @override
+  String get scanTroubleTitle => 'स्कैन करने में परेशानी?';
+
+  @override
+  String get scanTroubleBody =>
+      'कम रोशनी या खराब बारकोड? फ्लैश चालू करें, या इसके बजाय लेबल पढ़ें।';
+
+  @override
+  String get scanGalleryNoBarcode =>
+      'कोई बारकोड नहीं मिला। सुझाव: सामग्री पढ़ने के लिए \'लेबल स्कैन\' का उपयोग करें।';
+
+  @override
+  String get scanInvalidEan => 'एक वैध EAN-8, EAN-13, या UPC-A कोड दर्ज करें';
+
+  @override
+  String get scanWebTitle => 'स्कैन';
+
+  @override
+  String get scanWebUnavailable =>
+      'वेब पर कैमरा स्कैनिंग उपलब्ध नहीं है।\nबारकोड मैन्युअल रूप से दर्ज करें:';
+
+  @override
+  String get scanEanFieldLabel => 'EAN / UPC कोड';
+
+  @override
+  String get scanEanHintExample => 'उदा. 5901234123457';
+
+  @override
+  String get scanLookUp => 'खोजें';
+
+  @override
+  String get scanEnterBarcode => 'बारकोड दर्ज करें';
+
+  @override
+  String get scanHistoryTitle => 'स्कैन इतिहास';
+
+  @override
+  String get scanNoHistory => 'इस सत्र में अभी तक कोई स्कैन नहीं।';
+
+  @override
+  String get homeGreetingMorning => 'सुप्रभात';
+
+  @override
+  String get homeGreetingAfternoon => 'शुभ दोपहर';
+
+  @override
+  String get homeGreetingEvening => 'शुभ संध्या';
+
+  @override
+  String get homeGreetingFallbackName => 'दोस्त';
+
+  @override
+  String get homeTrialEnded =>
+      'मुफ़्त ट्रायल समाप्त — एक्सेस बनाए रखने के लिए अपग्रेड करें';
+
+  @override
+  String homeTrialDaysLeft(int days) {
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '$days दिन',
+      one: '1 दिन',
+    );
+    return 'मुफ़्त ट्रायल · $_temp0 शेष';
+  }
+
+  @override
+  String get homeUpgradeArrow => 'अपग्रेड →';
+
+  @override
+  String get homeKpiSaved => 'सहेजे गए';
+
+  @override
+  String get homeKpiNearExpiry => 'जल्द समाप्त';
+
+  @override
+  String get homeKpiRecallAlerts => 'रिकॉल अलर्ट';
+
+  @override
+  String get homeKpiOpenTasks => 'खुले कार्य';
+
+  @override
+  String get homeKpiLowStock => 'कम स्टॉक';
+
+  @override
+  String get homeEyebrowFoodSafety => 'खाद्य सुरक्षा चेतावनी';
+
+  @override
+  String get homeEyebrowToday => 'आज का काम';
+
+  @override
+  String get homeEyebrowHealthScan => 'आपका हेल्थ स्कैन';
+
+  @override
+  String get homeEyebrowScanToLearn => 'स्कैन करके जानें';
+
+  @override
+  String get homeEyebrowAllClear => 'सब ठीक है';
+
+  @override
+  String homeStoryRecall(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count रिकॉल किए गए उत्पाद — देखें आपके घर में क्या है',
+      one: '1 रिकॉल किया गया उत्पाद — देखें आपके घर में क्या है',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String homeStoryNearExpiryConsumer(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other:
+          '$count सहेजे आइटम इस सप्ताह समाप्त हो रहे हैं — इन्हें इस्तेमाल करें',
+      one: '1 सहेजा आइटम इस सप्ताह समाप्त हो रहा है — इसे इस्तेमाल करें',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get homeStoryKnowWhatYouEat => 'जानें आप क्या खाते हैं';
+
+  @override
+  String get homeStoryScanInside =>
+      'किसी भी फूड बारकोड पर कैमरा रखें — देखें अंदर क्या है';
+
+  @override
+  String homeStoryNearExpiryBusiness(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count आइटम जल्द समाप्त — शेल्फ साफ़ करें',
+      one: '1 आइटम जल्द समाप्त — शेल्फ साफ़ करें',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String homeStoryOpenTasks(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count कार्यों को आज आपकी ज़रूरत है',
+      one: '1 कार्य को आज आपकी ज़रूरत है',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String homeStoryLowStock(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count आइटम का स्टॉक कम हो रहा है',
+      one: '1 आइटम का स्टॉक कम हो रहा है',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get homeStoreToday => 'यह रही आज आपकी दुकान';
+
+  @override
+  String get homeStoreAllGood => 'शाबाश! आपकी दुकान आज बढ़िया स्थिति में है';
+
+  @override
+  String get homeCtaViewRecallAlerts => 'रिकॉल अलर्ट देखें';
+
+  @override
+  String get homeCtaCheckExpiry => 'एक्सपायरी देखें';
+
+  @override
+  String get homeCtaOpenExpiry => 'एक्सपायरी खोलें';
+
+  @override
+  String get homeCtaViewTasks => 'कार्य देखें';
+
+  @override
+  String get homeCtaCheckInventory => 'इन्वेंटरी देखें';
+
+  @override
+  String get homeCtaOpenTasks => 'कार्य खोलें';
+
+  @override
+  String get homeCtaRunAudit => 'एक त्वरित ऑडिट चलाएँ';
+
+  @override
+  String get homeQuickActions => 'त्वरित क्रियाएँ';
+
+  @override
+  String get homeQuickScan => 'स्कैन';
+
+  @override
+  String get homeQuickShopping => 'शॉपिंग';
+
+  @override
+  String get homeQuickAddExpiry => 'एक्सपायरी जोड़ें';
+
+  @override
+  String get homeQuickNewTask => 'नया कार्य';
+
+  @override
+  String get homeRecentTasks => 'हाल के कार्य';
+
+  @override
+  String get homeSeeAll => 'सभी देखें';
+
+  @override
+  String get homeNoOpenTasks => 'कोई खुला कार्य नहीं — एक बनाएँ';
+
+  @override
+  String homeTaskAssignedTo(String name) {
+    return '$name को सौंपा गया';
+  }
+
+  @override
+  String get homeTaskOverdue => 'बकाया';
+
+  @override
+  String get homeTaskDueToday => 'आज देय';
+
+  @override
+  String get homeTaskDueTomorrow => 'कल देय';
+
+  @override
+  String homeTaskDueInDays(int days) {
+    return '$days दिनों में देय';
+  }
+
+  @override
+  String homeTaskDueOn(String date) {
+    return 'देय $date';
+  }
+
+  @override
+  String get homeHowHelps => 'RADHA आपकी कैसे मदद करता है';
+
+  @override
+  String get homeScanBarcodeTitle => 'किसी भी फूड बारकोड को स्कैन करें';
+
+  @override
+  String get homeScanBarcodeBody =>
+      'हेल्थ रेटिंग, सामग्री, और किन बातों का ध्यान रखें — सब देखें।';
+
+  @override
+  String get homeRecallTitle => 'सुरक्षा रिकॉल अलर्ट';
+
+  @override
+  String get homeRecallBody =>
+      'रिकॉल किए गए खाद्य उत्पादों के बारे में सूचित रहें।';
+
+  @override
+  String get homePromoKnowFoodEyebrow => 'अपना भोजन जानें';
+
+  @override
+  String get homePromoKnowFoodHeadline =>
+      'लेबल स्कैन करें — देखें अंदर वास्तव में क्या है';
+
+  @override
+  String get homePromoKnowFoodCta => 'स्कैन करें और जानें';
+
+  @override
+  String get homePromoExpiryEyebrow => 'कोई तारीख न चूकें';
+
+  @override
+  String get homePromoExpiryHeadline => 'हर एक्सपायरी को फिसलने से पहले पकड़ें';
+
+  @override
+  String get homePromoExpiryCta => 'एक्सपायरी ट्रैक करें';
+
+  @override
+  String get homePromoFestiveEyebrow => 'त्योहारी चुनिंदा';
+
+  @override
+  String get homePromoFestiveHeadline =>
+      'सीज़न की खरीदारी करें, सेहतमंद तरीके से';
+
+  @override
+  String get homePromoFestiveCta => 'उत्पाद ब्राउज़ करें';
+
+  @override
+  String get homePromoBazaarEyebrow => 'आज का बाज़ार';
+
+  @override
+  String get homePromoBazaarHeadline => 'मिनटों में अपनी शेल्फ का ऑडिट करें';
+
+  @override
+  String get homePromoBazaarCta => 'ऑडिट शुरू करें';
+
+  @override
+  String get homeShopByCategory => 'श्रेणी से खरीदें';
+
+  @override
+  String get homeShopByCategorySubtitle =>
+      'स्कैन या ब्राउज़ करने के लिए किसी आइल पर टैप करें';
+
+  @override
+  String get onboardingWelcomeValue =>
+      'स्कैन करें, ट्रैक करें, अपने स्टॉक का ऑडिट करें — स्प्रेडशीट के बिना।';
+
+  @override
+  String get onboardingCapabilitiesTitle =>
+      'दुकान के फ़र्श के लिए बना,\nपिछले दफ़्तर के लिए नहीं।';
+
+  @override
+  String get onboardingCapScanTitle => 'एक टैप में उत्पाद स्कैन करें';
+
+  @override
+  String get onboardingCapScanBody =>
+      'EAN लुकअप, हेल्थ और अप्रूवल पहले से जाँचे हुए।';
+
+  @override
+  String get onboardingCapExpiryTitle => 'नुकसान से पहले एक्सपायरी पकड़ें';
+
+  @override
+  String get onboardingCapExpiryBody =>
+      'OCR-सहायता प्राप्त तिथियाँ और प्रति-श्रेणी सीमाएँ।';
+
+  @override
+  String get onboardingCapAuditTitle => 'ऐसे ऑडिट चलाएँ जो टीम पूरे कर सके';
+
+  @override
+  String get onboardingCapAuditBody => 'कार्य, साक्ष्य और बल्क स्कैन सत्र।';
+
+  @override
+  String get onboardingSegmentTitle => 'आप यहाँ किस रूप में हैं?';
+
+  @override
+  String get onboardingSegmentSubtitle =>
+      'सबसे करीबी विकल्प चुनें। आप बाद में सेटिंग्स में बदल सकते हैं।';
+
+  @override
+  String get segmentPersonalTitle => 'व्यक्तिगत';
+
+  @override
+  String get segmentPersonalBody => 'बस अपने लिए खरीदारी';
+
+  @override
+  String get segmentParentTitle => 'अभिभावक';
+
+  @override
+  String get segmentParentBody => 'अपने परिवार / बच्चों के लिए खरीदारी';
+
+  @override
+  String get segmentBusinessTitle => 'व्यवसाय मालिक';
+
+  @override
+  String get segmentBusinessBody => 'मैं एक छोटी रिटेल दुकान चलाता हूँ';
+
+  @override
+  String get segmentPharmacyTitle => 'फार्मेसी';
+
+  @override
+  String get segmentPharmacyBody => 'मैं एक फार्मेसी / केमिस्ट चलाता हूँ';
+
+  @override
+  String get segmentInstitutionTitle => 'संस्थान';
+
+  @override
+  String get segmentInstitutionBody => 'स्कूल / छात्रावास / कैंटीन';
+
+  @override
+  String get segmentAuditorTitle => 'ऑडिटर (आमंत्रित)';
+
+  @override
+  String get segmentAuditorBody => 'मेरे पास एक आमंत्रण कोड है';
+
+  @override
+  String get allergenTitle => 'एलर्जेन';
+
+  @override
+  String get allergenLoadError => 'आपकी एलर्जेन प्रोफ़ाइल लोड नहीं हो सकी।';
+
+  @override
+  String get allergenHeading => 'आपके एलर्जेन';
+
+  @override
+  String get allergenIntro =>
+      'जिन एलर्जेन से आपको प्रतिक्रिया होती है उन्हें टैप करें। स्कैन किए गए उत्पाद में वे होने पर हम आपको चेतावनी देंगे।';
+
+  @override
+  String allergenTracked(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count एलर्जेन ट्रैक किए गए',
+      one: '1 एलर्जेन ट्रैक किया गया',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get allergenNoneTracked => 'अभी तक कोई एलर्जेन ट्रैक नहीं किया गया';
+
+  @override
+  String get allergenSavedCleared => 'एलर्जेन प्रोफ़ाइल साफ़ कर दी गई।';
+
+  @override
+  String get allergenSaved => 'एलर्जेन प्रोफ़ाइल सहेजी गई।';
+
+  @override
+  String get allergenSaveError => 'आपकी एलर्जेन सहेजी नहीं जा सकीं।';
+
+  @override
+  String get allergenPeanut => 'मूंगफली';
+
+  @override
+  String get allergenTreeNut => 'ट्री नट';
+
+  @override
+  String get allergenDairy => 'डेयरी';
+
+  @override
+  String get allergenEggs => 'अंडे';
+
+  @override
+  String get allergenSoy => 'सोया';
+
+  @override
+  String get allergenWheat => 'गेहूँ';
+
+  @override
+  String get allergenFish => 'मछली';
+
+  @override
+  String get allergenShellfish => 'शेलफिश';
+
+  @override
+  String get allergenSesame => 'तिल';
+
+  @override
+  String get allergenGluten => 'ग्लूटेन';
+
+  @override
+  String get allergenMustard => 'सरसों';
+
+  @override
+  String get allergenCelery => 'सेलरी';
+
+  @override
+  String get allergenLupin => 'ल्यूपिन';
+
+  @override
+  String get allergenMolluscs => 'मोलस्क';
+
+  @override
+  String get allergenSulphites => 'सल्फाइट';
 }
