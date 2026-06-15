@@ -6,7 +6,7 @@
   "branch": "codex/radha-final-convergence",
   "commit": "4bf72ee04014086801e423ade6d752a8745a8405",
   "mainComparison": { "base": "origin/main", "aheadBy": 26, "note": "verify with git after each fetch" },
-  "activeWave": "W0 DONE — program bootstrap, re-verification (38/38 live, 243 flutter, build, contracts), handoff deepened (production arch §8 / DoD §12 / session-end rule §13). NEXT WAVE W1 = D10 mobile localization sweep (~19 screens) + static visible-literal guard.",
+  "activeWave": "W1 IN PROGRESS — product browse hardened: catalog enriched 2->11 real products (live), D11 CLOSED (bundled cards linked + tests decoupled, adbb01a), flutter 243/243. NEXT in W1 = D10 mobile localization sweep (~19 screens) + static visible-literal guard; then dashboard D3/D4.",
   "completedWaves": [
     "Backend bring-up + live verification 38/38 (D5-D9 fixed)",
     "Mobile L1 localization: subscription, catalog (search/browse/rail/detail), profile, select-store",
@@ -20,7 +20,7 @@
     "dashboardVitest": { "claimed": 155, "reverifiedThisTurn": "pending" }
   },
   "contractMismatchCounts": { "unexplained": 0, "source": "contracts:check PASS (re-run 2026-06-15)" },
-  "defectCounts": { "P0": 0, "P1": 0, "P2": 4, "P3": 0, "note": "D3,D4 dashboard + D10 mobile-l10n + D11 catalog-seed/linking; D5-D9 closed" },
+  "defectCounts": { "P0": 0, "P1": 0, "P2": 3, "P3": 0, "note": "open: D3,D4 dashboard + D10 mobile-l10n; closed: D5-D9, D11(catalog browse linked + tests decoupled, adbb01a)" },
   "externalBlockers": [
     "ANDROID_DEVICE: no emulator/physical device attached this session (blocks F, parts of B/I)",
     "RAZORPAY_TEST_KEYS: owner test-mode keys not provided (blocks live payment verification, I)",
