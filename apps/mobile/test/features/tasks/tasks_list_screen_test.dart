@@ -7,13 +7,18 @@ import 'package:radha_mobile/core/network/api_client.dart';
 import 'package:radha_mobile/core/network/dto/task_dto.dart';
 import 'package:radha_mobile/features/tasks/task_detail_screen.dart';
 import 'package:radha_mobile/features/tasks/tasks_list_screen.dart';
+import 'package:radha_mobile/l10n/generated/app_localizations.dart';
 
 class MockApiClient extends Mock implements ApiClient {}
 
 Widget _buildApp(Widget child, {List<Override> overrides = const []}) {
   return ProviderScope(
     overrides: overrides,
-    child: MaterialApp(home: child),
+    child: MaterialApp(
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      home: child,
+    ),
   );
 }
 

@@ -2589,6 +2589,1128 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Could not load your dashboard'**
   String get ohsErrorTitle;
+
+  /// Expiry list segmented tab — items approaching expiry.
+  ///
+  /// In en, this message translates to:
+  /// **'Near-expiry'**
+  String get expiryTabNear;
+
+  /// Expiry list segmented tab / pill — items with comfortable shelf life.
+  ///
+  /// In en, this message translates to:
+  /// **'Safe'**
+  String get expiryTabSafe;
+
+  /// Tooltip for the calendar-view action on the expiry list.
+  ///
+  /// In en, this message translates to:
+  /// **'Calendar view'**
+  String get expiryCalendarTooltip;
+
+  /// Empty-state title on the Expired tab.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing expired'**
+  String get expiryEmptyExpiredTitle;
+
+  /// Empty-state title on the Near-expiry tab.
+  ///
+  /// In en, this message translates to:
+  /// **'All clear'**
+  String get expiryEmptyNearTitle;
+
+  /// Empty-state title on the Safe / default expiry tab.
+  ///
+  /// In en, this message translates to:
+  /// **'No records yet'**
+  String get expiryEmptyDefaultTitle;
+
+  /// Empty-state body shared by all expiry tabs.
+  ///
+  /// In en, this message translates to:
+  /// **'No records in this category.'**
+  String get expiryEmptyBody;
+
+  /// Fallback product label using a short id token until product names join server-side.
+  ///
+  /// In en, this message translates to:
+  /// **'Product {id}'**
+  String expiryProductShort(String id);
+
+  /// Batch-number chip in the expiry tile subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Batch {batch}'**
+  String expiryBatch(String batch);
+
+  /// Quantity chip in the expiry tile subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Qty {qty}'**
+  String expiryQty(String qty);
+
+  /// Expiry-date chip in the expiry tile subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Exp {date}'**
+  String expiryExp(String date);
+
+  /// Day-count pill when the item expires today.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get expiryPillToday;
+
+  /// Day-count pill when the item expires tomorrow.
+  ///
+  /// In en, this message translates to:
+  /// **'Tomorrow'**
+  String get expiryPillTomorrow;
+
+  /// Compact day-count pill, e.g. 5d. The 'd' unit stays latin in all locales for the mono pill.
+  ///
+  /// In en, this message translates to:
+  /// **'{days}d'**
+  String expiryPillDays(int days);
+
+  /// Day-count pill fallback when only a near-expiry status is known.
+  ///
+  /// In en, this message translates to:
+  /// **'Soon'**
+  String get expiryPillSoon;
+
+  /// Error-state body on the expiry list.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t load expiry records.'**
+  String get expiryLoadError;
+
+  /// Accessibility label for the error-state companion illustration. Reused across list screens.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load'**
+  String get expiryCouldNotLoadSemantic;
+
+  /// Inventory list screen AppBar title.
+  ///
+  /// In en, this message translates to:
+  /// **'Inventory'**
+  String get inventoryTitle;
+
+  /// Tooltip for the search action on the inventory list.
+  ///
+  /// In en, this message translates to:
+  /// **'Search inventory'**
+  String get inventorySearchTooltip;
+
+  /// Placeholder text in the inventory search field.
+  ///
+  /// In en, this message translates to:
+  /// **'Search by product or EAN...'**
+  String get inventorySearchHint;
+
+  /// Quick-action button → stock movement ledger.
+  ///
+  /// In en, this message translates to:
+  /// **'Stock Movement'**
+  String get inventoryStockMovement;
+
+  /// Quick-action button → low-stock alerts.
+  ///
+  /// In en, this message translates to:
+  /// **'Low Stock Alerts'**
+  String get inventoryLowStockAlerts;
+
+  /// Error-state body on the inventory list.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load inventory'**
+  String get inventoryLoadError;
+
+  /// Empty-state text when no inventory items exist.
+  ///
+  /// In en, this message translates to:
+  /// **'No inventory items found'**
+  String get inventoryEmpty;
+
+  /// Empty-state text when a search yields no results.
+  ///
+  /// In en, this message translates to:
+  /// **'No matches for \"{query}\"'**
+  String inventoryNoMatches(String query);
+
+  /// Fallback product label until product names join server-side.
+  ///
+  /// In en, this message translates to:
+  /// **'Product {id}'**
+  String inventoryProductShort(String id);
+
+  /// Status line when quantity is under the low-stock threshold.
+  ///
+  /// In en, this message translates to:
+  /// **'Below threshold'**
+  String get inventoryBelowThreshold;
+
+  /// Status line when quantity is at or above the threshold.
+  ///
+  /// In en, this message translates to:
+  /// **'In stock'**
+  String get inventoryInStock;
+
+  /// Small unit label beneath the quantity number on an inventory tile.
+  ///
+  /// In en, this message translates to:
+  /// **'units'**
+  String get inventoryUnitsLabel;
+
+  /// Expanded-detail label for total quantity on hand.
+  ///
+  /// In en, this message translates to:
+  /// **'Total quantity'**
+  String get inventoryTotalQuantity;
+
+  /// Expanded-detail label for the configured low-stock threshold.
+  ///
+  /// In en, this message translates to:
+  /// **'Low-stock threshold'**
+  String get inventoryLowStockThreshold;
+
+  /// Quantity-with-unit value, e.g. 12 units.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} units'**
+  String inventoryQtyUnits(int count);
+
+  /// Hint in the expanded inventory detail pointing to the stock-movement ledger.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap \"Stock movement\" to view the full batch ledger.'**
+  String get inventoryBatchLedgerHint;
+
+  /// Pill badge shown on tiles below their low-stock threshold.
+  ///
+  /// In en, this message translates to:
+  /// **'Low Stock'**
+  String get inventoryLowStockBadge;
+
+  /// Tasks list screen AppBar title.
+  ///
+  /// In en, this message translates to:
+  /// **'Tasks'**
+  String get tasksTitle;
+
+  /// Tasks filter tab — tasks assigned to the current user.
+  ///
+  /// In en, this message translates to:
+  /// **'My Tasks'**
+  String get tasksTabMine;
+
+  /// Tasks filter tab — all tasks regardless of assignee.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get tasksTabAll;
+
+  /// Manager-only FAB label to create a task.
+  ///
+  /// In en, this message translates to:
+  /// **'New task'**
+  String get tasksNewTask;
+
+  /// Empty-state title on a tasks tab.
+  ///
+  /// In en, this message translates to:
+  /// **'No tasks here'**
+  String get tasksEmptyTitle;
+
+  /// Empty-state body on a tasks tab.
+  ///
+  /// In en, this message translates to:
+  /// **'Tasks assigned to this view will show up here.'**
+  String get tasksEmptyBody;
+
+  /// Error-state body on the tasks list.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load tasks'**
+  String get tasksLoadError;
+
+  /// Meta chip indicating a task requires photo evidence.
+  ///
+  /// In en, this message translates to:
+  /// **'Evidence'**
+  String get taskEvidence;
+
+  /// Shared severity label — high priority.
+  ///
+  /// In en, this message translates to:
+  /// **'High'**
+  String get priorityHigh;
+
+  /// Shared severity label — medium priority.
+  ///
+  /// In en, this message translates to:
+  /// **'Medium'**
+  String get priorityMedium;
+
+  /// Shared severity label — low priority.
+  ///
+  /// In en, this message translates to:
+  /// **'Low'**
+  String get priorityLow;
+
+  /// Shared severity label — urgent priority.
+  ///
+  /// In en, this message translates to:
+  /// **'Urgent'**
+  String get priorityUrgent;
+
+  /// Task status label — open / default.
+  ///
+  /// In en, this message translates to:
+  /// **'Open'**
+  String get taskStatusOpen;
+
+  /// Task status label — pending.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending'**
+  String get taskStatusPending;
+
+  /// Task status label — in progress.
+  ///
+  /// In en, this message translates to:
+  /// **'In progress'**
+  String get taskStatusInProgress;
+
+  /// Task status label / Completed filter tab.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed'**
+  String get taskStatusCompleted;
+
+  /// Task status label — cancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancelled'**
+  String get taskStatusCancelled;
+
+  /// Camera scanner top-bar title.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan a product'**
+  String get scanTitle;
+
+  /// Default guidance pill under the scan frame.
+  ///
+  /// In en, this message translates to:
+  /// **'Align the barcode within the frame'**
+  String get scanAlignHint;
+
+  /// Guidance pill shown while batch (continuous) scan mode is on.
+  ///
+  /// In en, this message translates to:
+  /// **'Batch mode — keep scanning, items add automatically'**
+  String get scanBatchHint;
+
+  /// Snackbar after a batch-mode scan adds an item.
+  ///
+  /// In en, this message translates to:
+  /// **'Added {code} · {count} scanned'**
+  String scanBatchAdded(String code, int count);
+
+  /// Finish-batch pill button with running scanned count.
+  ///
+  /// In en, this message translates to:
+  /// **'Done · {count}'**
+  String scanBatchDone(int count);
+
+  /// Action to OCR-scan the product label instead of the barcode.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan label'**
+  String get scanLabelAction;
+
+  /// Action to pick a barcode image from the gallery.
+  ///
+  /// In en, this message translates to:
+  /// **'Gallery'**
+  String get scanGalleryAction;
+
+  /// Action to type a barcode by hand.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter manually'**
+  String get scanEnterManually;
+
+  /// Action to open the bulk EAN audit flow.
+  ///
+  /// In en, this message translates to:
+  /// **'Bulk audit'**
+  String get scanBulkAudit;
+
+  /// Action to open this session's scan history.
+  ///
+  /// In en, this message translates to:
+  /// **'History'**
+  String get scanHistoryAction;
+
+  /// Torch toggle label in the trouble-scanning card.
+  ///
+  /// In en, this message translates to:
+  /// **'Flash'**
+  String get scanFlash;
+
+  /// Title of the low-light / damaged-barcode rescue card.
+  ///
+  /// In en, this message translates to:
+  /// **'Trouble scanning?'**
+  String get scanTroubleTitle;
+
+  /// Body of the trouble-scanning rescue card.
+  ///
+  /// In en, this message translates to:
+  /// **'Low light or a damaged barcode? Turn on the flash, or read the label instead.'**
+  String get scanTroubleBody;
+
+  /// Snackbar when a gallery image has no readable barcode.
+  ///
+  /// In en, this message translates to:
+  /// **'No barcode found. Tip: use \'Scan label\' to read the ingredients.'**
+  String get scanGalleryNoBarcode;
+
+  /// Validation message for an invalid barcode entry.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a valid EAN-8, EAN-13, or UPC-A code'**
+  String get scanInvalidEan;
+
+  /// AppBar title on the web manual-entry fallback.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan'**
+  String get scanWebTitle;
+
+  /// Explanation on the web fallback where camera scanning is unsupported.
+  ///
+  /// In en, this message translates to:
+  /// **'Camera scanning is not available on web.\nEnter a barcode manually:'**
+  String get scanWebUnavailable;
+
+  /// Label for the barcode text field on the web fallback.
+  ///
+  /// In en, this message translates to:
+  /// **'EAN / UPC Code'**
+  String get scanEanFieldLabel;
+
+  /// Example barcode placeholder in entry fields.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. 5901234123457'**
+  String get scanEanHintExample;
+
+  /// Button to look up a manually entered barcode.
+  ///
+  /// In en, this message translates to:
+  /// **'Look up'**
+  String get scanLookUp;
+
+  /// Title of the manual barcode entry bottom sheet.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter barcode'**
+  String get scanEnterBarcode;
+
+  /// Title of the scan history bottom sheet / button.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan history'**
+  String get scanHistoryTitle;
+
+  /// Empty state inside the scan history sheet.
+  ///
+  /// In en, this message translates to:
+  /// **'No scans yet this session.'**
+  String get scanNoHistory;
+
+  /// No description provided for @homeGreetingMorning.
+  ///
+  /// In en, this message translates to:
+  /// **'Good morning'**
+  String get homeGreetingMorning;
+
+  /// No description provided for @homeGreetingAfternoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Good afternoon'**
+  String get homeGreetingAfternoon;
+
+  /// No description provided for @homeGreetingEvening.
+  ///
+  /// In en, this message translates to:
+  /// **'Good evening'**
+  String get homeGreetingEvening;
+
+  /// Greeting name placeholder when the user has no resolvable name.
+  ///
+  /// In en, this message translates to:
+  /// **'there'**
+  String get homeGreetingFallbackName;
+
+  /// No description provided for @homeTrialEnded.
+  ///
+  /// In en, this message translates to:
+  /// **'Free trial ended — upgrade to keep access'**
+  String get homeTrialEnded;
+
+  /// Business-mode trial ribbon with remaining days.
+  ///
+  /// In en, this message translates to:
+  /// **'Free trial · {days, plural, =1{1 day} other{{days} days}} left'**
+  String homeTrialDaysLeft(int days);
+
+  /// No description provided for @homeUpgradeArrow.
+  ///
+  /// In en, this message translates to:
+  /// **'Upgrade →'**
+  String get homeUpgradeArrow;
+
+  /// No description provided for @homeKpiSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved'**
+  String get homeKpiSaved;
+
+  /// No description provided for @homeKpiNearExpiry.
+  ///
+  /// In en, this message translates to:
+  /// **'Near expiry'**
+  String get homeKpiNearExpiry;
+
+  /// No description provided for @homeKpiRecallAlerts.
+  ///
+  /// In en, this message translates to:
+  /// **'Recall alerts'**
+  String get homeKpiRecallAlerts;
+
+  /// No description provided for @homeKpiOpenTasks.
+  ///
+  /// In en, this message translates to:
+  /// **'Open tasks'**
+  String get homeKpiOpenTasks;
+
+  /// No description provided for @homeKpiLowStock.
+  ///
+  /// In en, this message translates to:
+  /// **'Low stock'**
+  String get homeKpiLowStock;
+
+  /// No description provided for @homeEyebrowFoodSafety.
+  ///
+  /// In en, this message translates to:
+  /// **'FOOD SAFETY ALERT'**
+  String get homeEyebrowFoodSafety;
+
+  /// Story-banner eyebrow — brand Hinglish for 'today's work'. Keep the brand voice in English; translate naturally elsewhere.
+  ///
+  /// In en, this message translates to:
+  /// **'AAJ KA KAAM · TODAY'**
+  String get homeEyebrowToday;
+
+  /// No description provided for @homeEyebrowHealthScan.
+  ///
+  /// In en, this message translates to:
+  /// **'YOUR HEALTH SCAN'**
+  String get homeEyebrowHealthScan;
+
+  /// No description provided for @homeEyebrowScanToLearn.
+  ///
+  /// In en, this message translates to:
+  /// **'SCAN TO LEARN'**
+  String get homeEyebrowScanToLearn;
+
+  /// No description provided for @homeEyebrowAllClear.
+  ///
+  /// In en, this message translates to:
+  /// **'ALL CLEAR'**
+  String get homeEyebrowAllClear;
+
+  /// Consumer story headline when recall alerts exist.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 recalled product — check what you have at home} other{{count} recalled products — check what you have at home}}'**
+  String homeStoryRecall(int count);
+
+  /// Consumer story headline for near-expiry saved items.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 saved item expires this week — use it up} other{{count} saved items expire this week — use them up}}'**
+  String homeStoryNearExpiryConsumer(int count);
+
+  /// No description provided for @homeStoryKnowWhatYouEat.
+  ///
+  /// In en, this message translates to:
+  /// **'Know what you eat'**
+  String get homeStoryKnowWhatYouEat;
+
+  /// No description provided for @homeStoryScanInside.
+  ///
+  /// In en, this message translates to:
+  /// **'Point your camera at any food barcode — see what\'s inside'**
+  String get homeStoryScanInside;
+
+  /// Business story headline for items near expiry.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 item near expiry — clear the shelf} other{{count} items near expiry — clear the shelf}}'**
+  String homeStoryNearExpiryBusiness(int count);
+
+  /// Business story headline for open tasks.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 task needs you today} other{{count} tasks need you today}}'**
+  String homeStoryOpenTasks(int count);
+
+  /// Business story headline for low-stock items.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 item running low on stock} other{{count} items running low on stock}}'**
+  String homeStoryLowStock(int count);
+
+  /// No description provided for @homeStoreToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Here\'s your store today'**
+  String get homeStoreToday;
+
+  /// All-clear business headline. 'Shabaash' = well done (brand voice).
+  ///
+  /// In en, this message translates to:
+  /// **'Shabaash! Your store\'s in great shape today'**
+  String get homeStoreAllGood;
+
+  /// No description provided for @homeCtaViewRecallAlerts.
+  ///
+  /// In en, this message translates to:
+  /// **'View recall alerts'**
+  String get homeCtaViewRecallAlerts;
+
+  /// No description provided for @homeCtaCheckExpiry.
+  ///
+  /// In en, this message translates to:
+  /// **'Check expiry'**
+  String get homeCtaCheckExpiry;
+
+  /// No description provided for @homeCtaOpenExpiry.
+  ///
+  /// In en, this message translates to:
+  /// **'Open expiry'**
+  String get homeCtaOpenExpiry;
+
+  /// No description provided for @homeCtaViewTasks.
+  ///
+  /// In en, this message translates to:
+  /// **'View tasks'**
+  String get homeCtaViewTasks;
+
+  /// No description provided for @homeCtaCheckInventory.
+  ///
+  /// In en, this message translates to:
+  /// **'Check inventory'**
+  String get homeCtaCheckInventory;
+
+  /// No description provided for @homeCtaOpenTasks.
+  ///
+  /// In en, this message translates to:
+  /// **'Open tasks'**
+  String get homeCtaOpenTasks;
+
+  /// No description provided for @homeCtaRunAudit.
+  ///
+  /// In en, this message translates to:
+  /// **'Run a quick audit'**
+  String get homeCtaRunAudit;
+
+  /// No description provided for @homeQuickActions.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick actions'**
+  String get homeQuickActions;
+
+  /// No description provided for @homeQuickScan.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan'**
+  String get homeQuickScan;
+
+  /// No description provided for @homeQuickShopping.
+  ///
+  /// In en, this message translates to:
+  /// **'Shopping'**
+  String get homeQuickShopping;
+
+  /// No description provided for @homeQuickAddExpiry.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Expiry'**
+  String get homeQuickAddExpiry;
+
+  /// No description provided for @homeQuickNewTask.
+  ///
+  /// In en, this message translates to:
+  /// **'New Task'**
+  String get homeQuickNewTask;
+
+  /// No description provided for @homeRecentTasks.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent tasks'**
+  String get homeRecentTasks;
+
+  /// No description provided for @homeSeeAll.
+  ///
+  /// In en, this message translates to:
+  /// **'See all'**
+  String get homeSeeAll;
+
+  /// No description provided for @homeNoOpenTasks.
+  ///
+  /// In en, this message translates to:
+  /// **'No open tasks — create one'**
+  String get homeNoOpenTasks;
+
+  /// Recent-task meta line — assignee.
+  ///
+  /// In en, this message translates to:
+  /// **'Assigned to {name}'**
+  String homeTaskAssignedTo(String name);
+
+  /// No description provided for @homeTaskOverdue.
+  ///
+  /// In en, this message translates to:
+  /// **'Overdue'**
+  String get homeTaskOverdue;
+
+  /// No description provided for @homeTaskDueToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Due today'**
+  String get homeTaskDueToday;
+
+  /// No description provided for @homeTaskDueTomorrow.
+  ///
+  /// In en, this message translates to:
+  /// **'Due tomorrow'**
+  String get homeTaskDueTomorrow;
+
+  /// Recent-task meta line — due in N days (N is always 2+).
+  ///
+  /// In en, this message translates to:
+  /// **'Due in {days} days'**
+  String homeTaskDueInDays(int days);
+
+  /// Recent-task meta line — fallback raw due date.
+  ///
+  /// In en, this message translates to:
+  /// **'Due {date}'**
+  String homeTaskDueOn(String date);
+
+  /// No description provided for @homeHowHelps.
+  ///
+  /// In en, this message translates to:
+  /// **'How RADHA helps you'**
+  String get homeHowHelps;
+
+  /// No description provided for @homeScanBarcodeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan any food barcode'**
+  String get homeScanBarcodeTitle;
+
+  /// No description provided for @homeScanBarcodeBody.
+  ///
+  /// In en, this message translates to:
+  /// **'See the health rating, ingredients, and what to watch out for.'**
+  String get homeScanBarcodeBody;
+
+  /// No description provided for @homeRecallTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Safety recall alerts'**
+  String get homeRecallTitle;
+
+  /// No description provided for @homeRecallBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Stay informed about recalled food products.'**
+  String get homeRecallBody;
+
+  /// No description provided for @homePromoKnowFoodEyebrow.
+  ///
+  /// In en, this message translates to:
+  /// **'KNOW YOUR FOOD'**
+  String get homePromoKnowFoodEyebrow;
+
+  /// No description provided for @homePromoKnowFoodHeadline.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan the label — see what\'s really inside'**
+  String get homePromoKnowFoodHeadline;
+
+  /// No description provided for @homePromoKnowFoodCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan & learn'**
+  String get homePromoKnowFoodCta;
+
+  /// No description provided for @homePromoExpiryEyebrow.
+  ///
+  /// In en, this message translates to:
+  /// **'NEVER MISS A DATE'**
+  String get homePromoExpiryEyebrow;
+
+  /// No description provided for @homePromoExpiryHeadline.
+  ///
+  /// In en, this message translates to:
+  /// **'Catch every expiry before it slips away'**
+  String get homePromoExpiryHeadline;
+
+  /// No description provided for @homePromoExpiryCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Track expiry'**
+  String get homePromoExpiryCta;
+
+  /// No description provided for @homePromoFestiveEyebrow.
+  ///
+  /// In en, this message translates to:
+  /// **'FESTIVE PICKS'**
+  String get homePromoFestiveEyebrow;
+
+  /// No description provided for @homePromoFestiveHeadline.
+  ///
+  /// In en, this message translates to:
+  /// **'Shop the season, the healthy way'**
+  String get homePromoFestiveHeadline;
+
+  /// No description provided for @homePromoFestiveCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Browse products'**
+  String get homePromoFestiveCta;
+
+  /// Business promo eyebrow — brand Hinglish for 'today's market'.
+  ///
+  /// In en, this message translates to:
+  /// **'AAJ KA BAZAAR'**
+  String get homePromoBazaarEyebrow;
+
+  /// No description provided for @homePromoBazaarHeadline.
+  ///
+  /// In en, this message translates to:
+  /// **'Audit your shelves in minutes'**
+  String get homePromoBazaarHeadline;
+
+  /// No description provided for @homePromoBazaarCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Start an audit'**
+  String get homePromoBazaarCta;
+
+  /// No description provided for @homeShopByCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Shop by category'**
+  String get homeShopByCategory;
+
+  /// No description provided for @homeShopByCategorySubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap an aisle to scan or browse its products'**
+  String get homeShopByCategorySubtitle;
+
+  /// Welcome-page value proposition (onboarding page 1).
+  ///
+  /// In en, this message translates to:
+  /// **'Scan, track, audit your stock without the spreadsheets.'**
+  String get onboardingWelcomeValue;
+
+  /// Capabilities-page headline (onboarding page 2). Keeps the line break.
+  ///
+  /// In en, this message translates to:
+  /// **'Built for the floor,\nnot the back office.'**
+  String get onboardingCapabilitiesTitle;
+
+  /// No description provided for @onboardingCapScanTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan products in one tap'**
+  String get onboardingCapScanTitle;
+
+  /// No description provided for @onboardingCapScanBody.
+  ///
+  /// In en, this message translates to:
+  /// **'EAN lookup with health and approval pre-checked.'**
+  String get onboardingCapScanBody;
+
+  /// No description provided for @onboardingCapExpiryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Catch expiry before it costs you'**
+  String get onboardingCapExpiryTitle;
+
+  /// No description provided for @onboardingCapExpiryBody.
+  ///
+  /// In en, this message translates to:
+  /// **'OCR-assisted dates and per-category thresholds.'**
+  String get onboardingCapExpiryBody;
+
+  /// No description provided for @onboardingCapAuditTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Run audits the team can finish'**
+  String get onboardingCapAuditTitle;
+
+  /// No description provided for @onboardingCapAuditBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Tasks, evidence and bulk scan sessions.'**
+  String get onboardingCapAuditBody;
+
+  /// Segment-selector page headline (onboarding page 3).
+  ///
+  /// In en, this message translates to:
+  /// **'Who are you here as?'**
+  String get onboardingSegmentTitle;
+
+  /// No description provided for @onboardingSegmentSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick the closest fit. You can change later in Settings.'**
+  String get onboardingSegmentSubtitle;
+
+  /// No description provided for @segmentPersonalTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Personal'**
+  String get segmentPersonalTitle;
+
+  /// No description provided for @segmentPersonalBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Just shopping for myself'**
+  String get segmentPersonalBody;
+
+  /// No description provided for @segmentParentTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Parent'**
+  String get segmentParentTitle;
+
+  /// No description provided for @segmentParentBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Shopping for my family / kids'**
+  String get segmentParentBody;
+
+  /// No description provided for @segmentBusinessTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Business owner'**
+  String get segmentBusinessTitle;
+
+  /// No description provided for @segmentBusinessBody.
+  ///
+  /// In en, this message translates to:
+  /// **'I run a small retail store'**
+  String get segmentBusinessBody;
+
+  /// No description provided for @segmentPharmacyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Pharmacy'**
+  String get segmentPharmacyTitle;
+
+  /// No description provided for @segmentPharmacyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'I run a pharmacy / chemist'**
+  String get segmentPharmacyBody;
+
+  /// No description provided for @segmentInstitutionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Institution'**
+  String get segmentInstitutionTitle;
+
+  /// No description provided for @segmentInstitutionBody.
+  ///
+  /// In en, this message translates to:
+  /// **'School / hostel / canteen'**
+  String get segmentInstitutionBody;
+
+  /// No description provided for @segmentAuditorTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Auditor (invited)'**
+  String get segmentAuditorTitle;
+
+  /// No description provided for @segmentAuditorBody.
+  ///
+  /// In en, this message translates to:
+  /// **'I have an invite code'**
+  String get segmentAuditorBody;
+
+  /// Allergen profile screen AppBar title.
+  ///
+  /// In en, this message translates to:
+  /// **'Allergens'**
+  String get allergenTitle;
+
+  /// No description provided for @allergenLoadError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load your allergen profile.'**
+  String get allergenLoadError;
+
+  /// No description provided for @allergenHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Your allergens'**
+  String get allergenHeading;
+
+  /// No description provided for @allergenIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap any allergens you react to. We will warn you when a scanned product contains them.'**
+  String get allergenIntro;
+
+  /// Selection summary count of tracked allergens.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 allergen tracked} other{{count} allergens tracked}}'**
+  String allergenTracked(int count);
+
+  /// No description provided for @allergenNoneTracked.
+  ///
+  /// In en, this message translates to:
+  /// **'No allergens tracked yet'**
+  String get allergenNoneTracked;
+
+  /// No description provided for @allergenSavedCleared.
+  ///
+  /// In en, this message translates to:
+  /// **'Allergen profile cleared.'**
+  String get allergenSavedCleared;
+
+  /// No description provided for @allergenSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Allergen profile saved.'**
+  String get allergenSaved;
+
+  /// No description provided for @allergenSaveError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not save your allergens.'**
+  String get allergenSaveError;
+
+  /// No description provided for @allergenPeanut.
+  ///
+  /// In en, this message translates to:
+  /// **'Peanut'**
+  String get allergenPeanut;
+
+  /// No description provided for @allergenTreeNut.
+  ///
+  /// In en, this message translates to:
+  /// **'Tree nut'**
+  String get allergenTreeNut;
+
+  /// No description provided for @allergenDairy.
+  ///
+  /// In en, this message translates to:
+  /// **'Dairy'**
+  String get allergenDairy;
+
+  /// No description provided for @allergenEggs.
+  ///
+  /// In en, this message translates to:
+  /// **'Eggs'**
+  String get allergenEggs;
+
+  /// No description provided for @allergenSoy.
+  ///
+  /// In en, this message translates to:
+  /// **'Soy'**
+  String get allergenSoy;
+
+  /// No description provided for @allergenWheat.
+  ///
+  /// In en, this message translates to:
+  /// **'Wheat'**
+  String get allergenWheat;
+
+  /// No description provided for @allergenFish.
+  ///
+  /// In en, this message translates to:
+  /// **'Fish'**
+  String get allergenFish;
+
+  /// No description provided for @allergenShellfish.
+  ///
+  /// In en, this message translates to:
+  /// **'Shellfish'**
+  String get allergenShellfish;
+
+  /// No description provided for @allergenSesame.
+  ///
+  /// In en, this message translates to:
+  /// **'Sesame'**
+  String get allergenSesame;
+
+  /// No description provided for @allergenGluten.
+  ///
+  /// In en, this message translates to:
+  /// **'Gluten'**
+  String get allergenGluten;
+
+  /// No description provided for @allergenMustard.
+  ///
+  /// In en, this message translates to:
+  /// **'Mustard'**
+  String get allergenMustard;
+
+  /// No description provided for @allergenCelery.
+  ///
+  /// In en, this message translates to:
+  /// **'Celery'**
+  String get allergenCelery;
+
+  /// No description provided for @allergenLupin.
+  ///
+  /// In en, this message translates to:
+  /// **'Lupin'**
+  String get allergenLupin;
+
+  /// No description provided for @allergenMolluscs.
+  ///
+  /// In en, this message translates to:
+  /// **'Molluscs'**
+  String get allergenMolluscs;
+
+  /// No description provided for @allergenSulphites.
+  ///
+  /// In en, this message translates to:
+  /// **'Sulphites'**
+  String get allergenSulphites;
+
+  /// No description provided for @homePromoPlusHeadline.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock ingredient deep-dives and allergen alerts'**
+  String get homePromoPlusHeadline;
 }
 
 class _AppLocalizationsDelegate

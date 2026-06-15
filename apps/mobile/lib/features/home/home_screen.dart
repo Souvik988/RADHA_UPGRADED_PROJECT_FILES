@@ -16,6 +16,7 @@ import 'package:radha_mobile/design/widgets/mor_companion.dart';
 import 'package:radha_mobile/design/widgets/skeleton_loader.dart';
 import 'package:radha_mobile/features/catalog/catalog_search_screen.dart';
 import 'package:radha_mobile/features/catalog/featured_rail.dart';
+import 'package:radha_mobile/l10n/generated/app_localizations.dart';
 
 import 'data/home_catalog.dart';
 import 'providers/home_summary_providers.dart';
@@ -183,18 +184,20 @@ class _HeroGreeting extends StatelessWidget {
 
   final CurrentUser? user;
 
-  String get _timeGreeting {
+  String _timeGreeting(AppLocalizations l10n) {
     final hour = DateTime.now().hour;
-    if (hour < 12) return 'Good morning';
-    if (hour < 17) return 'Good afternoon';
-    return 'Good evening';
+    if (hour < 12) return l10n.homeGreetingMorning;
+    if (hour < 17) return l10n.homeGreetingAfternoon;
+    return l10n.homeGreetingEvening;
   }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final rawName = user?.userId.split('-').first ?? 'there';
-    final name = rawName.isEmpty ? 'there' : rawName;
+    final l10n = AppLocalizations.of(context);
+    final fallback = l10n.homeGreetingFallbackName;
+    final rawName = user?.userId.split('-').first ?? fallback;
+    final name = rawName.isEmpty ? fallback : rawName;
     final storeName = user?.selectedStoreName;
 
     return Container(
@@ -252,7 +255,7 @@ class _HeroGreeting extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      _timeGreeting,
+                      _timeGreeting(l10n),
                       style: theme.textTheme.bodyMedium?.copyWith(
                         color: theme.colorScheme.onSurfaceVariant,
                       ),
@@ -353,7 +356,7 @@ class _AvatarTile extends StatelessWidget {
     final initial = name.isNotEmpty ? name[0].toUpperCase() : 'R';
     return Semantics(
       button: true,
-      label: 'Profile',
+      label: AppLocalizations.of(context).profile,
       child: GestureDetector(
         onTap: () {
           HapticFeedback.selectionClick();
@@ -394,9 +397,10 @@ class _TrialRibbon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     final text = daysLeft <= 0
-        ? 'Free trial ended — upgrade to keep access'
-        : 'Free trial · $daysLeft ${daysLeft == 1 ? 'day' : 'days'} left';
+        ? l10n.homeTrialEnded
+        : l10n.homeTrialDaysLeft(daysLeft);
 
     return GestureDetector(
       onTap: () {
@@ -433,7 +437,7 @@ class _TrialRibbon extends StatelessWidget {
               ),
             ),
             Text(
-              'Upgrade →',
+              l10n.homeUpgradeArrow,
               style: theme.textTheme.labelMedium?.copyWith(
                 color: RadhaColors.primary,
                 fontWeight: FontWeight.w700,
@@ -455,6 +459,7 @@ class _KpiRow extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context);
     if (mode == AppMode.consumer) {
       final saved = ref.watch(savedProductsCountProvider);
       final nearExpiry = ref.watch(nearExpiryCountProvider);
@@ -465,7 +470,7 @@ class _KpiRow extends ConsumerWidget {
           Expanded(
             child: _KpiTile(
               value: saved,
-              label: 'Saved',
+              label: l10n.homeKpiSaved,
               icon: Icons.bookmark_border_rounded,
               tint: RadhaColors.complement,
               onTap: () => context.push(AppRoute.savedProducts),
@@ -475,7 +480,7 @@ class _KpiRow extends ConsumerWidget {
           Expanded(
             child: _KpiTile(
               value: nearExpiry,
-              label: 'Near expiry',
+              label: l10n.homeKpiNearExpiry,
               icon: Icons.schedule_rounded,
               tint: RadhaColors.warning,
               onTap: () => context.push(AppRoute.expiryCalendar),
@@ -485,7 +490,7 @@ class _KpiRow extends ConsumerWidget {
           Expanded(
             child: _KpiTile(
               value: recalls,
-              label: 'Recall alerts',
+              label: l10n.homeKpiRecallAlerts,
               icon: Icons.warning_amber_rounded,
               tint: RadhaColors.primary,
               onTap: () => context.push(AppRoute.recallAlerts),
@@ -505,7 +510,7 @@ class _KpiRow extends ConsumerWidget {
         Expanded(
           child: _KpiTile(
             value: openTasks,
-            label: 'Open tasks',
+            label: l10n.homeKpiOpenTasks,
             icon: Icons.checklist_rounded,
             tint: RadhaColors.primary,
             onTap: () => context.push(AppRoute.tasks),
@@ -515,7 +520,7 @@ class _KpiRow extends ConsumerWidget {
         Expanded(
           child: _KpiTile(
             value: nearExpiry,
-            label: 'Near expiry',
+            label: l10n.homeKpiNearExpiry,
             icon: Icons.schedule_rounded,
             tint: RadhaColors.warning,
             onTap: () => context.push(AppRoute.expiry),
@@ -525,7 +530,7 @@ class _KpiRow extends ConsumerWidget {
         Expanded(
           child: _KpiTile(
             value: lowStock,
-            label: 'Low stock',
+            label: l10n.homeKpiLowStock,
             icon: Icons.inventory_2_rounded,
             tint: RadhaColors.complement,
             onTap: () => context.push(AppRoute.inventory),
@@ -602,6 +607,7 @@ class _StoryBanner extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
 
     String eyebrow;
     String headline;
@@ -616,31 +622,27 @@ class _StoryBanner extends ConsumerWidget {
       final loading = recalls == null && nearExpiry == null;
 
       if ((recalls ?? 0) > 0) {
-        eyebrow = 'FOOD SAFETY ALERT';
-        headline = recalls == 1
-            ? '1 recalled product — check what you have at home'
-            : '$recalls recalled products — check what you have at home';
-        cta = 'View recall alerts';
+        eyebrow = l10n.homeEyebrowFoodSafety;
+        headline = l10n.homeStoryRecall(recalls!);
+        cta = l10n.homeCtaViewRecallAlerts;
         onTap = () => context.push(AppRoute.recallAlerts);
         mood = MorMood.concern;
       } else if ((nearExpiry ?? 0) > 0) {
-        eyebrow = 'AAJ KA KAAM · TODAY';
-        headline = nearExpiry == 1
-            ? '1 saved item expires this week — use it up'
-            : '$nearExpiry saved items expire this week — use them up';
-        cta = 'Check expiry';
+        eyebrow = l10n.homeEyebrowToday;
+        headline = l10n.homeStoryNearExpiryConsumer(nearExpiry!);
+        cta = l10n.homeCtaCheckExpiry;
         onTap = () => context.push(AppRoute.expiryCalendar);
         mood = MorMood.guard;
       } else if (loading) {
-        eyebrow = 'YOUR HEALTH SCAN';
-        headline = 'Know what you eat';
-        cta = 'Scan a product';
+        eyebrow = l10n.homeEyebrowHealthScan;
+        headline = l10n.homeStoryKnowWhatYouEat;
+        cta = l10n.scanTitle;
         onTap = () => context.go(AppRoute.scan);
         mood = MorMood.greet;
       } else {
-        eyebrow = 'SCAN TO LEARN';
-        headline = 'Point your camera at any food barcode — see what\'s inside';
-        cta = 'Scan a product';
+        eyebrow = l10n.homeEyebrowScanToLearn;
+        headline = l10n.homeStoryScanInside;
+        cta = l10n.scanTitle;
         onTap = () => context.go(AppRoute.scan);
         mood = MorMood.greet;
       }
@@ -653,35 +655,33 @@ class _StoryBanner extends ConsumerWidget {
           nearExpiry == null && openTasks == null && lowStock == null;
 
       if ((nearExpiry ?? 0) > 0) {
-        eyebrow = 'AAJ KA KAAM · TODAY';
-        headline = '$nearExpiry items near expiry — clear the shelf';
-        cta = 'Open expiry';
+        eyebrow = l10n.homeEyebrowToday;
+        headline = l10n.homeStoryNearExpiryBusiness(nearExpiry!);
+        cta = l10n.homeCtaOpenExpiry;
         onTap = () => context.push(AppRoute.expiry);
         mood = MorMood.guard;
       } else if ((openTasks ?? 0) > 0) {
-        headline = openTasks == 1
-            ? '1 task needs you today'
-            : '$openTasks tasks need you today';
-        eyebrow = 'AAJ KA KAAM · TODAY';
-        cta = 'View tasks';
+        headline = l10n.homeStoryOpenTasks(openTasks!);
+        eyebrow = l10n.homeEyebrowToday;
+        cta = l10n.homeCtaViewTasks;
         onTap = () => context.push(AppRoute.tasks);
         mood = MorMood.work;
       } else if ((lowStock ?? 0) > 0) {
-        eyebrow = 'AAJ KA KAAM · TODAY';
-        headline = '$lowStock items running low on stock';
-        cta = 'Check inventory';
+        eyebrow = l10n.homeEyebrowToday;
+        headline = l10n.homeStoryLowStock(lowStock!);
+        cta = l10n.homeCtaCheckInventory;
         onTap = () => context.push(AppRoute.inventory);
         mood = MorMood.think;
       } else if (loading) {
-        eyebrow = 'AAJ KA KAAM · TODAY';
-        headline = "Here's your store today";
-        cta = 'Open tasks';
+        eyebrow = l10n.homeEyebrowToday;
+        headline = l10n.homeStoreToday;
+        cta = l10n.homeCtaOpenTasks;
         onTap = () => context.push(AppRoute.tasks);
         mood = MorMood.greet;
       } else {
-        eyebrow = 'ALL CLEAR';
-        headline = "Shabaash! Your store's in great shape today";
-        cta = 'Run a quick audit';
+        eyebrow = l10n.homeEyebrowAllClear;
+        headline = l10n.homeStoreAllGood;
+        cta = l10n.homeCtaRunAudit;
         onTap = () => context.go(AppRoute.scan);
         mood = MorMood.celebrate;
       }
@@ -789,12 +789,13 @@ class _QuickActionsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
 
     final actions = mode == AppMode.consumer
         ? <_QuickActionData>[
             _QuickActionData(
               icon: Icons.qr_code_scanner_rounded,
-              label: 'Scan',
+              label: l10n.homeQuickScan,
               accent: true,
               onTap: () {
                 HapticFeedback.lightImpact();
@@ -803,24 +804,24 @@ class _QuickActionsSection extends StatelessWidget {
             ),
             _QuickActionData(
               icon: Icons.bookmark_border_rounded,
-              label: 'Saved',
+              label: l10n.homeKpiSaved,
               onTap: () => context.push(AppRoute.savedProducts),
             ),
             _QuickActionData(
               icon: Icons.event_available_outlined,
-              label: 'Expiry',
+              label: l10n.expiry,
               onTap: () => context.push(AppRoute.expiryCalendar),
             ),
             _QuickActionData(
               icon: Icons.shopping_cart_outlined,
-              label: 'Shopping',
+              label: l10n.homeQuickShopping,
               onTap: () => context.push(AppRoute.shoppingList),
             ),
           ]
         : <_QuickActionData>[
             _QuickActionData(
               icon: Icons.qr_code_scanner_rounded,
-              label: 'Scan',
+              label: l10n.homeQuickScan,
               accent: true,
               onTap: () {
                 HapticFeedback.lightImpact();
@@ -829,17 +830,17 @@ class _QuickActionsSection extends StatelessWidget {
             ),
             _QuickActionData(
               icon: Icons.event_available_outlined,
-              label: 'Add Expiry',
+              label: l10n.homeQuickAddExpiry,
               onTap: () => context.push(AppRoute.expiryNew),
             ),
             _QuickActionData(
               icon: Icons.add_task_outlined,
-              label: 'New Task',
+              label: l10n.homeQuickNewTask,
               onTap: () => context.push(AppRoute.taskCreate),
             ),
             _QuickActionData(
               icon: Icons.inventory_2_outlined,
-              label: 'Inventory',
+              label: l10n.inventoryTitle,
               onTap: () => context.push(AppRoute.inventory),
             ),
           ];
@@ -848,7 +849,7 @@ class _QuickActionsSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Quick actions',
+          l10n.homeQuickActions,
           style: theme.textTheme.titleMedium?.copyWith(
             fontWeight: FontWeight.w700,
           ),
@@ -955,6 +956,7 @@ class _RecentTasksSection extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     final tasks = ref.watch(recentTasksProvider);
 
     return Column(
@@ -964,7 +966,7 @@ class _RecentTasksSection extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'Recent tasks',
+              l10n.homeRecentTasks,
               style: theme.textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.w700,
               ),
@@ -978,7 +980,7 @@ class _RecentTasksSection extends ConsumerWidget {
                 minimumSize: Size.zero,
                 tapTargetSize: MaterialTapTargetSize.shrinkWrap,
               ),
-              child: const Text('See all'),
+              child: Text(l10n.homeSeeAll),
             ),
           ],
         ),
@@ -1076,7 +1078,7 @@ class _TasksEmptyState extends StatelessWidget {
           const SizedBox(width: RadhaSpacing.space12),
           Expanded(
             child: Text(
-              'No open tasks — create one',
+              AppLocalizations.of(context).homeNoOpenTasks,
               style: theme.textTheme.bodyMedium?.copyWith(
                 color: theme.colorScheme.onSurfaceVariant,
               ),
@@ -1109,25 +1111,28 @@ class _LiveTaskRow extends StatelessWidget {
     return RadhaColors.primary;
   }
 
-  String get _metaText {
-    if (task.assigneeName != null) return 'Assigned to ${task.assigneeName}';
+  String _metaText(AppLocalizations l10n) {
+    if (task.assigneeName != null) {
+      return l10n.homeTaskAssignedTo(task.assigneeName!);
+    }
     if (task.dueDate != null) {
       final due = DateTime.tryParse(task.dueDate!);
       if (due != null) {
         final diff = due.difference(DateTime.now()).inDays;
-        if (diff < 0) return 'Overdue';
-        if (diff == 0) return 'Due today';
-        if (diff == 1) return 'Due tomorrow';
-        return 'Due in $diff days';
+        if (diff < 0) return l10n.homeTaskOverdue;
+        if (diff == 0) return l10n.homeTaskDueToday;
+        if (diff == 1) return l10n.homeTaskDueTomorrow;
+        return l10n.homeTaskDueInDays(diff);
       }
-      return 'Due ${task.dueDate}';
+      return l10n.homeTaskDueOn(task.dueDate!);
     }
-    return task.status ?? 'Open';
+    return task.status ?? l10n.taskStatusOpen;
   }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     final isDone = task.status == 'done' || task.status == 'completed';
     return _PressableCard(
       onTap: () {
@@ -1162,7 +1167,7 @@ class _LiveTaskRow extends StatelessWidget {
                 ),
                 const SizedBox(height: RadhaSpacing.space2),
                 Text(
-                  _metaText,
+                  _metaText(l10n),
                   style: theme.textTheme.bodySmall?.copyWith(
                     color: theme.colorScheme.onSurfaceVariant,
                   ),
@@ -1190,12 +1195,13 @@ class _ConsumerEngagementSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'How RADHA helps you',
+          l10n.homeHowHelps,
           style: theme.textTheme.titleMedium?.copyWith(
             fontWeight: FontWeight.w700,
           ),
@@ -1229,14 +1235,14 @@ class _ConsumerEngagementSection extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Scan any food barcode',
+                      l10n.homeScanBarcodeTitle,
                       style: theme.textTheme.titleSmall?.copyWith(
                         fontWeight: FontWeight.w700,
                       ),
                     ),
                     const SizedBox(height: RadhaSpacing.space2),
                     Text(
-                      'See the health rating, ingredients, and what to watch out for.',
+                      l10n.homeScanBarcodeBody,
                       style: theme.textTheme.bodySmall?.copyWith(
                         color: theme.colorScheme.onSurfaceVariant,
                       ),
@@ -1278,14 +1284,14 @@ class _ConsumerEngagementSection extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Safety recall alerts',
+                      l10n.homeRecallTitle,
                       style: theme.textTheme.titleSmall?.copyWith(
                         fontWeight: FontWeight.w700,
                       ),
                     ),
                     const SizedBox(height: RadhaSpacing.space2),
                     Text(
-                      'Stay informed about recalled food products.',
+                      l10n.homeRecallBody,
                       style: theme.textTheme.bodySmall?.copyWith(
                         color: theme.colorScheme.onSurfaceVariant,
                       ),
@@ -1474,34 +1480,35 @@ class _PromoBannerCarouselState extends State<_PromoBannerCarousel> {
   }
 
   List<_PromoBanner> _banners(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     if (widget.mode == AppMode.consumer) {
       return [
         _PromoBanner(
           asset: RadhaAssets.bannerHealthMission,
-          eyebrow: 'KNOW YOUR FOOD',
-          headline: "Scan the label — see what's really inside",
-          cta: 'Scan & learn',
+          eyebrow: l10n.homePromoKnowFoodEyebrow,
+          headline: l10n.homePromoKnowFoodHeadline,
+          cta: l10n.homePromoKnowFoodCta,
           onTap: () => context.go(AppRoute.scan),
         ),
         _PromoBanner(
           asset: RadhaAssets.bannerExpiryMission,
-          eyebrow: 'NEVER MISS A DATE',
-          headline: 'Catch every expiry before it slips away',
-          cta: 'Track expiry',
+          eyebrow: l10n.homePromoExpiryEyebrow,
+          headline: l10n.homePromoExpiryHeadline,
+          cta: l10n.homePromoExpiryCta,
           onTap: () => context.push(AppRoute.expiryCalendar),
         ),
         _PromoBanner(
           asset: RadhaAssets.bannerFestive,
-          eyebrow: 'FESTIVE PICKS',
-          headline: 'Shop the season, the healthy way',
-          cta: 'Browse products',
+          eyebrow: l10n.homePromoFestiveEyebrow,
+          headline: l10n.homePromoFestiveHeadline,
+          cta: l10n.homePromoFestiveCta,
           onTap: () => context.push(AppRoute.catalogSearch),
         ),
         _PromoBanner(
           asset: RadhaAssets.bannerHomePromoConsumer,
           eyebrow: 'RADHA PLUS',
-          headline: 'Unlock ingredient deep-dives and allergen alerts',
-          cta: 'See plans',
+          headline: l10n.homePromoPlusHeadline,
+          cta: l10n.subChoosePlan,
           onTap: () => context.push(AppRoute.subscription),
         ),
       ];
@@ -1509,9 +1516,9 @@ class _PromoBannerCarouselState extends State<_PromoBannerCarousel> {
     return [
       _PromoBanner(
         asset: RadhaAssets.bannerHomeMission,
-        eyebrow: 'AAJ KA BAZAAR',
-        headline: 'Audit your shelves in minutes',
-        cta: 'Start an audit',
+        eyebrow: l10n.homePromoBazaarEyebrow,
+        headline: l10n.homePromoBazaarHeadline,
+        cta: l10n.homePromoBazaarCta,
         onTap: () => context.go(AppRoute.scan),
       ),
     ];
@@ -1726,18 +1733,19 @@ class _CategoriesSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Shop by category',
+          l10n.homeShopByCategory,
           style: theme.textTheme.titleMedium?.copyWith(
             fontWeight: FontWeight.w700,
           ),
         ),
         const SizedBox(height: RadhaSpacing.space4),
         Text(
-          'Tap an aisle to scan or browse its products',
+          l10n.homeShopByCategorySubtitle,
           style: theme.textTheme.bodySmall?.copyWith(
             color: theme.colorScheme.onSurfaceVariant,
           ),

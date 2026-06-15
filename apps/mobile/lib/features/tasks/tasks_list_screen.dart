@@ -11,6 +11,7 @@ import '../../design/app_assets.dart';
 import '../../design/tokens.dart';
 import '../../design/widgets/empty_state.dart';
 import '../../design/widgets/mor_companion.dart';
+import '../../l10n/generated/app_localizations.dart';
 
 /// Paginated tasks state — loaded items + page cursor, per status filter.
 class _TasksListState {
@@ -118,12 +119,12 @@ class _TasksListScreenState extends ConsumerState<TasksListScreen>
   int _index = 0;
   String? _priorityFilter;
 
-  static const _tabs = ['My Tasks', 'All', 'Completed'];
+  static const _tabCount = 3;
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: _tabs.length, vsync: this);
+    _tabController = TabController(length: _tabCount, vsync: this);
     _tabController.addListener(() {
       if (!_tabController.indexIsChanging && _tabController.index != _index) {
         setState(() => _index = _tabController.index);
@@ -140,17 +141,23 @@ class _TasksListScreenState extends ConsumerState<TasksListScreen>
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     final currentUser = ref.watch(currentUserProvider);
     final isManager =
         currentUser?.roles.contains('manager') == true ||
         currentUser?.roles.contains('admin') == true;
+    final tabs = [
+      l10n.tasksTabMine,
+      l10n.tasksTabAll,
+      l10n.taskStatusCompleted,
+    ];
 
     return Scaffold(
       backgroundColor: theme.colorScheme.surface,
       appBar: AppBar(
         backgroundColor: theme.colorScheme.surface,
         title: Text(
-          'Tasks',
+          l10n.tasksTitle,
           style: theme.textTheme.titleLarge?.copyWith(
             fontWeight: FontWeight.w800,
           ),
@@ -159,7 +166,7 @@ class _TasksListScreenState extends ConsumerState<TasksListScreen>
       body: Column(
         children: [
           _UnderlineTabs(
-            labels: _tabs,
+            labels: tabs,
             index: _index,
             onChanged: (i) {
               HapticFeedback.selectionClick();
@@ -199,7 +206,7 @@ class _TasksListScreenState extends ConsumerState<TasksListScreen>
                 context.push(AppRoute.taskCreate);
               },
               icon: const Icon(Icons.add_rounded),
-              label: const Text('New task'),
+              label: Text(l10n.tasksNewTask),
             )
           : null,
     );
@@ -223,9 +230,7 @@ class _UnderlineTabs extends StatelessWidget {
     final theme = Theme.of(context);
     return Container(
       decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(color: theme.colorScheme.outline),
-        ),
+        border: Border(bottom: BorderSide(color: theme.colorScheme.outline)),
       ),
       child: Row(
         children: [
@@ -285,8 +290,8 @@ class _PriorityChips extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     const priorities = ['high', 'medium', 'low'];
-    const labels = {'high': 'High', 'medium': 'Medium', 'low': 'Low'};
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(
@@ -332,7 +337,7 @@ class _PriorityChips extends StatelessWidget {
                     ),
                     const SizedBox(width: RadhaSpacing.space8),
                     Text(
-                      labels[p]!,
+                      _priorityLabel(l10n, p),
                       style: theme.textTheme.labelMedium?.copyWith(
                         color: isSelected
                             ? theme.colorScheme.onSurface
@@ -406,8 +411,9 @@ class _TaskListState extends ConsumerState<_TaskList> {
       data: (state) {
         var items = state.items;
         if (widget.priorityFilter != null) {
-          items =
-              items.where((t) => t.priority == widget.priorityFilter).toList();
+          items = items
+              .where((t) => t.priority == widget.priorityFilter)
+              .toList();
         }
         if (widget.userId != null) {
           items = items.where((t) => t.assigneeId == widget.userId).toList();
@@ -431,8 +437,8 @@ class _TaskListState extends ConsumerState<_TaskList> {
                       mood: MorMood.greet,
                       size: 104,
                     ),
-                    title: 'No tasks here',
-                    body: 'Tasks assigned to this view will show up here.',
+                    title: AppLocalizations.of(context).tasksEmptyTitle,
+                    body: AppLocalizations.of(context).tasksEmptyBody,
                   ),
                 ),
               ],
@@ -442,7 +448,8 @@ class _TaskListState extends ConsumerState<_TaskList> {
 
         // Only show the load-more footer when the full (unfiltered) list has
         // more pages — a local priority/assignee filter shouldn't imply more.
-        final showFooter = state.loadingMore &&
+        final showFooter =
+            state.loadingMore &&
             widget.priorityFilter == null &&
             widget.userId == null;
 
@@ -506,6 +513,7 @@ class _TaskTileState extends State<_TaskTile> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     final task = widget.task;
     final done = task.status == 'completed';
 
@@ -599,7 +607,7 @@ class _TaskTileState extends State<_TaskTile> {
                       ),
                       const SizedBox(width: RadhaSpacing.space4),
                       Text(
-                        'Evidence',
+                        l10n.taskEvidence,
                         style: theme.textTheme.bodySmall?.copyWith(
                           color: theme.colorScheme.onSurfaceVariant,
                         ),
@@ -619,8 +627,18 @@ class _TaskTileState extends State<_TaskTile> {
     try {
       final dt = DateTime.parse(iso);
       const months = [
-        'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
+        'Jan',
+        'Feb',
+        'Mar',
+        'Apr',
+        'May',
+        'Jun',
+        'Jul',
+        'Aug',
+        'Sep',
+        'Oct',
+        'Nov',
+        'Dec',
       ];
       return '${dt.day} ${months[dt.month - 1]}';
     } catch (_) {
@@ -639,7 +657,7 @@ class _PriorityBadge extends StatelessWidget {
   Widget build(BuildContext context) {
     if (priority == null) return const SizedBox.shrink();
     final color = _priorityColor(priority!);
-    final label = priority![0].toUpperCase() + priority!.substring(1);
+    final label = _priorityLabel(AppLocalizations.of(context), priority!);
 
     return Container(
       padding: const EdgeInsets.symmetric(
@@ -688,8 +706,7 @@ class _StatusLabel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final raw = (status ?? 'open').replaceAll('_', ' ');
-    final label = raw[0].toUpperCase() + raw.substring(1);
+    final label = _statusLabel(AppLocalizations.of(context), status);
     return Text(
       label,
       style: theme.textTheme.bodySmall?.copyWith(
@@ -710,6 +727,45 @@ Color _statusColor(BuildContext context, String? status) {
       return Theme.of(context).colorScheme.onSurfaceVariant;
     default:
       return RadhaColors.warning;
+  }
+}
+
+/// Localized display label for a task priority enum (shared severity labels).
+/// Unknown values fall back to a capitalized form of the raw string.
+String _priorityLabel(AppLocalizations l10n, String priority) {
+  switch (priority) {
+    case 'high':
+      return l10n.priorityHigh;
+    case 'urgent':
+      return l10n.priorityUrgent;
+    case 'medium':
+      return l10n.priorityMedium;
+    case 'low':
+      return l10n.priorityLow;
+    default:
+      return priority.isEmpty
+          ? priority
+          : priority[0].toUpperCase() + priority.substring(1);
+  }
+}
+
+/// Localized display label for a task status enum. Never surfaces a raw
+/// backend value; unknown statuses fall back to a humanized capitalization.
+String _statusLabel(AppLocalizations l10n, String? status) {
+  switch (status) {
+    case 'open':
+      return l10n.taskStatusOpen;
+    case 'pending':
+      return l10n.taskStatusPending;
+    case 'in_progress':
+      return l10n.taskStatusInProgress;
+    case 'completed':
+      return l10n.taskStatusCompleted;
+    case 'cancelled':
+      return l10n.taskStatusCancelled;
+    default:
+      final raw = (status ?? 'open').replaceAll('_', ' ');
+      return raw.isEmpty ? raw : raw[0].toUpperCase() + raw.substring(1);
   }
 }
 
@@ -767,21 +823,22 @@ class _TaskError extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(RadhaSpacing.space24),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const MorCompanion(
+            MorCompanion(
               mood: MorMood.concern,
               size: 96,
-              semanticLabel: 'Could not load',
+              semanticLabel: l10n.expiryCouldNotLoadSemantic,
             ),
             const SizedBox(height: RadhaSpacing.space16),
-            Text('Failed to load tasks', style: theme.textTheme.bodyMedium),
+            Text(l10n.tasksLoadError, style: theme.textTheme.bodyMedium),
             const SizedBox(height: RadhaSpacing.space16),
-            OutlinedButton(onPressed: onRetry, child: const Text('Retry')),
+            OutlinedButton(onPressed: onRetry, child: Text(l10n.tryAgain)),
           ],
         ),
       ),

@@ -30,6 +30,7 @@ import 'package:radha_mobile/core/auth/session_storage.dart';
 import 'package:radha_mobile/core/network/token_provider.dart';
 import 'package:radha_mobile/design/theme.dart';
 import 'package:radha_mobile/features/onboarding/onboarding_screen.dart';
+import 'package:radha_mobile/l10n/generated/app_localizations.dart';
 
 class _StubTokenStore implements TokenStore {
   @override
@@ -78,7 +79,12 @@ void main() {
         tokenStoreProvider.overrideWith((ref) => _StubTokenStore()),
         sessionStorageProvider.overrideWith((ref) => storage),
       ],
-      child: MaterialApp.router(theme: radhaLightTheme(), routerConfig: router),
+      child: MaterialApp.router(
+        theme: radhaLightTheme(),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        routerConfig: router,
+      ),
     );
   }
 

@@ -10,6 +10,7 @@ import '../../design/app_assets.dart';
 import '../../design/theme.dart';
 import '../../design/tokens.dart';
 import '../../design/widgets/mor_companion.dart';
+import '../../l10n/generated/app_localizations.dart';
 
 /// State controller that hydrates the inventory list with cursor pagination
 /// and exposes a single `AsyncValue<List<InventoryItemResponse>>` to the UI.
@@ -159,6 +160,7 @@ class _InventoryListScreenState extends ConsumerState<InventoryListScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     final inventoryAsync = ref.watch(_inventoryListControllerProvider);
 
     return Scaffold(
@@ -176,7 +178,7 @@ class _InventoryListScreenState extends ConsumerState<InventoryListScreen> {
                 }),
               )
             : Text(
-                'Inventory',
+                l10n.inventoryTitle,
                 style: theme.textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.w800,
                 ),
@@ -185,7 +187,7 @@ class _InventoryListScreenState extends ConsumerState<InventoryListScreen> {
           if (!_showSearch)
             IconButton(
               icon: const Icon(Icons.search_rounded),
-              tooltip: 'Search inventory',
+              tooltip: l10n.inventorySearchTooltip,
               onPressed: () => setState(() => _showSearch = true),
             ),
         ],
@@ -203,7 +205,7 @@ class _InventoryListScreenState extends ConsumerState<InventoryListScreen> {
                 Expanded(
                   child: _ActionButton(
                     icon: Icons.swap_vert_rounded,
-                    label: 'Stock Movement',
+                    label: l10n.inventoryStockMovement,
                     onTap: () => context.push(AppRoute.inventoryStockMovement),
                   ),
                 ),
@@ -211,7 +213,7 @@ class _InventoryListScreenState extends ConsumerState<InventoryListScreen> {
                 Expanded(
                   child: _ActionButton(
                     icon: Icons.warning_amber_rounded,
-                    label: 'Low Stock Alerts',
+                    label: l10n.inventoryLowStockAlerts,
                     onTap: () => context.push(AppRoute.inventoryLowStockAlerts),
                   ),
                 ),
@@ -225,14 +227,14 @@ class _InventoryListScreenState extends ConsumerState<InventoryListScreen> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const MorCompanion(
+                    MorCompanion(
                       mood: MorMood.concern,
                       size: 96,
-                      semanticLabel: 'Could not load',
+                      semanticLabel: l10n.expiryCouldNotLoadSemantic,
                     ),
                     const SizedBox(height: RadhaSpacing.space12),
                     Text(
-                      'Failed to load inventory',
+                      l10n.inventoryLoadError,
                       style: theme.textTheme.bodyLarge,
                     ),
                     const SizedBox(height: RadhaSpacing.space8),
@@ -240,7 +242,7 @@ class _InventoryListScreenState extends ConsumerState<InventoryListScreen> {
                       onPressed: () => ref
                           .read(_inventoryListControllerProvider.notifier)
                           .refresh(),
-                      child: const Text('Retry'),
+                      child: Text(l10n.tryAgain),
                     ),
                   ],
                 ),
@@ -257,8 +259,8 @@ class _InventoryListScreenState extends ConsumerState<InventoryListScreen> {
                         const SizedBox(height: RadhaSpacing.space12),
                         Text(
                           _searchQuery.isEmpty
-                              ? 'No inventory items found'
-                              : 'No matches for "$_searchQuery"',
+                              ? l10n.inventoryEmpty
+                              : l10n.inventoryNoMatches(_searchQuery),
                           style: theme.textTheme.bodyLarge,
                         ),
                       ],
@@ -335,11 +337,12 @@ class _SearchField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return TextField(
       controller: controller,
       autofocus: true,
       decoration: InputDecoration(
-        hintText: 'Search by product or EAN...',
+        hintText: l10n.inventorySearchHint,
         border: InputBorder.none,
         suffixIcon: IconButton(
           icon: const Icon(Icons.close),
@@ -420,6 +423,7 @@ class _InventoryTileState extends State<_InventoryTile> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     final item = widget.item;
     final low = _isLowStock;
 
@@ -462,7 +466,7 @@ class _InventoryTileState extends State<_InventoryTile> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Product ${item.productId}',
+                          l10n.inventoryProductShort(item.productId),
                           style: theme.textTheme.titleSmall?.copyWith(
                             color: theme.colorScheme.onSurface,
                           ),
@@ -474,8 +478,8 @@ class _InventoryTileState extends State<_InventoryTile> {
                           children: [
                             Text(
                               low
-                                  ? 'Below threshold'
-                                  : 'In stock',
+                                  ? l10n.inventoryBelowThreshold
+                                  : l10n.inventoryInStock,
                               style: theme.textTheme.bodySmall?.copyWith(
                                 color: low
                                     ? RadhaColors.warning
@@ -506,7 +510,7 @@ class _InventoryTileState extends State<_InventoryTile> {
                         ),
                       ),
                       Text(
-                        'units',
+                        l10n.inventoryUnitsLabel,
                         style: theme.textTheme.labelSmall?.copyWith(
                           color: theme.colorScheme.onSurfaceVariant,
                         ),
@@ -520,17 +524,17 @@ class _InventoryTileState extends State<_InventoryTile> {
                 Divider(height: 1, color: theme.colorScheme.outline),
                 const SizedBox(height: RadhaSpacing.space12),
                 _DetailLine(
-                  label: 'Total quantity',
-                  value: '${item.quantity} units',
+                  label: l10n.inventoryTotalQuantity,
+                  value: l10n.inventoryQtyUnits(item.quantity),
                 ),
                 if (item.lowStockThreshold != null)
                   _DetailLine(
-                    label: 'Low-stock threshold',
-                    value: '${item.lowStockThreshold} units',
+                    label: l10n.inventoryLowStockThreshold,
+                    value: l10n.inventoryQtyUnits(item.lowStockThreshold!),
                   ),
                 const SizedBox(height: RadhaSpacing.space4),
                 Text(
-                  'Tap "Stock movement" to view the full batch ledger.',
+                  l10n.inventoryBatchLedgerHint,
                   style: theme.textTheme.bodySmall?.copyWith(
                     color: theme.colorScheme.onSurfaceVariant,
                   ),
@@ -585,6 +589,7 @@ class _LowStockBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return Container(
       padding: const EdgeInsets.symmetric(
         horizontal: RadhaSpacing.space8,
@@ -594,9 +599,9 @@ class _LowStockBadge extends StatelessWidget {
         color: RadhaColors.danger.withValues(alpha: 0.12),
         borderRadius: BorderRadius.circular(RadhaRadii.radiusFull),
       ),
-      child: const Text(
-        'Low Stock',
-        style: TextStyle(
+      child: Text(
+        l10n.inventoryLowStockBadge,
+        style: const TextStyle(
           fontSize: 11,
           fontWeight: FontWeight.w600,
           color: RadhaColors.danger,

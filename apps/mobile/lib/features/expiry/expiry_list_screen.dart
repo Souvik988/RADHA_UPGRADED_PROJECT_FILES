@@ -11,6 +11,7 @@ import '../../design/theme.dart';
 import '../../design/tokens.dart';
 import '../../design/widgets/empty_state.dart';
 import '../../design/widgets/mor_companion.dart';
+import '../../l10n/generated/app_localizations.dart';
 
 /// Status filter tabs for the expiry list.
 enum _ExpiryTab { nearExpiry, expired, safe }
@@ -20,12 +21,6 @@ extension on _ExpiryTab {
     _ExpiryTab.nearExpiry => 'near_expiry',
     _ExpiryTab.expired => 'expired',
     _ExpiryTab.safe => 'safe',
-  };
-
-  String get label => switch (this) {
-    _ExpiryTab.nearExpiry => 'Near-expiry',
-    _ExpiryTab.expired => 'Expired',
-    _ExpiryTab.safe => 'Safe',
   };
 }
 
@@ -79,12 +74,13 @@ class _ExpiryListScreenState extends ConsumerState<ExpiryListScreen>
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     return Scaffold(
       backgroundColor: theme.colorScheme.surface,
       appBar: AppBar(
         backgroundColor: theme.colorScheme.surface,
         title: Text(
-          'Expiry Tracking',
+          l10n.expiryTracker,
           style: theme.textTheme.titleLarge?.copyWith(
             fontWeight: FontWeight.w800,
           ),
@@ -92,7 +88,7 @@ class _ExpiryListScreenState extends ConsumerState<ExpiryListScreen>
         actions: [
           IconButton(
             icon: const Icon(Icons.calendar_month_outlined),
-            tooltip: 'Calendar view',
+            tooltip: l10n.expiryCalendarTooltip,
             onPressed: () {
               HapticFeedback.selectionClick();
               context.push(AppRoute.expiryCalendar);
@@ -110,7 +106,7 @@ class _ExpiryListScreenState extends ConsumerState<ExpiryListScreen>
               RadhaSpacing.space12,
             ),
             child: _SegmentedTabs(
-              labels: _tabs.map((t) => t.label).toList(),
+              labels: _tabs.map((t) => _tabLabel(l10n, t)).toList(),
               index: _index,
               onChanged: (i) {
                 HapticFeedback.selectionClick();
@@ -137,10 +133,16 @@ class _ExpiryListScreenState extends ConsumerState<ExpiryListScreen>
           context.push(AppRoute.expiryNew);
         },
         icon: const Icon(Icons.add_rounded),
-        label: const Text('Add'),
+        label: Text(l10n.add),
       ),
     );
   }
+
+  String _tabLabel(AppLocalizations l10n, _ExpiryTab tab) => switch (tab) {
+    _ExpiryTab.nearExpiry => l10n.expiryTabNear,
+    _ExpiryTab.expired => l10n.expired,
+    _ExpiryTab.safe => l10n.expiryTabSafe,
+  };
 }
 
 /// Pill-style segmented control matching the mockup. Animated thumb.
@@ -191,7 +193,9 @@ class _SegmentedTabs extends StatelessWidget {
                       color: i == index
                           ? theme.colorScheme.onSurface
                           : theme.colorScheme.onSurfaceVariant,
-                      fontWeight: i == index ? FontWeight.w700 : FontWeight.w500,
+                      fontWeight: i == index
+                          ? FontWeight.w700
+                          : FontWeight.w500,
                     ),
                   ),
                 ),
@@ -277,6 +281,7 @@ class _ExpiryTabContentState extends ConsumerState<_ExpiryTabContent>
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    final l10n = AppLocalizations.of(context);
     final asyncValue = ref.watch(_expiryFirstPageProvider(widget.status));
 
     return asyncValue.when(
@@ -306,8 +311,8 @@ class _ExpiryTabContentState extends ConsumerState<_ExpiryTabContent>
                       mood: _emptyMood(widget.status),
                       size: 104,
                     ),
-                    title: _emptyTitle(widget.status),
-                    body: _emptyMessage(widget.status),
+                    title: _emptyTitle(l10n, widget.status),
+                    body: _emptyMessage(l10n, widget.status),
                   ),
                 ),
               ],
@@ -359,13 +364,14 @@ class _ExpiryTabContentState extends ConsumerState<_ExpiryTabContent>
     _ => MorMood.greet,
   };
 
-  String _emptyTitle(String status) => switch (status) {
-    'expired' => 'Nothing expired',
-    'near_expiry' => 'All clear',
-    _ => 'No records yet',
+  String _emptyTitle(AppLocalizations l10n, String status) => switch (status) {
+    'expired' => l10n.expiryEmptyExpiredTitle,
+    'near_expiry' => l10n.expiryEmptyNearTitle,
+    _ => l10n.expiryEmptyDefaultTitle,
   };
 
-  String _emptyMessage(String status) => 'No records in this category.';
+  String _emptyMessage(AppLocalizations l10n, String status) =>
+      l10n.expiryEmptyBody;
 }
 
 /// A single expiry record tile — thumbnail, name/batch, and a day-count
@@ -385,19 +391,20 @@ class _ExpiryListTile extends StatelessWidget {
     return dateOnly.difference(todayOnly).inDays;
   }
 
-  String _shortProduct() {
+  String _shortProduct(AppLocalizations l10n) {
     // The list endpoint returns productId only; show a stable short token
     // rather than a raw uuid until the product-name join lands server-side.
     final id = item.productId;
-    if (id.length <= 8) return 'Product $id';
-    return 'Product ${id.substring(0, 8)}';
+    final token = id.length <= 8 ? id : id.substring(0, 8);
+    return l10n.expiryProductShort(token);
   }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     final days = _daysLeft;
-    final (pillColor, pillBg, pillText) = _pill(theme, days, item.status);
+    final (pillColor, pillBg, pillText) = _pill(theme, days, item.status, l10n);
 
     return Container(
       decoration: BoxDecoration(
@@ -428,7 +435,7 @@ class _ExpiryListTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  _shortProduct(),
+                  _shortProduct(l10n),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: theme.textTheme.titleSmall?.copyWith(
@@ -438,9 +445,11 @@ class _ExpiryListTile extends StatelessWidget {
                 const SizedBox(height: RadhaSpacing.space2),
                 Text(
                   [
-                    if (item.batchNumber != null) 'Batch ${item.batchNumber}',
-                    if (item.quantity != null) 'Qty ${item.quantity}',
-                    'Exp ${item.expiryDate}',
+                    if (item.batchNumber != null)
+                      l10n.expiryBatch(item.batchNumber!),
+                    if (item.quantity != null)
+                      l10n.expiryQty('${item.quantity}'),
+                    l10n.expiryExp(item.expiryDate),
                   ].join(' · '),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
@@ -475,41 +484,46 @@ class _ExpiryListTile extends StatelessWidget {
     );
   }
 
-  (Color, Color, String) _pill(ThemeData theme, int? days, String? status) {
+  (Color, Color, String) _pill(
+    ThemeData theme,
+    int? days,
+    String? status,
+    AppLocalizations l10n,
+  ) {
     // Prefer the precise day count; fall back to the server status label.
     if (days != null) {
       if (days < 0) {
         return (
           RadhaColors.danger,
           RadhaColors.danger.withValues(alpha: 0.12),
-          'Expired',
+          l10n.expired,
         );
       }
       if (days == 0) {
         return (
           RadhaColors.danger,
           RadhaColors.danger.withValues(alpha: 0.12),
-          'Today',
+          l10n.expiryPillToday,
         );
       }
       if (days == 1) {
         return (
           RadhaColors.warning,
           RadhaColors.primaryTint.withValues(alpha: 0.5),
-          'Tomorrow',
+          l10n.expiryPillTomorrow,
         );
       }
       if (days <= 30) {
         return (
           RadhaColors.warning,
           RadhaColors.primaryTint.withValues(alpha: 0.5),
-          '${days}d',
+          l10n.expiryPillDays(days),
         );
       }
       return (
         theme.colorScheme.onSurfaceVariant,
         theme.colorScheme.surfaceContainerLow,
-        '${days}d',
+        l10n.expiryPillDays(days),
       );
     }
     final c = switch (status) {
@@ -519,9 +533,9 @@ class _ExpiryListTile extends StatelessWidget {
       _ => theme.colorScheme.onSurfaceVariant,
     };
     final label = switch (status) {
-      'expired' => 'Expired',
-      'near_expiry' => 'Soon',
-      'safe' => 'Safe',
+      'expired' => l10n.expired,
+      'near_expiry' => l10n.expiryPillSoon,
+      'safe' => l10n.expiryTabSafe,
       _ => '—',
     };
     return (c, c.withValues(alpha: 0.12), label);
@@ -566,27 +580,22 @@ class _ExpiryError extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(RadhaSpacing.space24),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const MorCompanion(
+            MorCompanion(
               mood: MorMood.concern,
               size: 96,
-              semanticLabel: 'Could not load',
+              semanticLabel: l10n.expiryCouldNotLoadSemantic,
             ),
             const SizedBox(height: RadhaSpacing.space16),
-            Text(
-              'Couldn\'t load expiry records.',
-              style: theme.textTheme.bodyMedium,
-            ),
+            Text(l10n.expiryLoadError, style: theme.textTheme.bodyMedium),
             const SizedBox(height: RadhaSpacing.space16),
-            OutlinedButton(
-              onPressed: onRetry,
-              child: const Text('Retry'),
-            ),
+            OutlinedButton(onPressed: onRetry, child: Text(l10n.tryAgain)),
           ],
         ),
       ),

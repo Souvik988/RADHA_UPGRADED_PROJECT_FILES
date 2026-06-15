@@ -24,6 +24,7 @@ import '../../core/network/dto/allergen_profile_dto.dart';
 import '../../design/tokens.dart';
 import '../../design/widgets/error_state.dart';
 import '../../design/widgets/primary_button.dart';
+import '../../l10n/generated/app_localizations.dart';
 
 /// Canonical allergen vocabulary mirrored from `ALLERGEN_TAGS` in
 /// `server/src/modules/allergen/types/allergen.types.ts`. Keep this list in
@@ -45,6 +46,46 @@ const List<AllergenOption> kAllergenOptions = [
   AllergenOption(tag: 'molluscs', label: 'Molluscs'),
   AllergenOption(tag: 'sulphites', label: 'Sulphites'),
 ];
+
+/// Localized display label for a canonical allergen tag. Falls back to the
+/// option's English label (or the raw tag) for any unmapped value so the chip
+/// never renders blank if BE-37 adds a tag ahead of the translations.
+String allergenLabel(AppLocalizations l10n, AllergenOption option) {
+  switch (option.tag) {
+    case 'peanut':
+      return l10n.allergenPeanut;
+    case 'tree_nut':
+      return l10n.allergenTreeNut;
+    case 'dairy':
+      return l10n.allergenDairy;
+    case 'eggs':
+      return l10n.allergenEggs;
+    case 'soy':
+      return l10n.allergenSoy;
+    case 'wheat':
+      return l10n.allergenWheat;
+    case 'fish':
+      return l10n.allergenFish;
+    case 'shellfish':
+      return l10n.allergenShellfish;
+    case 'sesame':
+      return l10n.allergenSesame;
+    case 'gluten':
+      return l10n.allergenGluten;
+    case 'mustard':
+      return l10n.allergenMustard;
+    case 'celery':
+      return l10n.allergenCelery;
+    case 'lupin':
+      return l10n.allergenLupin;
+    case 'molluscs':
+      return l10n.allergenMolluscs;
+    case 'sulphites':
+      return l10n.allergenSulphites;
+    default:
+      return option.label;
+  }
+}
 
 /// Family-level provider for the user's allergen profile. Other features
 /// (notably the product detail allergen check) read this to compare a
@@ -87,14 +128,12 @@ class _AllergenProfileScreenState extends ConsumerState<AllergenProfileScreen> {
     final profileAsync = ref.watch(allergenProfileProvider(user.userId));
 
     return profileAsync.when(
-      loading: () => Scaffold(
-        appBar: _appBar(context),
-        body: const _AllergenSkeleton(),
-      ),
+      loading: () =>
+          Scaffold(appBar: _appBar(context), body: const _AllergenSkeleton()),
       error: (error, _) => Scaffold(
         appBar: _appBar(context),
         body: ErrorState(
-          title: 'Could not load your allergen profile.',
+          title: AppLocalizations.of(context).allergenLoadError,
           onRetry: () => ref.invalidate(allergenProfileProvider(user.userId)),
         ),
       ),
@@ -114,7 +153,7 @@ class _AllergenProfileScreenState extends ConsumerState<AllergenProfileScreen> {
     final theme = Theme.of(context);
     return AppBar(
       title: Text(
-        'Allergens',
+        AppLocalizations.of(context).allergenTitle,
         style: theme.textTheme.titleLarge?.copyWith(
           fontWeight: FontWeight.w800,
         ),
@@ -125,6 +164,7 @@ class _AllergenProfileScreenState extends ConsumerState<AllergenProfileScreen> {
   Scaffold _buildScaffold(BuildContext context, String userId) {
     final theme = Theme.of(context);
     final scheme = theme.colorScheme;
+    final l10n = AppLocalizations.of(context);
     final reduceMotion =
         MediaQuery.maybeOf(context)?.disableAnimations ?? false;
 
@@ -149,7 +189,7 @@ class _AllergenProfileScreenState extends ConsumerState<AllergenProfileScreen> {
                       index: 0,
                       reduceMotion: reduceMotion,
                       child: Text(
-                        'Your allergens',
+                        l10n.allergenHeading,
                         style: theme.textTheme.headlineSmall?.copyWith(
                           fontWeight: FontWeight.w800,
                         ),
@@ -160,8 +200,7 @@ class _AllergenProfileScreenState extends ConsumerState<AllergenProfileScreen> {
                       index: 1,
                       reduceMotion: reduceMotion,
                       child: Text(
-                        'Tap any allergens you react to. We will warn you when '
-                        'a scanned product contains them.',
+                        l10n.allergenIntro,
                         style: theme.textTheme.bodyMedium?.copyWith(
                           color: scheme.onSurfaceVariant,
                         ),
@@ -229,19 +268,20 @@ class _AllergenProfileScreenState extends ConsumerState<AllergenProfileScreen> {
       ref.invalidate(allergenProfileProvider(userId));
 
       if (!mounted) return;
+      final l10n = AppLocalizations.of(context);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
             response.allergens.isEmpty
-                ? 'Allergen profile cleared.'
-                : 'Allergen profile saved.',
+                ? l10n.allergenSavedCleared
+                : l10n.allergenSaved,
           ),
         ),
       );
     } catch (_) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Could not save your allergens.')),
+        SnackBar(content: Text(AppLocalizations.of(context).allergenSaveError)),
       );
     } finally {
       if (mounted) setState(() => _saving = false);
@@ -267,6 +307,7 @@ class _SelectionSummary extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final scheme = theme.colorScheme;
+    final l10n = AppLocalizations.of(context);
     final active = count > 0;
 
     return AnimatedContainer(
@@ -282,7 +323,9 @@ class _SelectionSummary extends StatelessWidget {
             : scheme.surfaceContainerLow,
         borderRadius: BorderRadius.circular(RadhaRadii.radiusMd),
         border: Border.all(
-          color: active ? scheme.primary.withValues(alpha: 0.4) : scheme.outline,
+          color: active
+              ? scheme.primary.withValues(alpha: 0.4)
+              : scheme.outline,
         ),
       ),
       child: Row(
@@ -295,9 +338,7 @@ class _SelectionSummary extends StatelessWidget {
           const SizedBox(width: RadhaSpacing.space12),
           Expanded(
             child: Text(
-              active
-                  ? '$count allergen${count == 1 ? '' : 's'} tracked'
-                  : 'No allergens tracked yet',
+              active ? l10n.allergenTracked(count) : l10n.allergenNoneTracked,
               style: theme.textTheme.titleSmall?.copyWith(
                 color: active ? scheme.primary : scheme.onSurface,
               ),
@@ -337,7 +378,9 @@ class _AllergenChipState extends State<_AllergenChip> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final scheme = theme.colorScheme;
+    final l10n = AppLocalizations.of(context);
     final selected = widget.selected;
+    final label = allergenLabel(l10n, widget.option);
 
     final background = selected
         ? scheme.primary.withValues(alpha: 0.06)
@@ -351,7 +394,7 @@ class _AllergenChipState extends State<_AllergenChip> {
     return Semantics(
       button: true,
       selected: selected,
-      label: widget.option.label,
+      label: label,
       child: AnimatedScale(
         scale: scale,
         duration: RadhaMotion.fast,
@@ -397,7 +440,7 @@ class _AllergenChipState extends State<_AllergenChip> {
                             : const SizedBox.shrink(),
                       ),
                       Text(
-                        widget.option.label,
+                        label,
                         style: theme.textTheme.labelLarge?.copyWith(
                           color: foreground,
                         ),
@@ -441,7 +484,7 @@ class _SaveBar extends StatelessWidget {
         border: Border(top: BorderSide(color: theme.colorScheme.outline)),
       ),
       child: PrimaryButton(
-        label: 'Save',
+        label: AppLocalizations.of(context).save,
         expand: true,
         loading: saving,
         onPressed: enabled ? onPressed : null,
@@ -489,13 +532,24 @@ class _AllergenSkeleton extends StatelessWidget {
               spacing: RadhaSpacing.space8,
               runSpacing: RadhaSpacing.space8,
               children: [
-                for (final w in const [84.0, 96.0, 72.0, 110.0, 64.0, 88.0, 100.0, 78.0])
+                for (final w in const [
+                  84.0,
+                  96.0,
+                  72.0,
+                  110.0,
+                  64.0,
+                  88.0,
+                  100.0,
+                  78.0,
+                ])
                   Container(
                     width: w,
                     height: 40,
                     decoration: BoxDecoration(
                       color: scheme.surfaceContainerLow,
-                      borderRadius: BorderRadius.circular(RadhaRadii.radiusFull),
+                      borderRadius: BorderRadius.circular(
+                        RadhaRadii.radiusFull,
+                      ),
                     ),
                   ),
               ],

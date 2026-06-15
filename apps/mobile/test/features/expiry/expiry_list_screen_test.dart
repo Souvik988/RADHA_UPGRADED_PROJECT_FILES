@@ -6,6 +6,7 @@ import 'package:mocktail/mocktail.dart';
 import 'package:radha_mobile/core/network/api_client.dart';
 import 'package:radha_mobile/core/network/dto/expiry_dto.dart';
 import 'package:radha_mobile/features/expiry/expiry_list_screen.dart';
+import 'package:radha_mobile/l10n/generated/app_localizations.dart';
 
 class MockApiClient extends Mock implements ApiClient {}
 
@@ -28,7 +29,11 @@ void main() {
   Widget buildSubject() {
     return ProviderScope(
       overrides: [apiClientProvider.overrideWithValue(mockClient)],
-      child: const MaterialApp(home: ExpiryListScreen()),
+      child: const MaterialApp(
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        home: ExpiryListScreen(),
+      ),
     );
   }
 

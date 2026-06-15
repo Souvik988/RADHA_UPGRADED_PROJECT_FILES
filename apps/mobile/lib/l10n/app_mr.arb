@@ -1,6 +1,5 @@
 {
   "@@locale": "mr",
-
   "subTitle": "सदस्यता",
   "subUnlockHeadline": "RADHA चे संपूर्ण चित्र अनलॉक करा",
   "subLoadError": "तुमची सदस्यता लोड करता आली नाही",
@@ -30,7 +29,6 @@
   "subCheckoutCancelled": "चेकआउट रद्द केले — तुमचा प्लॅन तसाच आहे.",
   "subPaymentPending": "पेमेंट मिळाले — आता त्याची खात्री केली जात आहे. संदर्भ {supportRef}. थोड्या वेळात रिफ्रेश करण्यासाठी खाली ओढा.",
   "subPaymentFailed": "पेमेंट अयशस्वी झाले. कृपया पुन्हा प्रयत्न करा.",
-
   "catalogSearchBarHint": "तुमच्यासाठी योग्य उत्पादन शोधा",
   "catalogSearchHint": "उत्पादन किंवा ब्रँड शोधा",
   "catalogSearchClear": "साफ करा",
@@ -39,7 +37,6 @@
   "catalogScanProduct": "उत्पादन स्कॅन करा",
   "catalogFindTitle": "उत्पादन शोधा",
   "catalogFindBody": "त्याचे हेल्थ रेटिंग आणि घटक पाहण्यासाठी उत्पादनाचे नाव किंवा ब्रँड शोधा.",
-
   "catalogProductsFallback": "उत्पादने",
   "catalogLoadErrorTitle": "उत्पादने लोड करता आली नाहीत",
   "catalogLoadErrorBody": "{category} लोड करताना अडचण आली. कृपया पुन्हा प्रयत्न करा.",
@@ -57,7 +54,6 @@
   "catalogNoProductsBody": "आम्ही {category} विभाग भरत आहोत. तोपर्यंत, कोणतीही वस्तू स्कॅन करून तिचे आरोग्य आणि एक्सपायरी तपासा.",
   "catalogFeaturedTitle": "खास उत्पादने",
   "catalogHealthyPicksTitle": "आरोग्यदायी निवडी",
-
   "catalogDetailProductFallback": "उत्पादन",
   "catalogDetailTitle": "उत्पादन",
   "catalogDetailShareTooltip": "शेअर करा",
@@ -135,7 +131,6 @@
   "catalogDetailFullNutritionPendingTitle": "संपूर्ण पोषण माहिती अजून नाही",
   "catalogDetailFullNutritionPendingBody": "या उत्पादनाचा बारकोड स्कॅन करून खरी पोषण माहिती आणि आरोग्य विश्लेषण RADHA मध्ये आणा — फक्त एक सेकंद लागेल.",
   "catalogDetailScanToUnlock": "अनलॉक करण्यासाठी स्कॅन करा",
-
   "profileSectionAccount": "खाते",
   "profileManageStores": "स्टोअर्स व्यवस्थापित करा",
   "profileSectionPreferences": "प्राधान्ये",
@@ -153,7 +148,6 @@
   "profileVersionLoading": "आवृत्ती लोड होत आहे…",
   "profileVersionUnavailable": "आवृत्ती उपलब्ध नाही",
   "profileSignOutConfirmBody": "अॅप वापरण्यासाठी तुम्हाला OTP ने पुन्हा साइन इन करावे लागेल.",
-
   "selectStoreTitle": "स्टोअर निवडा",
   "selectStoreHeading": "एक स्टोअर निवडा",
   "selectStoreBody": "आज तुम्ही ज्या स्टोअरमध्ये काम करत आहात ते निवडा. नंतर प्रोफाइलमधून स्टोअर बदलू शकता.",
@@ -161,7 +155,6 @@
   "selectStoreEmptyBody": "तुमचे खाते अजून कोणत्याही स्टोअरशी जोडलेले नाही. प्रवेश देण्यासाठी तुमच्या व्यवस्थापकाला सांगा, मग परत येऊन एक निवडा.",
   "selectStoreContactManager": "तुमच्या व्यवस्थापकाला संपर्क करा",
   "selectStoreContactManagerSnackbar": "स्टोअरमध्ये जोडण्यासाठी तुमच्या व्यवस्थापकाला संपर्क करा.",
-
   "recallTitle": "रिकॉल सूचना",
   "recallLoadError": "रिकॉल लोड करता आले नाहीत.",
   "recallEmptyTitle": "कोणतेही सक्रिय रिकॉल नाहीत",
@@ -169,7 +162,6 @@
   "recallProductFallback": "उत्पादन {id}",
   "recallRecalledOn": "{date} रोजी रिकॉल केले",
   "recallViewProduct": "उत्पादन पहा",
-
   "couldNotLoad": "लोड करता आले नाही",
   "retryLabel": "पुन्हा प्रयत्न",
   "lowStockTitle": "कमी स्टॉक सूचना",
@@ -178,7 +170,6 @@
   "lowStockRestock": "रिस्टॉक",
   "lowStockProductFallback": "उत्पादन {id}",
   "lowStockLevel": "सध्या: {current} / मर्यादा: {threshold}",
-
   "appName": "RADHA",
   "tagline": "डेटा, आरोग्य आणि ऑडिटसाठी रिटेल असिस्टंट.",
   "continueLabel": "सुरू ठेवा",
@@ -237,7 +228,9 @@
   "errorRateLimitOtp": "खूप जास्त OTP विनंत्या. {seconds} सेकंदात पुन्हा प्रयत्न करा.",
   "@errorRateLimitOtp": {
     "placeholders": {
-      "seconds": { "type": "int" }
+      "seconds": {
+        "type": "int"
+      }
     }
   },
   "errorOtpInvalid": "OTP चुकीचा आहे. कृपया पुन्हा प्रयत्न करा.",
@@ -249,7 +242,9 @@
   "healthyAlternativesTitle": "{productName} पेक्षा चांगले पर्याय",
   "@healthyAlternativesTitle": {
     "placeholders": {
-      "productName": { "type": "String" }
+      "productName": {
+        "type": "String"
+      }
     }
   },
   "healthyAlternativesGenericTitle": "चांगले पर्याय",
@@ -267,28 +262,37 @@
   "savedProductsSavedOn": "{date} रोजी जतन केले",
   "@savedProductsSavedOn": {
     "placeholders": {
-      "date": { "type": "String" }
+      "date": {
+        "type": "String"
+      }
     }
   },
-
   "digestTitle": "RADHA सोबत तुमचा आठवडा",
   "digestWeekRange": "{start} – {end}",
   "@digestWeekRange": {
     "placeholders": {
-      "start": { "type": "String" },
-      "end": { "type": "String" }
+      "start": {
+        "type": "String"
+      },
+      "end": {
+        "type": "String"
+      }
     }
   },
   "digestSavingsHero": "₹{amount} वाचवले",
   "@digestSavingsHero": {
     "placeholders": {
-      "amount": { "type": "String" }
+      "amount": {
+        "type": "String"
+      }
     }
   },
   "digestScansHero": "{count, plural, =1{1 स्कॅन} other{{count} स्कॅन्स}}",
   "@digestScansHero": {
     "placeholders": {
-      "count": { "type": "int" }
+      "count": {
+        "type": "int"
+      }
     }
   },
   "digestHeroEmptyHeadline": "एक शांत आठवडा",
@@ -298,7 +302,9 @@
   "digestRecallAlerts": "{count, plural, =1{1 रिकॉल अलर्ट} other{{count} रिकॉल अलर्ट्स}}",
   "@digestRecallAlerts": {
     "placeholders": {
-      "count": { "type": "int" }
+      "count": {
+        "type": "int"
+      }
     }
   },
   "digestRecallAlertsBody": "या आठवड्यात तुम्ही स्कॅन केलेल्या उत्पादनांसाठी नवीन सुरक्षा सूचना आहेत.",
@@ -310,14 +316,17 @@
   "digestShareTemplate": "या आठवड्यात मी {scans} उत्पादने स्कॅन केली आणि RADHA सोबत ₹{savings} वाचवले. तुम्हीही करून पहा: https://radha.app",
   "@digestShareTemplate": {
     "placeholders": {
-      "scans": { "type": "int" },
-      "savings": { "type": "String" }
+      "scans": {
+        "type": "int"
+      },
+      "savings": {
+        "type": "String"
+      }
     }
   },
   "digestEmptyTitle": "या आठवड्यात कोणतीही क्रिया नाही",
   "digestEmptyBody": "तुमची साप्ताहिक कथा तयार करण्यासाठी स्कॅन सुरू करा.",
   "digestErrorTitle": "साप्ताहिक सारांश लोड करू शकलो नाही",
-
   "settingsTitle": "सेटिंग्ज",
   "settingsNotifications": "सूचना",
   "settingsPushNotifications": "पुश सूचना",
@@ -355,18 +364,23 @@
   "settingsVersionValue": "आवृत्ती {version} ({build})",
   "@settingsVersionValue": {
     "placeholders": {
-      "version": { "type": "String" },
-      "build": { "type": "String" }
+      "version": {
+        "type": "String"
+      },
+      "build": {
+        "type": "String"
+      }
     }
   },
   "settingsSupport": "सपोर्ट",
   "settingsSupportHint": "मदत मिळवा, बग नोंदवा किंवा अभिप्राय द्या",
   "settingsLinkOpenFailed": "लिंक उघडता आली नाही",
-
   "conflictBannerCount": "{count, plural, =1{1 विरोधाला तुमचे लक्ष हवे आहे} other{{count} विरोधांना तुमचे लक्ष हवे आहे}}",
   "@conflictBannerCount": {
     "placeholders": {
-      "count": { "type": "int" }
+      "count": {
+        "type": "int"
+      }
     }
   },
   "conflictBannerCta": "सोडवा",
@@ -380,7 +394,9 @@
   "conflictAttempts": "{count, plural, =1{1 वेळा प्रयत्न केला} other{{count} वेळा प्रयत्न केला}}",
   "@conflictAttempts": {
     "placeholders": {
-      "count": { "type": "int" }
+      "count": {
+        "type": "int"
+      }
     }
   },
   "conflictResourceTask": "कार्य",
@@ -393,10 +409,11 @@
   "conflictLocalChangeSummary": "तुमचा बदल: {summary}",
   "@conflictLocalChangeSummary": {
     "placeholders": {
-      "summary": { "type": "String" }
+      "summary": {
+        "type": "String"
+      }
     }
   },
-
   "supportTitle": "सपोर्ट",
   "supportContactUs": "आमच्याशी संपर्क साधा",
   "supportEmailUs": "ईमेल करा",
@@ -459,14 +476,18 @@
   "reportsLastRun": "Last run {when}",
   "@reportsLastRun": {
     "placeholders": {
-      "when": { "type": "String" }
+      "when": {
+        "type": "String"
+      }
     }
   },
   "reportsLastRunNever": "Hasn't run yet",
   "reportsNextRun": "Next run {when}",
   "@reportsNextRun": {
     "placeholders": {
-      "when": { "type": "String" }
+      "when": {
+        "type": "String"
+      }
     }
   },
   "reportsDownload": "Download",
@@ -485,19 +506,25 @@
   "ohsScore": "{score}",
   "@ohsScore": {
     "placeholders": {
-      "score": { "type": "int" }
+      "score": {
+        "type": "int"
+      }
     }
   },
   "ohsDeltaUp": "+{value} from last week",
   "@ohsDeltaUp": {
     "placeholders": {
-      "value": { "type": "int" }
+      "value": {
+        "type": "int"
+      }
     }
   },
   "ohsDeltaDown": "-{value} from last week",
   "@ohsDeltaDown": {
     "placeholders": {
-      "value": { "type": "int" }
+      "value": {
+        "type": "int"
+      }
     }
   },
   "ohsDeltaSame": "No change from last week",
@@ -509,13 +536,17 @@
   "ohsActionExpiry": "{count, plural, =1{1 expiry alert needs a review} other{{count} expiry alerts need a review}}",
   "@ohsActionExpiry": {
     "placeholders": {
-      "count": { "type": "int" }
+      "count": {
+        "type": "int"
+      }
     }
   },
   "ohsActionLowStock": "{count, plural, =1{1 low-stock alert is unresolved} other{{count} low-stock alerts are unresolved}}",
   "@ohsActionLowStock": {
     "placeholders": {
-      "count": { "type": "int" }
+      "count": {
+        "type": "int"
+      }
     }
   },
   "ohsActionTasks": "Review open tasks for your store",
@@ -524,5 +555,192 @@
   "ohsViewDetailedReports": "View detailed reports",
   "ohsEmptyTitle": "Build your operational health score",
   "ohsEmptyBody": "Start scanning to build your OHS score.",
-  "ohsErrorTitle": "Could not load your dashboard"
+  "ohsErrorTitle": "Could not load your dashboard",
+  "expiryTabNear": "लवकर संपणारे",
+  "expiryTabSafe": "सुरक्षित",
+  "expiryCalendarTooltip": "कॅलेंडर दृश्य",
+  "expiryEmptyExpiredTitle": "काहीही एक्स्पायर नाही",
+  "expiryEmptyNearTitle": "सर्व काही ठीक आहे",
+  "expiryEmptyDefaultTitle": "अद्याप कोणतेही रेकॉर्ड नाही",
+  "expiryEmptyBody": "या श्रेणीत कोणतेही रेकॉर्ड नाही.",
+  "expiryProductShort": "उत्पादन {id}",
+  "expiryBatch": "बॅच {batch}",
+  "expiryQty": "प्रमाण {qty}",
+  "expiryExp": "एक्स्पायरी {date}",
+  "expiryPillToday": "आज",
+  "expiryPillTomorrow": "उद्या",
+  "expiryPillDays": "{days}d",
+  "expiryPillSoon": "लवकर",
+  "expiryLoadError": "एक्स्पायरी रेकॉर्ड लोड करता आले नाहीत.",
+  "expiryCouldNotLoadSemantic": "लोड करता आले नाही",
+  "inventoryTitle": "इन्व्हेंटरी",
+  "inventorySearchTooltip": "इन्व्हेंटरी शोधा",
+  "inventorySearchHint": "उत्पादन किंवा EAN ने शोधा...",
+  "inventoryStockMovement": "स्टॉक हालचाल",
+  "inventoryLowStockAlerts": "कमी स्टॉक सूचना",
+  "inventoryLoadError": "इन्व्हेंटरी लोड करता आली नाही",
+  "inventoryEmpty": "कोणतेही इन्व्हेंटरी आयटम सापडले नाही",
+  "inventoryNoMatches": "\"{query}\" साठी जुळणी नाही",
+  "inventoryProductShort": "उत्पादन {id}",
+  "inventoryBelowThreshold": "मर्यादेपेक्षा कमी",
+  "inventoryInStock": "स्टॉकमध्ये",
+  "inventoryUnitsLabel": "युनिट्स",
+  "inventoryTotalQuantity": "एकूण प्रमाण",
+  "inventoryLowStockThreshold": "कमी-स्टॉक मर्यादा",
+  "inventoryQtyUnits": "{count} युनिट्स",
+  "inventoryBatchLedgerHint": "संपूर्ण बॅच लेजर पाहण्यासाठी \"स्टॉक हालचाल\" टॅप करा.",
+  "inventoryLowStockBadge": "कमी स्टॉक",
+  "tasksTitle": "कार्ये",
+  "tasksTabMine": "माझी कार्ये",
+  "tasksTabAll": "सर्व",
+  "tasksNewTask": "नवीन कार्य",
+  "tasksEmptyTitle": "इथे कोणतीही कार्ये नाहीत",
+  "tasksEmptyBody": "या दृश्याला नियुक्त केलेली कार्ये येथे दिसतील.",
+  "tasksLoadError": "कार्ये लोड करता आली नाहीत",
+  "taskEvidence": "पुरावा",
+  "priorityHigh": "उच्च",
+  "priorityMedium": "मध्यम",
+  "priorityLow": "कमी",
+  "priorityUrgent": "तातडीचे",
+  "taskStatusOpen": "खुले",
+  "taskStatusPending": "प्रलंबित",
+  "taskStatusInProgress": "सुरू आहे",
+  "taskStatusCompleted": "पूर्ण",
+  "taskStatusCancelled": "रद्द",
+  "scanTitle": "उत्पादन स्कॅन करा",
+  "scanAlignHint": "बारकोड फ्रेममध्ये संरेखित करा",
+  "scanBatchHint": "बॅच मोड — स्कॅन करत राहा, आयटम आपोआप जोडले जातील",
+  "scanBatchAdded": "{code} जोडले · {count} स्कॅन केले",
+  "scanBatchDone": "पूर्ण · {count}",
+  "scanLabelAction": "लेबल स्कॅन",
+  "scanGalleryAction": "गॅलरी",
+  "scanEnterManually": "मॅन्युअली प्रविष्ट करा",
+  "scanBulkAudit": "बल्क ऑडिट",
+  "scanHistoryAction": "इतिहास",
+  "scanFlash": "फ्लॅश",
+  "scanTroubleTitle": "स्कॅन करताना अडचण?",
+  "scanTroubleBody": "कमी प्रकाश किंवा खराब बारकोड? फ्लॅश चालू करा, किंवा त्याऐवजी लेबल वाचा.",
+  "scanGalleryNoBarcode": "बारकोड सापडला नाही. टीप: घटक वाचण्यासाठी 'लेबल स्कॅन' वापरा.",
+  "scanInvalidEan": "वैध EAN-8, EAN-13, किंवा UPC-A कोड प्रविष्ट करा",
+  "scanWebTitle": "स्कॅन",
+  "scanWebUnavailable": "वेबवर कॅमेरा स्कॅनिंग उपलब्ध नाही.\nबारकोड मॅन्युअली प्रविष्ट करा:",
+  "scanEanFieldLabel": "EAN / UPC कोड",
+  "scanEanHintExample": "उदा. 5901234123457",
+  "scanLookUp": "शोधा",
+  "scanEnterBarcode": "बारकोड प्रविष्ट करा",
+  "scanHistoryTitle": "स्कॅन इतिहास",
+  "scanNoHistory": "या सत्रात अद्याप कोणतेही स्कॅन नाही.",
+  "homeGreetingMorning": "शुभ सकाळ",
+  "homeGreetingAfternoon": "शुभ दुपार",
+  "homeGreetingEvening": "शुभ संध्याकाळ",
+  "homeGreetingFallbackName": "मित्रा",
+  "homeTrialEnded": "मोफत ट्रायल संपली — प्रवेश सुरू ठेवण्यासाठी अपग्रेड करा",
+  "homeTrialDaysLeft": "मोफत ट्रायल · {days, plural, =1{1 दिवस} other{{days} दिवस}} शिल्लक",
+  "homeUpgradeArrow": "अपग्रेड →",
+  "homeKpiSaved": "जतन केलेले",
+  "homeKpiNearExpiry": "लवकर संपणारे",
+  "homeKpiRecallAlerts": "रिकॉल सूचना",
+  "homeKpiOpenTasks": "खुली कार्ये",
+  "homeKpiLowStock": "कमी स्टॉक",
+  "homeEyebrowFoodSafety": "अन्न सुरक्षा इशारा",
+  "homeEyebrowToday": "आजचे काम",
+  "homeEyebrowHealthScan": "तुमचा हेल्थ स्कॅन",
+  "homeEyebrowScanToLearn": "स्कॅन करून जाणून घ्या",
+  "homeEyebrowAllClear": "सर्व काही ठीक आहे",
+  "homeStoryRecall": "{count, plural, =1{1 रिकॉल केलेले उत्पादन — तुमच्या घरात काय आहे ते पाहा} other{{count} रिकॉल केलेली उत्पादने — तुमच्या घरात काय आहे ते पाहा}}",
+  "homeStoryNearExpiryConsumer": "{count, plural, =1{1 जतन केलेली वस्तू या आठवड्यात संपत आहे — वापरून टाका} other{{count} जतन केलेल्या वस्तू या आठवड्यात संपत आहेत — वापरून टाका}}",
+  "homeStoryKnowWhatYouEat": "तुम्ही काय खाता ते जाणून घ्या",
+  "homeStoryScanInside": "कोणत्याही फूड बारकोडवर कॅमेरा धरा — आत काय आहे ते पाहा",
+  "homeStoryNearExpiryBusiness": "{count, plural, =1{1 वस्तू लवकर संपणार — शेल्फ साफ करा} other{{count} वस्तू लवकर संपणार — शेल्फ साफ करा}}",
+  "homeStoryOpenTasks": "{count, plural, =1{1 कार्याला आज तुमची गरज आहे} other{{count} कार्यांना आज तुमची गरज आहे}}",
+  "homeStoryLowStock": "{count, plural, =1{1 वस्तूचा स्टॉक कमी होत आहे} other{{count} वस्तूंचा स्टॉक कमी होत आहे}}",
+  "homeStoreToday": "हे पाहा आज तुमचे दुकान",
+  "homeStoreAllGood": "शाब्बास! तुमचे दुकान आज उत्तम स्थितीत आहे",
+  "homeCtaViewRecallAlerts": "रिकॉल सूचना पाहा",
+  "homeCtaCheckExpiry": "एक्स्पायरी पाहा",
+  "homeCtaOpenExpiry": "एक्स्पायरी उघडा",
+  "homeCtaViewTasks": "कार्ये पाहा",
+  "homeCtaCheckInventory": "इन्व्हेंटरी पाहा",
+  "homeCtaOpenTasks": "कार्ये उघडा",
+  "homeCtaRunAudit": "एक झटपट ऑडिट चालवा",
+  "homeQuickActions": "झटपट क्रिया",
+  "homeQuickScan": "स्कॅन",
+  "homeQuickShopping": "शॉपिंग",
+  "homeQuickAddExpiry": "एक्स्पायरी जोडा",
+  "homeQuickNewTask": "नवीन कार्य",
+  "homeRecentTasks": "अलीकडील कार्ये",
+  "homeSeeAll": "सर्व पाहा",
+  "homeNoOpenTasks": "कोणतेही खुले कार्य नाही — एक तयार करा",
+  "homeTaskAssignedTo": "{name} ला नियुक्त केले",
+  "homeTaskOverdue": "थकीत",
+  "homeTaskDueToday": "आज देय",
+  "homeTaskDueTomorrow": "उद्या देय",
+  "homeTaskDueInDays": "{days} दिवसांत देय",
+  "homeTaskDueOn": "देय {date}",
+  "homeHowHelps": "RADHA तुम्हाला कशी मदत करते",
+  "homeScanBarcodeTitle": "कोणताही फूड बारकोड स्कॅन करा",
+  "homeScanBarcodeBody": "हेल्थ रेटिंग, घटक, आणि कशाकडे लक्ष द्यायचे — सर्व पाहा.",
+  "homeRecallTitle": "सुरक्षा रिकॉल सूचना",
+  "homeRecallBody": "रिकॉल केलेल्या अन्न उत्पादनांबद्दल माहिती ठेवा.",
+  "homePromoKnowFoodEyebrow": "तुमचे अन्न जाणून घ्या",
+  "homePromoKnowFoodHeadline": "लेबल स्कॅन करा — आत खरोखर काय आहे ते पाहा",
+  "homePromoKnowFoodCta": "स्कॅन करा आणि जाणून घ्या",
+  "homePromoExpiryEyebrow": "कोणतीही तारीख चुकवू नका",
+  "homePromoExpiryHeadline": "प्रत्येक एक्स्पायरी निसटण्याआधी पकडा",
+  "homePromoExpiryCta": "एक्स्पायरी ट्रॅक करा",
+  "homePromoFestiveEyebrow": "सणाच्या निवडी",
+  "homePromoFestiveHeadline": "हंगामाची खरेदी करा, आरोग्यदायी पद्धतीने",
+  "homePromoFestiveCta": "उत्पादने ब्राउझ करा",
+  "homePromoBazaarEyebrow": "आजचा बाजार",
+  "homePromoBazaarHeadline": "मिनिटांत तुमच्या शेल्फचे ऑडिट करा",
+  "homePromoBazaarCta": "ऑडिट सुरू करा",
+  "homeShopByCategory": "श्रेणीनुसार खरेदी करा",
+  "homeShopByCategorySubtitle": "स्कॅन किंवा ब्राउझ करण्यासाठी एखाद्या विभागावर टॅप करा",
+  "onboardingWelcomeValue": "स्कॅन करा, ट्रॅक करा, तुमच्या स्टॉकचे ऑडिट करा — स्प्रेडशीटशिवाय.",
+  "onboardingCapabilitiesTitle": "दुकानाच्या मजल्यासाठी बनवले,\nबॅक ऑफिससाठी नाही.",
+  "onboardingCapScanTitle": "एका टॅपमध्ये उत्पादने स्कॅन करा",
+  "onboardingCapScanBody": "हेल्थ आणि मंजुरी आधीच तपासलेले EAN लुकअप.",
+  "onboardingCapExpiryTitle": "नुकसान होण्याआधी एक्स्पायरी पकडा",
+  "onboardingCapExpiryBody": "OCR-सहाय्यित तारखा आणि श्रेणीनिहाय मर्यादा.",
+  "onboardingCapAuditTitle": "संघ पूर्ण करू शकेल असे ऑडिट चालवा",
+  "onboardingCapAuditBody": "कार्ये, पुरावे आणि बल्क स्कॅन सत्रे.",
+  "onboardingSegmentTitle": "तुम्ही इथे कोण म्हणून आहात?",
+  "onboardingSegmentSubtitle": "सर्वात जवळचा पर्याय निवडा. तुम्ही नंतर सेटिंग्जमध्ये बदलू शकता.",
+  "segmentPersonalTitle": "वैयक्तिक",
+  "segmentPersonalBody": "फक्त स्वतःसाठी खरेदी",
+  "segmentParentTitle": "पालक",
+  "segmentParentBody": "माझ्या कुटुंबासाठी / मुलांसाठी खरेदी",
+  "segmentBusinessTitle": "व्यवसाय मालक",
+  "segmentBusinessBody": "मी एक लहान रिटेल दुकान चालवतो",
+  "segmentPharmacyTitle": "फार्मसी",
+  "segmentPharmacyBody": "मी फार्मसी / केमिस्ट चालवतो",
+  "segmentInstitutionTitle": "संस्था",
+  "segmentInstitutionBody": "शाळा / वसतिगृह / कॅन्टीन",
+  "segmentAuditorTitle": "लेखापरीक्षक (आमंत्रित)",
+  "segmentAuditorBody": "माझ्याकडे आमंत्रण कोड आहे",
+  "allergenTitle": "अॅलर्जन",
+  "allergenLoadError": "तुमचे अॅलर्जन प्रोफाइल लोड करता आले नाही.",
+  "allergenHeading": "तुमचे अॅलर्जन",
+  "allergenIntro": "तुम्हाला ज्यांची प्रतिक्रिया होते त्या अॅलर्जनवर टॅप करा. स्कॅन केलेल्या उत्पादनात ते असल्यास आम्ही तुम्हाला सावध करू.",
+  "allergenTracked": "{count, plural, =1{1 अॅलर्जन ट्रॅक केले} other{{count} अॅलर्जन ट्रॅक केले}}",
+  "allergenNoneTracked": "अद्याप कोणतेही अॅलर्जन ट्रॅक केले नाही",
+  "allergenSavedCleared": "अॅलर्जन प्रोफाइल साफ केले.",
+  "allergenSaved": "अॅलर्जन प्रोफाइल जतन केले.",
+  "allergenSaveError": "तुमचे अॅलर्जन जतन करता आले नाहीत.",
+  "allergenPeanut": "शेंगदाणा",
+  "allergenTreeNut": "ट्री नट",
+  "allergenDairy": "दुग्धजन्य",
+  "allergenEggs": "अंडी",
+  "allergenSoy": "सोया",
+  "allergenWheat": "गहू",
+  "allergenFish": "मासे",
+  "allergenShellfish": "शेलफिश",
+  "allergenSesame": "तीळ",
+  "allergenGluten": "ग्लूटेन",
+  "allergenMustard": "मोहरी",
+  "allergenCelery": "सेलरी",
+  "allergenLupin": "ल्युपिन",
+  "allergenMolluscs": "मोलस्क",
+  "allergenSulphites": "सल्फाइट",
+  "homePromoPlusHeadline": "??????? ???? ???????? ??? ??????? ????? ????? ???"
 }

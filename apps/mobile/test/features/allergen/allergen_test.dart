@@ -6,6 +6,7 @@ import 'package:radha_mobile/core/auth/auth_controller.dart';
 import 'package:radha_mobile/core/network/api_client.dart';
 import 'package:radha_mobile/core/network/dto/allergen_profile_dto.dart';
 import 'package:radha_mobile/features/allergen/allergen_profile_screen.dart';
+import 'package:radha_mobile/l10n/generated/app_localizations.dart';
 
 class MockApiClient extends Mock implements ApiClient {}
 
@@ -26,7 +27,11 @@ Widget _buildApp(Widget child, {required List<Override> overrides}) {
       currentUserProvider.overrideWith((ref) => _testUser),
       ...overrides,
     ],
-    child: MaterialApp(home: child),
+    child: MaterialApp(
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      home: child,
+    ),
   );
 }
 
