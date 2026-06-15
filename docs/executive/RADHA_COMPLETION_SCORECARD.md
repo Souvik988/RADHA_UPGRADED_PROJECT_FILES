@@ -14,16 +14,17 @@
 | F | Android native/live verification | 8% | critical journeys | none | none | **15%** | 1.2 | Low | no device this session (EXTERNAL) |
 | G | Cross-client synchronisation | 6% | 12 flows | none proven | none | **20%** | 1.2 | Low | logic present; not proven live |
 | H | Localization & accessibility | 6% | 6 locales + a11y | l10n PARTIAL (19/63 files) | automated | **30%** | 1.8 | Medium | DISCOVER 2026-06-15: ~19 screens still hardcoded English (D10); a11y unaudited |
-| I | Payment & subscription validation | 5% | test-mode matrix | engine+contract+live order | automated + live order | **65%** | 3.25 | Medium | CheckoutEngine + structured results; **live Razorpay test order created (VERIFIED_PAYMENT)**; verify/webhook/entitlement still need device + webhook secret |
+| I | Payment & subscription validation | 5% | test-mode matrix | full server-side flow live | VERIFIED_PAYMENT | **80%** | 4.0 | Medium-High | **live: order→verify(sig)→capture→entitlement active→idempotent→bad-sig 502**; only the Android checkout SHEET + webhook secret remain |
 | J | Security, privacy & compliance | 6% | MASVS+privacy+KMS | seeds exist | none | **15%** | 0.9 | Low | AES service seed; no KMS/MASVS/data-inventory |
 | K | Observability & operations | 4% | mobile+backend | partial | none | **20%** | 0.8 | Low | Sentry/Terminus hooks; SLOs not proven |
 | L | Performance & scale evidence | 4% | budgets+load | none | none | **10%** | 0.4 | Low | no load/profile measurements |
 | M | Deployment, backup & recovery | 3% | staging+restore | runbook | none | **5%** | 0.15 | Low | DEPLOY_AWS.md exists; nothing deployed |
-| | **TOTAL** | **100%** | | | | | **≈ 52.6%** | **Medium** | |
+| | **TOTAL** | **100%** | | | | | **≈ 53.4%** | **Medium** | |
 
 > 53.0% → 51.8% (2026-06-15): DISCOVER found mobile l10n materially incomplete (H 50%→30%, D10).
-> 51.8% → 52.6% (2026-06-15): live Razorpay test order verified server-side (I 50%→65%). Backend live
-> 38/38, server build, contracts, flutter analyze/test all independently re-verified on this branch.
+> 51.8% → 53.4% (2026-06-15): full server-side Razorpay flow live-verified — order→verify→capture→
+> entitlement-active→idempotent→bad-sig-reject (I 50%→80%). Backend live 38/38, server build,
+> contracts, flutter analyze/test all independently re-verified on this branch.
 
 ## What this number means (honest reading)
 - The **functional/automated core is strong** (A,B,C,E ≈ 12+10.5+8.5+6.4 = 37.4 of a possible 48).
