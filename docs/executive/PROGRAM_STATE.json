@@ -6,7 +6,7 @@
   "branch": "codex/radha-final-convergence",
   "commit": "4bf72ee04014086801e423ade6d752a8745a8405",
   "mainComparison": { "base": "origin/main", "aheadBy": 26, "note": "verify with git after each fetch" },
-  "activeWave": "W1 IN PROGRESS — product browse hardened: catalog enriched 2->11 real products (live), D11 CLOSED (bundled cards linked + tests decoupled, adbb01a), flutter 243/243. NEXT in W1 = D10 mobile localization sweep (~19 screens) + static visible-literal guard; then dashboard D3/D4.",
+  "activeWave": "W1 IN PROGRESS — browse hardened (D11 closed, catalog 11 products live); D10 l10n sweep underway: recall_alerts + low_stock_alerts done (6 locales each), ~17 screens remain (each ~7-25 strings). NEXT = continue D10 (expiry_list/inventory_list/tasks_list/scan/home/onboarding/allergen) + static visible-literal guard; then dashboard D3/D4. Razorpay key partial (need real secret).",
   "completedWaves": [
     "Backend bring-up + live verification 38/38 (D5-D9 fixed)",
     "Mobile L1 localization: subscription, catalog (search/browse/rail/detail), profile, select-store",
@@ -31,7 +31,7 @@
   "lastVerifiedDevice": null,
   "lastVerifiedBackendEnv": "local dist (node dist/main.api) on codex/radha-final-convergence @ dbae9e2 — live sweep PASS 38/38 (2026-06-15)",
   "lastVerifiedDashboardEnv": null,
-  "lastPaymentTest": null,
+  "lastPaymentTest": "BLOCKED — server/.env.example.razorpay has a valid-format KEY_ID (rzp_test_) but KEY_SECRET is a placeholder (24x 'x') + webhook empty; active .env all-blank (mock). Need the real test secret (OWNER action #1).",
   "lastStagingDeployment": null,
   "completionScore": { "value": 51.8, "unit": "percent", "method": "weighted scorecard §4", "confidence": "medium", "source": "docs/executive/RADHA_COMPLETION_SCORECARD.md", "note": "adjusted from 53 after D10 (mobile l10n ~30%); backend gates re-verified live this branch" },
   "releaseGate": { "status": "NOT_MET", "blockingGates": ["F android-native", "D dashboard-e2e", "G cross-client", "I payment-live", "J security/privacy", "K observability", "L performance/scale", "M deploy/backup/restore"] },
