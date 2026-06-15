@@ -549,6 +549,32 @@ class AppLocalizationsBn extends AppLocalizations {
       'স্টোরে যুক্ত হতে আপনার ম্যানেজারের সঙ্গে যোগাযোগ করুন।';
 
   @override
+  String get recallTitle => 'রিকল সতর্কতা';
+
+  @override
+  String get recallLoadError => 'রিকল লোড করা যায়নি।';
+
+  @override
+  String get recallEmptyTitle => 'কোনও সক্রিয় রিকল নেই';
+
+  @override
+  String get recallEmptyBody =>
+      'নিয়ন্ত্রক সংস্থাগুলি পণ্য রিকল জারি করলে সেগুলি এখানে দেখা যাবে।';
+
+  @override
+  String recallProductFallback(String id) {
+    return 'পণ্য $id';
+  }
+
+  @override
+  String recallRecalledOn(String date) {
+    return '$date তারিখে রিকল করা হয়েছে';
+  }
+
+  @override
+  String get recallViewProduct => 'পণ্য দেখুন';
+
+  @override
   String get appName => 'RADHA';
 
   @override

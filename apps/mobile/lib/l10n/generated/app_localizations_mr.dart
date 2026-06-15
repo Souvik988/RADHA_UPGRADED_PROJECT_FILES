@@ -547,6 +547,32 @@ class AppLocalizationsMr extends AppLocalizations {
       'स्टोअरमध्ये जोडण्यासाठी तुमच्या व्यवस्थापकाला संपर्क करा.';
 
   @override
+  String get recallTitle => 'रिकॉल सूचना';
+
+  @override
+  String get recallLoadError => 'रिकॉल लोड करता आले नाहीत.';
+
+  @override
+  String get recallEmptyTitle => 'कोणतेही सक्रिय रिकॉल नाहीत';
+
+  @override
+  String get recallEmptyBody =>
+      'नियामक संस्था उत्पादन रिकॉल जारी करतील तेव्हा ते येथे दिसतील.';
+
+  @override
+  String recallProductFallback(String id) {
+    return 'उत्पादन $id';
+  }
+
+  @override
+  String recallRecalledOn(String date) {
+    return '$date रोजी रिकॉल केले';
+  }
+
+  @override
+  String get recallViewProduct => 'उत्पादन पहा';
+
+  @override
   String get appName => 'RADHA';
 
   @override

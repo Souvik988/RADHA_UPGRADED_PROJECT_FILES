@@ -162,6 +162,14 @@
   "selectStoreContactManager": "మీ మేనేజర్‌ను సంప్రదించండి",
   "selectStoreContactManagerSnackbar": "స్టోర్‌కు జోడించబడేందుకు మీ మేనేజర్‌ను సంప్రదించండి.",
 
+  "recallTitle": "రీకాల్ హెచ్చరికలు",
+  "recallLoadError": "రీకాల్‌లను లోడ్ చేయలేకపోయాం.",
+  "recallEmptyTitle": "క్రియాశీల రీకాల్‌లు లేవు",
+  "recallEmptyBody": "నియంత్రణ సంస్థలు ఉత్పత్తి రీకాల్‌లను జారీ చేసినప్పుడు అవి ఇక్కడ కనిపిస్తాయి.",
+  "recallProductFallback": "ఉత్పత్తి {id}",
+  "recallRecalledOn": "{date}న రీకాల్ చేయబడింది",
+  "recallViewProduct": "ఉత్పత్తిని చూడండి",
+
   "appName": "RADHA",
   "tagline": "డేటా, ఆరోగ్యం మరియు ఆడిట్‌ల కోసం రిటైల్ అసిస్టెంట్.",
   "continueLabel": "కొనసాగించు",

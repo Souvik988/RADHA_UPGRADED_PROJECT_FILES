@@ -545,6 +545,32 @@ class AppLocalizationsEn extends AppLocalizations {
       'Reach out to your manager to be added to a store.';
 
   @override
+  String get recallTitle => 'Recall alerts';
+
+  @override
+  String get recallLoadError => 'Could not load recalls.';
+
+  @override
+  String get recallEmptyTitle => 'No active recalls';
+
+  @override
+  String get recallEmptyBody =>
+      'You will see product recall alerts here as they are issued by regulatory bodies.';
+
+  @override
+  String recallProductFallback(String id) {
+    return 'Product $id';
+  }
+
+  @override
+  String recallRecalledOn(String date) {
+    return 'Recalled $date';
+  }
+
+  @override
+  String get recallViewProduct => 'View product';
+
+  @override
   String get appName => 'RADHA';
 
   @override

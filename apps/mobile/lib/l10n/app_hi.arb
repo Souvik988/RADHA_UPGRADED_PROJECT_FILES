@@ -162,6 +162,14 @@
   "selectStoreContactManager": "अपने मैनेजर से संपर्क करें",
   "selectStoreContactManagerSnackbar": "किसी स्टोर में जोड़े जाने के लिए अपने मैनेजर से संपर्क करें।",
 
+  "recallTitle": "रिकॉल अलर्ट",
+  "recallLoadError": "रिकॉल लोड नहीं हो सके।",
+  "recallEmptyTitle": "कोई सक्रिय रिकॉल नहीं",
+  "recallEmptyBody": "जैसे ही नियामक संस्थाएँ उत्पाद रिकॉल जारी करेंगी, वे यहाँ दिखेंगे।",
+  "recallProductFallback": "उत्पाद {id}",
+  "recallRecalledOn": "{date} को रिकॉल किया गया",
+  "recallViewProduct": "उत्पाद देखें",
+
   "appName": "RADHA",
   "tagline": "डेटा, स्वास्थ्य और ऑडिट के लिए रिटेल असिस्टेंट।",
   "continueLabel": "जारी रखें",

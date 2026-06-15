@@ -162,6 +162,14 @@
   "selectStoreContactManager": "மேலாளரை தொடர்புகொள்ளவும்",
   "selectStoreContactManagerSnackbar": "ஒரு கடையில் சேர்க்கப்பட உங்கள் மேலாளரை தொடர்புகொள்ளவும்.",
 
+  "recallTitle": "மீட்பு எச்சரிக்கைகள்",
+  "recallLoadError": "மீட்புகளை ஏற்ற முடியவில்லை.",
+  "recallEmptyTitle": "செயலில் மீட்புகள் இல்லை",
+  "recallEmptyBody": "ஒழுங்குமுறை அமைப்புகள் தயாரிப்பு மீட்புகளை வெளியிடும்போது அவை இங்கே தோன்றும்.",
+  "recallProductFallback": "தயாரிப்பு {id}",
+  "recallRecalledOn": "{date} அன்று மீட்கப்பட்டது",
+  "recallViewProduct": "தயாரிப்பைக் காண்க",
+
   "appName": "RADHA",
   "tagline": "தரவு, ஆரோக்கியம் மற்றும் தணிக்கைக்கான சில்லறை உதவியாளர்.",
   "continueLabel": "தொடரவும்",

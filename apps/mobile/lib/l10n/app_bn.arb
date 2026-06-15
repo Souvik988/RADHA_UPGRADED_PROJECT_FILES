@@ -162,6 +162,14 @@
   "selectStoreContactManager": "আপনার ম্যানেজারের সঙ্গে যোগাযোগ করুন",
   "selectStoreContactManagerSnackbar": "স্টোরে যুক্ত হতে আপনার ম্যানেজারের সঙ্গে যোগাযোগ করুন।",
 
+  "recallTitle": "রিকল সতর্কতা",
+  "recallLoadError": "রিকল লোড করা যায়নি।",
+  "recallEmptyTitle": "কোনও সক্রিয় রিকল নেই",
+  "recallEmptyBody": "নিয়ন্ত্রক সংস্থাগুলি পণ্য রিকল জারি করলে সেগুলি এখানে দেখা যাবে।",
+  "recallProductFallback": "পণ্য {id}",
+  "recallRecalledOn": "{date} তারিখে রিকল করা হয়েছে",
+  "recallViewProduct": "পণ্য দেখুন",
+
   "appName": "RADHA",
   "tagline": "ডেটা, স্বাস্থ্য এবং অডিটের জন্য খুচরা সহকারী।",
   "continueLabel": "চালিয়ে যান",

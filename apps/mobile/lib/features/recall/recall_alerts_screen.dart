@@ -21,6 +21,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../core/network/api_client.dart';
 import '../../core/network/dto/misc_dto.dart';
+import '../../l10n/generated/app_localizations.dart';
 import '../../design/app_assets.dart';
 import '../../design/tokens.dart';
 import '../../design/widgets/empty_state.dart';
@@ -40,6 +41,7 @@ class RecallAlertsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     final recallsAsync = ref.watch(recallsProvider);
     final reduceMotion =
         MediaQuery.maybeOf(context)?.disableAnimations ?? false;
@@ -47,7 +49,7 @@ class RecallAlertsScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Recall alerts',
+          l10n.recallTitle,
           style: theme.textTheme.titleLarge?.copyWith(
             fontWeight: FontWeight.w800,
           ),
@@ -63,7 +65,7 @@ class RecallAlertsScreen extends ConsumerWidget {
               children: [
                 const SizedBox(height: 80),
                 ErrorState(
-                  title: 'Could not load recalls.',
+                  title: l10n.recallLoadError,
                   onRetry: () => ref.invalidate(recallsProvider),
                 ),
               ],
@@ -74,17 +76,15 @@ class RecallAlertsScreen extends ConsumerWidget {
                   // RefreshIndicator needs a scrollable child even when
                   // there's nothing to show, so wrap the empty state.
                   physics: const AlwaysScrollableScrollPhysics(),
-                  children: const [
-                    SizedBox(height: 80),
+                  children: [
+                    const SizedBox(height: 80),
                     EmptyState(
-                      illustration: MorCompanion(
+                      illustration: const MorCompanion(
                         mood: MorMood.guard,
                         size: 104,
                       ),
-                      title: 'No active recalls',
-                      body:
-                          'You will see product recall alerts here as they are '
-                          'issued by regulatory bodies.',
+                      title: l10n.recallEmptyTitle,
+                      body: l10n.recallEmptyBody,
                     ),
                   ],
                 );
@@ -131,9 +131,11 @@ class _RecallTileState extends State<_RecallTile> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     final scheme = theme.colorScheme;
     final recall = widget.recall;
-    final title = recall.productName ?? 'Product ${_short(recall.productId)}';
+    final title =
+        recall.productName ?? l10n.recallProductFallback(_short(recall.productId));
     final ean = recall.productEan;
     final tappable = ean != null && ean.isNotEmpty;
     final stripe = _severityColor(context, recall.severity);
@@ -195,7 +197,9 @@ class _RecallTileState extends State<_RecallTile> {
                               recall.recalledAt!.isNotEmpty) ...[
                             const SizedBox(height: RadhaSpacing.space4),
                             Text(
-                              'Recalled ${_formatDate(recall.recalledAt!)}',
+                              l10n.recallRecalledOn(
+                                _formatDate(recall.recalledAt!),
+                              ),
                               style: theme.textTheme.bodySmall?.copyWith(
                                 color: scheme.onSurfaceVariant,
                               ),
@@ -218,7 +222,7 @@ class _RecallTileState extends State<_RecallTile> {
                             Row(
                               children: [
                                 Text(
-                                  'View product',
+                                  l10n.recallViewProduct,
                                   style: theme.textTheme.labelMedium?.copyWith(
                                     color: scheme.primary,
                                   ),

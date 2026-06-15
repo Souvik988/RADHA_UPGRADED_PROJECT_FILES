@@ -552,6 +552,32 @@ class AppLocalizationsTe extends AppLocalizations {
       'స్టోర్‌కు జోడించబడేందుకు మీ మేనేజర్‌ను సంప్రదించండి.';
 
   @override
+  String get recallTitle => 'రీకాల్ హెచ్చరికలు';
+
+  @override
+  String get recallLoadError => 'రీకాల్‌లను లోడ్ చేయలేకపోయాం.';
+
+  @override
+  String get recallEmptyTitle => 'క్రియాశీల రీకాల్‌లు లేవు';
+
+  @override
+  String get recallEmptyBody =>
+      'నియంత్రణ సంస్థలు ఉత్పత్తి రీకాల్‌లను జారీ చేసినప్పుడు అవి ఇక్కడ కనిపిస్తాయి.';
+
+  @override
+  String recallProductFallback(String id) {
+    return 'ఉత్పత్తి $id';
+  }
+
+  @override
+  String recallRecalledOn(String date) {
+    return '$dateన రీకాల్ చేయబడింది';
+  }
+
+  @override
+  String get recallViewProduct => 'ఉత్పత్తిని చూడండి';
+
+  @override
   String get appName => 'RADHA';
 
   @override

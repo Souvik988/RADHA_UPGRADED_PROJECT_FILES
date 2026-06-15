@@ -203,6 +203,16 @@
   "selectStoreContactManagerSnackbar": "Reach out to your manager to be added to a store.",
   "@selectStoreContactManagerSnackbar": { "description": "Snackbar after tapping the contact-manager CTA on the select-store empty state." },
 
+  "recallTitle": "Recall alerts",
+  "recallLoadError": "Could not load recalls.",
+  "recallEmptyTitle": "No active recalls",
+  "recallEmptyBody": "You will see product recall alerts here as they are issued by regulatory bodies.",
+  "recallProductFallback": "Product {id}",
+  "@recallProductFallback": { "description": "Fallback recall row title when the backend has no product name; id is a short product id.", "placeholders": { "id": { "type": "String" } } },
+  "recallRecalledOn": "Recalled {date}",
+  "@recallRecalledOn": { "description": "Recall date line; date is a preformatted YYYY-MM-DD string.", "placeholders": { "date": { "type": "String" } } },
+  "recallViewProduct": "View product",
+
   "appName": "RADHA",
   "@appName": { "description": "App name (brand mark, do not translate)." },
 

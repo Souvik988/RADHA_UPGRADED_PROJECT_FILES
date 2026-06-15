@@ -545,6 +545,32 @@ class AppLocalizationsHi extends AppLocalizations {
       'किसी स्टोर में जोड़े जाने के लिए अपने मैनेजर से संपर्क करें।';
 
   @override
+  String get recallTitle => 'रिकॉल अलर्ट';
+
+  @override
+  String get recallLoadError => 'रिकॉल लोड नहीं हो सके।';
+
+  @override
+  String get recallEmptyTitle => 'कोई सक्रिय रिकॉल नहीं';
+
+  @override
+  String get recallEmptyBody =>
+      'जैसे ही नियामक संस्थाएँ उत्पाद रिकॉल जारी करेंगी, वे यहाँ दिखेंगे।';
+
+  @override
+  String recallProductFallback(String id) {
+    return 'उत्पाद $id';
+  }
+
+  @override
+  String recallRecalledOn(String date) {
+    return '$date को रिकॉल किया गया';
+  }
+
+  @override
+  String get recallViewProduct => 'उत्पाद देखें';
+
+  @override
   String get appName => 'RADHA';
 
   @override

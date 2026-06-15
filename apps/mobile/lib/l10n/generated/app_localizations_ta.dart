@@ -558,6 +558,32 @@ class AppLocalizationsTa extends AppLocalizations {
       'ஒரு கடையில் சேர்க்கப்பட உங்கள் மேலாளரை தொடர்புகொள்ளவும்.';
 
   @override
+  String get recallTitle => 'மீட்பு எச்சரிக்கைகள்';
+
+  @override
+  String get recallLoadError => 'மீட்புகளை ஏற்ற முடியவில்லை.';
+
+  @override
+  String get recallEmptyTitle => 'செயலில் மீட்புகள் இல்லை';
+
+  @override
+  String get recallEmptyBody =>
+      'ஒழுங்குமுறை அமைப்புகள் தயாரிப்பு மீட்புகளை வெளியிடும்போது அவை இங்கே தோன்றும்.';
+
+  @override
+  String recallProductFallback(String id) {
+    return 'தயாரிப்பு $id';
+  }
+
+  @override
+  String recallRecalledOn(String date) {
+    return '$date அன்று மீட்கப்பட்டது';
+  }
+
+  @override
+  String get recallViewProduct => 'தயாரிப்பைக் காண்க';
+
+  @override
   String get appName => 'RADHA';
 
   @override

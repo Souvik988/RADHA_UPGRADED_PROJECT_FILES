@@ -7,6 +7,7 @@ import 'package:radha_mobile/core/network/api_client.dart';
 import 'package:radha_mobile/core/network/dto/misc_dto.dart';
 import 'package:radha_mobile/design/tokens.dart';
 import 'package:radha_mobile/features/recall/recall_alerts_screen.dart';
+import 'package:radha_mobile/l10n/generated/app_localizations.dart';
 
 class MockApiClient extends Mock implements ApiClient {}
 
@@ -30,7 +31,11 @@ Widget _buildApp({required ApiClient api}) {
   );
   return ProviderScope(
     overrides: [apiClientProvider.overrideWithValue(api)],
-    child: MaterialApp.router(routerConfig: router),
+    child: MaterialApp.router(
+      routerConfig: router,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+    ),
   );
 }
 

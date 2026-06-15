@@ -1036,6 +1036,48 @@ abstract class AppLocalizations {
   /// **'Reach out to your manager to be added to a store.'**
   String get selectStoreContactManagerSnackbar;
 
+  /// No description provided for @recallTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Recall alerts'**
+  String get recallTitle;
+
+  /// No description provided for @recallLoadError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load recalls.'**
+  String get recallLoadError;
+
+  /// No description provided for @recallEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No active recalls'**
+  String get recallEmptyTitle;
+
+  /// No description provided for @recallEmptyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'You will see product recall alerts here as they are issued by regulatory bodies.'**
+  String get recallEmptyBody;
+
+  /// Fallback recall row title when the backend has no product name; id is a short product id.
+  ///
+  /// In en, this message translates to:
+  /// **'Product {id}'**
+  String recallProductFallback(String id);
+
+  /// Recall date line; date is a preformatted YYYY-MM-DD string.
+  ///
+  /// In en, this message translates to:
+  /// **'Recalled {date}'**
+  String recallRecalledOn(String date);
+
+  /// No description provided for @recallViewProduct.
+  ///
+  /// In en, this message translates to:
+  /// **'View product'**
+  String get recallViewProduct;
+
   /// App name (brand mark, do not translate).
   ///
   /// In en, this message translates to:
