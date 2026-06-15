@@ -21,8 +21,11 @@ a broken tree. Update the control files after every green commit. Commits end wi
 `pnpm --filter @radha/shared-types build` (REQUIRED — install doesn't build it) → write `server/.env`
 (DB `localhost:5433` user `radha`/`radha_dev_password` db `radha_dev`; Redis `:6380`; `SMS_PROVIDER=mock`;
 `ANALYTICS_HASH_SALT=` ≥32 chars — required at init, not in the zod schema) → `cd server` →
-`pnpm db:migrate` → `npx tsx src/db/seeds/subscription-plans.seed.ts` → `pnpm build` →
+`pnpm db:migrate` → `npx tsx src/db/seeds/subscription-plans.seed.ts` →
+**`pnpm db:import:curated`** (REQUIRED for a non-empty product catalog — enriches browse to ~11 real
+products via OFF; idempotent, re-run if OFF was rate-limited; count is OFF-dependent) → `pnpm build` →
 `node dist/main.api` (run the compiled dist, not `nest --watch`). Flutter at `C:/src/flutter/bin/flutter.bat`.
+Dart (for `tool/*.dart`) at `C:/src/flutter/bin/dart.bat`.
 
 **Gates (re-run for real evidence — don't trust prior reports):**
 `node tools/generate-api-contract-matrix.mjs --check` · `flutter analyze --fatal-infos` ·

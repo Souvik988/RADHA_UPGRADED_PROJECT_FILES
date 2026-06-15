@@ -18,6 +18,7 @@ Branch `codex/radha-final-convergence` @ `4bf72ee`. Ledger opened 2026-06-15.
 | Flutter test suite = 243 passing | VERIFIED_AUTOMATED | `flutter test` → "+243: All tests passed!" (2026-06-15, ~2min) |
 | Safety bundle + working patch created | VERIFIED_AUTOMATED | `../radha-program-safety.bundle`, `../radha-program-working.patch` |
 | Mobile localization is PARTIAL (19/63 feature files use l10n; ~19 screens still English) — corrects the "Product Detail localized" claim (that was only `features/catalog/`) | VERIFIED_CODE | grep over `lib/features` 2026-06-15 → defect D10; scorecard H 50%→30% |
+| Product browse works end-to-end live; catalog enriched 2→11 real products (nutrition + health) | VERIFIED_LIVE_API | `db:import:curated` → `catalog.curated.complete productsUpserted=9` (cumulative 11); live probe `/catalog/products` → 11 items, 11 with health+EAN, `/products/lookup/:ean` → found=true w/ nutrition (2026-06-15). Mobile browse wiring verified VERIFIED_CODE (merge bundled+server, lookup on tap). D11 = bundled-card EAN linking + seed step still open. |
 
 ## Carried from prior reports — NOT re-verified this turn (treat as ASSUMED until re-run)
 | Claim | Class | Note |
