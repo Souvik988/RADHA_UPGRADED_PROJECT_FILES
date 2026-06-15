@@ -6,7 +6,7 @@
   "branch": "codex/radha-final-convergence",
   "commit": "4bf72ee04014086801e423ade6d752a8745a8405",
   "mainComparison": { "base": "origin/main", "aheadBy": 26, "note": "verify with git after each fetch" },
-  "activeWave": "W0 — program bootstrap + independent re-verification",
+  "activeWave": "W0 DONE — program bootstrap, re-verification (38/38 live, 243 flutter, build, contracts), handoff deepened (production arch §8 / DoD §12 / session-end rule §13). NEXT WAVE W1 = D10 mobile localization sweep (~19 screens) + static visible-literal guard.",
   "completedWaves": [
     "Backend bring-up + live verification 38/38 (D5-D9 fixed)",
     "Mobile L1 localization: subscription, catalog (search/browse/rail/detail), profile, select-store",
