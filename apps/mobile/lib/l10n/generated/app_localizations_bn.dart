@@ -575,6 +575,34 @@ class AppLocalizationsBn extends AppLocalizations {
   String get recallViewProduct => 'পণ্য দেখুন';
 
   @override
+  String get couldNotLoad => 'লোড করা যায়নি';
+
+  @override
+  String get retryLabel => 'পুনরায় চেষ্টা';
+
+  @override
+  String get lowStockTitle => 'কম স্টক সতর্কতা';
+
+  @override
+  String get lowStockLoadError => 'সতর্কতা লোড করা যায়নি';
+
+  @override
+  String get lowStockEmpty => 'সমস্ত স্টক স্তর ঠিক আছে';
+
+  @override
+  String get lowStockRestock => 'রিস্টক';
+
+  @override
+  String lowStockProductFallback(String id) {
+    return 'পণ্য $id';
+  }
+
+  @override
+  String lowStockLevel(Object current, Object threshold) {
+    return 'বর্তমান: $current / সীমা: $threshold';
+  }
+
+  @override
   String get appName => 'RADHA';
 
   @override

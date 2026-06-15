@@ -213,6 +213,17 @@
   "@recallRecalledOn": { "description": "Recall date line; date is a preformatted YYYY-MM-DD string.", "placeholders": { "date": { "type": "String" } } },
   "recallViewProduct": "View product",
 
+  "couldNotLoad": "Could not load",
+  "retryLabel": "Retry",
+  "lowStockTitle": "Low stock alerts",
+  "lowStockLoadError": "Failed to load alerts",
+  "lowStockEmpty": "All stock levels are healthy",
+  "lowStockRestock": "Restock",
+  "lowStockProductFallback": "Product {id}",
+  "@lowStockProductFallback": { "description": "Low-stock row title fallback; id is the product id.", "placeholders": { "id": { "type": "String" } } },
+  "lowStockLevel": "Current: {current} / Threshold: {threshold}",
+  "@lowStockLevel": { "description": "Current quantity vs low-stock threshold.", "placeholders": { "current": { "type": "Object" }, "threshold": { "type": "Object" } } },
+
   "appName": "RADHA",
   "@appName": { "description": "App name (brand mark, do not translate)." },
 

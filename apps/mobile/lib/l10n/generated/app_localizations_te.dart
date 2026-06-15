@@ -578,6 +578,34 @@ class AppLocalizationsTe extends AppLocalizations {
   String get recallViewProduct => 'ఉత్పత్తిని చూడండి';
 
   @override
+  String get couldNotLoad => 'లోడ్ చేయలేకపోయాం';
+
+  @override
+  String get retryLabel => 'మళ్ళీ ప్రయత్నించు';
+
+  @override
+  String get lowStockTitle => 'తక్కువ స్టాక్ హెచ్చరికలు';
+
+  @override
+  String get lowStockLoadError => 'హెచ్చరికలను లోడ్ చేయలేకపోయాం';
+
+  @override
+  String get lowStockEmpty => 'అన్ని స్టాక్ స్థాయిలు బాగున్నాయి';
+
+  @override
+  String get lowStockRestock => 'రీస్టాక్';
+
+  @override
+  String lowStockProductFallback(String id) {
+    return 'ఉత్పత్తి $id';
+  }
+
+  @override
+  String lowStockLevel(Object current, Object threshold) {
+    return 'ప్రస్తుతం: $current / పరిమితి: $threshold';
+  }
+
+  @override
   String get appName => 'RADHA';
 
   @override

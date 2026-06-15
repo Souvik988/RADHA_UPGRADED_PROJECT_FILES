@@ -170,6 +170,15 @@
   "recallRecalledOn": "{date} அன்று மீட்கப்பட்டது",
   "recallViewProduct": "தயாரிப்பைக் காண்க",
 
+  "couldNotLoad": "ஏற்ற முடியவில்லை",
+  "retryLabel": "மீண்டும் முயற்சி",
+  "lowStockTitle": "குறைந்த கையிருப்பு எச்சரிக்கைகள்",
+  "lowStockLoadError": "எச்சரிக்கைகளை ஏற்ற முடியவில்லை",
+  "lowStockEmpty": "அனைத்து கையிருப்பு அளவுகளும் சரியாக உள்ளன",
+  "lowStockRestock": "மீண்டும் நிரப்பு",
+  "lowStockProductFallback": "தயாரிப்பு {id}",
+  "lowStockLevel": "தற்போது: {current} / வரம்பு: {threshold}",
+
   "appName": "RADHA",
   "tagline": "தரவு, ஆரோக்கியம் மற்றும் தணிக்கைக்கான சில்லறை உதவியாளர்.",
   "continueLabel": "தொடரவும்",

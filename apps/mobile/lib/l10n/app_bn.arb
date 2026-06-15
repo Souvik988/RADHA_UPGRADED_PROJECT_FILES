@@ -170,6 +170,15 @@
   "recallRecalledOn": "{date} তারিখে রিকল করা হয়েছে",
   "recallViewProduct": "পণ্য দেখুন",
 
+  "couldNotLoad": "লোড করা যায়নি",
+  "retryLabel": "পুনরায় চেষ্টা",
+  "lowStockTitle": "কম স্টক সতর্কতা",
+  "lowStockLoadError": "সতর্কতা লোড করা যায়নি",
+  "lowStockEmpty": "সমস্ত স্টক স্তর ঠিক আছে",
+  "lowStockRestock": "রিস্টক",
+  "lowStockProductFallback": "পণ্য {id}",
+  "lowStockLevel": "বর্তমান: {current} / সীমা: {threshold}",
+
   "appName": "RADHA",
   "tagline": "ডেটা, স্বাস্থ্য এবং অডিটের জন্য খুচরা সহকারী।",
   "continueLabel": "চালিয়ে যান",

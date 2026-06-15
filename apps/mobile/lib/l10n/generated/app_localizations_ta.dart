@@ -584,6 +584,34 @@ class AppLocalizationsTa extends AppLocalizations {
   String get recallViewProduct => 'தயாரிப்பைக் காண்க';
 
   @override
+  String get couldNotLoad => 'ஏற்ற முடியவில்லை';
+
+  @override
+  String get retryLabel => 'மீண்டும் முயற்சி';
+
+  @override
+  String get lowStockTitle => 'குறைந்த கையிருப்பு எச்சரிக்கைகள்';
+
+  @override
+  String get lowStockLoadError => 'எச்சரிக்கைகளை ஏற்ற முடியவில்லை';
+
+  @override
+  String get lowStockEmpty => 'அனைத்து கையிருப்பு அளவுகளும் சரியாக உள்ளன';
+
+  @override
+  String get lowStockRestock => 'மீண்டும் நிரப்பு';
+
+  @override
+  String lowStockProductFallback(String id) {
+    return 'தயாரிப்பு $id';
+  }
+
+  @override
+  String lowStockLevel(Object current, Object threshold) {
+    return 'தற்போது: $current / வரம்பு: $threshold';
+  }
+
+  @override
   String get appName => 'RADHA';
 
   @override

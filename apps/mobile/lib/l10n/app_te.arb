@@ -170,6 +170,15 @@
   "recallRecalledOn": "{date}న రీకాల్ చేయబడింది",
   "recallViewProduct": "ఉత్పత్తిని చూడండి",
 
+  "couldNotLoad": "లోడ్ చేయలేకపోయాం",
+  "retryLabel": "మళ్ళీ ప్రయత్నించు",
+  "lowStockTitle": "తక్కువ స్టాక్ హెచ్చరికలు",
+  "lowStockLoadError": "హెచ్చరికలను లోడ్ చేయలేకపోయాం",
+  "lowStockEmpty": "అన్ని స్టాక్ స్థాయిలు బాగున్నాయి",
+  "lowStockRestock": "రీస్టాక్",
+  "lowStockProductFallback": "ఉత్పత్తి {id}",
+  "lowStockLevel": "ప్రస్తుతం: {current} / పరిమితి: {threshold}",
+
   "appName": "RADHA",
   "tagline": "డేటా, ఆరోగ్యం మరియు ఆడిట్‌ల కోసం రిటైల్ అసిస్టెంట్.",
   "continueLabel": "కొనసాగించు",

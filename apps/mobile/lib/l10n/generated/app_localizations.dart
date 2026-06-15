@@ -1078,6 +1078,54 @@ abstract class AppLocalizations {
   /// **'View product'**
   String get recallViewProduct;
 
+  /// No description provided for @couldNotLoad.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load'**
+  String get couldNotLoad;
+
+  /// No description provided for @retryLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get retryLabel;
+
+  /// No description provided for @lowStockTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Low stock alerts'**
+  String get lowStockTitle;
+
+  /// No description provided for @lowStockLoadError.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load alerts'**
+  String get lowStockLoadError;
+
+  /// No description provided for @lowStockEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'All stock levels are healthy'**
+  String get lowStockEmpty;
+
+  /// No description provided for @lowStockRestock.
+  ///
+  /// In en, this message translates to:
+  /// **'Restock'**
+  String get lowStockRestock;
+
+  /// Low-stock row title fallback; id is the product id.
+  ///
+  /// In en, this message translates to:
+  /// **'Product {id}'**
+  String lowStockProductFallback(String id);
+
+  /// Current quantity vs low-stock threshold.
+  ///
+  /// In en, this message translates to:
+  /// **'Current: {current} / Threshold: {threshold}'**
+  String lowStockLevel(Object current, Object threshold);
+
   /// App name (brand mark, do not translate).
   ///
   /// In en, this message translates to:

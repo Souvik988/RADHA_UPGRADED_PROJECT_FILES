@@ -170,6 +170,15 @@
   "recallRecalledOn": "{date} को रिकॉल किया गया",
   "recallViewProduct": "उत्पाद देखें",
 
+  "couldNotLoad": "लोड नहीं हो सका",
+  "retryLabel": "पुनः प्रयास",
+  "lowStockTitle": "कम स्टॉक अलर्ट",
+  "lowStockLoadError": "अलर्ट लोड नहीं हो सके",
+  "lowStockEmpty": "सभी स्टॉक स्तर ठीक हैं",
+  "lowStockRestock": "रीस्टॉक",
+  "lowStockProductFallback": "उत्पाद {id}",
+  "lowStockLevel": "मौजूदा: {current} / सीमा: {threshold}",
+
   "appName": "RADHA",
   "tagline": "डेटा, स्वास्थ्य और ऑडिट के लिए रिटेल असिस्टेंट।",
   "continueLabel": "जारी रखें",

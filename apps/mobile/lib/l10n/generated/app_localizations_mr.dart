@@ -573,6 +573,34 @@ class AppLocalizationsMr extends AppLocalizations {
   String get recallViewProduct => 'उत्पादन पहा';
 
   @override
+  String get couldNotLoad => 'लोड करता आले नाही';
+
+  @override
+  String get retryLabel => 'पुन्हा प्रयत्न';
+
+  @override
+  String get lowStockTitle => 'कमी स्टॉक सूचना';
+
+  @override
+  String get lowStockLoadError => 'सूचना लोड करता आल्या नाहीत';
+
+  @override
+  String get lowStockEmpty => 'सर्व स्टॉक पातळ्या व्यवस्थित आहेत';
+
+  @override
+  String get lowStockRestock => 'रिस्टॉक';
+
+  @override
+  String lowStockProductFallback(String id) {
+    return 'उत्पादन $id';
+  }
+
+  @override
+  String lowStockLevel(Object current, Object threshold) {
+    return 'सध्या: $current / मर्यादा: $threshold';
+  }
+
+  @override
   String get appName => 'RADHA';
 
   @override

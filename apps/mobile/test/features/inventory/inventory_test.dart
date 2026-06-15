@@ -7,6 +7,7 @@ import 'package:radha_mobile/core/network/dto/inventory_dto.dart';
 import 'package:radha_mobile/features/inventory/inventory_list_screen.dart';
 import 'package:radha_mobile/features/inventory/low_stock_alerts_screen.dart';
 import 'package:radha_mobile/features/inventory/stock_movement_screen.dart';
+import 'package:radha_mobile/l10n/generated/app_localizations.dart';
 
 class MockApiClient extends Mock implements ApiClient {}
 
@@ -18,7 +19,11 @@ class FakeStockAdjustmentDto extends Fake implements StockAdjustmentDto {}
 Widget _buildApp(Widget child, {List<Override> overrides = const []}) {
   return ProviderScope(
     overrides: overrides,
-    child: MaterialApp(home: child),
+    child: MaterialApp(
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      home: child,
+    ),
   );
 }
 
