@@ -31,9 +31,9 @@
   "lastVerifiedDevice": null,
   "lastVerifiedBackendEnv": "local dist (node dist/main.api) on codex/radha-final-convergence @ dbae9e2 — live sweep PASS 38/38 (2026-06-15)",
   "lastVerifiedDashboardEnv": null,
-  "lastPaymentTest": "BLOCKED — server/.env.example.razorpay has a valid-format KEY_ID (rzp_test_) but KEY_SECRET is a placeholder (24x 'x') + webhook empty; active .env all-blank (mock). Need the real test secret (OWNER action #1).",
+  "lastPaymentTest": "2026-06-15 PARTIAL-VERIFIED — owner's real test keys (from radha_backend/.env.development) put in active server/.env; backend resolved live Razorpay; POST /payments/checkout created REAL test order order_T1pBIh3tcTEuVy (₹49/4900 paise). Verify/webhook/entitlement still need a device + webhook secret.",
   "lastStagingDeployment": null,
-  "completionScore": { "value": 51.8, "unit": "percent", "method": "weighted scorecard §4", "confidence": "medium", "source": "docs/executive/RADHA_COMPLETION_SCORECARD.md", "note": "adjusted from 53 after D10 (mobile l10n ~30%); backend gates re-verified live this branch" },
+  "completionScore": { "value": 52.6, "unit": "percent", "method": "weighted scorecard §4", "confidence": "medium", "source": "docs/executive/RADHA_COMPLETION_SCORECARD.md", "note": "53->51.8 (D10 mobile l10n ~30%); 51.8->52.6 (live Razorpay test order verified, I 50->65%)" },
   "releaseGate": { "status": "NOT_MET", "blockingGates": ["F android-native", "D dashboard-e2e", "G cross-client", "I payment-live", "J security/privacy", "K observability", "L performance/scale", "M deploy/backup/restore"] },
   "nextActions": [
     "Finish re-verifying claimed gates (flutter analyze/test, backend test, server build) — fill EVIDENCE_LEDGER",
