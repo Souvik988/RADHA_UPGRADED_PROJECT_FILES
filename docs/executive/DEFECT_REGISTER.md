@@ -22,6 +22,7 @@
 |---|---|---|---|---|
 | D3 | Dashboard | P2 | `radha_dashboard/features/expiry/scope-change.test.tsx` — `scope` type drift; decide if `scope` is an intended field | OPEN — needs product-intent decision then fix+test |
 | D4 | Dashboard | P2 | `@playwright/test` not installed → no dashboard E2E | OPEN — `npm i -D @playwright/test && npx playwright install`, then author journeys |
+| D10 | Mobile/l10n | P2 | **Localization materially incomplete** — only 19/63 feature files use AppLocalizations; ~19 screens still carry hardcoded English (product/product_detail, onboarding, allergen, scan, scan_result, home, task_create, grn_items, expiry_create, ean_audit, grn_create, task_detail, shopping_list, referrals, label_scan, expiry_calendar, inventory_list, …). Prior reports ("Product Detail localized") referred to `features/catalog/product_detail_screen.dart` only — a *separate* `features/product/product_detail_screen.dart` and most other domains remain English. **Root class:** the ARB-completeness test guards KEY parity across locales but does NOT detect screens whose strings were never extracted to ARB. | OPEN — (1) add a static "visible-literal" guard (§10) with a brand/diagnostic allowlist; (2) sweep the ~19 screens domain-by-domain into ARB ×6 (each its own green commit). Evidence: grep 2026-06-15 (DISCOVER). |
 
 ## Watch / to-confirm (not yet a defect — verify, then classify)
 - Razorpay test-mode race (success-before-confirm must show *pending*, not failed) — verify on device → if wrong, P1.

@@ -17,6 +17,7 @@ Branch `codex/radha-final-convergence` @ `4bf72ee`. Ledger opened 2026-06-15.
 | Flutter analyze --fatal-infos clean | VERIFIED_AUTOMATED | `flutter analyze --fatal-infos` → "No issues found!" (2026-06-15, 34.9s) |
 | Flutter test suite = 243 passing | VERIFIED_AUTOMATED | `flutter test` → "+243: All tests passed!" (2026-06-15, ~2min) |
 | Safety bundle + working patch created | VERIFIED_AUTOMATED | `../radha-program-safety.bundle`, `../radha-program-working.patch` |
+| Mobile localization is PARTIAL (19/63 feature files use l10n; ~19 screens still English) — corrects the "Product Detail localized" claim (that was only `features/catalog/`) | VERIFIED_CODE | grep over `lib/features` 2026-06-15 → defect D10; scorecard H 50%→30% |
 
 ## Carried from prior reports — NOT re-verified this turn (treat as ASSUMED until re-run)
 | Claim | Class | Note |

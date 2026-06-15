@@ -20,7 +20,7 @@
     "dashboardVitest": { "claimed": 155, "reverifiedThisTurn": "pending" }
   },
   "contractMismatchCounts": { "unexplained": 0, "source": "contracts:check PASS (re-run 2026-06-15)" },
-  "defectCounts": { "P0": 0, "P1": 0, "P2": 0, "P3": 0, "note": "register initialized; populated as found" },
+  "defectCounts": { "P0": 0, "P1": 0, "P2": 3, "P3": 0, "note": "D3,D4 dashboard + D10 mobile-l10n-incomplete; D5-D9 closed" },
   "externalBlockers": [
     "ANDROID_DEVICE: no emulator/physical device attached this session (blocks F, parts of B/I)",
     "RAZORPAY_TEST_KEYS: owner test-mode keys not provided (blocks live payment verification, I)",
@@ -33,7 +33,7 @@
   "lastVerifiedDashboardEnv": null,
   "lastPaymentTest": null,
   "lastStagingDeployment": null,
-  "completionScore": { "value": 53, "unit": "percent", "method": "weighted scorecard §4", "confidence": "medium", "source": "docs/executive/RADHA_COMPLETION_SCORECARD.md" },
+  "completionScore": { "value": 51.8, "unit": "percent", "method": "weighted scorecard §4", "confidence": "medium", "source": "docs/executive/RADHA_COMPLETION_SCORECARD.md", "note": "adjusted from 53 after D10 (mobile l10n ~30%); backend gates re-verified live this branch" },
   "releaseGate": { "status": "NOT_MET", "blockingGates": ["F android-native", "D dashboard-e2e", "G cross-client", "I payment-live", "J security/privacy", "K observability", "L performance/scale", "M deploy/backup/restore"] },
   "nextActions": [
     "Finish re-verifying claimed gates (flutter analyze/test, backend test, server build) — fill EVIDENCE_LEDGER",
