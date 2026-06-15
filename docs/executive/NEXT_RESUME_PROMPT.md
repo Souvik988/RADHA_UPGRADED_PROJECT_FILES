@@ -45,3 +45,13 @@ live sweep (onboard tenant → OTP devOtp → token → GET per domain; target 3
 **Report the calculated score and the blocking gates. Never claim 100% while any §28 gate is unmet or
 EXTERNAL_BLOCKED. Honesty over optimism.** Owner-blocked items are in OWNER_ACTIONS_REQUIRED.md —
 continue all independent work regardless.
+
+**Quality bar (owner instruction):** every page/function/button/UI must reach production-grade with no
+mistakes before "done" — see `EXECUTIVE_CONTEXT_HANDOFF.md` §12 (Definition of Done). Never compromise
+quality for speed.
+
+**STANDING RULE — session-end handoff (do this every time you wind down):** before stopping or hitting a
+daily limit, ALWAYS produce a best-quality handoff — finish/checkpoint the unit, update ALL
+`docs/executive/` control files (state, evidence, defects, decisions, owner-actions, this resume
+prompt) with done+remaining and the calculated score, refresh `EXECUTIVE_CONTEXT_HANDOFF.md` if
+direction changed, then commit + push. See `EXECUTIVE_CONTEXT_HANDOFF.md` §13.

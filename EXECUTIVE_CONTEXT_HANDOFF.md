@@ -330,37 +330,94 @@ Master matrix:
 
 ## 8. Production Architecture Direction
 
-The owner wants the application engineered for 10 million users and privacy by design.
+The owner's explicit mandate: engineer RADHA to handle **10 million users**, store scanned/inventory/
+photo data **with proper indexing**, and keep each subscriber's raw data **private** — the owner
+dashboard reads only derived aggregates, never raw user content, because that content is **encrypted
+per tenant**; the data owner sees their own data; the platform reaches raw data only through an
+audited break-glass door. The codebase already has most seeds — generalize them, do not reinvent.
 
-Core architecture principles:
+Backend layering (always on): Controller (transport only, guarded, DTO-validated) → Service (logic,
+transactions, audit log) → Repository (tenant/store-scoped, cursor pagination, no layer skipping).
+Migrations are immutable — add new numbered SQL files; keep schema↔migration↔docs in sync.
 
-- Tenant data isolation is mandatory.
-- Raw subscriber/user generated data must not be exposed to the platform dashboard by default.
-- Dashboard and reports should read derived rollups/aggregates, not raw tenant content.
-- High-volume tables need tenant-leading indexes and cursor/keyset pagination.
-- Heavy work belongs in worker/scheduler queues, not synchronous mobile-facing requests.
-- No fabricated metrics, mock plans, or placeholder product claims in production paths.
+### 8A. Privacy / per-tenant encryption flow (the owner's #1 requirement)
 
-Backend layering rule:
+**Flow:** a subscriber uses the app — scans products, uploads photos, manages inventory. That raw
+data lands on the server + DB **encrypted**. The owner dashboard CANNOT read the raw user data (it is
+ciphertext); it shows only non-sensitive **rollups/aggregates**. The business owner (data owner)
+decrypts their own data in-app. The RADHA platform owner reaches raw data only via an explicit,
+audited break-glass flow.
 
-- Controller: transport only, guarded, DTO-validated
-- Service: business logic, transactions, audit logging
-- Repository: tenant/store-scoped data access, cursor pagination, no layer skipping
+**Build as envelope encryption, per tenant — grounded in what exists:**
+- A working AES-256-GCM envelope service already exists: `server/src/modules/allergen/services/
+  encryption.service.ts` (its comment says "in production this would delegate to AWS KMS or a vault").
+  **Generalize it** into `integrations/crypto/` (or `kms/`) `TenantCryptoService` behind a typed
+  interface + fake-for-tests (integrations-wrapper rule). See directive §20 (versioned keys, rotation,
+  re-encryption jobs, authenticated tenant/resource context, audit logging).
+- **Key hierarchy (envelope):** one master KEK in **AWS KMS** (never leaves KMS). On tenant creation,
+  generate a per-tenant **DEK**; store it **KEK-wrapped** as a new `tenants.encrypted_dek` column (new
+  numbered migration). Unwrap the DEK via KMS only inside a tenant-scoped authenticated request;
+  AES-256-GCM with a fresh 96-bit IV per record; store `iv|authTag|ciphertext`; never persist the
+  plaintext DEK.
+- **Encrypt the sensitive UGC, NOT the derived metrics.** Encrypt at rest: photo/scan **images**
+  (store in **S3 with SSE-KMS** under a per-tenant key context; the `media_assets` row keeps only the
+  S3 key + encrypted metadata), OCR transcripts, sensitive inventory notes/free text, PII. Do NOT
+  encrypt the rollups (counts, KPIs, health distributions, low-stock counts, scan volumes) — the
+  worker/scheduler computes them into the **already-existing** rollup tables (`operational_health_
+  scores`, `owner_daily_metrics`, `consumer_weekly_digests`), which carry no raw user content. Do not
+  encrypt fields required for indexed filtering unless a deliberate search-token design exists.
+- **Dashboard reads ONLY rollups.** This both keeps raw subscriber data private from the platform and
+  **fixes the "bulky dashboard"** problem — it reads small pre-aggregated rows, not millions of raw
+  inventory/scan records. Make it a hard rule: dashboard BFF/proxies hit rollup/aggregate endpoints,
+  never endpoints returning decrypted UGC.
+- **Data-owner access:** the mobile app authenticates as the tenant; the backend unwraps that tenant's
+  DEK and decrypts on their behalf for their own tenant-scoped requests → full fidelity for them.
+- **Platform break-glass:** reuse the existing **`admin-impersonation`** module (guards + middleware +
+  audit). Raw-data access requires elevated admin auth → explicit time-limited grant → mandatory audit
+  entry (who/when/which tenant/why). **Default: platform cannot read raw tenant content.**
 
-Migration rule:
+### 8B. Database & indexing strategy (store scanned/inventory data the right way)
 
-- Existing migrations are immutable.
-- Add new numbered SQL migrations.
-- Keep schema, migrations, and docs in sync.
+The tenant-scoped index convention is already heavily in place (~296 index declarations). Hold/extend:
+- **Every index leads with `tenant_id`** (then `store_id` where store-scoped), then the hot filter/sort
+  column. Hot tables: `scan_items`, `scan_sessions`, `stock_movements`, `inventory_items`,
+  `expiry_records`, `tasks`, `task_assignments`, `grn`, `audit_logs`, `app_usage_events`,
+  `website_events`, `media_assets`, `notifications`, `products`. Composite shapes:
+  `(tenant_id, store_id, scanned_at DESC)`, `(tenant_id, store_id, status)`,
+  `(tenant_id, store_id, is_low_stock)`, `(tenant_id, ean)`.
+- **Partial indexes** for hot predicates: `WHERE deleted_at IS NULL`, `WHERE resolved_at IS NULL`
+  (already on `low_stock_alerts`), `WHERE status='active'`. **FK indexes** on every foreign key.
+- **Search:** `products.search_tsv` (tsvector) already has GIN + a trigram name index — use them; never
+  `LIKE '%x%'` scans. **Keyset/cursor pagination everywhere** — never `OFFSET` on large tables.
+- **Partition the append-only giants** by time when volume warrants: declarative RANGE partitioning on
+  `created_at`/`scanned_at` for `scan_items`, `audit_logs`, `stock_movements`, `*_usage_events`
+  (monthly partitions + per-partition indexes → cheap pruning + retention drops).
+- **Process:** run `EXPLAIN ANALYZE` before/after each index migration (evidence, not guesswork); add a
+  new numbered file `00NN_scale_indexes.sql`; create indexes `CONCURRENTLY` in prod; keep
+  `DATABASE_ARCHITECTURE.md` in sync.
 
-Privacy/scaling roadmap to preserve:
+### 8C. Write path & 10M-user topology
 
-- Generalize existing AES-256-GCM style encryption into a proper tenant crypto/KMS abstraction.
-- Store sensitive raw UGC encrypted per tenant.
-- Keep non-sensitive derived rollups queryable for the owner dashboard.
-- Gate any platform raw-data access behind explicit audited break-glass/admin impersonation.
-- Add or verify tenant-leading composite/partial indexes for scans, inventory, expiry, tasks, GRN,
-  audit logs, usage events, media metadata, and products.
+- **Stateless API** behind a load balancer, horizontally scaled. The `worker` + `scheduler` processes
+  already exist (`main.worker.ts`/`main.scheduler.ts`, gated by `RADHA_PROCESS`) — scale independently.
+  All heavy work (image processing, OCR, report generation, **rollups**, notifications) is async on
+  **BullMQ** (idempotent consumers + DLQ + retry).
+- **Writes:** batch/`COPY` for bulk imports, multi-row inserts, write-behind via BullMQ for non-critical
+  writes, **idempotency** on all create endpoints (`idempotency_records` table + module exist). No N+1.
+- **Postgres:** managed **RDS** + **PgBouncer** (transaction pooling) + **read replicas** (dashboard/
+  report reads → replicas, writes → primary; replica-lag fallback). Size `DB_MAX_CONNECTIONS` for
+  PgBouncer. **Redis/ElastiCache:** short-TTL caches (entitlements, plans, rollups, product lookups —
+  `off_cache` exists), tenant-namespaced keys, stampede prevention; correctness must never depend on
+  cache availability. **Media:** S3 presigned direct upload + CloudFront; DB stores S3 keys only.
+- **Budgets:** indexed API reads p95 < 200ms; mobile 60fps; cold start < 1.5s. Targets are not
+  achievements until measured (directive §23) — record p50/p95/p99 from staging load tests.
+
+### 8D. Dashboard ↔ backend connection (must be proper + best)
+
+Both clients hit `/api/v1`. Mobile = `apps/mobile` ApiClient; dashboard = `radha_dashboard` BFF proxy
+routes (`app/api/**`). Keep shapes in `@radha/shared-types` + `API_CONTRACTS.md` (the `contracts:check`
+gate enforces zero unexplained drift). Dashboard reads **rollups only** (8A) → fast + privacy-safe.
+`DEMO_MODE` must be **off** in prod. Verify the dashboard live the same way as mobile.
 
 ---
 
@@ -488,3 +545,65 @@ Immediate next action for the next developer:
 2. Do not touch the unrelated Windows generated plugin files.
 3. Start the next mobile L1 localization screen with the ARB pattern above, or continue live-domain
    verification if localization is paused by the owner.
+
+---
+
+## 12. Definition of Done — "100% production-grade" (the owner's bar)
+
+The owner's standard: the app is complete only when **every page, every function, every button, every
+front-end and UI is production-grade with no mistakes**. Do not declare a screen, feature, or the
+product "done" until all of the following hold for it. Quality is never compromised to move faster.
+
+**Per screen / feature (all must hold):**
+- Every control classified and working: navigation, button, form, search, filter, sort, pagination,
+  save, share, retry, delete, export, payment, permission action. **No dead buttons. No blank screens.**
+- Every state designed and correct: loading, refreshing-with-prior-data, success, empty, no-results,
+  offline, timeout, unauthorized, forbidden, validation error, conflict, rate-limited, server error,
+  retry, partial failure. Never render blank UI for a meaningful failure; never hide missing data behind
+  confident placeholder copy.
+- **No fabricated data** — no invented health/nutrition, no guessed EAN, no mock plan, no placeholder
+  metric in a production path.
+- Every mutation prevents duplicate submission (idempotent); every failure offers the correct recovery.
+- Fully localized in all six locales (en/hi/ta/te/bn/mr), natural translations, no visible raw wire
+  values, text scales 1.0/1.3/2.0 hold.
+- Accessibility: semantics/labels, focus, target size, contrast, no colour-only meaning, TalkBack pass.
+- Tuned motion/haptics, 60fps-preserving transitions, reduced-motion honored, consistent RADHA visual
+  language. No generic Material defaults.
+- Backend contract correct (`contracts:check` green); tenant/store/role/entitlement gating correct.
+- Regression test for every repaired behaviour; the relevant suites stay green.
+- **Live-verified** on the running backend (and on an Android device once available) — not just mocked
+  widget tests.
+
+**The product is "100% complete against agreed scope and release gates" only when the §28 gate of the
+master directive is met** (zero unexplained contract drift, zero dead controls, zero P0/P1, critical
+suites pass, Android critical journeys pass, dashboard Playwright passes, cross-client sync passes,
+Razorpay test-mode passes, six-locale coverage passes, critical a11y zero, security blockers zero,
+observability operational, privacy controls implemented, performance evidence exists, AWS staging
+passes, backup-restore passes, rollback passes, release artifacts build, work pushed). Track the
+**calculated** score in `docs/executive/RADHA_COMPLETION_SCORECARD.md` — never a flattering round
+number. Report the real percentage and the blocker until every gate is genuinely met.
+
+---
+
+## 13. Session-End Handoff Discipline (STANDING RULE — do this every time)
+
+**Whenever a working session or daily limit is about to end, ALWAYS produce a best-quality handoff
+before stopping.** This is a permanent rule, not a one-off. A future session (in any IDE) must be able
+to resume at full context and the same quality bar without re-auditing finished work.
+
+On every session wind-down:
+1. Finish or cleanly checkpoint the current unit — never leave a knowingly broken tree.
+2. Update the program control plane in `docs/executive/`: `PROGRAM_STATE.json` (branch, commit,
+   active/completed waves, test counts, defect counts, blockers, **calculated completion score**,
+   timestamp), `EVIDENCE_LEDGER.md` (verified vs assumed vs external-blocked — never upgrade without
+   evidence), `DEFECT_REGISTER.md`, `DECISION_LOG.md`, `OWNER_ACTIONS_REQUIRED.md`, and
+   **`NEXT_RESUME_PROMPT.md`** (the exact, paste-ready prompt that lets a fresh session continue
+   without re-auditing).
+3. Refresh this file (`EXECUTIVE_CONTEXT_HANDOFF.md`) if architecture/direction changed.
+4. State plainly **what is done (with evidence)** and **what remains** (prioritized, next concrete unit
+   named).
+5. Commit the handoff as its own unit and **push** (`Co-Authored-By: Codex <codex@openai.com>`), then
+   verify with `git cat-file -e HEAD:<file>`.
+
+The handoff is itself held to the production-grade bar (§12): accurate, evidence-backed, honest about
+gaps, and immediately actionable. Quality is never compromised — including the quality of the handoff.
