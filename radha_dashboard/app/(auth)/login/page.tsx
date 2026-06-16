@@ -7,7 +7,7 @@
  * In DEMO_MODE: shows demo credential cards. One click fills + submits.
  * In production: standard RHF+Zod form → /api/auth/login → httpOnly cookie.
  */
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -78,7 +78,7 @@ function FeaturePill({
   );
 }
 
-export default function LoginPage() {
+function LoginContent() {
   const router = useRouter();
   const params = useSearchParams();
   const next = params.get('next') ?? '/';
@@ -325,5 +325,17 @@ export default function LoginPage() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-[100dvh] flex items-center justify-center bg-[var(--surface)]">
+        <div className="w-10 h-10 rounded-full border-4 border-[var(--accent)] border-t-transparent animate-spin" />
+      </div>
+    }>
+      <LoginContent />
+    </Suspense>
   );
 }

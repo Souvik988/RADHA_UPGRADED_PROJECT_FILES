@@ -2,7 +2,7 @@
 /**
  * Invite accept page — (auth)/invite?token=xxx
  */
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useSearchParams } from 'next/navigation';
@@ -13,7 +13,7 @@ import { PasswordStrength } from '@/features/auth/password-strength';
 import { FormField, Input } from '@/components/ui/form-field';
 import { Button } from '@/components/ui/button';
 
-export default function InvitePage() {
+function InviteContent() {
   const params = useSearchParams();
   const token = params.get('token') ?? '';
 
@@ -110,5 +110,17 @@ export default function InvitePage() {
         </form>
       </div>
     </div>
+  );
+}
+
+export default function InvitePage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-[var(--surface)]">
+        <div className="w-10 h-10 rounded-full border-4 border-[var(--accent)] border-t-transparent animate-spin" />
+      </div>
+    }>
+      <InviteContent />
+    </Suspense>
   );
 }

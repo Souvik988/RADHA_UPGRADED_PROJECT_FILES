@@ -2,12 +2,14 @@
 /**
  * Email verification page — (auth)/verify?token=xxx
  * Submits POST /api/auth/verify-email and shows result.
+ *
+ * useSearchParams must be inside a Suspense boundary in Next.js 15 (App Router).
  */
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 
-export default function VerifyPage() {
+function VerifyContent() {
   const params = useSearchParams();
   const token = params.get('token') ?? '';
 
@@ -86,5 +88,24 @@ export default function VerifyPage() {
         )}
       </div>
     </div>
+  );
+}
+
+function VerifyFallback() {
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-[var(--surface)] px-6">
+      <div className="card p-10 text-center max-w-md flex flex-col gap-4 items-center">
+        <div className="w-10 h-10 rounded-full border-4 border-[var(--accent)] border-t-transparent animate-spin" aria-label="Loading…" />
+        <p className="text-[15px] text-[var(--ink-soft)]">Loading…</p>
+      </div>
+    </div>
+  );
+}
+
+export default function VerifyPage() {
+  return (
+    <Suspense fallback={<VerifyFallback />}>
+      <VerifyContent />
+    </Suspense>
   );
 }
