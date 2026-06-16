@@ -26,6 +26,7 @@ import '../../design/tokens.dart';
 import '../../design/widgets/empty_state.dart';
 import '../../design/widgets/error_state.dart';
 import '../../design/widgets/mor_companion.dart';
+import '../../l10n/generated/app_localizations.dart';
 
 /// Provider for the list of active recall alerts. Uses
 /// `apiClient.getRecalls()` which maps to `GET /api/v1/recalls`.
@@ -63,7 +64,7 @@ class RecallAlertsScreen extends ConsumerWidget {
               children: [
                 const SizedBox(height: 80),
                 ErrorState(
-                  title: 'Could not load recalls.',
+                  title: AppLocalizations.of(context).recallLoadError,
                   onRetry: () => ref.invalidate(recallsProvider),
                 ),
               ],
@@ -74,17 +75,15 @@ class RecallAlertsScreen extends ConsumerWidget {
                   // RefreshIndicator needs a scrollable child even when
                   // there's nothing to show, so wrap the empty state.
                   physics: const AlwaysScrollableScrollPhysics(),
-                  children: const [
-                    SizedBox(height: 80),
+                  children: [
+                    const SizedBox(height: 80),
                     EmptyState(
-                      illustration: MorCompanion(
+                      illustration: const MorCompanion(
                         mood: MorMood.guard,
                         size: 104,
                       ),
-                      title: 'No active recalls',
-                      body:
-                          'You will see product recall alerts here as they are '
-                          'issued by regulatory bodies.',
+                      title: AppLocalizations.of(context).recallEmpty,
+                      body: AppLocalizations.of(context).recallEmptyBody,
                     ),
                   ],
                 );

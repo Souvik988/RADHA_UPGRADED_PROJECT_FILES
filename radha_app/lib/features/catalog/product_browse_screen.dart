@@ -13,6 +13,7 @@ import 'package:radha_app/design/widgets/error_state.dart';
 import 'package:radha_app/design/widgets/skeleton_loader.dart';
 import 'package:radha_app/features/catalog/catalog_health.dart';
 import 'package:radha_app/features/home/data/home_catalog.dart';
+import 'package:radha_app/l10n/generated/app_localizations.dart';
 
 import 'providers/product_browse_providers.dart';
 
@@ -40,8 +41,11 @@ class _ProductBrowseScreenState extends ConsumerState<ProductBrowseScreen> {
 
   RadhaCategory get _category => kRadhaCategories.firstWhere(
     (c) => c.id == widget.categoryId,
-    orElse: () =>
-        RadhaCategory(id: widget.categoryId, label: 'Products', asset: ''),
+    orElse: () => RadhaCategory(
+      id: widget.categoryId,
+      label: 'Products', // l10n-ignore: internal fallback; category titles localize via home_catalog (Phase 4)
+      asset: '',
+    ),
   );
 
   @override
@@ -72,6 +76,10 @@ class _ProductBrowseScreenState extends ConsumerState<ProductBrowseScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final category = _category;
+    final categoryName = categoryLabel(
+      AppLocalizations.of(context),
+      category.id,
+    );
     final args = (widget.categoryId, _sort);
     final browse = ref.watch(categoryBrowseProvider(args));
 
@@ -80,7 +88,7 @@ class _ProductBrowseScreenState extends ConsumerState<ProductBrowseScreen> {
       appBar: AppBar(
         backgroundColor: theme.colorScheme.surface,
         title: Text(
-          category.label,
+          categoryName,
           style: theme.textTheme.titleLarge?.copyWith(
             fontWeight: FontWeight.w800,
           ),
@@ -105,10 +113,10 @@ class _ProductBrowseScreenState extends ConsumerState<ProductBrowseScreen> {
               loading: () => const _ProductGridSkeleton(),
               error: (_, _) => Center(
                 child: ErrorState(
-                  title: "Couldn't load products",
-                  body:
-                      'We hit a snag loading ${category.label.toLowerCase()}. '
-                      'Please try again.',
+                  title: AppLocalizations.of(context).browseLoadError,
+                  body: AppLocalizations.of(
+                    context,
+                  ).browseLoadErrorBody(categoryName.toLowerCase()),
                   onRetry: () => ref.invalidate(categoryBrowseProvider(args)),
                 ),
               ),
@@ -239,7 +247,7 @@ class _CatalogSourceBanner extends StatelessWidget {
                 horizontal: RadhaSpacing.space8,
               ),
             ),
-            child: const Text('Retry'),
+            child: Text(AppLocalizations.of(context).tryAgain),
           ),
         ],
       ),
@@ -281,16 +289,16 @@ class _ControlBar extends StatelessWidget {
                 visualDensity: VisualDensity.compact,
                 textStyle: WidgetStatePropertyAll(theme.textTheme.labelLarge),
               ),
-              segments: const [
+              segments: [
                 ButtonSegment(
                   value: CatalogSort.health,
-                  label: Text('Healthiest'),
-                  icon: Icon(Icons.favorite_rounded, size: 16),
+                  label: Text(AppLocalizations.of(context).browseSortHealthiest),
+                  icon: const Icon(Icons.favorite_rounded, size: 16),
                 ),
                 ButtonSegment(
                   value: CatalogSort.name,
-                  label: Text('A–Z'),
-                  icon: Icon(Icons.sort_by_alpha_rounded, size: 16),
+                  label: Text(AppLocalizations.of(context).browseSortAZ),
+                  icon: const Icon(Icons.sort_by_alpha_rounded, size: 16),
                 ),
               ],
               selected: {sort},
@@ -316,8 +324,9 @@ class _VegToggle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     return Semantics(
-      label: 'Veg only',
+      label: l10n.browseFilterVegOnly,
       toggled: value,
       button: true,
       child: InkWell(
@@ -341,7 +350,7 @@ class _VegToggle extends StatelessWidget {
               const VegDot(isVeg: true, size: 14),
               const SizedBox(width: RadhaSpacing.space8),
               Text(
-                'Veg',
+                l10n.browseVeg,
                 style: theme.textTheme.labelLarge?.copyWith(
                   fontWeight: FontWeight.w700,
                   color: value
@@ -591,11 +600,14 @@ class _EmptyBody extends StatelessWidget {
             size: 150,
           ),
           icon: Icons.eco_outlined,
-          title: 'No veg items here yet',
-          body:
-              "Nothing in ${category.label.toLowerCase()} matches the veg "
-              'filter right now.',
-          actionLabel: 'Show all',
+          title: AppLocalizations.of(context).browseEmptyVeg,
+          body: AppLocalizations.of(context).browseEmptyVegBody(
+            categoryLabel(
+              AppLocalizations.of(context),
+              category.id,
+            ).toLowerCase(),
+          ),
+          actionLabel: AppLocalizations.of(context).browseShowAll,
           actionIcon: Icons.clear_rounded,
           onAction: onClearVeg,
         ),
@@ -608,11 +620,14 @@ class _EmptyBody extends StatelessWidget {
           size: 150,
         ),
         icon: Icons.inventory_2_outlined,
-        title: 'No products yet',
-        body:
-            "We're stocking the ${category.label.toLowerCase()} aisle. "
-            'Meanwhile, scan any item to check its health and expiry.',
-        actionLabel: 'Scan a product',
+        title: AppLocalizations.of(context).browseEmpty,
+        body: AppLocalizations.of(context).browseEmptyBody(
+          categoryLabel(
+            AppLocalizations.of(context),
+            category.id,
+          ).toLowerCase(),
+        ),
+        actionLabel: AppLocalizations.of(context).scanProduct,
         actionIcon: Icons.qr_code_scanner_rounded,
         onAction: onScan,
       ),

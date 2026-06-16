@@ -26,6 +26,7 @@ import '../../design/theme.dart';
 import '../../design/tokens.dart';
 import '../../design/widgets/error_state.dart';
 import '../../design/widgets/primary_button.dart';
+import '../../l10n/generated/app_localizations.dart';
 
 /// FutureProvider wrapping `GET /api/v1/referrals/me` (BE-43). Refreshable
 /// via `ref.invalidate(referralStatsProvider)` from pull-to-refresh.
@@ -42,12 +43,13 @@ class ReferralsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     final statsAsync = ref.watch(referralStatsProvider);
 
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Referrals',
+          l10n.referrals,
           style: theme.textTheme.titleLarge?.copyWith(
             fontWeight: FontWeight.w800,
           ),
@@ -63,7 +65,7 @@ class ReferralsScreen extends ConsumerWidget {
               children: [
                 const SizedBox(height: 80),
                 ErrorState(
-                  title: 'Could not load referrals.',
+                  title: l10n.referralsLoadError,
                   onRetry: () => ref.invalidate(referralStatsProvider),
                 ),
               ],
@@ -189,7 +191,7 @@ class _ReferralHeroCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Your referral code',
+              AppLocalizations.of(context).yourReferralCode,
               style: theme.textTheme.labelMedium?.copyWith(
                 color: scheme.onSurfaceVariant,
                 letterSpacing: 0.6,
@@ -211,7 +213,7 @@ class _ReferralHeroCard extends StatelessWidget {
                 ),
                 _IconAction(
                   icon: Icons.copy_outlined,
-                  tooltip: 'Copy code',
+                  tooltip: AppLocalizations.of(context).referralsCopyCode,
                   onPressed: () => _copyCode(context, code),
                 ),
               ],
@@ -220,10 +222,12 @@ class _ReferralHeroCard extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: PrimaryButton(
-                label: 'Share invite',
+                label: AppLocalizations.of(context).referralsShareInvite,
                 icon: Icons.share_outlined,
                 expand: true,
-                onPressed: () => _shareCode(code),
+                onPressed: () => _shareCode(
+                  AppLocalizations.of(context).referralsShareText(code),
+                ),
               ),
             ),
           ],
@@ -236,14 +240,14 @@ class _ReferralHeroCard extends StatelessWidget {
     await Clipboard.setData(ClipboardData(text: code));
     HapticFeedback.selectionClick();
     if (!context.mounted) return;
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(const SnackBar(content: Text('Code copied')));
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(AppLocalizations.of(context).referralsCodeCopied)),
+    );
   }
 
-  Future<void> _shareCode(String code) async {
+  Future<void> _shareCode(String message) async {
     HapticFeedback.lightImpact();
-    await Share.share('Join me on RADHA: use code $code');
+    await Share.share(message);
   }
 }
 
@@ -288,12 +292,15 @@ class _StatsRow extends StatelessWidget {
     return Row(
       children: [
         Expanded(
-          child: _StatTile(label: 'Invitees', value: inviteeCount.toString()),
+          child: _StatTile(
+            label: AppLocalizations.of(context).invitees,
+            value: inviteeCount.toString(),
+          ),
         ),
         const SizedBox(width: RadhaSpacing.space12),
         Expanded(
           child: _StatTile(
-            label: 'Rewards earned',
+            label: AppLocalizations.of(context).rewardsEarned,
             value: '₹${_formatAmount(rewardsEarned)}',
           ),
         ),
@@ -380,7 +387,9 @@ class _RedeemSectionState extends ConsumerState<_RedeemSection> {
   Future<void> _submit() async {
     final code = _controller.text.trim();
     if (code.isEmpty) {
-      setState(() => _error = 'Enter a referral code');
+      setState(
+        () => _error = AppLocalizations.of(context).enterReferralCode,
+      );
       return;
     }
 
@@ -397,15 +406,19 @@ class _RedeemSectionState extends ConsumerState<_RedeemSection> {
       _controller.clear();
       // Refresh stats so the invitee/reward counters update.
       ref.invalidate(referralStatsProvider);
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text('Code redeemed')));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(AppLocalizations.of(context).referralsCodeRedeemed),
+        ),
+      );
     } on ApiException catch (e) {
       if (!mounted) return;
       setState(() => _error = e.message);
     } catch (_) {
       if (!mounted) return;
-      setState(() => _error = 'Could not redeem code');
+      setState(
+        () => _error = AppLocalizations.of(context).referralsRedeemError,
+      );
     } finally {
       if (mounted) {
         setState(() => _submitting = false);
@@ -416,19 +429,20 @@ class _RedeemSectionState extends ConsumerState<_RedeemSection> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Redeem code',
+          l10n.redeemCode,
           style: theme.textTheme.titleMedium?.copyWith(
             color: theme.colorScheme.onSurface,
           ),
         ),
         const SizedBox(height: RadhaSpacing.space4),
         Text(
-          "Have a friend's invite? Enter their code below.",
+          l10n.referralsRedeemSubtitle,
           style: theme.textTheme.bodySmall?.copyWith(
             color: theme.colorScheme.onSurfaceVariant,
           ),
@@ -446,7 +460,7 @@ class _RedeemSectionState extends ConsumerState<_RedeemSection> {
             color: theme.colorScheme.onSurface,
           ),
           decoration: InputDecoration(
-            hintText: 'Enter a referral code',
+            hintText: l10n.enterReferralCode,
             errorText: _error,
           ),
           onSubmitted: (_) => _submit(),
@@ -455,7 +469,7 @@ class _RedeemSectionState extends ConsumerState<_RedeemSection> {
         SizedBox(
           width: double.infinity,
           child: PrimaryButton(
-            label: 'Redeem',
+            label: l10n.referralsRedeem,
             icon: Icons.redeem_outlined,
             expand: true,
             loading: _submitting,

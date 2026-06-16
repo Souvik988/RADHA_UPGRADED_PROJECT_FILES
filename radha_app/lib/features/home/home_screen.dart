@@ -1796,13 +1796,13 @@ class _CategoryTile extends StatelessWidget {
               child: BrandedImage(
                 asset: category.asset,
                 cacheWidth: cacheW,
-                label: category.label,
+                label: categoryLabel(AppLocalizations.of(context), category.id),
                 fallbackIcon: Icons.category_outlined,
               ),
             ),
             const SizedBox(height: RadhaSpacing.space8),
             Text(
-              category.label,
+              categoryLabel(AppLocalizations.of(context), category.id),
               maxLines: 2,
               textAlign: TextAlign.center,
               overflow: TextOverflow.ellipsis,

@@ -83,7 +83,7 @@ class AuthRepository {
   Future<AuthSession> refresh() async {
     final current = await _storage.readSession();
     if (current == null) {
-      throw const UnauthorizedException(message: 'No session to refresh');
+      throw const UnauthorizedException(message: 'No session to refresh'); // l10n-ignore: internal exception, not UI copy
     }
     final res = await _api.refreshToken(
       RefreshTokenRequestDto(refreshToken: current.refreshToken),
@@ -128,7 +128,7 @@ class AuthRepository {
   Future<AuthSession> selectStore(String storeId) async {
     final current = await _storage.readSession();
     if (current == null) {
-      throw const UnauthorizedException(message: 'No session to update');
+      throw const UnauthorizedException(message: 'No session to update'); // l10n-ignore: internal exception, not UI copy
     }
     await _storage.selectStore(storeId);
     return current.copyWith(selectedStoreId: storeId);

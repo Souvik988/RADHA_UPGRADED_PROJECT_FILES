@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../design/tokens.dart';
+import '../../l10n/generated/app_localizations.dart';
 
 /// Live-preview label camera with **auto-capture when steady**.
 ///
@@ -302,7 +303,7 @@ class _LabelCameraScreenState extends State<LabelCameraScreen>
           child: Center(
             child: Semantics(
               button: true,
-              label: 'Capture',
+              label: AppLocalizations.of(context).cameraCapture,
               child: GestureDetector(
                 onTap: _capture,
                 child: Container(

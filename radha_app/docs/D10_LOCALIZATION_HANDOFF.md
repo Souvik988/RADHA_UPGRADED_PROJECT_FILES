@@ -35,9 +35,9 @@
 ## 2. ✅ What was completed
 
 ### 2.1 Razorpay webhook secret (owner-requested)
-- File: `radha_backend/.env.development` (confirmed gitignored via `git check-ignore`).
-- Set `RAZORPAY_KEY_ID=rzp_test_T1pHBukSjwj1w7`, `RAZORPAY_KEY_SECRET=PzW62gmbVh4kj779N225eqG4`, and **`RAZORPAY_WEBHOOK_SECRET=PzW62gmbVh4kj779N225eqG4`**.
-- ⚠️ **Caveat the owner must confirm:** the value supplied was an API key **secret**, not a dedicated webhook secret. For real Razorpay *test webhooks* to verify, `RAZORPAY_WEBHOOK_SECRET` must equal the value set in **Razorpay Dashboard → Settings → Webhooks**. If that differs, swap it. The HMAC-SHA256 signature path lives in `radha_backend/src/integrations/razorpay/providers/razorpay-live.provider.ts`.
+- File: `radha_backend/.env.development` (confirmed gitignored via `git check-ignore`). The three Razorpay TEST values were written into that local, gitignored file only — **variable names only are recorded here**, never the values: `RAZORPAY_KEY_ID`, `RAZORPAY_KEY_SECRET`, `RAZORPAY_WEBHOOK_SECRET`.
+- 🔐 **SECURITY:** the TEST credentials originally pasted in chat are **considered exposed and must be rotated** in the Razorpay dashboard, then re-entered into the gitignored env locally. Do not paste secret values into chat, handoffs, or any tracked file. Status only: `CONFIGURED` / `MISSING`.
+- ⚠️ **Caveat the owner must confirm:** the value supplied was an API key **secret**, not a dedicated webhook secret. For real Razorpay *test webhooks* to verify, `RAZORPAY_WEBHOOK_SECRET` must equal the value configured in **Razorpay Dashboard → Settings → Webhooks** (a separate credential from the API secret). If they differ, swap it. The HMAC-SHA256 signature path lives in `radha_backend/src/integrations/razorpay/providers/razorpay-live.provider.ts`.
 
 ### 2.2 D10 screen sweep — all 7 owner-named screens (one green unit each)
 

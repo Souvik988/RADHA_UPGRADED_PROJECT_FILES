@@ -23,6 +23,7 @@ import '../../core/router/app_router.dart';
 import '../../design/app_assets.dart';
 import '../../design/tokens.dart';
 import '../../design/widgets/mor_companion.dart';
+import '../../l10n/generated/app_localizations.dart';
 
 /// Cached `PackageInfo`. The bootstrap controller already loads this on cold
 /// start, so reading it again here is essentially a no-op on real devices.
@@ -39,6 +40,7 @@ class ProfileScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     final user = ref.watch(currentUserProvider);
     final session = ref.watch(authControllerProvider).valueOrNull;
     final packageInfoAsync = ref.watch(_packageInfoProvider);
@@ -46,14 +48,14 @@ class ProfileScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Profile',
+          l10n.profile,
           style: theme.textTheme.titleLarge?.copyWith(
             fontWeight: FontWeight.w800,
           ),
         ),
         actions: [
           IconButton(
-            tooltip: 'Settings',
+            tooltip: l10n.settings,
             icon: const Icon(Icons.settings_outlined),
             onPressed: () => context.push(AppRoute.settings),
           ),
@@ -76,47 +78,47 @@ class ProfileScreen extends ConsumerWidget {
               const SizedBox(height: RadhaSpacing.space8),
               _IdentityCard(user: user, tenantId: session?.tenantId),
               const SizedBox(height: RadhaSpacing.space24),
-              const _SectionLabel(label: 'Account'),
+              _SectionLabel(label: l10n.profileAccount),
               _ActionRow(
                 icon: Icons.storefront_outlined,
-                label: 'Manage stores',
+                label: l10n.profileManageStores,
                 subtitle: user?.selectedStoreName,
                 onTap: () => context.push(AppRoute.selectStore),
               ),
               _ActionRow(
                 icon: Icons.bookmark_outline_rounded,
-                label: 'Saved products',
+                label: l10n.profileSavedProducts,
                 onTap: () => context.push(AppRoute.savedProducts),
               ),
               _ActionRow(
                 icon: Icons.card_membership_outlined,
-                label: 'Subscription',
+                label: l10n.profileSubscription,
                 onTap: () => context.push(AppRoute.subscription),
               ),
               _ActionRow(
                 icon: Icons.share_outlined,
-                label: 'Referrals',
+                label: l10n.referrals,
                 onTap: () => context.push(AppRoute.referrals),
               ),
               const SizedBox(height: RadhaSpacing.space24),
-              const _SectionLabel(label: 'Preferences'),
+              _SectionLabel(label: l10n.profilePreferences),
               _ActionRow(
                 icon: Icons.no_food_outlined,
-                label: 'Allergen profile',
+                label: l10n.profileAllergenProfile,
                 onTap: () => context.push(AppRoute.allergens),
               ),
               _ActionRow(
                 icon: Icons.shopping_basket_outlined,
-                label: 'Shopping list',
+                label: l10n.profileShoppingList,
                 onTap: () => context.push(AppRoute.shoppingList),
               ),
               _ActionRow(
                 icon: Icons.language_outlined,
-                label: 'Language',
+                label: l10n.language,
                 onTap: () => context.push(AppRoute.settingsLanguage),
               ),
               const SizedBox(height: RadhaSpacing.space24),
-              const _SectionLabel(label: 'About'),
+              _SectionLabel(label: l10n.settingsAbout),
               _AboutCard(packageInfoAsync: packageInfoAsync),
               const SizedBox(height: RadhaSpacing.space24),
               const _SignOutRow(),
@@ -462,19 +464,18 @@ class _SignOutRowState extends ConsumerState<_SignOutRow> {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (dialogContext) {
+        final l10n = AppLocalizations.of(dialogContext);
         return AlertDialog(
-          title: const Text('Sign out'),
-          content: const Text(
-            'You will need to sign in again with an OTP to use the app.',
-          ),
+          title: Text(l10n.signOut),
+          content: Text(l10n.signOutConfirmBody),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(dialogContext).pop(false),
-              child: const Text('Cancel'),
+              child: Text(l10n.cancel),
             ),
             TextButton(
               onPressed: () => Navigator.of(dialogContext).pop(true),
-              child: const Text('Sign out'),
+              child: Text(l10n.signOut),
             ),
           ],
         );

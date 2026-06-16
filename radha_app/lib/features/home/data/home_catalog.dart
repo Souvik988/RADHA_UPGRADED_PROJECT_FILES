@@ -1,6 +1,33 @@
 ﻿import 'package:flutter/foundation.dart';
 
 import 'package:radha_app/design/app_assets.dart';
+import 'package:radha_app/l10n/generated/app_localizations.dart';
+
+/// Localized display name for a [RadhaCategory] id. The `label` field on
+/// [RadhaCategory] stays as an English fallback (analytics / unmapped ids);
+/// every UI surface resolves the visible name through this mapper.
+String categoryLabel(AppLocalizations l10n, String id) {
+  switch (id) {
+    case 'biscuits':
+      return l10n.categoryBiscuits;
+    case 'breakfast':
+      return l10n.categoryBreakfast;
+    case 'dairy':
+      return l10n.categoryDairy;
+    case 'beverages':
+      return l10n.categoryBeverages;
+    case 'staples':
+      return l10n.categoryStaples;
+    case 'personal-care':
+      return l10n.categoryPersonalCare;
+    case 'household':
+      return l10n.categoryHousehold;
+    case 'frozen':
+      return l10n.categoryFrozen;
+    default:
+      return id;
+  }
+}
 
 /// A retail category surfaced on the home "Shop by category" rail.
 ///

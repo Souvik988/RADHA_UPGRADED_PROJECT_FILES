@@ -35,6 +35,7 @@ import 'package:radha_app/design/tokens.dart';
 import 'package:radha_app/design/widgets/empty_state.dart';
 import 'package:radha_app/design/widgets/mor_companion.dart';
 import 'package:radha_app/design/widgets/primary_button.dart';
+import 'package:radha_app/l10n/generated/app_localizations.dart';
 
 /// FutureProvider that hits `GET /shopping-list`. Invalidated on every
 /// add/update/delete so the list always mirrors the server.
@@ -63,12 +64,13 @@ class _ShoppingListScreenState extends ConsumerState<ShoppingListScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     final listAsync = ref.watch(shoppingListProvider);
 
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Shopping list',
+          l10n.shoppingListTitle,
           style: theme.textTheme.titleLarge?.copyWith(
             fontWeight: FontWeight.w800,
           ),
@@ -79,9 +81,9 @@ class _ShoppingListScreenState extends ConsumerState<ShoppingListScreen> {
           HapticFeedback.lightImpact();
           _openAddSheet(context);
         },
-        tooltip: 'Add item',
+        tooltip: l10n.shoppingAddItem,
         icon: const Icon(Icons.add_rounded),
-        label: const Text('Add item'),
+        label: Text(l10n.shoppingAddItem),
       ),
       body: listAsync.when(
         loading: () => const _ShoppingSkeleton(),
@@ -95,22 +97,23 @@ class _ShoppingListScreenState extends ConsumerState<ShoppingListScreen> {
 
   Widget _buildError(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     return Padding(
       padding: const EdgeInsets.all(RadhaSpacing.space24),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const MorCompanion(
+          MorCompanion(
             mood: MorMood.concern,
             size: 96,
-            semanticLabel: 'Could not load',
+            semanticLabel: l10n.commonCouldNotLoad,
           ),
           const SizedBox(height: RadhaSpacing.space16),
-          Text('Could not load your list', style: theme.textTheme.titleMedium),
+          Text(l10n.shoppingLoadError, style: theme.textTheme.titleMedium),
           const SizedBox(height: RadhaSpacing.space8),
           Text(
-            "We couldn't load your shopping list. Please try again.",
+            l10n.shoppingLoadErrorBody,
             textAlign: TextAlign.center,
             style: theme.textTheme.bodySmall?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
@@ -118,7 +121,7 @@ class _ShoppingListScreenState extends ConsumerState<ShoppingListScreen> {
           ),
           const SizedBox(height: RadhaSpacing.space24),
           PrimaryButton(
-            label: 'Retry',
+            label: l10n.tryAgain,
             icon: Icons.refresh,
             onPressed: () => ref.invalidate(shoppingListProvider),
           ),
@@ -129,6 +132,7 @@ class _ShoppingListScreenState extends ConsumerState<ShoppingListScreen> {
 
   Widget _buildList(BuildContext context, ShoppingListResponse response) {
     final items = _sortItems(response.items);
+    final l10n = AppLocalizations.of(context);
     final reduceMotion =
         MediaQuery.maybeOf(context)?.disableAnimations ?? false;
 
@@ -146,10 +150,9 @@ class _ShoppingListScreenState extends ConsumerState<ShoppingListScreen> {
                   mood: MorMood.greet,
                   size: 104,
                 ),
-                title: 'Your shopping list is empty',
-                body:
-                    'Tap the plus button to add an item, or save healthy alternatives from a product page.',
-                actionLabel: 'Add item',
+                title: l10n.shoppingEmptyTitle,
+                body: l10n.shoppingEmptyBody,
+                actionLabel: l10n.shoppingAddItem,
                 actionIcon: Icons.add,
                 onAction: () => _openAddSheet(context),
               ),
@@ -230,7 +233,7 @@ class _ShoppingListScreenState extends ConsumerState<ShoppingListScreen> {
       ref.invalidate(shoppingListProvider);
     } catch (_) {
       if (!mounted) return;
-      _showSnack('Could not update the item. Please try again.');
+      _showSnack(AppLocalizations.of(context).shoppingUpdateError);
     } finally {
       if (mounted) {
         setState(() => _busyItemIds.remove(item.id));
@@ -248,7 +251,7 @@ class _ShoppingListScreenState extends ConsumerState<ShoppingListScreen> {
       ref.invalidate(shoppingListProvider);
     } catch (_) {
       if (!mounted) return;
-      _showSnack('Could not delete the item. Please try again.');
+      _showSnack(AppLocalizations.of(context).shoppingDeleteError);
     } finally {
       if (mounted) {
         setState(() => _busyItemIds.remove(item.id));
@@ -257,6 +260,7 @@ class _ShoppingListScreenState extends ConsumerState<ShoppingListScreen> {
   }
 
   Future<void> _openAddSheet(BuildContext context) async {
+    final addErrorMessage = AppLocalizations.of(context).shoppingAddError;
     final result = await showModalBottomSheet<_AddItemResult>(
       context: context,
       isScrollControlled: true,
@@ -274,7 +278,7 @@ class _ShoppingListScreenState extends ConsumerState<ShoppingListScreen> {
       ref.invalidate(shoppingListProvider);
     } catch (_) {
       if (!mounted) return;
-      _showSnack('Could not add the item. Please try again.');
+      _showSnack(addErrorMessage);
     }
   }
 
@@ -302,6 +306,7 @@ class _ProgressHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final scheme = theme.colorScheme;
+    final l10n = AppLocalizations.of(context);
     final done = total - remaining;
     final fraction = total == 0 ? 0.0 : done / total;
 
@@ -320,8 +325,8 @@ class _ProgressHeader extends StatelessWidget {
               Expanded(
                 child: Text(
                   remaining == 0
-                      ? 'All done — everything ticked off'
-                      : '$remaining of $total left to buy',
+                      ? l10n.shoppingAllDone
+                      : l10n.shoppingRemaining(remaining, total),
                   style: theme.textTheme.titleSmall,
                 ),
               ),
@@ -387,6 +392,7 @@ class _ShoppingListRow extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final scheme = theme.colorScheme;
+    final l10n = AppLocalizations.of(context);
     final mutedColor = scheme.onSurfaceVariant;
 
     final nameStyle = theme.textTheme.bodyLarge?.copyWith(
@@ -435,7 +441,7 @@ class _ShoppingListRow extends StatelessWidget {
                 ),
                 if (item.quantity != null && item.quantity! > 0) ...[
                   const SizedBox(height: RadhaSpacing.space2),
-                  Text('Qty: ${item.quantity}', style: qtyStyle),
+                  Text(l10n.shoppingQty(item.quantity!), style: qtyStyle),
                 ],
               ],
             ),
@@ -452,7 +458,7 @@ class _ShoppingListRow extends StatelessWidget {
           else
             // Delete button (44pt+ via IconButton default constraints).
             IconButton(
-              tooltip: 'Delete item',
+              tooltip: l10n.shoppingDeleteItem,
               onPressed: onDelete,
               icon: Icon(Icons.delete_outline, color: mutedColor),
             ),
@@ -528,6 +534,7 @@ class _AddItemSheetState extends State<_AddItemSheet> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     final viewInsets = MediaQuery.viewInsetsOf(context);
 
     return Padding(
@@ -546,7 +553,7 @@ class _AddItemSheetState extends State<_AddItemSheet> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
-                'Add item',
+                l10n.shoppingAddItem,
                 style: theme.textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.w800,
                 ),
@@ -557,14 +564,14 @@ class _AddItemSheetState extends State<_AddItemSheet> {
                 autofocus: true,
                 textCapitalization: TextCapitalization.sentences,
                 textInputAction: TextInputAction.next,
-                decoration: const InputDecoration(
-                  labelText: 'Item name',
-                  hintText: 'e.g. Whole wheat bread',
+                decoration: InputDecoration(
+                  labelText: l10n.shoppingItemNameLabel,
+                  hintText: l10n.shoppingItemNameHint,
                 ),
                 validator: (value) {
                   final v = value?.trim() ?? '';
-                  if (v.isEmpty) return 'Enter an item name';
-                  if (v.length > 120) return 'Keep it under 120 characters';
+                  if (v.isEmpty) return l10n.shoppingItemNameRequired;
+                  if (v.length > 120) return l10n.shoppingItemNameTooLong;
                   return null;
                 },
               ),
@@ -573,23 +580,23 @@ class _AddItemSheetState extends State<_AddItemSheet> {
                 controller: _quantityController,
                 keyboardType: TextInputType.number,
                 textInputAction: TextInputAction.done,
-                decoration: const InputDecoration(
-                  labelText: 'Quantity (optional)',
+                decoration: InputDecoration(
+                  labelText: l10n.shoppingQuantityLabel,
                   hintText: '1',
                 ),
                 validator: (value) {
                   final v = value?.trim() ?? '';
                   if (v.isEmpty) return null;
                   final n = int.tryParse(v);
-                  if (n == null || n < 1) return 'Enter a positive number';
-                  if (n > 9999) return 'That seems unreasonably high';
+                  if (n == null || n < 1) return l10n.shoppingQuantityInvalid;
+                  if (n > 9999) return l10n.shoppingQuantityTooHigh;
                   return null;
                 },
                 onFieldSubmitted: (_) => _submit(),
               ),
               const SizedBox(height: RadhaSpacing.space24),
               PrimaryButton(
-                label: 'Add to list',
+                label: l10n.shoppingAddToList,
                 icon: Icons.check,
                 onPressed: _submit,
                 expand: true,

@@ -17,6 +17,7 @@ import '../../design/widgets/brand_illustration.dart';
 import '../../design/widgets/error_state.dart';
 import '../../design/widgets/mor_companion.dart';
 import '../../design/widgets/primary_button.dart';
+import '../../l10n/generated/app_localizations.dart';
 import 'razorpay_checkout_sheet.dart';
 
 // ─── Plan metadata ────────────────────────────────────────────────────────
@@ -138,8 +139,8 @@ class SubscriptionScreen extends ConsumerWidget {
         ),
         error: (_, _) => Center(
           child: ErrorState(
-            title: "Couldn't load your subscription",
-            body: 'Check your connection and try again.',
+            title: AppLocalizations.of(context).subscriptionLoadError,
+            body: AppLocalizations.of(context).subscriptionLoadErrorBody,
             onRetry: () => ref.invalidate(entitlementProvider),
           ),
         ),
@@ -381,6 +382,7 @@ class _PlanCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     final highlight = recommended && !isCurrent;
 
     return Container(
@@ -427,7 +429,7 @@ class _PlanCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(RadhaRadii.radiusFull),
                   ),
                   child: Text(
-                    'Popular',
+                    l10n.subscriptionPopular,
                     style: theme.textTheme.labelSmall?.copyWith(
                       color: RadhaColors.onPrimary,
                       fontWeight: FontWeight.w700,
@@ -444,7 +446,7 @@ class _PlanCard extends StatelessWidget {
                 ),
               ),
               Text(
-                '/mo',
+                l10n.subscriptionPerMonth,
                 style: theme.textTheme.bodySmall?.copyWith(
                   color: theme.colorScheme.onSurfaceVariant,
                 ),
@@ -495,7 +497,7 @@ class _PlanCard extends StatelessWidget {
                 border: Border.all(color: RadhaColors.primary),
               ),
               child: Text(
-                "You're on ${plan.name}",
+                l10n.subscriptionCurrentPlan(plan.name),
                 style: theme.textTheme.labelLarge?.copyWith(
                   color: RadhaColors.primaryDeep,
                   fontWeight: FontWeight.w700,
@@ -504,7 +506,7 @@ class _PlanCard extends StatelessWidget {
             )
           else if (highlight)
             PrimaryButton(
-              label: 'Upgrade to ${plan.name}',
+              label: l10n.subscriptionUpgradeTo(plan.name),
               expand: true,
               loading: busy,
               onPressed: disabled ? null : onUpgrade,
@@ -521,7 +523,7 @@ class _PlanCard extends StatelessWidget {
                       height: 18,
                       child: CircularProgressIndicator(strokeWidth: 2),
                     )
-                  : Text('Choose ${plan.name}'),
+                  : Text(l10n.subscriptionChoosePlan(plan.name)),
             ),
         ],
       ),

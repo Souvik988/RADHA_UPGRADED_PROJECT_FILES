@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../l10n/generated/app_localizations.dart';
 import '../app_assets.dart';
 import '../tokens.dart';
 import 'brand_illustration.dart';
@@ -16,14 +17,16 @@ class ErrorState extends StatelessWidget {
     super.key,
     required this.title,
     this.body,
-    this.retryLabel = 'Try again',
+    this.retryLabel,
     this.onRetry,
     this.illustration,
   });
 
   final String title;
   final String? body;
-  final String retryLabel;
+
+  /// Retry CTA label. Defaults to the localized "Try again" when null.
+  final String? retryLabel;
   final VoidCallback? onRetry;
 
   /// Optional illustration. When null, Mor (concern) is shown so every error
@@ -34,6 +37,7 @@ class ErrorState extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final scheme = theme.colorScheme;
+    final l10n = AppLocalizations.of(context);
     final reduceMotion =
         MediaQuery.maybeOf(context)?.disableAnimations ?? false;
 
@@ -44,12 +48,12 @@ class ErrorState extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           illustration ??
-              const BrandIllustration(
+              BrandIllustration(
                 RadhaAssets.stateErrorRetry,
                 size: 156,
-                semanticLabel: 'Something went wrong',
+                semanticLabel: l10n.errorGeneric,
                 // Falls back to the companion if the asset can't decode.
-                fallback: MorCompanion(mood: MorMood.concern, size: 96),
+                fallback: const MorCompanion(mood: MorMood.concern, size: 96),
               ),
           const SizedBox(height: RadhaSpacing.space24),
           Text(
@@ -71,7 +75,7 @@ class ErrorState extends StatelessWidget {
           if (onRetry != null) ...[
             const SizedBox(height: RadhaSpacing.space24),
             SecondaryButton(
-              label: retryLabel,
+              label: retryLabel ?? l10n.tryAgain,
               icon: Icons.refresh,
               onPressed: onRetry,
             ),

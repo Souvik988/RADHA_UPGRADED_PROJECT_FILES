@@ -12,6 +12,7 @@ import '../../design/theme.dart';
 import '../../design/tokens.dart';
 import '../../design/widgets/empty_state.dart';
 import '../../design/widgets/mor_companion.dart';
+import '../../l10n/generated/app_localizations.dart';
 import 'utils/ean_validator.dart';
 
 /// Bulk EAN audit screen (Part C2).
@@ -113,8 +114,8 @@ class _EanAuditScreenState extends ConsumerState<EanAuditScreen> {
     } catch (_) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Could not record the scan. Please try again.'),
+        SnackBar(
+          content: Text(AppLocalizations.of(context).auditRecordError),
         ),
       );
     } finally {
@@ -159,8 +160,8 @@ class _EanAuditScreenState extends ConsumerState<EanAuditScreen> {
       if (!mounted) return;
       setState(() => _ending = false);
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Could not end the audit. Please try again.'),
+        SnackBar(
+          content: Text(AppLocalizations.of(context).auditEndError),
         ),
       );
     }
@@ -195,12 +196,10 @@ class _EanAuditScreenState extends ConsumerState<EanAuditScreen> {
                 illustration: MorCompanion(
                   mood: MorMood.guard,
                   size: 104,
-                  semanticLabel: 'No store assigned',
+                  semanticLabel: AppLocalizations.of(context).auditNoStore,
                 ),
-                title: 'No store assigned',
-                body:
-                    'Bulk audits run against a store\'s approved EAN list. Ask '
-                    'an admin to assign you a store, then come back to audit.',
+                title: AppLocalizations.of(context).auditNoStore,
+                body: AppLocalizations.of(context).auditNoStoreBody,
               ),
             )
           : _buildAudit(context, storeId),
@@ -272,7 +271,7 @@ class _TallyHeader extends StatelessWidget {
         children: [
           Expanded(
             child: _TallyTile(
-              label: 'Matched',
+              label: AppLocalizations.of(context).auditMatched,
               value: matched,
               color: RadhaColors.success,
               icon: Icons.check_circle_rounded,
@@ -281,7 +280,7 @@ class _TallyHeader extends StatelessWidget {
           const SizedBox(width: RadhaSpacing.space12),
           Expanded(
             child: _TallyTile(
-              label: 'Not in list',
+              label: AppLocalizations.of(context).auditNotInList,
               value: notMatched,
               color: RadhaColors.danger,
               icon: Icons.cancel_rounded,
@@ -290,7 +289,7 @@ class _TallyHeader extends StatelessWidget {
           const SizedBox(width: RadhaSpacing.space12),
           Expanded(
             child: _TallyTile(
-              label: 'Total',
+              label: AppLocalizations.of(context).commonTotal,
               value: total,
               color: RadhaColors.primary,
               icon: Icons.fact_check_outlined,
@@ -386,7 +385,7 @@ class _EntryBar extends StatelessWidget {
               keyboardType: TextInputType.number,
               enabled: !submitting,
               decoration: InputDecoration(
-                hintText: 'Enter or scan EAN',
+                hintText: AppLocalizations.of(context).auditEnterScanEan,
                 prefixIcon: const Icon(Icons.qr_code_2_rounded),
                 errorText: errorText,
               ),
@@ -405,7 +404,7 @@ class _EntryBar extends StatelessWidget {
                       height: 16,
                       child: CircularProgressIndicator(strokeWidth: 2),
                     )
-                  : const Text('Add'),
+                  : Text(AppLocalizations.of(context).add),
             ),
           ),
         ],
@@ -508,6 +507,7 @@ class _StatusChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
 
     late final Color color;
     late final IconData icon;
@@ -516,33 +516,33 @@ class _StatusChip extends StatelessWidget {
     if (result.matched) {
       color = RadhaColors.success;
       icon = Icons.check_circle_rounded;
-      label = 'Matched';
+      label = l10n.auditMatched;
     } else {
       switch (result.eanMatchStatus) {
         case 'unmatched':
           color = RadhaColors.danger;
           icon = Icons.cancel_rounded;
-          label = 'Not in list';
+          label = l10n.auditNotInList;
           break;
         case 'no_list':
           color = RadhaColors.warning;
           icon = Icons.info_outline_rounded;
-          label = 'No list';
+          label = l10n.auditNoList;
           break;
         case 'invalid':
           color = theme.colorScheme.onSurfaceVariant;
           icon = Icons.help_outline_rounded;
-          label = 'Invalid';
+          label = l10n.auditInvalid;
           break;
         default:
           color = theme.colorScheme.onSurfaceVariant;
           icon = Icons.remove_circle_outline_rounded;
-          label = 'Unchecked';
+          label = l10n.auditUnchecked;
       }
     }
 
     return Semantics(
-      label: 'Status: $label',
+      label: l10n.auditStatus(label),
       child: Container(
         padding: const EdgeInsets.symmetric(
           horizontal: RadhaSpacing.space12,
@@ -581,13 +581,10 @@ class _AuditEmpty extends StatelessWidget {
         illustration: MorCompanion(
           mood: MorMood.guard,
           size: 104,
-          semanticLabel: 'Start auditing',
+          semanticLabel: AppLocalizations.of(context).auditStartAuditing,
         ),
-        title: 'Start auditing',
-        body:
-            'Scan or type an EAN above to check it against this store\'s '
-            'approved list. Each result lands here with a matched or '
-            'not-in-list status.',
+        title: AppLocalizations.of(context).auditStartAuditing,
+        body: AppLocalizations.of(context).auditStartBody,
       ),
     );
   }

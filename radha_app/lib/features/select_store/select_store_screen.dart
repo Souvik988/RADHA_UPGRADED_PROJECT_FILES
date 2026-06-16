@@ -375,18 +375,19 @@ class _EmptyStores extends StatelessWidget {
       ),
       child: EmptyState(
         illustration: const MorCompanion(mood: MorMood.concern, size: 104),
-        title: 'No stores yet',
-        body: 'Your account is not associated with any store yet. Ask your '
-            'manager to grant access, then come back to pick one.',
-        actionLabel: 'Contact your manager',
+        title: AppLocalizations.of(context).selectStoreEmpty,
+        body: AppLocalizations.of(context).selectStoreEmptyDetail,
+        actionLabel: AppLocalizations.of(context).selectStoreContactManager,
         actionIcon: Icons.support_agent_outlined,
         onAction: () {
           // The empty state has no destination route in V1 — surface a
           // small toast so taps feel responsive without lying about
           // navigating somewhere.
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Reach out to your manager to be added to a store.'),
+            SnackBar(
+              content: Text(
+                AppLocalizations.of(context).selectStoreEmptyBody,
+              ),
             ),
           );
         },

@@ -6,6 +6,7 @@ import '../../core/network/dto/inventory_dto.dart';
 import '../../design/app_assets.dart';
 import '../../design/tokens.dart';
 import '../../design/widgets/mor_companion.dart';
+import '../../l10n/generated/app_localizations.dart';
 import 'stock_movement_screen.dart';
 
 /// Provider that fetches the inventory list and filters down to items whose
@@ -39,6 +40,7 @@ class LowStockAlertsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     final alertsAsync = ref.watch(lowStockAlertsProvider);
 
     return Scaffold(
@@ -46,7 +48,7 @@ class LowStockAlertsScreen extends ConsumerWidget {
       appBar: AppBar(
         backgroundColor: theme.colorScheme.surface,
         title: Text(
-          'Low stock alerts',
+          l10n.lowStockTitle,
           style: theme.textTheme.titleLarge?.copyWith(
             fontWeight: FontWeight.w800,
           ),
@@ -58,17 +60,17 @@ class LowStockAlertsScreen extends ConsumerWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const MorCompanion(
+              MorCompanion(
                 mood: MorMood.concern,
                 size: 96,
-                semanticLabel: 'Could not load',
+                semanticLabel: l10n.commonCouldNotLoad,
               ),
               const SizedBox(height: RadhaSpacing.space12),
-              Text('Failed to load alerts', style: theme.textTheme.bodyLarge),
+              Text(l10n.lowStockLoadError, style: theme.textTheme.bodyLarge),
               const SizedBox(height: RadhaSpacing.space8),
               FilledButton(
                 onPressed: () => ref.invalidate(lowStockAlertsProvider),
-                child: const Text('Retry'),
+                child: Text(l10n.tryAgain),
               ),
             ],
           ),
@@ -86,7 +88,7 @@ class LowStockAlertsScreen extends ConsumerWidget {
                   ),
                   const SizedBox(height: RadhaSpacing.space12),
                   Text(
-                    'All stock levels are healthy',
+                    l10n.lowStockEmpty,
                     style: theme.textTheme.bodyLarge,
                   ),
                 ],
@@ -126,6 +128,7 @@ class _AlertTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
 
     return Container(
       decoration: BoxDecoration(
@@ -157,14 +160,17 @@ class _AlertTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Product ${item.productId}',
+                  l10n.inventoryProductShort(item.productId),
                   style: theme.textTheme.titleSmall,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
                 const SizedBox(height: RadhaSpacing.space4),
                 Text(
-                  'Current: ${item.quantity} / Threshold: ${item.lowStockThreshold}',
+                  l10n.lowStockCurrentThreshold(
+                    item.quantity,
+                    item.lowStockThreshold ?? 0,
+                  ),
                   style: theme.textTheme.bodySmall?.copyWith(
                     color: theme.colorScheme.outline,
                   ),
@@ -185,7 +191,7 @@ class _AlertTile extends StatelessWidget {
                   ),
                 );
               },
-              child: const Text('Restock'),
+              child: Text(l10n.lowStockRestock),
             ),
           ),
         ],

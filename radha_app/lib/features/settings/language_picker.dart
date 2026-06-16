@@ -24,6 +24,7 @@ import '../../core/network/api_client.dart';
 import '../../core/network/api_exception.dart';
 import '../../core/network/dto/misc_dto.dart';
 import '../../design/tokens.dart';
+import '../../l10n/generated/app_localizations.dart';
 
 /// Display metadata for a single language option. Native names use the
 /// language's own script so the picker reads correctly even when the user
@@ -312,14 +313,20 @@ class _LanguageRowState extends ConsumerState<_LanguageRow> {
     } on ApiException catch (e) {
       if (!context.mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Language saved locally only: ${e.message}')),
+        SnackBar(
+          content: Text(
+            AppLocalizations.of(context).languageSavedLocallyError(e.message),
+          ),
+        ),
       );
       return;
     } catch (_) {
       // Network/unknown — same swallow-with-toast story.
       if (!context.mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Language saved locally only')),
+        SnackBar(
+          content: Text(AppLocalizations.of(context).languageSavedLocally),
+        ),
       );
       return;
     }

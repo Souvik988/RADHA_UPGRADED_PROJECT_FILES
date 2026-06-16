@@ -20,6 +20,7 @@ import '../../core/network/dto/expiry_dto.dart';
 import '../../design/app_assets.dart';
 import '../../design/tokens.dart';
 import '../../design/widgets/mor_companion.dart';
+import '../../l10n/generated/app_localizations.dart';
 
 /// Provider that fetches the expiry calendar data for a given month (YYYY-MM).
 final _calendarProvider = FutureProvider.family<ExpiryCalendarResponse, String>(
@@ -68,12 +69,13 @@ class _ExpiryCalendarScreenState extends ConsumerState<ExpiryCalendarScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final scheme = theme.colorScheme;
+    final l10n = AppLocalizations.of(context);
     final asyncCal = ref.watch(_calendarProvider(_monthKey));
 
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Expiry calendar',
+          l10n.expiryCalendarTitle,
           style: theme.textTheme.titleLarge?.copyWith(
             fontWeight: FontWeight.w800,
           ),
@@ -95,7 +97,7 @@ class _ExpiryCalendarScreenState extends ConsumerState<ExpiryCalendarScreen> {
                   ),
                   const SizedBox(height: RadhaSpacing.space12),
                   Text(
-                    'Failed to load calendar data.',
+                    l10n.expiryCalendarLoadError,
                     style: theme.textTheme.bodyMedium?.copyWith(
                       color: scheme.onSurfaceVariant,
                     ),
@@ -105,7 +107,7 @@ class _ExpiryCalendarScreenState extends ConsumerState<ExpiryCalendarScreen> {
                     onPressed: () =>
                         ref.invalidate(_calendarProvider(_monthKey)),
                     icon: const Icon(Icons.refresh_rounded, size: 18),
-                    label: const Text('Retry'),
+                    label: Text(l10n.tryAgain),
                   ),
                 ],
               ),
@@ -233,18 +235,19 @@ class _Legend extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.symmetric(
+    final l10n = AppLocalizations.of(context);
+    return Padding(
+      padding: const EdgeInsets.symmetric(
         horizontal: RadhaSpacing.space16,
         vertical: RadhaSpacing.space8,
       ),
       child: Row(
         children: [
-          _LegendChip(color: RadhaColors.danger, label: 'Expired'),
-          SizedBox(width: RadhaSpacing.space16),
-          _LegendChip(color: RadhaColors.warning, label: 'Near-expiry'),
-          SizedBox(width: RadhaSpacing.space16),
-          _LegendChip(color: RadhaColors.success, label: 'Safe'),
+          _LegendChip(color: RadhaColors.danger, label: l10n.expired),
+          const SizedBox(width: RadhaSpacing.space16),
+          _LegendChip(color: RadhaColors.warning, label: l10n.expiryTabNear),
+          const SizedBox(width: RadhaSpacing.space16),
+          _LegendChip(color: RadhaColors.success, label: l10n.expiryTabSafe),
         ],
       ),
     );
@@ -346,11 +349,12 @@ class _DayDetails extends StatelessWidget {
   }
 
   Widget _buildContent(BuildContext context, ThemeData theme) {
+    final l10n = AppLocalizations.of(context);
     if (selectedDay == null) {
       return Center(
         key: const ValueKey('hint'),
         child: Text(
-          'Tap a day to see details',
+          l10n.expiryCalendarTapHint,
           style: theme.textTheme.bodyMedium?.copyWith(
             color: theme.colorScheme.onSurfaceVariant,
           ),
@@ -374,11 +378,11 @@ class _DayDetails extends StatelessWidget {
             MorCompanion(
               mood: MorMood.guard,
               size: 96,
-              semanticLabel: 'No expiry records for this day',
+              semanticLabel: l10n.expiryCalendarNoRecords,
             ),
             const SizedBox(height: RadhaSpacing.space12),
             Text(
-              'No expiry records for this day',
+              l10n.expiryCalendarNoRecords,
               style: theme.textTheme.bodyMedium?.copyWith(
                 color: theme.colorScheme.onSurfaceVariant,
               ),
@@ -395,26 +399,26 @@ class _DayDetails extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Summary for ${_formatDate(selectedDay!)}',
+            l10n.expiryCalendarSummaryFor(_formatDate(selectedDay!)),
             style: theme.textTheme.titleSmall,
           ),
           const SizedBox(height: RadhaSpacing.space12),
           if (summary.expired > 0)
             _SummaryRow(
               color: RadhaColors.danger,
-              label: 'Expired',
+              label: l10n.expired,
               count: summary.expired,
             ),
           if (summary.nearExpiry > 0)
             _SummaryRow(
               color: RadhaColors.warning,
-              label: 'Near-expiry',
+              label: l10n.expiryTabNear,
               count: summary.nearExpiry,
             ),
           if (summary.safe > 0)
             _SummaryRow(
               color: RadhaColors.success,
-              label: 'Safe',
+              label: l10n.expiryTabSafe,
               count: summary.safe,
             ),
         ],

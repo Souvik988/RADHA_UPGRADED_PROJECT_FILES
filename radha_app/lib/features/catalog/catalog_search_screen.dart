@@ -13,6 +13,7 @@ import 'package:radha_app/design/widgets/brand_illustration.dart';
 import 'package:radha_app/design/widgets/empty_state.dart';
 import 'package:radha_app/design/widgets/skeleton_loader.dart';
 import 'package:radha_app/features/catalog/catalog_health.dart';
+import 'package:radha_app/l10n/generated/app_localizations.dart';
 import 'package:radha_app/features/catalog/providers/product_browse_providers.dart';
 
 /// Tappable "Search products…" pill for the consumer home — the search entry
@@ -117,7 +118,7 @@ class _CatalogSearchScreenState extends ConsumerState<CatalogSearchScreen> {
           onChanged: _onChanged,
           style: theme.textTheme.titleMedium,
           decoration: InputDecoration(
-            hintText: 'Search products or brands',
+            hintText: AppLocalizations.of(context).catalogSearchHint,
             border: InputBorder.none,
             hintStyle: theme.textTheme.titleMedium?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
@@ -127,7 +128,7 @@ class _CatalogSearchScreenState extends ConsumerState<CatalogSearchScreen> {
         actions: [
           if (_controller.text.isNotEmpty)
             IconButton(
-              tooltip: 'Clear',
+              tooltip: AppLocalizations.of(context).commonClear,
               icon: const Icon(Icons.close_rounded),
               onPressed: _clear,
             ),
@@ -146,11 +147,11 @@ class _CatalogSearchScreenState extends ConsumerState<CatalogSearchScreen> {
                         RadhaAssets.stateNoResults,
                         size: 160,
                       ),
-                      title: 'No matches',
-                      body:
-                          "We couldn't find products for “$_query”. "
-                          'Try a different name, or scan the item instead.',
-                      actionLabel: 'Scan a product',
+                      title: AppLocalizations.of(context).catalogNoMatches,
+                      body: AppLocalizations.of(
+                        context,
+                      ).catalogNoMatchesBody(_query),
+                      actionLabel: AppLocalizations.of(context).scanProduct,
                       actionIcon: Icons.qr_code_scanner_rounded,
                       onAction: () => context.go(AppRoute.scan),
                     ),

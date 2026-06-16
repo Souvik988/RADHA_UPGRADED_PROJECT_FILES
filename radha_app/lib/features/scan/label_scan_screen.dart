@@ -16,6 +16,7 @@ import '../../design/widgets/secondary_button.dart';
 import 'data/label_analysis_cache.dart';
 import 'data/label_analysis_repository.dart';
 import 'data/label_ocr_service.dart';
+import '../../l10n/generated/app_localizations.dart';
 import 'label_camera_screen.dart';
 
 /// "Scan the label" fallback (FE scanner-ocr).
@@ -195,11 +196,9 @@ class _LabelScanScreenState extends ConsumerState<LabelScanScreen> {
       case _Stage.noText:
         return _MessageView(
           mood: MorMood.concern,
-          title: 'Couldn\'t read the label',
-          message:
-              'Try again in better light, hold steady, and fill the frame with '
-              'the ingredients panel.',
-          primaryLabel: 'Try again',
+          title: AppLocalizations.of(context).labelScanReadError,
+          message: AppLocalizations.of(context).labelScanReadErrorBody,
+          primaryLabel: AppLocalizations.of(context).tryAgain,
           onPrimary: _reset,
         );
       case _Stage.locked:
@@ -207,9 +206,9 @@ class _LabelScanScreenState extends ConsumerState<LabelScanScreen> {
       case _Stage.error:
         return _MessageView(
           mood: MorMood.concern,
-          title: 'Analysis failed',
+          title: AppLocalizations.of(context).labelScanAnalysisFailed,
           message: _errorMessage,
-          primaryLabel: 'Try again',
+          primaryLabel: AppLocalizations.of(context).tryAgain,
           onPrimary: _reset,
         );
       case _Stage.idle:
@@ -238,11 +237,11 @@ class _IdleView extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const Center(
+          Center(
             child: MorCompanion(
               mood: MorMood.greet,
               size: 104,
-              semanticLabel: 'RADHA reads the label for you',
+              semanticLabel: AppLocalizations.of(context).labelScanIntro,
             ),
           ),
           const SizedBox(height: RadhaSpacing.space24),
@@ -262,13 +261,13 @@ class _IdleView extends StatelessWidget {
           ),
           const SizedBox(height: RadhaSpacing.space32),
           PrimaryButton(
-            label: 'Take a photo',
+            label: AppLocalizations.of(context).labelScanTakePhoto,
             icon: Icons.camera_alt_rounded,
             onPressed: onCamera,
           ),
           const SizedBox(height: RadhaSpacing.space12),
           SecondaryButton(
-            label: 'Choose from gallery',
+            label: AppLocalizations.of(context).labelScanChooseGallery,
             icon: Icons.photo_library_outlined,
             onPressed: onGallery,
           ),
@@ -438,7 +437,7 @@ class _AnalysisResultView extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(RadhaSpacing.space20),
           child: SecondaryButton(
-            label: 'Scan another',
+            label: AppLocalizations.of(context).labelScanAnother,
             icon: Icons.refresh_rounded,
             onPressed: onAgain,
           ),
@@ -622,12 +621,15 @@ class _LockedView extends StatelessWidget {
           ),
           const SizedBox(height: RadhaSpacing.space24),
           PrimaryButton(
-            label: 'See $plan plans',
+            label: AppLocalizations.of(context).labelScanSeePlans(plan),
             icon: Icons.workspace_premium_outlined,
             onPressed: () => context.push(AppRoute.subscription),
           ),
           const SizedBox(height: RadhaSpacing.space12),
-          TextButton(onPressed: onBack, child: const Text('Maybe later')),
+          TextButton(
+            onPressed: onBack,
+            child: Text(AppLocalizations.of(context).labelScanMaybeLater),
+          ),
         ],
       ),
     );

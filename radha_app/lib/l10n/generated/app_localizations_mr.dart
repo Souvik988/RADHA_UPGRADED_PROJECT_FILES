@@ -1496,4 +1496,1109 @@ class AppLocalizationsMr extends AppLocalizations {
 
   @override
   String get allergenSulphites => 'सल्फाइट';
+
+  @override
+  String get commonSuccess => 'यशस्वी';
+
+  @override
+  String lockedFeatureUpgradeTo(String planName) {
+    return '$planName वर अपग्रेड करा';
+  }
+
+  @override
+  String lockedFeaturePlan(String planName) {
+    return 'हे वैशिष्ट्य $planName प्लॅनचा भाग आहे.';
+  }
+
+  @override
+  String get lockedFeatureViewPlans => 'प्लॅन पाहा';
+
+  @override
+  String get notFoundSemantic => 'पृष्ठ सापडले नाही';
+
+  @override
+  String get notFoundTitle => 'हे पृष्ठ हरवले';
+
+  @override
+  String get notFoundBody =>
+      'तुम्ही जे शोधत होता ते आम्हाला सापडले नाही. चला तुम्हाला पुन्हा होमवर नेऊया.';
+
+  @override
+  String get notFoundBackHome => 'होमवर परत';
+
+  @override
+  String get commonCouldNotLoad => 'लोड करता आले नाही';
+
+  @override
+  String get sendOtp => 'OTP पाठवा';
+
+  @override
+  String get otpUseCode => 'कोड वापरा';
+
+  @override
+  String get ohsPickStore => 'डॅशबोर्ड उघडण्यापूर्वी एक स्टोअर निवडा.';
+
+  @override
+  String get profileAccount => 'खाते';
+
+  @override
+  String get profileManageStores => 'स्टोअर व्यवस्थापित करा';
+
+  @override
+  String get profileSavedProducts => 'जतन केलेली उत्पादने';
+
+  @override
+  String get profileSubscription => 'सदस्यता';
+
+  @override
+  String get profilePreferences => 'प्राधान्ये';
+
+  @override
+  String get profileAllergenProfile => 'अॅलर्जन प्रोफाइल';
+
+  @override
+  String get profileShoppingList => 'शॉपिंग यादी';
+
+  @override
+  String get recallLoadError => 'रिकॉल लोड करता आले नाहीत.';
+
+  @override
+  String get recallEmpty => 'कोणतेही सक्रिय रिकॉल नाहीत';
+
+  @override
+  String get recallEmptyBody =>
+      'नियामक संस्थांकडून जारी केल्यावर उत्पादन रिकॉल सूचना येथे दिसतील.';
+
+  @override
+  String get referralsLoadError => 'रेफरल लोड करता आले नाहीत.';
+
+  @override
+  String get referralsCopyCode => 'कोड कॉपी करा';
+
+  @override
+  String get referralsShareInvite => 'आमंत्रण शेअर करा';
+
+  @override
+  String get referralsCodeCopied => 'कोड कॉपी झाला';
+
+  @override
+  String get referralsInvitees => 'आमंत्रित';
+
+  @override
+  String get referralsRewardsEarned => 'मिळवलेली बक्षिसे';
+
+  @override
+  String get referralsCodeRedeemed => 'कोड रिडीम झाला';
+
+  @override
+  String get referralsEnterCode => 'एक रेफरल कोड प्रविष्ट करा';
+
+  @override
+  String get referralsRedeem => 'रिडीम करा';
+
+  @override
+  String get referralsRedeemError => 'कोड रिडीम करता आला नाही';
+
+  @override
+  String get referralsRedeemSubtitle =>
+      'मित्राचे आमंत्रण आहे? खाली त्यांचा कोड प्रविष्ट करा.';
+
+  @override
+  String get commonClear => 'साफ करा';
+
+  @override
+  String get commonShare => 'शेअर करा';
+
+  @override
+  String get healthSugar => 'साखर';
+
+  @override
+  String get healthSalt => 'मीठ';
+
+  @override
+  String get healthFat => 'चरबी';
+
+  @override
+  String get healthProcessed => 'प्रक्रिया केलेले';
+
+  @override
+  String get healthChildSuitable => 'मुलांसाठी योग्य';
+
+  @override
+  String get productDetailsTitle => 'उत्पादन तपशील';
+
+  @override
+  String get productDetailLoadError => 'हे उत्पादन लोड करता आले नाही';
+
+  @override
+  String get productCheckAllergens => 'अॅलर्जन तपासा';
+
+  @override
+  String get productExplainIngredients => 'घटक समजावा';
+
+  @override
+  String get productSeeHealthierOptions => 'आरोग्यदायी पर्याय पाहा';
+
+  @override
+  String get productViewHealthyAlternatives => 'आरोग्यदायी पर्याय पाहा';
+
+  @override
+  String get productHealthAssessment => 'आरोग्य मूल्यांकन';
+
+  @override
+  String get productNutritionInfo => 'पोषण माहिती';
+
+  @override
+  String get productAllergenCheck => 'अॅलर्जन तपासणी';
+
+  @override
+  String get productSeeFullExplanation => 'संपूर्ण स्पष्टीकरण पाहा';
+
+  @override
+  String get productHealthierOptions => 'आरोग्यदायी पर्याय';
+
+  @override
+  String get commonYes => 'होय';
+
+  @override
+  String get nutritionProtein => 'प्रथिने';
+
+  @override
+  String get nutritionTotalSugars => 'एकूण साखर';
+
+  @override
+  String get nutritionEnergy => 'ऊर्जा';
+
+  @override
+  String get nutritionTotalFat => 'एकूण चरबी';
+
+  @override
+  String get nutritionSaturatedFat => 'संतृप्त चरबी';
+
+  @override
+  String get nutritionCarbohydrates => 'कार्बोहायड्रेट';
+
+  @override
+  String get nutritionFibre => 'फायबर';
+
+  @override
+  String get nutritionSodium => 'सोडियम';
+
+  @override
+  String get nutritionAll => 'सर्व पोषक घटक';
+
+  @override
+  String get nutritionPer100g => 'प्रति 100 ग्रॅम';
+
+  @override
+  String get nutritionPer50g => 'प्रति 50 ग्रॅम';
+
+  @override
+  String get productDetailSavedAlert =>
+      'जतन केले — कधी रिकॉल झाल्यास आम्ही तुम्हाला सूचित करू.';
+
+  @override
+  String get productDetailSaveError =>
+      'जतन करता आले नाही. कृपया पुन्हा प्रयत्न करा.';
+
+  @override
+  String get productDetailWhatYoullLike => 'तुम्हाला काय आवडेल';
+
+  @override
+  String get productDetailWhatConcern => 'कशाची काळजी घ्यावी';
+
+  @override
+  String get productDetailIngredientDeepDive => 'घटकांचा सखोल आढावा';
+
+  @override
+  String get productDetailPersonalisedFlags => 'वैयक्तिक सूचना';
+
+  @override
+  String get productDetailAlreadyBought => 'आधीच खरेदी केले';
+
+  @override
+  String get productDetailScanToUnlock => 'अनलॉक करण्यासाठी स्कॅन करा';
+
+  @override
+  String get scanApprovalNotInAudit => 'मंजुरी स्थिती — ऑडिटमध्ये नाही';
+
+  @override
+  String get scanApprovalChecking => 'मंजूर यादी तपासत आहे…';
+
+  @override
+  String get scanApprovalCheckFailed => 'मंजुरी तपासता आली नाही';
+
+  @override
+  String get scanApprovalApproved => 'मंजूर — यादीत';
+
+  @override
+  String get scanApprovalNoList => 'कोणतीही मंजूर यादी सक्रिय नाही';
+
+  @override
+  String get scanApprovalInvalidBarcode => 'अवैध बारकोड';
+
+  @override
+  String get scanApprovalNotInList => 'मंजूर यादीत नाही';
+
+  @override
+  String scanApprovalStatus(String label) {
+    return 'मंजुरी स्थिती: $label';
+  }
+
+  @override
+  String get scanResultAddToExpiry => 'एक्स्पायरीमध्ये जोडा';
+
+  @override
+  String get scanResultAddToStock => 'स्टॉकमध्ये जोडा';
+
+  @override
+  String get scanResultSaveToList => 'यादीत जतन करा';
+
+  @override
+  String get scanResultNoProduct => 'कोणतेही उत्पादन सापडले नाही';
+
+  @override
+  String get scanResultScanLabel => 'लेबल स्कॅन करा';
+
+  @override
+  String get auditRecordError =>
+      'स्कॅन रेकॉर्ड करता आला नाही. कृपया पुन्हा प्रयत्न करा.';
+
+  @override
+  String get auditEndError => 'ऑडिट संपवता आला नाही. कृपया पुन्हा प्रयत्न करा.';
+
+  @override
+  String get auditNoStore => 'कोणतेही स्टोअर नियुक्त नाही';
+
+  @override
+  String get auditNoStoreBody =>
+      'बल्क ऑडिट स्टोअरच्या मंजूर EAN यादीवर चालतात. अ‍ॅडमिनला तुम्हाला स्टोअर नियुक्त करण्यास सांगा, नंतर ऑडिटसाठी परत या.';
+
+  @override
+  String get auditMatched => 'जुळले';
+
+  @override
+  String get auditNotInList => 'यादीत नाही';
+
+  @override
+  String get auditNoList => 'यादी नाही';
+
+  @override
+  String get auditInvalid => 'अवैध';
+
+  @override
+  String get auditUnchecked => 'अनचेक्ड';
+
+  @override
+  String get commonTotal => 'एकूण';
+
+  @override
+  String get auditEnterScanEan => 'EAN प्रविष्ट करा किंवा स्कॅन करा';
+
+  @override
+  String auditStatus(String label) {
+    return 'स्थिती: $label';
+  }
+
+  @override
+  String get auditStartAuditing => 'ऑडिट सुरू करा';
+
+  @override
+  String get auditStartBody =>
+      'या स्टोअरच्या मंजूर यादीशी तपासण्यासाठी वर EAN स्कॅन करा किंवा टाइप करा. प्रत्येक निकाल जुळले किंवा यादीत-नाही स्थितीसह येथे येतो.';
+
+  @override
+  String get cameraCapture => 'कॅप्चर करा';
+
+  @override
+  String get labelScanReadError => 'लेबल वाचता आले नाही';
+
+  @override
+  String get labelScanReadErrorBody =>
+      'चांगल्या प्रकाशात पुन्हा प्रयत्न करा, स्थिर ठेवा, आणि फ्रेम घटक पॅनेलने भरा.';
+
+  @override
+  String get labelScanAnalysisFailed => 'विश्लेषण अयशस्वी';
+
+  @override
+  String get labelScanIntro => 'RADHA तुमच्यासाठी लेबल वाचते';
+
+  @override
+  String get labelScanTakePhoto => 'फोटो घ्या';
+
+  @override
+  String get labelScanChooseGallery => 'गॅलरीमधून निवडा';
+
+  @override
+  String get labelScanAnother => 'दुसरे स्कॅन करा';
+
+  @override
+  String labelScanSeePlans(String plan) {
+    return '$plan प्लॅन पाहा';
+  }
+
+  @override
+  String get labelScanMaybeLater => 'कदाचित नंतर';
+
+  @override
+  String scanResultNotFoundBody(String ean) {
+    return 'EAN $ean साठी कॅटलॉगमध्ये जुळणी नाही — पण तुम्ही तरीही लेबल वाचू शकता. घटक पॅनेलचा फोटो घ्या, आत काय आहे ते सांगू.';
+  }
+
+  @override
+  String productScore(String score) {
+    return 'स्कोअर: $score';
+  }
+
+  @override
+  String get catalogSearchHint => 'उत्पादने किंवा ब्रँड शोधा';
+
+  @override
+  String get catalogNoMatches => 'जुळणी नाही';
+
+  @override
+  String catalogNoMatchesBody(String query) {
+    return '“$query” साठी आम्हाला उत्पादने सापडली नाहीत. वेगळे नाव वापरून पहा, किंवा त्याऐवजी आयटम स्कॅन करा.';
+  }
+
+  @override
+  String get browseTitle => 'उत्पादने';
+
+  @override
+  String get browseLoadError => 'उत्पादने लोड करता आली नाहीत';
+
+  @override
+  String browseLoadErrorBody(String category) {
+    return '$category लोड करताना अडचण आली. कृपया पुन्हा प्रयत्न करा.';
+  }
+
+  @override
+  String get browseSortHealthiest => 'सर्वात आरोग्यदायी';
+
+  @override
+  String get browseSortAZ => 'A–Z';
+
+  @override
+  String get browseFilterVegOnly => 'फक्त शाकाहारी';
+
+  @override
+  String get browseVeg => 'व्हेज';
+
+  @override
+  String get browseEmptyVeg => 'इथे अद्याप कोणतेही शाकाहारी आयटम नाही';
+
+  @override
+  String browseEmptyVegBody(String category) {
+    return 'सध्या $category मध्ये काहीही शाकाहारी फिल्टरशी जुळत नाही.';
+  }
+
+  @override
+  String get browseShowAll => 'सर्व दाखवा';
+
+  @override
+  String get browseEmpty => 'अद्याप कोणतीही उत्पादने नाहीत';
+
+  @override
+  String browseEmptyBody(String category) {
+    return 'आम्ही $category विभाग भरत आहोत. तोपर्यंत, कोणताही आयटम स्कॅन करून त्याचे आरोग्य आणि एक्स्पायरी तपासा.';
+  }
+
+  @override
+  String referralsShareText(String code) {
+    return 'RADHA वर माझ्यासोबत सामील व्हा: $code कोड वापरा';
+  }
+
+  @override
+  String get selectStoreEmpty => 'अद्याप कोणतेही स्टोअर नाही';
+
+  @override
+  String get selectStoreEmptyBody =>
+      'एखाद्या स्टोअरमध्ये जोडले जाण्यासाठी तुमच्या व्यवस्थापकाशी संपर्क साधा.';
+
+  @override
+  String get selectStoreEmptyDetail =>
+      'तुमचे खाते अद्याप कोणत्याही स्टोअरशी संबंधित नाही. प्रवेशासाठी तुमच्या व्यवस्थापकाला सांगा, नंतर परत येऊन एक निवडा.';
+
+  @override
+  String get selectStoreContactManager => 'तुमच्या व्यवस्थापकाशी संपर्क साधा';
+
+  @override
+  String get languageSavedLocally => 'भाषा फक्त स्थानिकरित्या जतन केली';
+
+  @override
+  String languageSavedLocallyError(String error) {
+    return 'भाषा फक्त स्थानिकरित्या जतन केली: $error';
+  }
+
+  @override
+  String get signOutConfirmBody =>
+      'अ‍ॅप वापरण्यासाठी तुम्हाला OTP सह पुन्हा साइन इन करावे लागेल.';
+
+  @override
+  String get scanResultTitle => 'स्कॅन निकाल';
+
+  @override
+  String scanResultShareMessage(String ean) {
+    return 'मी हे उत्पादन RADHA वर तपासले — बारकोड $ean.';
+  }
+
+  @override
+  String get scanResultHealthHeading => 'आरोग्य';
+
+  @override
+  String get scanResultAssessmentPending => 'मूल्यांकन प्रलंबित';
+
+  @override
+  String get scanResultNutritionPending =>
+      'हे उत्पादन कॅटलॉगमध्ये जुळताच पोषण संकेत येथे दिसतील. डेटाबेस समृद्ध करण्यासाठी आणखी वस्तू स्कॅन करा.';
+
+  @override
+  String get scanResultExplainIngredients => 'घटक समजावून सांगा';
+
+  @override
+  String get scanResultAllergenPrompt =>
+      'तुम्ही टाळता ती एखादी गोष्ट स्कॅन केलेल्या उत्पादनात असल्यास त्वरित इशारा मिळण्यासाठी तुमची अ‍ॅलर्जन प्रोफाइल सेट करा.';
+
+  @override
+  String get taskEvidenceRequiredSnack =>
+      'हे कार्य पूर्ण करण्यासाठी पुरावा आवश्यक आहे';
+
+  @override
+  String taskMovedTo(String status) {
+    return 'कार्य $status मध्ये हलवले';
+  }
+
+  @override
+  String get taskUpdateError =>
+      'कार्य अद्यतनित करता आले नाही. कृपया पुन्हा प्रयत्न करा.';
+
+  @override
+  String taskAssignedTo(String name) {
+    return '$name यांना नियुक्त केले';
+  }
+
+  @override
+  String taskDueOn(String date) {
+    return 'मुदत $date';
+  }
+
+  @override
+  String get taskPriorityLabel => 'प्राधान्य';
+
+  @override
+  String get taskEvidenceLabel => 'पुरावा';
+
+  @override
+  String get taskEvidencePhotoRequired => 'फोटो आवश्यक';
+
+  @override
+  String get taskEvidenceNotRequired => 'आवश्यक नाही';
+
+  @override
+  String taskEvidencePhotosAttached(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count फोटो जोडले',
+      one: '1 फोटो जोडला',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get taskEvidencePhotoNeeded =>
+      'हे कार्य पूर्ण करण्यासाठी एक फोटो आवश्यक आहे';
+
+  @override
+  String get taskTimelineCreated => 'तयार केले';
+
+  @override
+  String get taskTimelineStarted => 'सुरू झाले';
+
+  @override
+  String get taskActionComplete => 'पूर्ण करा';
+
+  @override
+  String get taskLoadFailed => 'कार्य लोड करता आले नाही';
+
+  @override
+  String get taskDescriptionLabel => 'तपशील';
+
+  @override
+  String get taskTypeLabel => 'प्रकार';
+
+  @override
+  String get taskActionStart => 'सुरू करा';
+
+  @override
+  String get taskCreateTitle => 'कार्य तयार करा';
+
+  @override
+  String get taskCreateCta => 'कार्य तयार करा';
+
+  @override
+  String get taskCreatedSnack => 'कार्य तयार केले';
+
+  @override
+  String get taskCreateError =>
+      'कार्य तयार करता आले नाही. कृपया पुन्हा प्रयत्न करा.';
+
+  @override
+  String get taskNotAuthorizedTitle => 'अधिकृत नाही';
+
+  @override
+  String get taskNotAuthorizedBody =>
+      'फक्त व्यवस्थापक आणि अ‍ॅडमिन कार्ये तयार करू शकतात.';
+
+  @override
+  String get taskTitleLabel => 'शीर्षक';
+
+  @override
+  String get taskTitleHint => 'उदा. डेअरी विभागाचे EAN ऑडिट';
+
+  @override
+  String get taskTitleRequired => 'शीर्षक आवश्यक आहे';
+
+  @override
+  String get taskDescriptionHint => 'नियुक्त व्यक्तीसाठी पर्यायी तपशील';
+
+  @override
+  String get taskStoreLabel => 'स्टोअर';
+
+  @override
+  String get taskAssigneeLabel => 'नियुक्त व्यक्ती (यूजर ID)';
+
+  @override
+  String get taskAssigneeHint => 'यूजर ID टाका किंवा रिकामे ठेवा';
+
+  @override
+  String get taskDueDateLabel => 'मुदत तारीख';
+
+  @override
+  String get taskSelectDate => 'तारीख निवडा';
+
+  @override
+  String get taskRequiresEvidence => 'पुरावा आवश्यक';
+
+  @override
+  String get taskRequiresEvidenceSubtitle =>
+      'पूर्ण करण्यासाठी नियुक्त व्यक्तीने फोटो अपलोड करावा';
+
+  @override
+  String get taskTypeEanAudit => 'EAN ऑडिट';
+
+  @override
+  String get taskTypeExpiryCheck => 'एक्स्पायरी तपासणी';
+
+  @override
+  String get taskTypeInventoryCount => 'इन्व्हेंटरी मोजणी';
+
+  @override
+  String get taskTypeDisplayVerification => 'डिस्प्ले पडताळणी';
+
+  @override
+  String get taskTypeCustom => 'कस्टम';
+
+  @override
+  String get checkoutStartError =>
+      'चेकआउट सुरू करता आले नाही. कृपया पुन्हा प्रयत्न करा.';
+
+  @override
+  String get paymentResponseIncomplete => 'पेमेंट प्रतिसाद अपूर्ण होता.';
+
+  @override
+  String get paymentSuccessUpdated => 'पेमेंट यशस्वी. प्लॅन अद्यतनित झाला.';
+
+  @override
+  String get paymentNotVerified => 'पेमेंट सत्यापित करता आले नाही.';
+
+  @override
+  String get paymentVerifyFailed =>
+      'पेमेंट सत्यापन अयशस्वी. कृपया सहाय्याशी संपर्क साधा.';
+
+  @override
+  String get paymentCancelled => 'पेमेंट रद्द केले.';
+
+  @override
+  String paymentFailed(String message) {
+    return 'पेमेंट अयशस्वी: $message';
+  }
+
+  @override
+  String paymentOpeningWallet(String wallet) {
+    return '$wallet उघडत आहे…';
+  }
+
+  @override
+  String get paymentSheetOpenError => 'पेमेंट शीट उघडता आली नाही.';
+
+  @override
+  String get subscriptionLoadError => 'तुमची सदस्यता लोड करता आली नाही';
+
+  @override
+  String get subscriptionLoadErrorBody =>
+      'तुमचे कनेक्शन तपासा आणि पुन्हा प्रयत्न करा.';
+
+  @override
+  String subscriptionCurrentPlan(String plan) {
+    return 'तुम्ही $plan वर आहात';
+  }
+
+  @override
+  String subscriptionUpgradeTo(String plan) {
+    return '$plan मध्ये अपग्रेड करा';
+  }
+
+  @override
+  String subscriptionChoosePlan(String plan) {
+    return '$plan निवडा';
+  }
+
+  @override
+  String get subscriptionPopular => 'लोकप्रिय';
+
+  @override
+  String get subscriptionPerMonth => '/महिना';
+
+  @override
+  String get shoppingListTitle => 'खरेदी यादी';
+
+  @override
+  String get shoppingAddItem => 'आयटम जोडा';
+
+  @override
+  String get shoppingLoadError => 'तुमची यादी लोड करता आली नाही';
+
+  @override
+  String get shoppingLoadErrorBody =>
+      'तुमची खरेदी यादी लोड करता आली नाही. कृपया पुन्हा प्रयत्न करा.';
+
+  @override
+  String get shoppingEmptyTitle => 'तुमची खरेदी यादी रिकामी आहे';
+
+  @override
+  String get shoppingEmptyBody =>
+      'आयटम जोडण्यासाठी प्लस बटण दाबा, किंवा उत्पादन पृष्ठावरून आरोग्यदायी पर्याय जतन करा.';
+
+  @override
+  String get shoppingUpdateError =>
+      'आयटम अद्यतनित करता आला नाही. कृपया पुन्हा प्रयत्न करा.';
+
+  @override
+  String get shoppingDeleteError =>
+      'आयटम हटवता आला नाही. कृपया पुन्हा प्रयत्न करा.';
+
+  @override
+  String get shoppingAddError =>
+      'आयटम जोडता आला नाही. कृपया पुन्हा प्रयत्न करा.';
+
+  @override
+  String get shoppingAllDone => 'सर्व झाले — सर्वकाही टिक केले';
+
+  @override
+  String shoppingRemaining(int remaining, int total) {
+    return '$total पैकी $remaining खरेदी करायचे आहे';
+  }
+
+  @override
+  String shoppingQty(int quantity) {
+    return 'प्रमाण: $quantity';
+  }
+
+  @override
+  String get shoppingDeleteItem => 'आयटम हटवा';
+
+  @override
+  String get shoppingItemNameLabel => 'आयटमचे नाव';
+
+  @override
+  String get shoppingItemNameHint => 'उदा. होल व्हीट ब्रेड';
+
+  @override
+  String get shoppingItemNameRequired => 'आयटमचे नाव टाका';
+
+  @override
+  String get shoppingItemNameTooLong => 'ते 120 अक्षरांच्या आत ठेवा';
+
+  @override
+  String get shoppingQuantityLabel => 'प्रमाण (पर्यायी)';
+
+  @override
+  String get shoppingQuantityInvalid => 'धन संख्या टाका';
+
+  @override
+  String get shoppingQuantityTooHigh => 'हे असामान्यपणे जास्त वाटते';
+
+  @override
+  String get shoppingAddToList => 'यादीत जोडा';
+
+  @override
+  String get grnTitle => 'प्राप्त माल';
+
+  @override
+  String get grnFilterAll => 'सर्व';
+
+  @override
+  String get grnFilterDraft => 'मसुदा';
+
+  @override
+  String get grnFilterPendingReview => 'पुनरावलोकन प्रलंबित';
+
+  @override
+  String get grnFilterPosted => 'पोस्ट केले';
+
+  @override
+  String get grnStatusPending => 'प्रलंबित';
+
+  @override
+  String get grnEmptyTitle => 'येथे कोणतेही GRN नाहीत';
+
+  @override
+  String get grnEmptyBody =>
+      'पुरवठादार वितरण नोंदवण्यासाठी गुड्स-रिसीव्ड नोट तयार करा.';
+
+  @override
+  String get grnNew => 'नवीन GRN';
+
+  @override
+  String get grnLoadError => 'GRN लोड करता आले नाहीत';
+
+  @override
+  String get grnSupplierFallback => 'पुरवठादार';
+
+  @override
+  String get categoryBiscuits => 'बिस्किटे आणि स्नॅक्स';
+
+  @override
+  String get categoryBreakfast => 'न्याहारी आणि स्प्रेड';
+
+  @override
+  String get categoryDairy => 'दुग्धजन्य आणि अंडी';
+
+  @override
+  String get categoryBeverages => 'पेये';
+
+  @override
+  String get categoryStaples => 'मुख्य धान्य';
+
+  @override
+  String get categoryPersonalCare => 'वैयक्तिक काळजी';
+
+  @override
+  String get categoryHousehold => 'घरगुती';
+
+  @override
+  String get categoryFrozen => 'गोठवलेले';
+
+  @override
+  String get lowStockTitle => 'कमी स्टॉक सूचना';
+
+  @override
+  String get lowStockLoadError => 'सूचना लोड करता आल्या नाहीत';
+
+  @override
+  String get lowStockEmpty => 'सर्व स्टॉक पातळी निरोगी आहेत';
+
+  @override
+  String lowStockCurrentThreshold(int quantity, int threshold) {
+    return 'सध्या: $quantity / मर्यादा: $threshold';
+  }
+
+  @override
+  String get lowStockRestock => 'पुन्हा स्टॉक करा';
+
+  @override
+  String get commonRequired => 'आवश्यक';
+
+  @override
+  String get commonOptional => 'पर्यायी';
+
+  @override
+  String get commonQuantity => 'प्रमाण';
+
+  @override
+  String get smTitle => 'स्टॉक हालचाल';
+
+  @override
+  String get smStockIn => 'स्टॉक इन';
+
+  @override
+  String get smStockOut => 'स्टॉक आउट';
+
+  @override
+  String get smProductLabel => 'उत्पादन';
+
+  @override
+  String get smProductHint => 'उत्पादन ID किंवा EAN टाका';
+
+  @override
+  String get smReasonLabel => 'कारण';
+
+  @override
+  String get smSelectReason => 'कारण निवडा';
+
+  @override
+  String get smBatchLabel => 'बॅच नंबर';
+
+  @override
+  String get smExpiryLabel => 'एक्स्पायरी तारीख';
+
+  @override
+  String get smExpiryOptionalHint => 'पर्यायी — निवडण्यासाठी टॅप करा';
+
+  @override
+  String get smNotesLabel => 'नोट्स';
+
+  @override
+  String get smNotesHint => 'पर्यायी नोट्स';
+
+  @override
+  String get smRecordIn => 'स्टॉक इन नोंदवा';
+
+  @override
+  String get smRecordOut => 'स्टॉक आउट नोंदवा';
+
+  @override
+  String get smStockInRecorded => 'स्टॉक-इन नोंदवले';
+
+  @override
+  String get smStockOutRecorded => 'स्टॉक-आउट नोंदवले';
+
+  @override
+  String get smRecordError =>
+      'स्टॉक हालचाल नोंदवता आली नाही. कृपया पुन्हा प्रयत्न करा.';
+
+  @override
+  String get smInsufficientStock => 'या हालचालीसाठी अपुरा स्टॉक';
+
+  @override
+  String get smReasonPurchase => 'खरेदी';
+
+  @override
+  String get smReasonReturn => 'परतावा';
+
+  @override
+  String get smReasonAdjustment => 'समायोजन';
+
+  @override
+  String get smReasonTransfer => 'हस्तांतरण';
+
+  @override
+  String get smReasonDamage => 'नुकसान';
+
+  @override
+  String get smReasonExpiryRemoval => 'एक्स्पायरी काढणे';
+
+  @override
+  String get smReasonOther => 'इतर';
+
+  @override
+  String get grnInvoiceDateRequired => 'इनव्हॉइस तारीख आवश्यक आहे';
+
+  @override
+  String get grnCreateError =>
+      'GRN तयार करता आला नाही. कृपया पुन्हा प्रयत्न करा.';
+
+  @override
+  String get grnSupplierInvoiceSection => 'पुरवठादार आणि इनव्हॉइस';
+
+  @override
+  String get grnSupplierNameLabel => 'पुरवठादाराचे नाव';
+
+  @override
+  String get grnSupplierNameHint => 'पुरवठादाराचे नाव टाका';
+
+  @override
+  String get grnSupplierRequired => 'पुरवठादार आवश्यक आहे';
+
+  @override
+  String get grnInvoiceNumberLabel => 'इनव्हॉइस क्रमांक';
+
+  @override
+  String get grnInvoiceNumberHint => 'इनव्हॉइस क्रमांक टाका';
+
+  @override
+  String get grnInvoiceNumberRequired => 'इनव्हॉइस क्रमांक आवश्यक आहे';
+
+  @override
+  String get grnInvoiceDateLabel => 'इनव्हॉइस तारीख *';
+
+  @override
+  String get grnExpectedDeliveryLabel => 'अपेक्षित वितरण तारीख';
+
+  @override
+  String get grnCreateDraft => 'मसुदा GRN तयार करा';
+
+  @override
+  String get grnSelectDate => 'तारीख निवडा';
+
+  @override
+  String get expiryCalendarTitle => 'एक्स्पायरी कॅलेंडर';
+
+  @override
+  String get expiryCalendarLoadError => 'कॅलेंडर डेटा लोड करता आला नाही.';
+
+  @override
+  String get expiryCalendarTapHint => 'तपशील पाहण्यासाठी एखाद्या दिवशी टॅप करा';
+
+  @override
+  String get expiryCalendarNoRecords =>
+      'या दिवसासाठी कोणतेही एक्स्पायरी रेकॉर्ड नाहीत';
+
+  @override
+  String expiryCalendarSummaryFor(String date) {
+    return '$date चा सारांश';
+  }
+
+  @override
+  String get exTitle => 'नवीन एक्स्पायरी रेकॉर्ड';
+
+  @override
+  String get exMfgAfterExpiry =>
+      'उत्पादन तारीख एक्स्पायरी तारखेनंतर असू शकत नाही';
+
+  @override
+  String get exSelectMfg => 'उत्पादन तारीख निवडा';
+
+  @override
+  String get exSelectExpiry => 'एक्स्पायरी तारीख निवडा';
+
+  @override
+  String get exExpiryRequired => 'एक्स्पायरी तारीख आवश्यक आहे';
+
+  @override
+  String get exCreated => 'एक्स्पायरी रेकॉर्ड तयार केले';
+
+  @override
+  String get exOfflineQueued =>
+      'तुम्ही ऑफलाइन आहात — ऑनलाइन आल्यावर रेकॉर्ड सिंक होईल';
+
+  @override
+  String get exSubmitError => 'काहीतरी चूक झाली. कृपया पुन्हा प्रयत्न करा.';
+
+  @override
+  String get exNotSet => 'सेट केले नाही';
+
+  @override
+  String get exProductIdLabel => 'उत्पादन ID';
+
+  @override
+  String get exProductIdHint => 'उत्पादन ID टाका किंवा बारकोड स्कॅन करा';
+
+  @override
+  String get exMfgLabel => 'उत्पादन तारीख';
+
+  @override
+  String get exExpiryLabel => 'एक्स्पायरी तारीख *';
+
+  @override
+  String get exBatchLabel => 'बॅच नंबर';
+
+  @override
+  String get exLocationLabel => 'स्थान';
+
+  @override
+  String get exLocationHint => 'शेल्फ / गल्ली / झोन';
+
+  @override
+  String get exSaveRecord => 'रेकॉर्ड जतन करा';
+
+  @override
+  String get exOcrSemantic => 'RADHA तुमच्यासाठी तारीख वाचते';
+
+  @override
+  String get exOcrTitle => 'पॅकवरून तारीख स्कॅन करा';
+
+  @override
+  String get exOcrSubtitle => 'आम्ही तुमच्यासाठी MFG / EXP वाचू';
+
+  @override
+  String get grnItemsTitle => 'GRN आयटम';
+
+  @override
+  String get grnItemAdded => 'आयटम जोडले';
+
+  @override
+  String get grnItemSavedOffline =>
+      'ऑफलाइन जतन केले — ऑनलाइन आल्यावर सिंक होईल';
+
+  @override
+  String get grnItemAddError =>
+      'आयटम जोडता आला नाही. कृपया पुन्हा प्रयत्न करा.';
+
+  @override
+  String get grnAddItemFirst => 'पोस्ट करण्यापूर्वी किमान एक आयटम जोडा';
+
+  @override
+  String get grnPosted => 'GRN पोस्ट केले — स्टॉक अद्यतनित झाला';
+
+  @override
+  String get grnPostQueued => 'रांगेत — ऑनलाइन आल्यावर पोस्ट होईल';
+
+  @override
+  String get grnPostError =>
+      'GRN पोस्ट करता आला नाही. कृपया पुन्हा प्रयत्न करा.';
+
+  @override
+  String get grnNoItems => 'अद्याप कोणतेही आयटम जोडलेले नाहीत';
+
+  @override
+  String get grnNoItemsHint => 'आयटम जोडण्यासाठी खालील बटणावर टॅप करा';
+
+  @override
+  String grnTotalQty(String qty) {
+    return 'एकूण प्रमाण: $qty';
+  }
+
+  @override
+  String grnTotalValue(String value) {
+    return 'एकूण: ₹$value';
+  }
+
+  @override
+  String get grnAddItem => 'आयटम जोडा';
+
+  @override
+  String get grnPostGrn => 'GRN पोस्ट करा';
+
+  @override
+  String get grnPostHint =>
+      'पोस्ट केल्याने स्टॉक अद्यतनित होतो आणि कमी-स्टॉक सूचना सोडवल्या जातात.';
+
+  @override
+  String grnInvoiceLabel(String number) {
+    return 'इनव्हॉइस $number';
+  }
+
+  @override
+  String grnBatchTag(String batch) {
+    return 'बॅच $batch';
+  }
+
+  @override
+  String get grnBarcodeLabel => 'बारकोड (EAN / UPC)';
+
+  @override
+  String get grnBarcodeHint => '8–13 अंक';
+
+  @override
+  String get grnProductNameLabel => 'उत्पादनाचे नाव';
+
+  @override
+  String get grnMustBePositive => '0 पेक्षा जास्त असावे';
+
+  @override
+  String get grnBatchNumberOptional => 'बॅच नंबर (पर्यायी)';
+
+  @override
+  String get grnMfgDateLabel => 'उत्पादन तारीख';
+
+  @override
+  String get grnExpiryDateLabel => 'एक्स्पायरी तारीख';
+
+  @override
+  String get grnUnitPriceLabel => 'एकक किंमत (₹)';
+
+  @override
+  String get grnMustBeNonNeg => '0 किंवा अधिक असावे';
 }

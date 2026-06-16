@@ -344,10 +344,10 @@ class _ExplainerError extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const MorCompanion(
+          MorCompanion(
             mood: MorMood.concern,
             size: 96,
-            semanticLabel: 'Could not load',
+            semanticLabel: AppLocalizations.of(context).commonCouldNotLoad,
           ),
           const SizedBox(height: RadhaSpacing.space16),
           Text(

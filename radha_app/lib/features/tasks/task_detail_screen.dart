@@ -3,12 +3,47 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 
 import '../../core/network/api_client.dart';
 import '../../core/network/dto/task_dto.dart';
 import '../../design/tokens.dart';
 import '../../design/widgets/mor_celebration.dart';
 import '../../design/widgets/primary_button.dart';
+import '../../l10n/generated/app_localizations.dart';
+
+/// Maps a backend task-status code to its localized label. Shared shape with
+/// tasks_list_screen so no raw enum string reaches the UI.
+String _statusLabel(AppLocalizations l10n, String? status) {
+  switch (status) {
+    case 'pending':
+      return l10n.taskStatusPending;
+    case 'in_progress':
+      return l10n.taskStatusInProgress;
+    case 'completed':
+      return l10n.taskStatusCompleted;
+    case 'cancelled':
+      return l10n.taskStatusCancelled;
+    default:
+      return l10n.taskStatusOpen;
+  }
+}
+
+/// Maps a backend priority code to its localized severity label.
+String _priorityLabel(AppLocalizations l10n, String priority) {
+  switch (priority) {
+    case 'urgent':
+      return l10n.priorityUrgent;
+    case 'high':
+      return l10n.priorityHigh;
+    case 'medium':
+      return l10n.priorityMedium;
+    case 'low':
+      return l10n.priorityLow;
+    default:
+      return priority;
+  }
+}
 
 /// Provider that fetches a single task by ID.
 final _taskDetailProvider = FutureProvider.autoDispose
@@ -42,8 +77,10 @@ class _TaskDetailScreenState extends ConsumerState<TaskDetailScreen> {
       if (evidenceUrl == null) {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Evidence is required to complete this task'),
+            SnackBar(
+              content: Text(
+                AppLocalizations.of(context).taskEvidenceRequiredSnack,
+              ),
             ),
           );
         }
@@ -62,17 +99,18 @@ class _TaskDetailScreenState extends ConsumerState<TaskDetailScreen> {
       ref.invalidate(_taskDetailProvider(widget.taskId));
       if (mounted) {
         HapticFeedback.mediumImpact();
+        final l10n = AppLocalizations.of(context);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Task moved to ${newStatus.replaceAll('_', ' ')}'),
+            content: Text(l10n.taskMovedTo(_statusLabel(l10n, newStatus))),
           ),
         );
       }
     } catch (_) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Could not update the task. Please try again.'),
+          SnackBar(
+            content: Text(AppLocalizations.of(context).taskUpdateError),
           ),
         );
       }
@@ -115,6 +153,8 @@ class _TaskDetailScreenState extends ConsumerState<TaskDetailScreen> {
 
   Widget _buildBody(BuildContext context, TaskResponse task) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
+    final localeName = Localizations.localeOf(context).languageCode;
 
     return Column(
       children: [
@@ -148,8 +188,9 @@ class _TaskDetailScreenState extends ConsumerState<TaskDetailScreen> {
                 Text(
                   [
                     if (task.assigneeName != null)
-                      'Assigned to ${task.assigneeName}',
-                    if (task.dueDate != null) 'Due ${_formatDate(task.dueDate!)}',
+                      l10n.taskAssignedTo(task.assigneeName!),
+                    if (task.dueDate != null)
+                      l10n.taskDueOn(_formatDate(task.dueDate!, localeName)),
                   ].join(' · '),
                   style: theme.textTheme.bodyMedium?.copyWith(
                     color: theme.colorScheme.onSurfaceVariant,
@@ -165,7 +206,7 @@ class _TaskDetailScreenState extends ConsumerState<TaskDetailScreen> {
                   task.description!.isNotEmpty) ...[
                 const SizedBox(height: RadhaSpacing.space20),
                 Text(
-                  'Description',
+                  l10n.taskDescriptionLabel,
                   style: theme.textTheme.titleSmall?.copyWith(
                     fontWeight: FontWeight.w700,
                   ),
@@ -206,14 +247,10 @@ class _TaskDetailScreenState extends ConsumerState<TaskDetailScreen> {
     );
   }
 
-  String _formatDate(String iso) {
+  String _formatDate(String iso, String localeName) {
     try {
       final dt = DateTime.parse(iso);
-      const months = [
-        'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
-      ];
-      return '${dt.day} ${months[dt.month - 1]} ${dt.year}';
+      return DateFormat('d MMM y', localeName).format(dt);
     } catch (_) {
       return iso;
     }
@@ -230,8 +267,7 @@ class _StatusPill extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final color = _statusColor(context, status);
-    final raw = (status ?? 'open').replaceAll('_', ' ');
-    final label = raw[0].toUpperCase() + raw.substring(1);
+    final label = _statusLabel(AppLocalizations.of(context), status);
     return Align(
       alignment: Alignment.centerLeft,
       child: Container(
@@ -276,13 +312,14 @@ class _DetailsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     final rows = <(String, Widget)>[
-      if (task.type != null) ('Type', Text(_titleCase(task.type!))),
+      if (task.type != null) (l10n.taskTypeLabel, Text(_titleCase(task.type!))),
       if (task.priority != null)
         (
-          'Priority',
+          l10n.taskPriorityLabel,
           Text(
-            _titleCase(task.priority!),
+            _priorityLabel(l10n, task.priority!),
             style: TextStyle(
               color: _priorityColor(task.priority!),
               fontWeight: FontWeight.w700,
@@ -290,8 +327,12 @@ class _DetailsCard extends StatelessWidget {
           ),
         ),
       (
-        'Evidence',
-        Text(task.requiresEvidence == true ? 'Photo required' : 'Not required'),
+        l10n.taskEvidenceLabel,
+        Text(
+          task.requiresEvidence == true
+              ? l10n.taskEvidencePhotoRequired
+              : l10n.taskEvidenceNotRequired,
+        ),
       ),
     ];
 
@@ -351,6 +392,7 @@ class _EvidenceSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     final hasEvidence =
         task.evidenceUrls != null && task.evidenceUrls!.isNotEmpty;
 
@@ -358,7 +400,7 @@ class _EvidenceSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Evidence',
+          l10n.taskEvidenceLabel,
           style: theme.textTheme.titleSmall?.copyWith(
             fontWeight: FontWeight.w700,
           ),
@@ -390,8 +432,10 @@ class _EvidenceSection extends StatelessWidget {
               Expanded(
                 child: Text(
                   hasEvidence
-                      ? '${task.evidenceUrls!.length} photo(s) attached'
-                      : 'A photo is required to complete this task',
+                      ? l10n.taskEvidencePhotosAttached(
+                          task.evidenceUrls!.length,
+                        )
+                      : l10n.taskEvidencePhotoNeeded,
                   style: theme.textTheme.bodySmall?.copyWith(
                     color: theme.colorScheme.onSurfaceVariant,
                   ),
@@ -415,6 +459,7 @@ class _TransitionTimeline extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     // Determine which steps are done based on the current status.
     final isCancelled = status == 'cancelled';
     final startedDone =
@@ -422,9 +467,12 @@ class _TransitionTimeline extends StatelessWidget {
     final completedDone = status == 'completed';
 
     final steps = <(String, bool)>[
-      ('Created', true),
-      (isCancelled ? 'Cancelled' : 'Started', startedDone),
-      ('Completed', completedDone),
+      (l10n.taskTimelineCreated, true),
+      (
+        isCancelled ? l10n.taskStatusCancelled : l10n.taskTimelineStarted,
+        startedDone,
+      ),
+      (l10n.taskStatusCompleted, completedDone),
     ];
 
     return Row(
@@ -505,12 +553,13 @@ class _ActionBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     final status = task.status;
 
     Widget? content;
     if (status == 'pending') {
       content = PrimaryButton(
-        label: 'Start',
+        label: l10n.taskActionStart,
         icon: Icons.play_arrow_rounded,
         expand: true,
         onPressed: () => onTransition('in_progress', task),
@@ -521,7 +570,7 @@ class _ActionBar extends StatelessWidget {
           Expanded(
             flex: 2,
             child: PrimaryButton(
-              label: 'Complete',
+              label: l10n.taskActionComplete,
               icon: Icons.check_rounded,
               expand: true,
               onPressed: () => onTransition('completed', task),
@@ -538,7 +587,7 @@ class _ActionBar extends StatelessWidget {
                 ),
                 minimumSize: const Size(0, kMinTouchTarget),
               ),
-              child: const Text('Cancel'),
+              child: Text(l10n.cancel),
             ),
           ),
         ],
@@ -576,6 +625,7 @@ class _ErrorBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(RadhaSpacing.space24),
@@ -588,9 +638,9 @@ class _ErrorBody extends StatelessWidget {
               color: theme.colorScheme.onSurfaceVariant,
             ),
             const SizedBox(height: RadhaSpacing.space16),
-            Text('Failed to load task', style: theme.textTheme.bodyMedium),
+            Text(l10n.taskLoadFailed, style: theme.textTheme.bodyMedium),
             const SizedBox(height: RadhaSpacing.space16),
-            OutlinedButton(onPressed: onRetry, child: const Text('Retry')),
+            OutlinedButton(onPressed: onRetry, child: Text(l10n.tryAgain)),
           ],
         ),
       ),

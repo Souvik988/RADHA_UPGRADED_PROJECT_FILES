@@ -26,6 +26,7 @@ import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 import '../../core/network/api_client.dart';
 import '../../core/network/dto/payment_dto.dart';
+import '../../l10n/generated/app_localizations.dart';
 
 Future<bool> openRazorpayCheckout({
   required BuildContext context,
@@ -35,6 +36,9 @@ Future<bool> openRazorpayCheckout({
 }) async {
   final api = ref.read(apiClientProvider);
   final messenger = ScaffoldMessenger.maybeOf(context);
+  // Capture localizations before any async gap so we never touch a stale
+  // context across awaits.
+  final l10n = AppLocalizations.of(context);
 
   // 1. Ask the server to create the Razorpay order and hand back the metadata
   //    the native sheet needs.
@@ -45,7 +49,7 @@ Future<bool> openRazorpayCheckout({
     );
   } catch (_) {
     messenger?.showSnackBar(
-      const SnackBar(content: Text('Could not start checkout. Please try again.')),
+      SnackBar(content: Text(l10n.checkoutStartError)),
     );
     return false;
   }
@@ -65,7 +69,7 @@ Future<bool> openRazorpayCheckout({
     final signature = response.signature;
     if (orderId == null || paymentId == null || signature == null) {
       messenger?.showSnackBar(
-        const SnackBar(content: Text('Payment response was incomplete.')),
+        SnackBar(content: Text(l10n.paymentResponseIncomplete)),
       );
       finish(false);
       return;
@@ -80,18 +84,18 @@ Future<bool> openRazorpayCheckout({
       );
       if (verification.success) {
         messenger?.showSnackBar(
-          const SnackBar(content: Text('Payment successful. Plan updated.')),
+          SnackBar(content: Text(l10n.paymentSuccessUpdated)),
         );
         finish(true);
       } else {
         messenger?.showSnackBar(
-          const SnackBar(content: Text('Payment could not be verified.')),
+          SnackBar(content: Text(l10n.paymentNotVerified)),
         );
         finish(false);
       }
     } catch (_) {
       messenger?.showSnackBar(
-        const SnackBar(content: Text('Payment verification failed. Please contact support.')),
+        SnackBar(content: Text(l10n.paymentVerifyFailed)),
       );
       finish(false);
     }
@@ -102,7 +106,9 @@ Future<bool> openRazorpayCheckout({
     messenger?.showSnackBar(
       SnackBar(
         content: Text(
-          message == null || message.isEmpty ? 'Payment cancelled.' : 'Payment failed: $message',
+          message == null || message.isEmpty
+              ? l10n.paymentCancelled
+              : l10n.paymentFailed(message),
         ),
       ),
     );
@@ -116,7 +122,7 @@ Future<bool> openRazorpayCheckout({
     final wallet = response.walletName;
     if (wallet != null && wallet.isNotEmpty) {
       messenger?.showSnackBar(
-        SnackBar(content: Text('Opening $wallet…')),
+        SnackBar(content: Text(l10n.paymentOpeningWallet(wallet))),
       );
     }
     finish(false);
@@ -146,7 +152,7 @@ Future<bool> openRazorpayCheckout({
     razorpay.open(options);
   } catch (_) {
     messenger?.showSnackBar(
-      const SnackBar(content: Text('Could not open the payment sheet.')),
+      SnackBar(content: Text(l10n.paymentSheetOpenError)),
     );
     finish(false);
   }

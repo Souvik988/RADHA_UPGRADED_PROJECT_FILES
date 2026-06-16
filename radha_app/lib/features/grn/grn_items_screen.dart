@@ -14,6 +14,7 @@ import '../../design/tokens.dart';
 import '../../design/widgets/mor_companion.dart';
 import '../../design/widgets/primary_button.dart';
 import '../../design/widgets/secondary_button.dart';
+import '../../l10n/generated/app_localizations.dart';
 
 /// Provider that fetches a single GRN by ID.
 final _grnDetailProvider = FutureProvider.family<GrnResponse, String>((
@@ -73,6 +74,7 @@ class _GrnItemsScreenState extends ConsumerState<GrnItemsScreen> {
   };
 
   Future<void> _showAddItemSheet() async {
+    final l10n = AppLocalizations.of(context);
     final item = await showModalBottomSheet<_GrnItemLocal>(
       context: context,
       isScrollControlled: true,
@@ -96,9 +98,7 @@ class _GrnItemsScreenState extends ConsumerState<GrnItemsScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
-            result.synced
-                ? 'Item added'
-                : "Saved offline — it'll sync when you're back online",
+            result.synced ? l10n.grnItemAdded : l10n.grnItemSavedOffline,
           ),
         ),
       );
@@ -110,7 +110,7 @@ class _GrnItemsScreenState extends ConsumerState<GrnItemsScreen> {
     } catch (_) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Could not add item. Please try again.')),
+        SnackBar(content: Text(l10n.grnItemAddError)),
       );
     } finally {
       if (mounted) setState(() => _isLoading = false);
@@ -118,9 +118,10 @@ class _GrnItemsScreenState extends ConsumerState<GrnItemsScreen> {
   }
 
   Future<void> _postGrn() async {
+    final l10n = AppLocalizations.of(context);
     if (_items.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Add at least one item before posting')),
+        SnackBar(content: Text(l10n.grnAddItemFirst)),
       );
       return;
     }
@@ -138,9 +139,7 @@ class _GrnItemsScreenState extends ConsumerState<GrnItemsScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
-            result.synced
-                ? 'GRN posted — stock updated'
-                : "Queued — it'll post when you're back online",
+            result.synced ? l10n.grnPosted : l10n.grnPostQueued,
           ),
         ),
       );
@@ -153,7 +152,7 @@ class _GrnItemsScreenState extends ConsumerState<GrnItemsScreen> {
     } catch (_) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Could not post GRN. Please try again.')),
+        SnackBar(content: Text(l10n.grnPostError)),
       );
     } finally {
       if (mounted) setState(() => _isLoading = false);
@@ -163,6 +162,7 @@ class _GrnItemsScreenState extends ConsumerState<GrnItemsScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     final grnAsync = ref.watch(_grnDetailProvider(widget.grnId));
     final currentUser = ref.watch(currentUserProvider);
     final canPost = _canPost(currentUser);
@@ -172,7 +172,7 @@ class _GrnItemsScreenState extends ConsumerState<GrnItemsScreen> {
       appBar: AppBar(
         backgroundColor: theme.colorScheme.surface,
         title: Text(
-          'GRN items',
+          l10n.grnItemsTitle,
           style: theme.textTheme.titleLarge?.copyWith(
             fontWeight: FontWeight.w800,
           ),
@@ -197,16 +197,16 @@ class _GrnItemsScreenState extends ConsumerState<GrnItemsScreen> {
                         MorCompanion(
                           mood: MorMood.work,
                           size: 96,
-                          semanticLabel: 'No items added yet',
+                          semanticLabel: l10n.grnNoItems,
                         ),
                         const SizedBox(height: RadhaSpacing.space12),
                         Text(
-                          'No items added yet',
+                          l10n.grnNoItems,
                           style: theme.textTheme.bodyLarge,
                         ),
                         const SizedBox(height: RadhaSpacing.space8),
                         Text(
-                          'Tap the button below to add items',
+                          l10n.grnNoItemsHint,
                           style: theme.textTheme.bodySmall?.copyWith(
                             color: theme.colorScheme.outline,
                           ),
@@ -244,11 +244,11 @@ class _GrnItemsScreenState extends ConsumerState<GrnItemsScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Total Qty: ${_totalQuantity.toStringAsFixed(0)}',
+                    l10n.grnTotalQty(_totalQuantity.toStringAsFixed(0)),
                     style: theme.textTheme.titleSmall,
                   ),
                   Text(
-                    'Total: \u20B9${_totalValue.toStringAsFixed(2)}',
+                    l10n.grnTotalValue(_totalValue.toStringAsFixed(2)),
                     style: theme.textTheme.titleSmall?.copyWith(
                       fontWeight: FontWeight.w700,
                     ),
@@ -273,7 +273,7 @@ class _GrnItemsScreenState extends ConsumerState<GrnItemsScreen> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   SecondaryButton(
-                    label: 'Add Item',
+                    label: l10n.grnAddItem,
                     icon: Icons.add,
                     expand: true,
                     onPressed: _isLoading ? null : _showAddItemSheet,
@@ -285,7 +285,7 @@ class _GrnItemsScreenState extends ConsumerState<GrnItemsScreen> {
                   if (canPost) ...[
                     const SizedBox(height: RadhaSpacing.space12),
                     PrimaryButton(
-                      label: 'Post GRN',
+                      label: l10n.grnPostGrn,
                       icon: Icons.check_circle_outline,
                       expand: true,
                       loading: _isLoading,
@@ -293,7 +293,7 @@ class _GrnItemsScreenState extends ConsumerState<GrnItemsScreen> {
                     ),
                     const SizedBox(height: RadhaSpacing.space8),
                     Text(
-                      'Posting updates stock & resolves low-stock alerts.',
+                      l10n.grnPostHint,
                       textAlign: TextAlign.center,
                       style: theme.textTheme.bodySmall?.copyWith(
                         color: theme.colorScheme.onSurfaceVariant,
@@ -319,6 +319,7 @@ class _GrnHeaderCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
 
     return Container(
       width: double.infinity,
@@ -342,13 +343,13 @@ class _GrnHeaderCard extends StatelessWidget {
                   ),
                 ),
               ),
-              _buildStatusPill(grn.status ?? 'draft'),
+              _buildStatusPill(l10n, grn.status ?? 'draft'),
             ],
           ),
           if (grn.invoiceNumber != null) ...[
             const SizedBox(height: RadhaSpacing.space8),
             Text(
-              'Invoice ${grn.invoiceNumber}',
+              l10n.grnInvoiceLabel(grn.invoiceNumber!),
               style: theme.textTheme.bodySmall?.copyWith(
                 color: theme.colorScheme.onSurfaceVariant,
               ),
@@ -359,19 +360,19 @@ class _GrnHeaderCard extends StatelessWidget {
     );
   }
 
-  Widget _buildStatusPill(String status) {
+  Widget _buildStatusPill(AppLocalizations l10n, String status) {
     Color color;
     String label;
     switch (status) {
       case 'draft':
         color = RadhaColors.inkMuted;
-        label = 'Draft';
+        label = l10n.grnFilterDraft;
       case 'pending_review':
         color = RadhaColors.warning;
-        label = 'Pending Review';
+        label = l10n.grnFilterPendingReview;
       case 'posted':
         color = RadhaColors.success;
-        label = 'Posted';
+        label = l10n.grnFilterPosted;
       default:
         color = RadhaColors.inkMuted;
         label = status;
@@ -404,6 +405,7 @@ class _ItemTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     final lineTotal = item.quantity * item.unitPrice;
 
     return Container(
@@ -430,7 +432,7 @@ class _ItemTile extends StatelessWidget {
                 const SizedBox(height: RadhaSpacing.space4),
                 Text(
                   '${item.quantity.toStringAsFixed(0)} × \u20B9${item.unitPrice.toStringAsFixed(2)}'
-                  '${item.batchNumber != null && item.batchNumber!.isNotEmpty ? ' · Batch ${item.batchNumber}' : ''}',
+                  '${item.batchNumber != null && item.batchNumber!.isNotEmpty ? ' · ${l10n.grnBatchTag(item.batchNumber!)}' : ''}',
                   style: theme.textTheme.bodySmall?.copyWith(
                     color: theme.colorScheme.onSurfaceVariant,
                   ),
@@ -488,7 +490,7 @@ class _AddItemSheetState extends State<_AddItemSheet> {
   void _validateDates() {
     if (_mfgDate != null && _expDate != null && _mfgDate!.isAfter(_expDate!)) {
       setState(
-        () => _dateError = 'Manufacturing date cannot be after expiry date',
+        () => _dateError = AppLocalizations.of(context).exMfgAfterExpiry,
       );
     } else {
       setState(() => _dateError = null);
@@ -541,6 +543,7 @@ class _AddItemSheetState extends State<_AddItemSheet> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return Padding(
       padding: EdgeInsets.only(
         bottom: MediaQuery.of(context).viewInsets.bottom,
@@ -553,17 +556,20 @@ class _AddItemSheetState extends State<_AddItemSheet> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text('Add Item', style: Theme.of(context).textTheme.titleMedium),
+              Text(
+                l10n.grnAddItem,
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
               const SizedBox(height: RadhaSpacing.space24),
 
               // Barcode (EAN) — required so the backend can resolve/create the
               // product. Scan it off the carton when receiving goods.
               TextFormField(
                 controller: _eanController,
-                decoration: const InputDecoration(
-                  labelText: 'Barcode (EAN / UPC)',
-                  hintText: '8–13 digits',
-                  prefixIcon: Icon(Icons.qr_code_2),
+                decoration: InputDecoration(
+                  labelText: l10n.grnBarcodeLabel,
+                  hintText: l10n.grnBarcodeHint,
+                  prefixIcon: const Icon(Icons.qr_code_2),
                 ),
                 keyboardType: TextInputType.number,
                 inputFormatters: [
@@ -572,8 +578,8 @@ class _AddItemSheetState extends State<_AddItemSheet> {
                 ],
                 validator: (v) {
                   final t = v?.trim() ?? '';
-                  if (t.isEmpty) return 'Required';
-                  if (t.length < 8 || t.length > 13) return '8–13 digits';
+                  if (t.isEmpty) return l10n.commonRequired;
+                  if (t.length < 8 || t.length > 13) return l10n.grnBarcodeHint;
                   return null;
                 },
               ),
@@ -582,28 +588,29 @@ class _AddItemSheetState extends State<_AddItemSheet> {
               // Product name.
               TextFormField(
                 controller: _productController,
-                decoration: const InputDecoration(
-                  labelText: 'Product name',
-                  prefixIcon: Icon(Icons.inventory_2),
+                decoration: InputDecoration(
+                  labelText: l10n.grnProductNameLabel,
+                  prefixIcon: const Icon(Icons.inventory_2),
                 ),
-                validator: (v) =>
-                    (v == null || v.trim().isEmpty) ? 'Required' : null,
+                validator: (v) => (v == null || v.trim().isEmpty)
+                    ? l10n.commonRequired
+                    : null,
               ),
               const SizedBox(height: RadhaSpacing.space24),
 
               // Quantity — whole received units (backend stores an integer).
               TextFormField(
                 controller: _quantityController,
-                decoration: const InputDecoration(
-                  labelText: 'Quantity',
-                  prefixIcon: Icon(Icons.numbers),
+                decoration: InputDecoration(
+                  labelText: l10n.commonQuantity,
+                  prefixIcon: const Icon(Icons.numbers),
                 ),
                 keyboardType: TextInputType.number,
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 validator: (v) {
-                  if (v == null || v.trim().isEmpty) return 'Required';
+                  if (v == null || v.trim().isEmpty) return l10n.commonRequired;
                   final n = int.tryParse(v.trim());
-                  if (n == null || n <= 0) return 'Must be > 0';
+                  if (n == null || n <= 0) return l10n.grnMustBePositive;
                   return null;
                 },
               ),
@@ -612,16 +619,16 @@ class _AddItemSheetState extends State<_AddItemSheet> {
               // Batch number.
               TextFormField(
                 controller: _batchController,
-                decoration: const InputDecoration(
-                  labelText: 'Batch number (optional)',
-                  prefixIcon: Icon(Icons.tag),
+                decoration: InputDecoration(
+                  labelText: l10n.grnBatchNumberOptional,
+                  prefixIcon: const Icon(Icons.tag),
                 ),
               ),
               const SizedBox(height: RadhaSpacing.space24),
 
               // MFG date.
               _DatePickerField(
-                label: 'Manufacturing date',
+                label: l10n.grnMfgDateLabel,
                 value: _mfgDate,
                 onTap: _pickMfgDate,
               ),
@@ -629,7 +636,7 @@ class _AddItemSheetState extends State<_AddItemSheet> {
 
               // Expiry date.
               _DatePickerField(
-                label: 'Expiry date',
+                label: l10n.grnExpiryDateLabel,
                 value: _expDate,
                 onTap: _pickExpDate,
               ),
@@ -647,9 +654,9 @@ class _AddItemSheetState extends State<_AddItemSheet> {
               // Unit price.
               TextFormField(
                 controller: _priceController,
-                decoration: const InputDecoration(
-                  labelText: 'Unit price (\u20B9)',
-                  prefixIcon: Icon(Icons.currency_rupee),
+                decoration: InputDecoration(
+                  labelText: l10n.grnUnitPriceLabel,
+                  prefixIcon: const Icon(Icons.currency_rupee),
                 ),
                 keyboardType: const TextInputType.numberWithOptions(
                   decimal: true,
@@ -658,9 +665,9 @@ class _AddItemSheetState extends State<_AddItemSheet> {
                   FilteringTextInputFormatter.allow(RegExp(r'[\d.]')),
                 ],
                 validator: (v) {
-                  if (v == null || v.trim().isEmpty) return 'Required';
+                  if (v == null || v.trim().isEmpty) return l10n.commonRequired;
                   final n = double.tryParse(v.trim());
-                  if (n == null || n < 0) return 'Must be >= 0';
+                  if (n == null || n < 0) return l10n.grnMustBeNonNeg;
                   return null;
                 },
               ),
@@ -668,7 +675,7 @@ class _AddItemSheetState extends State<_AddItemSheet> {
 
               // Submit.
               PrimaryButton(
-                label: 'Add Item',
+                label: l10n.grnAddItem,
                 expand: true,
                 onPressed: _submit,
               ),
@@ -707,7 +714,7 @@ class _DatePickerField extends StatelessWidget {
         child: Text(
           value != null
               ? '${value!.day}/${value!.month}/${value!.year}'
-              : 'Select date',
+              : AppLocalizations.of(context).grnSelectDate,
           style: TextStyle(
             color: value != null
                 ? Theme.of(context).textTheme.bodyLarge?.color

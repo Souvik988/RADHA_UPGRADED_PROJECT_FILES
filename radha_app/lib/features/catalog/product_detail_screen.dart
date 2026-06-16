@@ -22,6 +22,7 @@ import 'package:radha_app/features/allergen/allergen_profile_screen.dart';
 import 'package:radha_app/features/catalog/catalog_health.dart';
 import 'package:radha_app/features/catalog/data/launch_catalog.dart';
 import 'package:radha_app/features/catalog/providers/product_browse_providers.dart';
+import 'package:radha_app/l10n/generated/app_localizations.dart';
 
 // ─── Providers ──────────────────────────────────────────────────────────────
 
@@ -121,7 +122,7 @@ class _CatalogProductDetailScreenState
         ),
         actions: [
           IconButton(
-            tooltip: 'Share',
+            tooltip: AppLocalizations.of(context).commonShare,
             icon: const Icon(Icons.ios_share_rounded),
             onPressed: () => _share(name, grade: grade, score: score),
           ),
@@ -193,7 +194,7 @@ class _CatalogProductDetailScreenState
           if (ean != null)
             _NavRow(
               icon: Icons.compare_arrows_rounded,
-              label: 'See healthier options',
+              label: AppLocalizations.of(context).productSeeHealthierOptions,
               onTap: () => context.push('/alternatives/$ean'),
             ),
           const SizedBox(height: RadhaSpacing.space24),
@@ -219,6 +220,7 @@ class _CatalogProductDetailScreenState
   Future<void> _toggleSave(String name, String? ean, String? productId) async {
     if (_saving) return;
     final messenger = ScaffoldMessenger.of(context);
+    final l10n = AppLocalizations.of(context);
     HapticFeedback.selectionClick();
     setState(() => _saving = true);
     try {
@@ -237,15 +239,13 @@ class _CatalogProductDetailScreenState
         _saving = false;
       });
       messenger.showSnackBar(
-        const SnackBar(
-          content: Text("Saved — we'll alert you if it's ever recalled."),
-        ),
+        SnackBar(content: Text(l10n.productDetailSavedAlert)),
       );
     } catch (_) {
       if (!mounted) return;
       setState(() => _saving = false);
       messenger.showSnackBar(
-        const SnackBar(content: Text('Could not save. Please try again.')),
+        SnackBar(content: Text(l10n.productDetailSaveError)),
       );
     }
   }
@@ -639,7 +639,7 @@ class _LikeConcern extends StatelessWidget {
           _MiniHeading(
             icon: Icons.thumb_up_alt_rounded,
             color: RadhaColors.success,
-            label: "What you'll like",
+            label: AppLocalizations.of(context).productDetailWhatYoullLike,
           ),
           const SizedBox(height: RadhaSpacing.space8),
           Wrap(
@@ -661,7 +661,7 @@ class _LikeConcern extends StatelessWidget {
           _MiniHeading(
             icon: Icons.warning_amber_rounded,
             color: RadhaColors.warning,
-            label: 'What should concern you',
+            label: AppLocalizations.of(context).productDetailWhatConcern,
           ),
           const SizedBox(height: RadhaSpacing.space8),
           Wrap(
@@ -824,21 +824,21 @@ class _KeyNutrients extends StatelessWidget {
           const SizedBox(height: RadhaSpacing.space12),
           if (nutrition.protein != null)
             _NutrientRow(
-              label: 'Protein',
+              label: AppLocalizations.of(context).nutritionProtein,
               value: nutrition.protein!,
               unit: 'g',
               rdaPct: _rdaPct('protein', nutrition.protein!),
             ),
           if (nutrition.sugars != null)
             _NutrientRow(
-              label: 'Total Sugars',
+              label: AppLocalizations.of(context).nutritionTotalSugars,
               value: nutrition.sugars!,
               unit: 'g',
               rdaPct: _rdaPct('sugars', nutrition.sugars!),
             ),
           if (nutrition.calories != null)
             _NutrientRow(
-              label: 'Energy',
+              label: AppLocalizations.of(context).nutritionEnergy,
               value: nutrition.calories!,
               unit: 'kcal',
               rdaPct: _rdaPct('calories', nutrition.calories!),
@@ -849,7 +849,7 @@ class _KeyNutrients extends StatelessWidget {
             child: TextButton.icon(
               onPressed: onAllNutrients,
               icon: const Icon(Icons.expand_more_rounded, size: 18),
-              label: const Text('All nutrients'),
+              label: Text(AppLocalizations.of(context).nutritionAll),
             ),
           ),
         ],
@@ -920,15 +920,16 @@ class _AllNutrientsSheetState extends State<_AllNutrientsSheet> {
     final theme = Theme.of(context);
     final n = widget.nutrition;
     final factor = _per100 ? 1.0 : 0.5;
+    final l10n = AppLocalizations.of(context);
     final rows = <(String, double?, String)>[
-      ('Energy', n.calories, 'kcal'),
-      ('Total Fat', n.fat, 'g'),
-      ('  Saturated Fat', n.saturatedFat, 'g'),
-      ('Carbohydrates', n.carbohydrates, 'g'),
-      ('  Total Sugars', n.sugars, 'g'),
-      ('Protein', n.protein, 'g'),
-      ('Fibre', n.fiber, 'g'),
-      ('Sodium', n.sodium, 'g'),
+      (l10n.nutritionEnergy, n.calories, 'kcal'),
+      (l10n.nutritionTotalFat, n.fat, 'g'),
+      ('  ${l10n.nutritionSaturatedFat}', n.saturatedFat, 'g'),
+      (l10n.nutritionCarbohydrates, n.carbohydrates, 'g'),
+      ('  ${l10n.nutritionTotalSugars}', n.sugars, 'g'),
+      (l10n.nutritionProtein, n.protein, 'g'),
+      (l10n.nutritionFibre, n.fiber, 'g'),
+      (l10n.nutritionSodium, n.sodium, 'g'),
     ];
 
     return SafeArea(
@@ -958,7 +959,7 @@ class _AllNutrientsSheetState extends State<_AllNutrientsSheet> {
               children: [
                 Expanded(
                   child: Text(
-                    'All nutrients',
+                    l10n.nutritionAll,
                     style: theme.textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.w800,
                     ),
@@ -968,9 +969,15 @@ class _AllNutrientsSheetState extends State<_AllNutrientsSheet> {
                   style: const ButtonStyle(
                     visualDensity: VisualDensity.compact,
                   ),
-                  segments: const [
-                    ButtonSegment(value: true, label: Text('Per 100 g')),
-                    ButtonSegment(value: false, label: Text('Per 50 g')),
+                  segments: [
+                    ButtonSegment(
+                      value: true,
+                      label: Text(l10n.nutritionPer100g),
+                    ),
+                    ButtonSegment(
+                      value: false,
+                      label: Text(l10n.nutritionPer50g),
+                    ),
                   ],
                   selected: {_per100},
                   showSelectedIcon: false,
@@ -1111,7 +1118,7 @@ class _IngredientDeepDive extends ConsumerWidget {
 
     if (!entitled || productId == null) {
       return _PlusLock(
-        title: 'Ingredient deep-dive',
+        title: AppLocalizations.of(context).productDetailIngredientDeepDive,
         subtitle:
             'See every ingredient explained with a safety verdict — what it is, '
             'why it’s there, and whether to worry.',
@@ -1121,7 +1128,7 @@ class _IngredientDeepDive extends ConsumerWidget {
 
     final async = ref.watch(_ingredientExplainProvider(productId!));
     return _PlusCard(
-      title: 'Ingredient deep-dive',
+      title: AppLocalizations.of(context).productDetailIngredientDeepDive,
       child: async.when(
         loading: () => const _LineSkeleton(),
         error: (_, _) => Text(
@@ -1154,7 +1161,7 @@ class _ForYouSection extends ConsumerWidget {
 
     if (!entitled || productId == null) {
       return _PlusLock(
-        title: 'Personalised flags',
+        title: AppLocalizations.of(context).productDetailPersonalisedFlags,
         subtitle:
             'Match this product against your saved allergens & health goals — '
             'we’ll flag what’s right (or wrong) for you.',
@@ -1174,7 +1181,7 @@ class _ForYouSection extends ConsumerWidget {
               );
 
     return _PlusCard(
-      title: 'Personalised flags',
+      title: AppLocalizations.of(context).productDetailPersonalisedFlags,
       child: allergensAsync.when(
         loading: () => const _LineSkeleton(),
         error: (_, _) => Text(
@@ -1407,7 +1414,7 @@ class _WouldYouBuy extends StatelessWidget {
           Row(
             children: [
               _BuyChip(
-                label: 'Yes',
+                label: AppLocalizations.of(context).commonYes,
                 icon: Icons.check_rounded,
                 selected: choice == 'yes',
                 color: RadhaColors.success,
@@ -1423,7 +1430,7 @@ class _WouldYouBuy extends StatelessWidget {
               ),
               const SizedBox(width: RadhaSpacing.space8),
               _BuyChip(
-                label: 'Already bought',
+                label: AppLocalizations.of(context).productDetailAlreadyBought,
                 icon: Icons.shopping_bag_outlined,
                 selected: choice == 'bought',
                 color: RadhaColors.inkMuted,
@@ -1545,7 +1552,7 @@ class _ScanToUnlock extends StatelessWidget {
           FilledButton.icon(
             onPressed: onScan,
             icon: const Icon(Icons.qr_code_scanner_rounded, size: 18),
-            label: const Text('Scan to unlock'),
+            label: Text(AppLocalizations.of(context).productDetailScanToUnlock),
           ),
         ],
       ),

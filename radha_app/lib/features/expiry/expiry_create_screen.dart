@@ -11,6 +11,7 @@ import '../../design/app_assets.dart';
 import '../../design/tokens.dart';
 import '../../design/widgets/mor_companion.dart';
 import '../../design/widgets/primary_button.dart';
+import '../../l10n/generated/app_localizations.dart';
 import 'ocr_date_helper.dart';
 
 /// Screen for creating a new expiry record. Supports manual date entry
@@ -54,7 +55,7 @@ class _ExpiryCreateScreenState extends ConsumerState<ExpiryCreateScreen> {
         _expiryDate != null &&
         _mfgDate!.isAfter(_expiryDate!)) {
       setState(
-        () => _dateError = 'Manufacturing date cannot be after expiry date',
+        () => _dateError = AppLocalizations.of(context).exMfgAfterExpiry,
       );
     } else {
       setState(() => _dateError = null);
@@ -72,7 +73,9 @@ class _ExpiryCreateScreenState extends ConsumerState<ExpiryCreateScreen> {
       initialDate: initial,
       firstDate: first,
       lastDate: last,
-      helpText: isMfg ? 'Select manufacturing date' : 'Select expiry date',
+      helpText: isMfg
+          ? AppLocalizations.of(context).exSelectMfg
+          : AppLocalizations.of(context).exSelectExpiry,
     );
     if (picked == null) return;
 
@@ -98,11 +101,12 @@ class _ExpiryCreateScreenState extends ConsumerState<ExpiryCreateScreen> {
   }
 
   Future<void> _submit() async {
+    final l10n = AppLocalizations.of(context);
     if (!_formKey.currentState!.validate()) return;
     if (_expiryDate == null) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text('Expiry date is required')));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(l10n.exExpiryRequired)),
+      );
       return;
     }
     if (_dateError != null) return;
@@ -135,9 +139,7 @@ class _ExpiryCreateScreenState extends ConsumerState<ExpiryCreateScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
-            result.synced
-                ? 'Expiry record created'
-                : 'You\'re offline — record will sync when you\'re back online',
+            result.synced ? l10n.exCreated : l10n.exOfflineQueued,
           ),
         ),
       );
@@ -150,26 +152,25 @@ class _ExpiryCreateScreenState extends ConsumerState<ExpiryCreateScreen> {
     } catch (_) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Something went wrong. Please try again.'),
-        ),
+        SnackBar(content: Text(l10n.exSubmitError)),
       );
     } finally {
       if (mounted) setState(() => _loading = false);
     }
   }
 
-  String _formatDate(DateTime? date) {
-    if (date == null) return 'Not set';
+  String _formatDate(DateTime? date, String notSetLabel) {
+    if (date == null) return notSetLabel;
     return '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
   }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('New Expiry Record')),
+      appBar: AppBar(title: Text(l10n.exTitle)),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(
@@ -190,33 +191,34 @@ class _ExpiryCreateScreenState extends ConsumerState<ExpiryCreateScreen> {
                 ],
 
                 // Product ID
-                Text('Product ID', style: theme.textTheme.labelLarge),
+                Text(l10n.exProductIdLabel, style: theme.textTheme.labelLarge),
                 const SizedBox(height: RadhaSpacing.space8),
                 TextFormField(
                   controller: _productIdController,
                   enabled: !_loading,
-                  decoration: const InputDecoration(
-                    hintText: 'Enter product ID or scan barcode',
+                  decoration: InputDecoration(
+                    hintText: l10n.exProductIdHint,
                   ),
-                  validator: (v) =>
-                      (v == null || v.trim().isEmpty) ? 'Required' : null,
+                  validator: (v) => (v == null || v.trim().isEmpty)
+                      ? l10n.commonRequired
+                      : null,
                 ),
                 const SizedBox(height: RadhaSpacing.space24),
 
                 // MFG Date
-                Text('Manufacturing Date', style: theme.textTheme.labelLarge),
+                Text(l10n.exMfgLabel, style: theme.textTheme.labelLarge),
                 const SizedBox(height: RadhaSpacing.space8),
                 _DatePickerTile(
-                  label: _formatDate(_mfgDate),
+                  label: _formatDate(_mfgDate, l10n.exNotSet),
                   onTap: _loading ? null : () => _pickDate(isMfg: true),
                 ),
                 const SizedBox(height: RadhaSpacing.space24),
 
                 // Expiry Date
-                Text('Expiry Date *', style: theme.textTheme.labelLarge),
+                Text(l10n.exExpiryLabel, style: theme.textTheme.labelLarge),
                 const SizedBox(height: RadhaSpacing.space8),
                 _DatePickerTile(
-                  label: _formatDate(_expiryDate),
+                  label: _formatDate(_expiryDate, l10n.exNotSet),
                   onTap: _loading ? null : () => _pickDate(isMfg: false),
                 ),
 
@@ -233,41 +235,41 @@ class _ExpiryCreateScreenState extends ConsumerState<ExpiryCreateScreen> {
                 const SizedBox(height: RadhaSpacing.space24),
 
                 // Batch number
-                Text('Batch Number', style: theme.textTheme.labelLarge),
+                Text(l10n.exBatchLabel, style: theme.textTheme.labelLarge),
                 const SizedBox(height: RadhaSpacing.space8),
                 TextFormField(
                   controller: _batchController,
                   enabled: !_loading,
-                  decoration: const InputDecoration(hintText: 'Optional'),
+                  decoration: InputDecoration(hintText: l10n.commonOptional),
                 ),
                 const SizedBox(height: RadhaSpacing.space24),
 
                 // Quantity
-                Text('Quantity', style: theme.textTheme.labelLarge),
+                Text(l10n.commonQuantity, style: theme.textTheme.labelLarge),
                 const SizedBox(height: RadhaSpacing.space8),
                 TextFormField(
                   controller: _quantityController,
                   enabled: !_loading,
                   keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(hintText: 'Optional'),
+                  decoration: InputDecoration(hintText: l10n.commonOptional),
                 ),
                 const SizedBox(height: RadhaSpacing.space24),
 
                 // Location
-                Text('Location', style: theme.textTheme.labelLarge),
+                Text(l10n.exLocationLabel, style: theme.textTheme.labelLarge),
                 const SizedBox(height: RadhaSpacing.space8),
                 TextFormField(
                   controller: _locationController,
                   enabled: !_loading,
-                  decoration: const InputDecoration(
-                    hintText: 'Shelf / aisle / zone',
+                  decoration: InputDecoration(
+                    hintText: l10n.exLocationHint,
                   ),
                 ),
                 const SizedBox(height: RadhaSpacing.space32),
 
                 // Submit
                 PrimaryButton(
-                  label: 'Save Record',
+                  label: l10n.exSaveRecord,
                   expand: true,
                   loading: _loading,
                   onPressed: _loading || _dateError != null ? null : _submit,
@@ -290,6 +292,7 @@ class _OcrHelperCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     return Material(
       color: theme.colorScheme.surfaceContainerLow,
       borderRadius: BorderRadius.circular(RadhaRadii.radiusMd),
@@ -310,7 +313,7 @@ class _OcrHelperCard extends StatelessWidget {
                 child: MorCompanion(
                   mood: MorMood.think,
                   size: 44,
-                  semanticLabel: 'RADHA reads the date for you',
+                  semanticLabel: l10n.exOcrSemantic,
                 ),
               ),
               const SizedBox(width: RadhaSpacing.space12),
@@ -319,14 +322,14 @@ class _OcrHelperCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Scan the date off the pack',
+                      l10n.exOcrTitle,
                       style: theme.textTheme.titleSmall?.copyWith(
                         color: theme.colorScheme.onSurface,
                       ),
                     ),
                     const SizedBox(height: RadhaSpacing.space2),
                     Text(
-                      "We'll read MFG / EXP for you",
+                      l10n.exOcrSubtitle,
                       style: theme.textTheme.bodySmall?.copyWith(
                         color: theme.colorScheme.onSurfaceVariant,
                       ),

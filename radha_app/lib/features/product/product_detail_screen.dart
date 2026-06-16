@@ -10,6 +10,7 @@ import 'package:radha_app/design/tokens.dart';
 import 'package:radha_app/design/widgets/error_state.dart';
 import 'package:radha_app/features/allergen/allergen_profile_screen.dart';
 import 'package:radha_app/features/product/widgets/health_label_chip.dart';
+import 'package:radha_app/l10n/generated/app_localizations.dart';
 
 // ─── Providers ────────────────────────────────────────────────────────────────
 
@@ -67,14 +68,16 @@ class ProductDetailScreen extends ConsumerWidget {
     final productAsync = ref.watch(productDetailProvider(ean));
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Product Details')),
+      appBar: AppBar(
+        title: Text(AppLocalizations.of(context).productDetailsTitle),
+      ),
       body: productAsync.when(
         loading: () => const Center(
           child: CircularProgressIndicator(color: RadhaColors.primary),
         ),
         error: (_, _) => Center(
           child: ErrorState(
-            title: "Couldn't load this product",
+            title: AppLocalizations.of(context).productDetailLoadError,
             body:
                 "We couldn't reach the product catalog just now. "
                 'Check your connection and try again.',
@@ -125,7 +128,7 @@ class _ProductDetailBodyState extends ConsumerState<_ProductDetailBody> {
           if (!_allergenChecked)
             _ActionButton(
               icon: Icons.warning_amber_rounded,
-              label: 'Check allergens',
+              label: AppLocalizations.of(context).productCheckAllergens,
               onPressed: () => setState(() => _allergenChecked = true),
             )
           else
@@ -135,7 +138,7 @@ class _ProductDetailBodyState extends ConsumerState<_ProductDetailBody> {
           // ── Ingredient Explainer (on-demand) ───────────────────────────
           _ActionButton(
             icon: Icons.science_outlined,
-            label: 'Explain ingredients',
+            label: AppLocalizations.of(context).productExplainIngredients,
             onPressed: () => _showIngredientExplainer(context),
           ),
           const SizedBox(height: RadhaSpacing.space16),
@@ -144,7 +147,7 @@ class _ProductDetailBodyState extends ConsumerState<_ProductDetailBody> {
           if (!_alternativesRequested)
             _ActionButton(
               icon: Icons.swap_horiz_rounded,
-              label: 'See healthier options',
+              label: AppLocalizations.of(context).productSeeHealthierOptions,
               onPressed: () => setState(() => _alternativesRequested = true),
             )
           else
@@ -158,7 +161,7 @@ class _ProductDetailBodyState extends ConsumerState<_ProductDetailBody> {
           if (widget.product.ean != null && widget.product.ean!.isNotEmpty)
             _NavRow(
               icon: Icons.compare_arrows_rounded,
-              label: 'View healthy alternatives',
+              label: AppLocalizations.of(context).productViewHealthyAlternatives,
               onTap: () => context.push(
                 '/alternatives/${widget.product.ean}',
               ),
@@ -286,7 +289,10 @@ class _HealthAssessmentSection extends StatelessWidget {
       children: [
         Row(
           children: [
-            Text('Health Assessment', style: theme.textTheme.titleMedium),
+            Text(
+            AppLocalizations.of(context).productHealthAssessment,
+            style: theme.textTheme.titleMedium,
+          ),
             const Spacer(),
             Container(
               padding: const EdgeInsets.symmetric(
@@ -320,12 +326,14 @@ class _HealthAssessmentSection extends StatelessWidget {
         Wrap(
           spacing: RadhaSpacing.space8,
           runSpacing: RadhaSpacing.space8,
-          children: const [
-            _HealthBadge(label: 'Sugar'),
-            _HealthBadge(label: 'Salt'),
-            _HealthBadge(label: 'Fat'),
-            _HealthBadge(label: 'Processed'),
-            _HealthBadge(label: 'Child-suitable'),
+          children: [
+            _HealthBadge(label: AppLocalizations.of(context).healthSugar),
+            _HealthBadge(label: AppLocalizations.of(context).healthSalt),
+            _HealthBadge(label: AppLocalizations.of(context).healthFat),
+            _HealthBadge(label: AppLocalizations.of(context).healthProcessed),
+            _HealthBadge(
+              label: AppLocalizations.of(context).healthChildSuitable,
+            ),
           ],
         ),
       ],
@@ -377,7 +385,10 @@ class _NutritionSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Nutrition Info', style: theme.textTheme.titleMedium),
+        Text(
+          AppLocalizations.of(context).productNutritionInfo,
+          style: theme.textTheme.titleMedium,
+        ),
         const SizedBox(height: RadhaSpacing.space12),
         Container(
           padding: const EdgeInsets.all(RadhaSpacing.space16),
@@ -425,7 +436,10 @@ class _AllergenCheckSection extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Allergen Check', style: theme.textTheme.titleSmall),
+        Text(
+          AppLocalizations.of(context).productAllergenCheck,
+          style: theme.textTheme.titleSmall,
+        ),
         const SizedBox(height: RadhaSpacing.space8),
         allergenAsync.when(
           loading: () => const _SectionSkeleton(),
@@ -603,7 +617,11 @@ class _IngredientExplainerSheet extends ConsumerWidget {
                               );
                             },
                             icon: const Icon(Icons.open_in_new, size: 16),
-                            label: const Text('See full explanation'),
+                            label: Text(
+                              AppLocalizations.of(
+                                context,
+                              ).productSeeFullExplanation,
+                            ),
                           ),
                         ),
                       ],
@@ -645,7 +663,10 @@ class _HealthyAlternativesSection extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Healthier Options', style: theme.textTheme.titleSmall),
+        Text(
+          AppLocalizations.of(context).productHealthierOptions,
+          style: theme.textTheme.titleSmall,
+        ),
         const SizedBox(height: RadhaSpacing.space8),
         altAsync.when(
           loading: () => const _SectionSkeleton(),
@@ -685,7 +706,7 @@ class _HealthyAlternativesSection extends ConsumerWidget {
                         ),
                         const SizedBox(width: RadhaSpacing.space8),
                         HealthLabelChip(
-                          label: 'Score: $score',
+                          label: AppLocalizations.of(context).productScore(score),
                           level: HealthLevel.healthy,
                         ),
                         const SizedBox(width: RadhaSpacing.space8),
@@ -696,7 +717,9 @@ class _HealthyAlternativesSection extends ConsumerWidget {
                           width: kMinTouchTarget,
                           height: kMinTouchTarget,
                           child: IconButton(
-                            tooltip: 'Add to shopping list',
+                            tooltip: AppLocalizations.of(
+                              context,
+                            ).healthyAlternativesAddToList,
                             onPressed: () =>
                                 _addToShoppingList(context, ref, name, altId),
                             icon: const Icon(Icons.add_shopping_cart_outlined),
@@ -724,19 +747,18 @@ class _HealthyAlternativesSection extends ConsumerWidget {
     String? altProductId,
   ) async {
     final messenger = ScaffoldMessenger.of(context);
+    final l10n = AppLocalizations.of(context);
     try {
       final client = ref.read(apiClientProvider);
       await client.addShoppingListItem(
         ShoppingListItemDto(name: name, productId: altProductId),
       );
       messenger.showSnackBar(
-        const SnackBar(content: Text('Added to shopping list')),
+        SnackBar(content: Text(l10n.healthyAlternativesAddedToList)),
       );
     } catch (_) {
       messenger.showSnackBar(
-        const SnackBar(
-          content: Text('Could not add to shopping list. Please try again.'),
-        ),
+        SnackBar(content: Text(l10n.healthyAlternativesAddFailed)),
       );
     }
   }

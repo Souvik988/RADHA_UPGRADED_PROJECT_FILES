@@ -1493,4 +1493,1100 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get allergenSulphites => 'Sulphites';
+
+  @override
+  String get commonSuccess => 'Success';
+
+  @override
+  String lockedFeatureUpgradeTo(String planName) {
+    return 'Upgrade to $planName';
+  }
+
+  @override
+  String lockedFeaturePlan(String planName) {
+    return 'This feature is part of the $planName plan.';
+  }
+
+  @override
+  String get lockedFeatureViewPlans => 'View plans';
+
+  @override
+  String get notFoundSemantic => 'Page not found';
+
+  @override
+  String get notFoundTitle => 'This page wandered off';
+
+  @override
+  String get notFoundBody =>
+      'We couldn\'t find what you were looking for. Let\'s get you back home.';
+
+  @override
+  String get notFoundBackHome => 'Back to home';
+
+  @override
+  String get commonCouldNotLoad => 'Could not load';
+
+  @override
+  String get sendOtp => 'Send OTP';
+
+  @override
+  String get otpUseCode => 'Use code';
+
+  @override
+  String get ohsPickStore => 'Pick a store before opening the dashboard.';
+
+  @override
+  String get profileAccount => 'Account';
+
+  @override
+  String get profileManageStores => 'Manage stores';
+
+  @override
+  String get profileSavedProducts => 'Saved products';
+
+  @override
+  String get profileSubscription => 'Subscription';
+
+  @override
+  String get profilePreferences => 'Preferences';
+
+  @override
+  String get profileAllergenProfile => 'Allergen profile';
+
+  @override
+  String get profileShoppingList => 'Shopping list';
+
+  @override
+  String get recallLoadError => 'Could not load recalls.';
+
+  @override
+  String get recallEmpty => 'No active recalls';
+
+  @override
+  String get recallEmptyBody =>
+      'You will see product recall alerts here as they are issued by regulatory bodies.';
+
+  @override
+  String get referralsLoadError => 'Could not load referrals.';
+
+  @override
+  String get referralsCopyCode => 'Copy code';
+
+  @override
+  String get referralsShareInvite => 'Share invite';
+
+  @override
+  String get referralsCodeCopied => 'Code copied';
+
+  @override
+  String get referralsInvitees => 'Invitees';
+
+  @override
+  String get referralsRewardsEarned => 'Rewards earned';
+
+  @override
+  String get referralsCodeRedeemed => 'Code redeemed';
+
+  @override
+  String get referralsEnterCode => 'Enter a referral code';
+
+  @override
+  String get referralsRedeem => 'Redeem';
+
+  @override
+  String get referralsRedeemError => 'Could not redeem code';
+
+  @override
+  String get referralsRedeemSubtitle =>
+      'Have a friend\'s invite? Enter their code below.';
+
+  @override
+  String get commonClear => 'Clear';
+
+  @override
+  String get commonShare => 'Share';
+
+  @override
+  String get healthSugar => 'Sugar';
+
+  @override
+  String get healthSalt => 'Salt';
+
+  @override
+  String get healthFat => 'Fat';
+
+  @override
+  String get healthProcessed => 'Processed';
+
+  @override
+  String get healthChildSuitable => 'Child-suitable';
+
+  @override
+  String get productDetailsTitle => 'Product Details';
+
+  @override
+  String get productDetailLoadError => 'Couldn\'t load this product';
+
+  @override
+  String get productCheckAllergens => 'Check allergens';
+
+  @override
+  String get productExplainIngredients => 'Explain ingredients';
+
+  @override
+  String get productSeeHealthierOptions => 'See healthier options';
+
+  @override
+  String get productViewHealthyAlternatives => 'View healthy alternatives';
+
+  @override
+  String get productHealthAssessment => 'Health Assessment';
+
+  @override
+  String get productNutritionInfo => 'Nutrition Info';
+
+  @override
+  String get productAllergenCheck => 'Allergen Check';
+
+  @override
+  String get productSeeFullExplanation => 'See full explanation';
+
+  @override
+  String get productHealthierOptions => 'Healthier Options';
+
+  @override
+  String get commonYes => 'Yes';
+
+  @override
+  String get nutritionProtein => 'Protein';
+
+  @override
+  String get nutritionTotalSugars => 'Total Sugars';
+
+  @override
+  String get nutritionEnergy => 'Energy';
+
+  @override
+  String get nutritionTotalFat => 'Total Fat';
+
+  @override
+  String get nutritionSaturatedFat => 'Saturated Fat';
+
+  @override
+  String get nutritionCarbohydrates => 'Carbohydrates';
+
+  @override
+  String get nutritionFibre => 'Fibre';
+
+  @override
+  String get nutritionSodium => 'Sodium';
+
+  @override
+  String get nutritionAll => 'All nutrients';
+
+  @override
+  String get nutritionPer100g => 'Per 100 g';
+
+  @override
+  String get nutritionPer50g => 'Per 50 g';
+
+  @override
+  String get productDetailSavedAlert =>
+      'Saved — we\'ll alert you if it\'s ever recalled.';
+
+  @override
+  String get productDetailSaveError => 'Could not save. Please try again.';
+
+  @override
+  String get productDetailWhatYoullLike => 'What you\'ll like';
+
+  @override
+  String get productDetailWhatConcern => 'What should concern you';
+
+  @override
+  String get productDetailIngredientDeepDive => 'Ingredient deep-dive';
+
+  @override
+  String get productDetailPersonalisedFlags => 'Personalised flags';
+
+  @override
+  String get productDetailAlreadyBought => 'Already bought';
+
+  @override
+  String get productDetailScanToUnlock => 'Scan to unlock';
+
+  @override
+  String get scanApprovalNotInAudit => 'Approval status — not in an audit';
+
+  @override
+  String get scanApprovalChecking => 'Checking approved list…';
+
+  @override
+  String get scanApprovalCheckFailed => 'Couldn\'t check approval';
+
+  @override
+  String get scanApprovalApproved => 'Approved — in list';
+
+  @override
+  String get scanApprovalNoList => 'No approved list active';
+
+  @override
+  String get scanApprovalInvalidBarcode => 'Invalid barcode';
+
+  @override
+  String get scanApprovalNotInList => 'Not in approved list';
+
+  @override
+  String scanApprovalStatus(String label) {
+    return 'Approval status: $label';
+  }
+
+  @override
+  String get scanResultAddToExpiry => 'Add to expiry';
+
+  @override
+  String get scanResultAddToStock => 'Add to stock';
+
+  @override
+  String get scanResultSaveToList => 'Save to list';
+
+  @override
+  String get scanResultNoProduct => 'No product found';
+
+  @override
+  String get scanResultScanLabel => 'Scan the label';
+
+  @override
+  String get auditRecordError => 'Could not record the scan. Please try again.';
+
+  @override
+  String get auditEndError => 'Could not end the audit. Please try again.';
+
+  @override
+  String get auditNoStore => 'No store assigned';
+
+  @override
+  String get auditNoStoreBody =>
+      'Bulk audits run against a store\'s approved EAN list. Ask an admin to assign you a store, then come back to audit.';
+
+  @override
+  String get auditMatched => 'Matched';
+
+  @override
+  String get auditNotInList => 'Not in list';
+
+  @override
+  String get auditNoList => 'No list';
+
+  @override
+  String get auditInvalid => 'Invalid';
+
+  @override
+  String get auditUnchecked => 'Unchecked';
+
+  @override
+  String get commonTotal => 'Total';
+
+  @override
+  String get auditEnterScanEan => 'Enter or scan EAN';
+
+  @override
+  String auditStatus(String label) {
+    return 'Status: $label';
+  }
+
+  @override
+  String get auditStartAuditing => 'Start auditing';
+
+  @override
+  String get auditStartBody =>
+      'Scan or type an EAN above to check it against this store\'s approved list. Each result lands here with a matched or not-in-list status.';
+
+  @override
+  String get cameraCapture => 'Capture';
+
+  @override
+  String get labelScanReadError => 'Couldn\'t read the label';
+
+  @override
+  String get labelScanReadErrorBody =>
+      'Try again in better light, hold steady, and fill the frame with the ingredients panel.';
+
+  @override
+  String get labelScanAnalysisFailed => 'Analysis failed';
+
+  @override
+  String get labelScanIntro => 'RADHA reads the label for you';
+
+  @override
+  String get labelScanTakePhoto => 'Take a photo';
+
+  @override
+  String get labelScanChooseGallery => 'Choose from gallery';
+
+  @override
+  String get labelScanAnother => 'Scan another';
+
+  @override
+  String labelScanSeePlans(String plan) {
+    return 'See $plan plans';
+  }
+
+  @override
+  String get labelScanMaybeLater => 'Maybe later';
+
+  @override
+  String scanResultNotFoundBody(String ean) {
+    return 'No catalog match for EAN $ean — but you can still read the label. Snap the ingredients panel and we\'ll tell you what\'s inside.';
+  }
+
+  @override
+  String productScore(String score) {
+    return 'Score: $score';
+  }
+
+  @override
+  String get catalogSearchHint => 'Search products or brands';
+
+  @override
+  String get catalogNoMatches => 'No matches';
+
+  @override
+  String catalogNoMatchesBody(String query) {
+    return 'We couldn\'t find products for “$query”. Try a different name, or scan the item instead.';
+  }
+
+  @override
+  String get browseTitle => 'Products';
+
+  @override
+  String get browseLoadError => 'Couldn\'t load products';
+
+  @override
+  String browseLoadErrorBody(String category) {
+    return 'We hit a snag loading $category. Please try again.';
+  }
+
+  @override
+  String get browseSortHealthiest => 'Healthiest';
+
+  @override
+  String get browseSortAZ => 'A–Z';
+
+  @override
+  String get browseFilterVegOnly => 'Veg only';
+
+  @override
+  String get browseVeg => 'Veg';
+
+  @override
+  String get browseEmptyVeg => 'No veg items here yet';
+
+  @override
+  String browseEmptyVegBody(String category) {
+    return 'Nothing in $category matches the veg filter right now.';
+  }
+
+  @override
+  String get browseShowAll => 'Show all';
+
+  @override
+  String get browseEmpty => 'No products yet';
+
+  @override
+  String browseEmptyBody(String category) {
+    return 'We\'re stocking the $category aisle. Meanwhile, scan any item to check its health and expiry.';
+  }
+
+  @override
+  String referralsShareText(String code) {
+    return 'Join me on RADHA: use code $code';
+  }
+
+  @override
+  String get selectStoreEmpty => 'No stores yet';
+
+  @override
+  String get selectStoreEmptyBody =>
+      'Reach out to your manager to be added to a store.';
+
+  @override
+  String get selectStoreEmptyDetail =>
+      'Your account is not associated with any store yet. Ask your manager to grant access, then come back to pick one.';
+
+  @override
+  String get selectStoreContactManager => 'Contact your manager';
+
+  @override
+  String get languageSavedLocally => 'Language saved locally only';
+
+  @override
+  String languageSavedLocallyError(String error) {
+    return 'Language saved locally only: $error';
+  }
+
+  @override
+  String get signOutConfirmBody =>
+      'You will need to sign in again with an OTP to use the app.';
+
+  @override
+  String get scanResultTitle => 'Scan result';
+
+  @override
+  String scanResultShareMessage(String ean) {
+    return 'I checked this product on RADHA — barcode $ean.';
+  }
+
+  @override
+  String get scanResultHealthHeading => 'Health';
+
+  @override
+  String get scanResultAssessmentPending => 'Assessment pending';
+
+  @override
+  String get scanResultNutritionPending =>
+      'Nutrition flags appear here once this product is matched in the catalog. Scan more items to enrich the database.';
+
+  @override
+  String get scanResultExplainIngredients => 'Explain ingredients';
+
+  @override
+  String get scanResultAllergenPrompt =>
+      'Set up your allergen profile to get instant warnings when a scanned product contains something you avoid.';
+
+  @override
+  String get taskEvidenceRequiredSnack =>
+      'Evidence is required to complete this task';
+
+  @override
+  String taskMovedTo(String status) {
+    return 'Task moved to $status';
+  }
+
+  @override
+  String get taskUpdateError => 'Could not update the task. Please try again.';
+
+  @override
+  String taskAssignedTo(String name) {
+    return 'Assigned to $name';
+  }
+
+  @override
+  String taskDueOn(String date) {
+    return 'Due $date';
+  }
+
+  @override
+  String get taskPriorityLabel => 'Priority';
+
+  @override
+  String get taskEvidenceLabel => 'Evidence';
+
+  @override
+  String get taskEvidencePhotoRequired => 'Photo required';
+
+  @override
+  String get taskEvidenceNotRequired => 'Not required';
+
+  @override
+  String taskEvidencePhotosAttached(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count photos attached',
+      one: '1 photo attached',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get taskEvidencePhotoNeeded =>
+      'A photo is required to complete this task';
+
+  @override
+  String get taskTimelineCreated => 'Created';
+
+  @override
+  String get taskTimelineStarted => 'Started';
+
+  @override
+  String get taskActionComplete => 'Complete';
+
+  @override
+  String get taskLoadFailed => 'Failed to load task';
+
+  @override
+  String get taskDescriptionLabel => 'Description';
+
+  @override
+  String get taskTypeLabel => 'Type';
+
+  @override
+  String get taskActionStart => 'Start';
+
+  @override
+  String get taskCreateTitle => 'Create task';
+
+  @override
+  String get taskCreateCta => 'Create Task';
+
+  @override
+  String get taskCreatedSnack => 'Task created';
+
+  @override
+  String get taskCreateError => 'Could not create the task. Please try again.';
+
+  @override
+  String get taskNotAuthorizedTitle => 'Not authorized';
+
+  @override
+  String get taskNotAuthorizedBody =>
+      'Only managers and admins can create tasks.';
+
+  @override
+  String get taskTitleLabel => 'Title';
+
+  @override
+  String get taskTitleHint => 'e.g. Audit dairy aisle EANs';
+
+  @override
+  String get taskTitleRequired => 'Title is required';
+
+  @override
+  String get taskDescriptionHint => 'Optional details for the assignee';
+
+  @override
+  String get taskStoreLabel => 'Store';
+
+  @override
+  String get taskAssigneeLabel => 'Assignee (user ID)';
+
+  @override
+  String get taskAssigneeHint => 'Enter user ID or leave blank';
+
+  @override
+  String get taskDueDateLabel => 'Due date';
+
+  @override
+  String get taskSelectDate => 'Select a date';
+
+  @override
+  String get taskRequiresEvidence => 'Requires evidence';
+
+  @override
+  String get taskRequiresEvidenceSubtitle =>
+      'Assignee must upload a photo to complete';
+
+  @override
+  String get taskTypeEanAudit => 'EAN Audit';
+
+  @override
+  String get taskTypeExpiryCheck => 'Expiry Check';
+
+  @override
+  String get taskTypeInventoryCount => 'Inventory Count';
+
+  @override
+  String get taskTypeDisplayVerification => 'Display Verification';
+
+  @override
+  String get taskTypeCustom => 'Custom';
+
+  @override
+  String get checkoutStartError =>
+      'Could not start checkout. Please try again.';
+
+  @override
+  String get paymentResponseIncomplete => 'Payment response was incomplete.';
+
+  @override
+  String get paymentSuccessUpdated => 'Payment successful. Plan updated.';
+
+  @override
+  String get paymentNotVerified => 'Payment could not be verified.';
+
+  @override
+  String get paymentVerifyFailed =>
+      'Payment verification failed. Please contact support.';
+
+  @override
+  String get paymentCancelled => 'Payment cancelled.';
+
+  @override
+  String paymentFailed(String message) {
+    return 'Payment failed: $message';
+  }
+
+  @override
+  String paymentOpeningWallet(String wallet) {
+    return 'Opening $wallet…';
+  }
+
+  @override
+  String get paymentSheetOpenError => 'Could not open the payment sheet.';
+
+  @override
+  String get subscriptionLoadError => 'Couldn\'t load your subscription';
+
+  @override
+  String get subscriptionLoadErrorBody =>
+      'Check your connection and try again.';
+
+  @override
+  String subscriptionCurrentPlan(String plan) {
+    return 'You\'re on $plan';
+  }
+
+  @override
+  String subscriptionUpgradeTo(String plan) {
+    return 'Upgrade to $plan';
+  }
+
+  @override
+  String subscriptionChoosePlan(String plan) {
+    return 'Choose $plan';
+  }
+
+  @override
+  String get subscriptionPopular => 'Popular';
+
+  @override
+  String get subscriptionPerMonth => '/mo';
+
+  @override
+  String get shoppingListTitle => 'Shopping list';
+
+  @override
+  String get shoppingAddItem => 'Add item';
+
+  @override
+  String get shoppingLoadError => 'Could not load your list';
+
+  @override
+  String get shoppingLoadErrorBody =>
+      'We couldn\'t load your shopping list. Please try again.';
+
+  @override
+  String get shoppingEmptyTitle => 'Your shopping list is empty';
+
+  @override
+  String get shoppingEmptyBody =>
+      'Tap the plus button to add an item, or save healthy alternatives from a product page.';
+
+  @override
+  String get shoppingUpdateError =>
+      'Could not update the item. Please try again.';
+
+  @override
+  String get shoppingDeleteError =>
+      'Could not delete the item. Please try again.';
+
+  @override
+  String get shoppingAddError => 'Could not add the item. Please try again.';
+
+  @override
+  String get shoppingAllDone => 'All done — everything ticked off';
+
+  @override
+  String shoppingRemaining(int remaining, int total) {
+    return '$remaining of $total left to buy';
+  }
+
+  @override
+  String shoppingQty(int quantity) {
+    return 'Qty: $quantity';
+  }
+
+  @override
+  String get shoppingDeleteItem => 'Delete item';
+
+  @override
+  String get shoppingItemNameLabel => 'Item name';
+
+  @override
+  String get shoppingItemNameHint => 'e.g. Whole wheat bread';
+
+  @override
+  String get shoppingItemNameRequired => 'Enter an item name';
+
+  @override
+  String get shoppingItemNameTooLong => 'Keep it under 120 characters';
+
+  @override
+  String get shoppingQuantityLabel => 'Quantity (optional)';
+
+  @override
+  String get shoppingQuantityInvalid => 'Enter a positive number';
+
+  @override
+  String get shoppingQuantityTooHigh => 'That seems unreasonably high';
+
+  @override
+  String get shoppingAddToList => 'Add to list';
+
+  @override
+  String get grnTitle => 'Goods received';
+
+  @override
+  String get grnFilterAll => 'All';
+
+  @override
+  String get grnFilterDraft => 'Draft';
+
+  @override
+  String get grnFilterPendingReview => 'Pending Review';
+
+  @override
+  String get grnFilterPosted => 'Posted';
+
+  @override
+  String get grnStatusPending => 'Pending';
+
+  @override
+  String get grnEmptyTitle => 'No GRNs here';
+
+  @override
+  String get grnEmptyBody =>
+      'Create a goods-received note to log a supplier delivery.';
+
+  @override
+  String get grnNew => 'New GRN';
+
+  @override
+  String get grnLoadError => 'Failed to load GRNs';
+
+  @override
+  String get grnSupplierFallback => 'Supplier';
+
+  @override
+  String get categoryBiscuits => 'Biscuits & Snacks';
+
+  @override
+  String get categoryBreakfast => 'Breakfast & Spreads';
+
+  @override
+  String get categoryDairy => 'Dairy & Eggs';
+
+  @override
+  String get categoryBeverages => 'Beverages';
+
+  @override
+  String get categoryStaples => 'Staples & Grains';
+
+  @override
+  String get categoryPersonalCare => 'Personal Care';
+
+  @override
+  String get categoryHousehold => 'Household';
+
+  @override
+  String get categoryFrozen => 'Frozen';
+
+  @override
+  String get lowStockTitle => 'Low stock alerts';
+
+  @override
+  String get lowStockLoadError => 'Failed to load alerts';
+
+  @override
+  String get lowStockEmpty => 'All stock levels are healthy';
+
+  @override
+  String lowStockCurrentThreshold(int quantity, int threshold) {
+    return 'Current: $quantity / Threshold: $threshold';
+  }
+
+  @override
+  String get lowStockRestock => 'Restock';
+
+  @override
+  String get commonRequired => 'Required';
+
+  @override
+  String get commonOptional => 'Optional';
+
+  @override
+  String get commonQuantity => 'Quantity';
+
+  @override
+  String get smTitle => 'Stock movement';
+
+  @override
+  String get smStockIn => 'Stock In';
+
+  @override
+  String get smStockOut => 'Stock Out';
+
+  @override
+  String get smProductLabel => 'Product';
+
+  @override
+  String get smProductHint => 'Enter product ID or EAN';
+
+  @override
+  String get smReasonLabel => 'Reason';
+
+  @override
+  String get smSelectReason => 'Select reason';
+
+  @override
+  String get smBatchLabel => 'Batch number';
+
+  @override
+  String get smExpiryLabel => 'Expiry date';
+
+  @override
+  String get smExpiryOptionalHint => 'Optional — tap to select';
+
+  @override
+  String get smNotesLabel => 'Notes';
+
+  @override
+  String get smNotesHint => 'Optional notes';
+
+  @override
+  String get smRecordIn => 'Record stock in';
+
+  @override
+  String get smRecordOut => 'Record stock out';
+
+  @override
+  String get smStockInRecorded => 'Stock-in recorded';
+
+  @override
+  String get smStockOutRecorded => 'Stock-out recorded';
+
+  @override
+  String get smRecordError =>
+      'Could not record the stock movement. Please try again.';
+
+  @override
+  String get smInsufficientStock => 'Insufficient stock for this movement';
+
+  @override
+  String get smReasonPurchase => 'Purchase';
+
+  @override
+  String get smReasonReturn => 'Return';
+
+  @override
+  String get smReasonAdjustment => 'Adjustment';
+
+  @override
+  String get smReasonTransfer => 'Transfer';
+
+  @override
+  String get smReasonDamage => 'Damage';
+
+  @override
+  String get smReasonExpiryRemoval => 'Expiry removal';
+
+  @override
+  String get smReasonOther => 'Other';
+
+  @override
+  String get grnInvoiceDateRequired => 'Invoice date is required';
+
+  @override
+  String get grnCreateError => 'Could not create the GRN. Please try again.';
+
+  @override
+  String get grnSupplierInvoiceSection => 'Supplier & invoice';
+
+  @override
+  String get grnSupplierNameLabel => 'Supplier name';
+
+  @override
+  String get grnSupplierNameHint => 'Enter supplier name';
+
+  @override
+  String get grnSupplierRequired => 'Supplier is required';
+
+  @override
+  String get grnInvoiceNumberLabel => 'Invoice number';
+
+  @override
+  String get grnInvoiceNumberHint => 'Enter invoice number';
+
+  @override
+  String get grnInvoiceNumberRequired => 'Invoice number is required';
+
+  @override
+  String get grnInvoiceDateLabel => 'Invoice date *';
+
+  @override
+  String get grnExpectedDeliveryLabel => 'Expected delivery date';
+
+  @override
+  String get grnCreateDraft => 'Create Draft GRN';
+
+  @override
+  String get grnSelectDate => 'Select date';
+
+  @override
+  String get expiryCalendarTitle => 'Expiry calendar';
+
+  @override
+  String get expiryCalendarLoadError => 'Failed to load calendar data.';
+
+  @override
+  String get expiryCalendarTapHint => 'Tap a day to see details';
+
+  @override
+  String get expiryCalendarNoRecords => 'No expiry records for this day';
+
+  @override
+  String expiryCalendarSummaryFor(String date) {
+    return 'Summary for $date';
+  }
+
+  @override
+  String get exTitle => 'New Expiry Record';
+
+  @override
+  String get exMfgAfterExpiry =>
+      'Manufacturing date cannot be after expiry date';
+
+  @override
+  String get exSelectMfg => 'Select manufacturing date';
+
+  @override
+  String get exSelectExpiry => 'Select expiry date';
+
+  @override
+  String get exExpiryRequired => 'Expiry date is required';
+
+  @override
+  String get exCreated => 'Expiry record created';
+
+  @override
+  String get exOfflineQueued =>
+      'You\'re offline — record will sync when you\'re back online';
+
+  @override
+  String get exSubmitError => 'Something went wrong. Please try again.';
+
+  @override
+  String get exNotSet => 'Not set';
+
+  @override
+  String get exProductIdLabel => 'Product ID';
+
+  @override
+  String get exProductIdHint => 'Enter product ID or scan barcode';
+
+  @override
+  String get exMfgLabel => 'Manufacturing Date';
+
+  @override
+  String get exExpiryLabel => 'Expiry Date *';
+
+  @override
+  String get exBatchLabel => 'Batch Number';
+
+  @override
+  String get exLocationLabel => 'Location';
+
+  @override
+  String get exLocationHint => 'Shelf / aisle / zone';
+
+  @override
+  String get exSaveRecord => 'Save Record';
+
+  @override
+  String get exOcrSemantic => 'RADHA reads the date for you';
+
+  @override
+  String get exOcrTitle => 'Scan the date off the pack';
+
+  @override
+  String get exOcrSubtitle => 'We\'ll read MFG / EXP for you';
+
+  @override
+  String get grnItemsTitle => 'GRN items';
+
+  @override
+  String get grnItemAdded => 'Item added';
+
+  @override
+  String get grnItemSavedOffline =>
+      'Saved offline — it\'ll sync when you\'re back online';
+
+  @override
+  String get grnItemAddError => 'Could not add item. Please try again.';
+
+  @override
+  String get grnAddItemFirst => 'Add at least one item before posting';
+
+  @override
+  String get grnPosted => 'GRN posted — stock updated';
+
+  @override
+  String get grnPostQueued => 'Queued — it\'ll post when you\'re back online';
+
+  @override
+  String get grnPostError => 'Could not post GRN. Please try again.';
+
+  @override
+  String get grnNoItems => 'No items added yet';
+
+  @override
+  String get grnNoItemsHint => 'Tap the button below to add items';
+
+  @override
+  String grnTotalQty(String qty) {
+    return 'Total Qty: $qty';
+  }
+
+  @override
+  String grnTotalValue(String value) {
+    return 'Total: ₹$value';
+  }
+
+  @override
+  String get grnAddItem => 'Add Item';
+
+  @override
+  String get grnPostGrn => 'Post GRN';
+
+  @override
+  String get grnPostHint =>
+      'Posting updates stock & resolves low-stock alerts.';
+
+  @override
+  String grnInvoiceLabel(String number) {
+    return 'Invoice $number';
+  }
+
+  @override
+  String grnBatchTag(String batch) {
+    return 'Batch $batch';
+  }
+
+  @override
+  String get grnBarcodeLabel => 'Barcode (EAN / UPC)';
+
+  @override
+  String get grnBarcodeHint => '8–13 digits';
+
+  @override
+  String get grnProductNameLabel => 'Product name';
+
+  @override
+  String get grnMustBePositive => 'Must be > 0';
+
+  @override
+  String get grnBatchNumberOptional => 'Batch number (optional)';
+
+  @override
+  String get grnMfgDateLabel => 'Manufacturing date';
+
+  @override
+  String get grnExpiryDateLabel => 'Expiry date';
+
+  @override
+  String get grnUnitPriceLabel => 'Unit price (₹)';
+
+  @override
+  String get grnMustBeNonNeg => 'Must be >= 0';
 }
