@@ -94,13 +94,9 @@ void main() {
 void _stubHomeSummaryEndpoints(DioAdapter adapter) {
   adapter
     ..onGet(
-      '/api/v1/expiry',
-      (server) => server.reply(200, {
-        'items': <Map<String, dynamic>>[],
-        'total': 0,
-        'cursor': null,
-      }),
-      queryParameters: {'limit': 1, 'status': 'near_expiry'},
+      '/api/v1/expiry-records',
+      (server) => server.reply(200, <Map<String, dynamic>>[]),
+      queryParameters: {'limit': 200, 'status': 'yellow,red', 'storeId': 's-1'},
     )
     ..onGet(
       '/api/v1/tasks',
@@ -118,6 +114,6 @@ void _stubHomeSummaryEndpoints(DioAdapter adapter) {
         'total': 0,
         'cursor': null,
       }),
-      queryParameters: {'limit': 1},
+      queryParameters: {'limit': 200},
     );
 }

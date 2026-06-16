@@ -145,27 +145,21 @@ abstract class ApiClient {
   );
 
   // ─── Expiry ─────────────────────────────────────────────────────────────
-  @POST('/api/v1/expiry')
+  @POST('/api/v1/expiry-records')
   Future<ExpiryResponse> createExpiry(@Body() CreateExpiryDto body);
 
-  @GET('/api/v1/expiry')
-  Future<PaginatedExpiries> getExpiries({
-    @Query('cursor') String? cursor,
+  @GET('/api/v1/expiry-records')
+  Future<List<ExpiryResponse>> getExpiryRecords({
     @Query('limit') int? limit,
     @Query('status') String? status,
+    @Query('storeId') String? storeId,
   });
 
-  @GET('/api/v1/expiry/{id}')
+  @GET('/api/v1/expiry-records/{id}')
   Future<ExpiryResponse> getExpiry(@Path('id') String id);
 
-  @DELETE('/api/v1/expiry/{id}')
+  @DELETE('/api/v1/expiry-records/{id}')
   Future<void> deleteExpiry(@Path('id') String id);
-
-  // ─── Expiry Calendar ────────────────────────────────────────────────────
-  @GET('/api/v1/expiry/calendar')
-  Future<ExpiryCalendarResponse> getExpiryCalendar({
-    @Query('month') String? month,
-  });
 
   // ─── Tasks ──────────────────────────────────────────────────────────────
   @POST('/api/v1/tasks')
@@ -463,3 +457,19 @@ final apiClientProvider = Provider<ApiClient>((ref) {
   final dio = ref.watch(dioProvider);
   return ApiClient(dio);
 });
+
+extension ExpiryApiClientCompat on ApiClient {
+  Future<PaginatedExpiries> getExpiries({
+    String? cursor,
+    int? limit,
+    String? status,
+    String? storeId,
+  }) async {
+    final items = await getExpiryRecords(
+      limit: limit,
+      status: status,
+      storeId: storeId,
+    );
+    return PaginatedExpiries(items: items, total: items.length);
+  }
+}

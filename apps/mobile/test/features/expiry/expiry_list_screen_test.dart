@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
+import 'package:radha_mobile/core/auth/auth_controller.dart';
+import 'package:radha_mobile/core/auth/auth_session.dart';
 import 'package:radha_mobile/core/network/api_client.dart';
 import 'package:radha_mobile/core/network/dto/expiry_dto.dart';
 import 'package:radha_mobile/features/expiry/expiry_list_screen.dart';
@@ -10,25 +12,42 @@ import 'package:radha_mobile/l10n/generated/app_localizations.dart';
 
 class MockApiClient extends Mock implements ApiClient {}
 
+final _testSession = AuthSession(
+  accessToken: 'test-token',
+  refreshToken: 'test-refresh',
+  userId: 'user-123',
+  tenantId: 'tenant-1',
+  roles: ['manager'],
+  stores: [
+    const StoreAccess(
+      storeId: 'store-1',
+      storeName: 'Main Street Store',
+      role: 'manager',
+    ),
+  ],
+  selectedStoreId: 'store-1',
+);
+
 void main() {
   late MockApiClient mockClient;
 
   setUp(() {
     mockClient = MockApiClient();
     when(
-      () => mockClient.getExpiries(
-        cursor: any(named: 'cursor'),
+      () => mockClient.getExpiryRecords(
         limit: any(named: 'limit'),
         status: any(named: 'status'),
+        storeId: any(named: 'storeId'),
       ),
-    ).thenAnswer(
-      (_) async => const PaginatedExpiries(items: [], total: 0, cursor: null),
-    );
+    ).thenAnswer((_) async => const <ExpiryResponse>[]);
   });
 
   Widget buildSubject() {
     return ProviderScope(
-      overrides: [apiClientProvider.overrideWithValue(mockClient)],
+      overrides: [
+        apiClientProvider.overrideWithValue(mockClient),
+        authControllerProvider.overrideWith(() => _FakeAuthController()),
+      ],
       child: const MaterialApp(
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
@@ -49,24 +68,20 @@ void main() {
   testWidgets('Shows pull-to-refresh', (tester) async {
     // Provide data so the list renders with a RefreshIndicator.
     when(
-      () => mockClient.getExpiries(
-        cursor: any(named: 'cursor'),
+      () => mockClient.getExpiryRecords(
         limit: any(named: 'limit'),
         status: any(named: 'status'),
+        storeId: any(named: 'storeId'),
       ),
     ).thenAnswer(
-      (_) async => const PaginatedExpiries(
-        items: [
-          ExpiryResponse(
-            id: '1',
-            productId: 'prod-1',
-            expiryDate: '2025-08-01',
-            status: 'near_expiry',
-          ),
-        ],
-        total: 1,
-        cursor: null,
-      ),
+      (_) async => const [
+        ExpiryResponse(
+          id: '1',
+          productId: 'prod-1',
+          expiryDate: '2025-08-01',
+          status: 'yellow',
+        ),
+      ],
     );
 
     await tester.pumpWidget(buildSubject());
@@ -91,6 +106,12 @@ void main() {
       findsOneWidget,
     );
   });
+}
+
+/// Fake auth controller that immediately resolves to the test session.
+class _FakeAuthController extends AuthController {
+  @override
+  Future<AuthSession?> build() async => _testSession;
 }
 
 /// Test harness that simulates setting mfgDate after expiryDate to trigger

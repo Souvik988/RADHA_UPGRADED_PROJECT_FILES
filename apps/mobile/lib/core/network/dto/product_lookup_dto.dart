@@ -94,8 +94,7 @@ class ProductNutrition {
       fat != null ||
       sodium != null;
 
-  bool? get hasAllergenSignal =>
-      containsAllergens == null ? null : containsAllergens!.isNotEmpty;
+  bool? get hasAllergenSignal => containsAllergens?.isNotEmpty;
 
   bool get isMinimallyProcessed => isProcessed == 'not';
 

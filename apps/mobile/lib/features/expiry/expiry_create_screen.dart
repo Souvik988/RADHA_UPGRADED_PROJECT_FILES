@@ -3,12 +3,16 @@ import 'dart:io' show Platform;
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../core/auth/auth_controller.dart';
 import '../../core/network/api_exception.dart';
 import '../../core/network/dto/expiry_dto.dart';
 import '../../core/offline/sync_service.dart';
+import '../../core/router/app_router.dart';
 import '../../design/app_assets.dart';
 import '../../design/tokens.dart';
+import '../../design/widgets/empty_state.dart';
 import '../../design/widgets/mor_companion.dart';
 import '../../design/widgets/primary_button.dart';
 import 'ocr_date_helper.dart';
@@ -99,6 +103,13 @@ class _ExpiryCreateScreenState extends ConsumerState<ExpiryCreateScreen> {
 
   Future<void> _submit() async {
     if (!_formKey.currentState!.validate()) return;
+    final storeId = ref.read(currentUserProvider)?.selectedStoreId;
+    if (storeId == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Select a store before saving expiry.')),
+      );
+      return;
+    }
     if (_expiryDate == null) {
       ScaffoldMessenger.of(
         context,
@@ -112,11 +123,16 @@ class _ExpiryCreateScreenState extends ConsumerState<ExpiryCreateScreen> {
     try {
       final dto = CreateExpiryDto(
         productId: _productIdController.text.trim(),
+        storeId: storeId,
         expiryDate: _expiryDate!.toIso8601String().split('T').first,
+        manufactureDate: _mfgDate?.toIso8601String().split('T').first,
         batchNumber: _batchController.text.trim().isEmpty
             ? null
             : _batchController.text.trim(),
         quantity: int.tryParse(_quantityController.text.trim()),
+        shelfLocation: _locationController.text.trim().isEmpty
+            ? null
+            : _locationController.text.trim(),
       );
 
       // Route through the offline-first queue (Task 16). Successful 2xx
@@ -126,7 +142,7 @@ class _ExpiryCreateScreenState extends ConsumerState<ExpiryCreateScreen> {
       final result = await ref
           .read(syncServiceProvider)
           .enqueue<void>(
-            endpoint: '/api/v1/expiry',
+            endpoint: '/api/v1/expiry-records',
             method: 'POST',
             body: dto.toJson(),
           );
@@ -167,6 +183,13 @@ class _ExpiryCreateScreenState extends ConsumerState<ExpiryCreateScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final auth = ref.watch(authControllerProvider);
+    final selectedStoreId = auth.valueOrNull?.selectedStoreId;
+    final canSelectStore = auth.valueOrNull?.stores.isNotEmpty ?? false;
+
+    if (!auth.isLoading && selectedStoreId == null) {
+      return _ExpiryCreateNeedsStore(canSelectStore: canSelectStore);
+    }
 
     return Scaffold(
       appBar: AppBar(title: const Text('New Expiry Record')),
@@ -183,9 +206,7 @@ class _ExpiryCreateScreenState extends ConsumerState<ExpiryCreateScreen> {
               children: [
                 // Prominent OCR helper card (mobile only) — the fast path.
                 if (_canUseCamera) ...[
-                  _OcrHelperCard(
-                    onTap: _loading ? null : _useCamera,
-                  ),
+                  _OcrHelperCard(onTap: _loading ? null : _useCamera),
                   const SizedBox(height: RadhaSpacing.space24),
                 ],
 
@@ -273,6 +294,51 @@ class _ExpiryCreateScreenState extends ConsumerState<ExpiryCreateScreen> {
                   onPressed: _loading || _dateError != null ? null : _submit,
                 ),
               ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Shown when a user reaches expiry creation without a selected store.
+class _ExpiryCreateNeedsStore extends StatelessWidget {
+  const _ExpiryCreateNeedsStore({required this.canSelectStore});
+
+  final bool canSelectStore;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('New Expiry Record')),
+      body: SafeArea(
+        child: Center(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(RadhaSpacing.space16),
+            child: EmptyState(
+              illustration: const MorCompanion(
+                mood: MorMood.concern,
+                size: 104,
+              ),
+              title: 'No store selected',
+              body:
+                  'Expiry records are store-scoped. Select a store before adding expiry dates.',
+              actionLabel: canSelectStore ? 'Select store' : 'Contact manager',
+              actionIcon: canSelectStore
+                  ? Icons.storefront_outlined
+                  : Icons.support_agent_outlined,
+              onAction: () {
+                if (canSelectStore) {
+                  context.push(AppRoute.selectStore);
+                  return;
+                }
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Ask your manager to add you to a store.'),
+                  ),
+                );
+              },
             ),
           ),
         ),

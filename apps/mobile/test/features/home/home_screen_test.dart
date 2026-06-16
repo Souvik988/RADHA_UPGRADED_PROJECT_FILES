@@ -58,9 +58,21 @@ void main() {
     int lowStock = 2,
   }) {
     when(
-      () => mockApiClient.getExpiries(status: 'near_expiry', limit: 1),
+      () => mockApiClient.getExpiryRecords(
+        status: 'yellow,red',
+        storeId: 'store-1',
+        limit: 200,
+      ),
     ).thenAnswer(
-      (_) async => PaginatedExpiries(items: const [], total: nearExpiry),
+      (_) async => List.generate(
+        nearExpiry,
+        (i) => ExpiryResponse(
+          id: 'exp-$i',
+          productId: 'product-$i',
+          expiryDate: '2099-12-31',
+          status: 'yellow',
+        ),
+      ),
     );
     when(() => mockApiClient.getTasks(status: 'open', limit: 1)).thenAnswer(
       (_) async => PaginatedTasks(items: const [], total: openTasks),

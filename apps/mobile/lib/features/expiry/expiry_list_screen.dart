@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../core/auth/auth_controller.dart';
 import '../../core/network/api_client.dart';
 import '../../core/network/dto/expiry_dto.dart';
 import '../../core/router/app_router.dart';
@@ -22,15 +23,48 @@ extension on _ExpiryTab {
     _ExpiryTab.expired => 'expired',
     _ExpiryTab.safe => 'safe',
   };
+
+  String get apiStatus => switch (this) {
+    _ExpiryTab.nearExpiry => 'yellow,red',
+    _ExpiryTab.expired => 'expired',
+    _ExpiryTab.safe => 'green',
+  };
+}
+
+@immutable
+class _ExpiryQueryArgs {
+  const _ExpiryQueryArgs({
+    required this.storeId,
+    required this.uiStatus,
+    required this.apiStatus,
+  });
+
+  final String storeId;
+  final String uiStatus;
+  final String apiStatus;
+
+  @override
+  bool operator ==(Object other) =>
+      other is _ExpiryQueryArgs &&
+      other.storeId == storeId &&
+      other.uiStatus == uiStatus &&
+      other.apiStatus == apiStatus;
+
+  @override
+  int get hashCode => Object.hash(storeId, uiStatus, apiStatus);
 }
 
 /// First-page provider per status. Pagination beyond page one is handled in
 /// local state inside [_ExpiryTabContent]; this provider owns the initial
 /// fetch + pull-to-refresh invalidation.
 final _expiryFirstPageProvider = FutureProvider.autoDispose
-    .family<PaginatedExpiries, String>((ref, status) async {
+    .family<PaginatedExpiries, _ExpiryQueryArgs>((ref, args) async {
       final client = ref.watch(apiClientProvider);
-      return client.getExpiries(status: status, limit: 20);
+      return client.getExpiries(
+        status: args.apiStatus,
+        storeId: args.storeId,
+        limit: 20,
+      );
     });
 
 /// Expiry list screen — a segmented Near-expiry / Expired / Safe view, each
@@ -75,6 +109,52 @@ class _ExpiryListScreenState extends ConsumerState<ExpiryListScreen>
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final l10n = AppLocalizations.of(context);
+    final auth = ref.watch(authControllerProvider);
+    final session = auth.valueOrNull;
+    final selectedStoreId = session?.selectedStoreId;
+    final hasSelectableStores = session?.stores.isNotEmpty ?? false;
+
+    final body = auth.isLoading
+        ? const _ExpiryListSkeleton()
+        : selectedStoreId == null
+        ? _ExpiryNeedsStore(canSelectStore: hasSelectableStores)
+        : Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(
+                  RadhaSpacing.space20,
+                  RadhaSpacing.space8,
+                  RadhaSpacing.space20,
+                  RadhaSpacing.space12,
+                ),
+                child: _SegmentedTabs(
+                  labels: _tabs.map((t) => _tabLabel(l10n, t)).toList(),
+                  index: _index,
+                  onChanged: (i) {
+                    HapticFeedback.selectionClick();
+                    _tabController.animateTo(i);
+                  },
+                ),
+              ),
+              Expanded(
+                child: TabBarView(
+                  controller: _tabController,
+                  children: _tabs
+                      .map(
+                        (t) => _ExpiryTabContent(
+                          query: _ExpiryQueryArgs(
+                            storeId: selectedStoreId,
+                            uiStatus: t.status,
+                            apiStatus: t.apiStatus,
+                          ),
+                        ),
+                      )
+                      .toList(),
+                ),
+              ),
+            ],
+          );
+
     return Scaffold(
       backgroundColor: theme.colorScheme.surface,
       appBar: AppBar(
@@ -86,55 +166,31 @@ class _ExpiryListScreenState extends ConsumerState<ExpiryListScreen>
           ),
         ),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.calendar_month_outlined),
-            tooltip: l10n.expiryCalendarTooltip,
-            onPressed: () {
-              HapticFeedback.selectionClick();
-              context.push(AppRoute.expiryCalendar);
-            },
-          ),
-        ],
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(
-              RadhaSpacing.space20,
-              RadhaSpacing.space8,
-              RadhaSpacing.space20,
-              RadhaSpacing.space12,
-            ),
-            child: _SegmentedTabs(
-              labels: _tabs.map((t) => _tabLabel(l10n, t)).toList(),
-              index: _index,
-              onChanged: (i) {
+          if (selectedStoreId != null)
+            IconButton(
+              icon: const Icon(Icons.calendar_month_outlined),
+              tooltip: l10n.expiryCalendarTooltip,
+              onPressed: () {
                 HapticFeedback.selectionClick();
-                _tabController.animateTo(i);
+                context.push(AppRoute.expiryCalendar);
               },
             ),
-          ),
-          Expanded(
-            child: TabBarView(
-              controller: _tabController,
-              children: _tabs
-                  .map((t) => _ExpiryTabContent(status: t.status))
-                  .toList(),
-            ),
-          ),
         ],
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        heroTag: 'expiry_fab',
-        backgroundColor: RadhaColors.primary,
-        foregroundColor: RadhaColors.onPrimary,
-        onPressed: () {
-          HapticFeedback.lightImpact();
-          context.push(AppRoute.expiryNew);
-        },
-        icon: const Icon(Icons.add_rounded),
-        label: Text(l10n.add),
-      ),
+      body: body,
+      floatingActionButton: selectedStoreId == null
+          ? null
+          : FloatingActionButton.extended(
+              heroTag: 'expiry_fab',
+              backgroundColor: RadhaColors.primary,
+              foregroundColor: RadhaColors.onPrimary,
+              onPressed: () {
+                HapticFeedback.lightImpact();
+                context.push(AppRoute.expiryNew);
+              },
+              icon: const Icon(Icons.add_rounded),
+              label: Text(l10n.add),
+            ),
     );
   }
 
@@ -143,6 +199,43 @@ class _ExpiryListScreenState extends ConsumerState<ExpiryListScreen>
     _ExpiryTab.expired => l10n.expired,
     _ExpiryTab.safe => l10n.expiryTabSafe,
   };
+}
+
+class _ExpiryNeedsStore extends StatelessWidget {
+  const _ExpiryNeedsStore({required this.canSelectStore});
+
+  final bool canSelectStore;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    return Center(
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.all(RadhaSpacing.space16),
+        child: EmptyState(
+          illustration: const MorCompanion(mood: MorMood.concern, size: 104),
+          title: l10n.selectStoreEmptyTitle,
+          body: l10n.selectStoreEmptyBody,
+          actionLabel: canSelectStore
+              ? l10n.selectStoreTitle
+              : l10n.selectStoreContactManager,
+          actionIcon: canSelectStore
+              ? Icons.storefront_outlined
+              : Icons.support_agent_outlined,
+          onAction: () {
+            HapticFeedback.selectionClick();
+            if (canSelectStore) {
+              context.push(AppRoute.selectStore);
+              return;
+            }
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(l10n.selectStoreContactManagerSnackbar)),
+            );
+          },
+        ),
+      ),
+    );
+  }
 }
 
 /// Pill-style segmented control matching the mockup. Animated thumb.
@@ -210,9 +303,9 @@ class _SegmentedTabs extends StatelessWidget {
 /// Content of a single tab — first page from the provider, further pages from
 /// local state. Self-contained so each status keeps its own scroll + cursor.
 class _ExpiryTabContent extends ConsumerStatefulWidget {
-  const _ExpiryTabContent({required this.status});
+  const _ExpiryTabContent({required this.query});
 
-  final String status;
+  final _ExpiryQueryArgs query;
 
   @override
   ConsumerState<_ExpiryTabContent> createState() => _ExpiryTabContentState();
@@ -236,6 +329,17 @@ class _ExpiryTabContentState extends ConsumerState<_ExpiryTabContent>
   }
 
   @override
+  void didUpdateWidget(covariant _ExpiryTabContent oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.query != widget.query) {
+      _more.clear();
+      _cursor = null;
+      _initialised = false;
+      _loadingMore = false;
+    }
+  }
+
+  @override
   void dispose() {
     _scrollController.dispose();
     super.dispose();
@@ -255,7 +359,8 @@ class _ExpiryTabContentState extends ConsumerState<_ExpiryTabContent>
       final page = await client.getExpiries(
         cursor: _cursor,
         limit: 20,
-        status: widget.status,
+        status: widget.query.apiStatus,
+        storeId: widget.query.storeId,
       );
       if (!mounted) return;
       setState(() {
@@ -274,15 +379,16 @@ class _ExpiryTabContentState extends ConsumerState<_ExpiryTabContent>
       _cursor = null;
       _initialised = false;
     });
-    ref.invalidate(_expiryFirstPageProvider(widget.status));
-    await ref.read(_expiryFirstPageProvider(widget.status).future);
+    ref.invalidate(_expiryFirstPageProvider(widget.query));
+    await ref.read(_expiryFirstPageProvider(widget.query).future);
   }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
     final l10n = AppLocalizations.of(context);
-    final asyncValue = ref.watch(_expiryFirstPageProvider(widget.status));
+    final asyncValue = ref.watch(_expiryFirstPageProvider(widget.query));
+    final uiStatus = widget.query.uiStatus;
 
     return asyncValue.when(
       loading: () => const _ExpiryListSkeleton(),
@@ -308,11 +414,11 @@ class _ExpiryTabContentState extends ConsumerState<_ExpiryTabContent>
                 Center(
                   child: EmptyState(
                     illustration: MorCompanion(
-                      mood: _emptyMood(widget.status),
+                      mood: _emptyMood(uiStatus),
                       size: 104,
                     ),
-                    title: _emptyTitle(l10n, widget.status),
-                    body: _emptyMessage(l10n, widget.status),
+                    title: _emptyTitle(l10n, uiStatus),
+                    body: _emptyMessage(l10n, uiStatus),
                   ),
                 ),
               ],
@@ -528,13 +634,19 @@ class _ExpiryListTile extends StatelessWidget {
     }
     final c = switch (status) {
       'expired' => RadhaColors.danger,
+      'red' => RadhaColors.danger,
+      'yellow' => RadhaColors.warning,
       'near_expiry' => RadhaColors.warning,
+      'green' => RadhaColors.success,
       'safe' => RadhaColors.success,
       _ => theme.colorScheme.onSurfaceVariant,
     };
     final label = switch (status) {
       'expired' => l10n.expired,
+      'red' => l10n.expiryPillSoon,
+      'yellow' => l10n.expiryPillSoon,
       'near_expiry' => l10n.expiryPillSoon,
+      'green' => l10n.expiryTabSafe,
       'safe' => l10n.expiryTabSafe,
       _ => '—',
     };

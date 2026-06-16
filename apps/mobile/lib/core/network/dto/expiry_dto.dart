@@ -6,15 +6,23 @@ part 'expiry_dto.g.dart';
 class CreateExpiryDto {
   const CreateExpiryDto({
     required this.productId,
+    required this.storeId,
     required this.expiryDate,
+    this.manufactureDate,
     this.batchNumber,
     this.quantity,
+    this.source = 'manual',
+    this.shelfLocation,
   });
 
   final String productId;
+  final String storeId;
   final String expiryDate;
+  final String? manufactureDate;
   final String? batchNumber;
   final int? quantity;
+  final String source;
+  final String? shelfLocation;
 
   Map<String, dynamic> toJson() => _$CreateExpiryDtoToJson(this);
 }

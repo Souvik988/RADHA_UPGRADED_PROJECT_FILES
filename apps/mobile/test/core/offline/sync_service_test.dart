@@ -55,13 +55,13 @@ void main() {
   group('enqueue', () {
     test('returns a synced result with parsed value on 2xx', () async {
       adapter.onPost(
-        '/api/v1/expiry',
+        '/api/v1/expiry-records',
         (server) => server.reply(200, {'id': 'exp-1', 'name': 'Yogurt'}),
         data: {'productId': 'p-1'},
       );
 
       final result = await service.enqueue<Map<String, dynamic>>(
-        endpoint: '/api/v1/expiry',
+        endpoint: '/api/v1/expiry-records',
         method: 'POST',
         body: {'productId': 'p-1'},
         parser: (json) => json,
@@ -78,7 +78,7 @@ void main() {
       isOffline = true;
 
       final result = await service.enqueue<void>(
-        endpoint: '/api/v1/expiry',
+        endpoint: '/api/v1/expiry-records',
         method: 'POST',
         body: {'productId': 'p-2'},
       );
@@ -89,7 +89,7 @@ void main() {
 
       final rows = await db.getAllPendingWrites();
       expect(rows, hasLength(1));
-      expect(rows.single.endpoint, '/api/v1/expiry');
+      expect(rows.single.endpoint, '/api/v1/expiry-records');
       expect(rows.single.method, 'POST');
       expect(rows.single.bodyJson, contains('p-2'));
       expect(rows.single.retryCount, 0);
@@ -97,11 +97,11 @@ void main() {
 
     test('persists to pending_writes on a network error', () async {
       adapter.onPost(
-        '/api/v1/expiry',
+        '/api/v1/expiry-records',
         (server) => server.throws(
           0,
           DioException(
-            requestOptions: RequestOptions(path: '/api/v1/expiry'),
+            requestOptions: RequestOptions(path: '/api/v1/expiry-records'),
             type: DioExceptionType.connectionError,
             error: const SocketException('host unreachable'),
           ),
@@ -110,7 +110,7 @@ void main() {
       );
 
       final result = await service.enqueue<void>(
-        endpoint: '/api/v1/expiry',
+        endpoint: '/api/v1/expiry-records',
         method: 'POST',
         body: {'productId': 'p-3'},
       );
@@ -124,13 +124,13 @@ void main() {
 
     test('persists to pending_writes on a 5xx response', () async {
       adapter.onPost(
-        '/api/v1/expiry',
+        '/api/v1/expiry-records',
         (server) => server.reply(503, {'message': 'temporarily down'}),
         data: {'productId': 'p-4'},
       );
 
       final result = await service.enqueue<void>(
-        endpoint: '/api/v1/expiry',
+        endpoint: '/api/v1/expiry-records',
         method: 'POST',
         body: {'productId': 'p-4'},
       );
@@ -146,7 +146,7 @@ void main() {
     test('removes successfully synced writes', () async {
       // Seed two pending rows.
       await db.enqueueWrite(
-        endpoint: '/api/v1/expiry',
+        endpoint: '/api/v1/expiry-records',
         method: 'POST',
         bodyJson: '{"productId":"p-1"}',
         createdAt: fakeNow,
@@ -160,7 +160,7 @@ void main() {
 
       adapter
         ..onPost(
-          '/api/v1/expiry',
+          '/api/v1/expiry-records',
           (server) => server.reply(201, {'id': 'exp-1'}),
           data: {'productId': 'p-1'},
         )
@@ -177,14 +177,14 @@ void main() {
 
     test('bumps retry counter and schedules backoff on 5xx', () async {
       final id = await db.enqueueWrite(
-        endpoint: '/api/v1/expiry',
+        endpoint: '/api/v1/expiry-records',
         method: 'POST',
         bodyJson: '{"productId":"p-1"}',
         createdAt: fakeNow,
       );
 
       adapter.onPost(
-        '/api/v1/expiry',
+        '/api/v1/expiry-records',
         (server) => server.reply(503, {'error': 'down'}),
         data: {'productId': 'p-1'},
       );
@@ -213,7 +213,7 @@ void main() {
               .into(db.pendingWrites)
               .insert(
                 PendingWritesCompanion.insert(
-                  endpoint: '/api/v1/expiry',
+                  endpoint: '/api/v1/expiry-records',
                   method: 'POST',
                   bodyJson: '{"i":$i}',
                   createdAt: fakeNow.millisecondsSinceEpoch,
@@ -224,7 +224,10 @@ void main() {
               ),
         );
       }
-      adapter.onPost('/api/v1/expiry', (server) => server.reply(503, {}));
+      adapter.onPost(
+        '/api/v1/expiry-records',
+        (server) => server.reply(503, {}),
+      );
 
       await service.processQueue();
 
@@ -257,7 +260,7 @@ void main() {
     test('skips rows whose backoff window has not elapsed', () async {
       final futureWatermark = fakeNow.add(const Duration(seconds: 30));
       await db.enqueueWrite(
-        endpoint: '/api/v1/expiry',
+        endpoint: '/api/v1/expiry-records',
         method: 'POST',
         bodyJson: '{}',
         createdAt: fakeNow,
@@ -280,7 +283,7 @@ void main() {
     test('returns immediately when offline', () async {
       isOffline = true;
       await db.enqueueWrite(
-        endpoint: '/api/v1/expiry',
+        endpoint: '/api/v1/expiry-records',
         method: 'POST',
         bodyJson: '{}',
         createdAt: fakeNow,

@@ -1,4 +1,4 @@
-// Expiry calendar (consumes the expiry calendar endpoint).
+// Expiry calendar (aggregates the canonical expiry-records endpoint).
 //
 // Monthly calendar view showing expiry status dots per day:
 //   * danger red  = expired items that day,
@@ -13,21 +13,97 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:table_calendar/table_calendar.dart';
 
+import '../../core/auth/auth_controller.dart';
 import '../../core/network/api_client.dart';
 import '../../core/network/dto/expiry_dto.dart';
+import '../../core/router/app_router.dart';
 import '../../design/app_assets.dart';
 import '../../design/tokens.dart';
+import '../../design/widgets/empty_state.dart';
 import '../../design/widgets/mor_companion.dart';
 
-/// Provider that fetches the expiry calendar data for a given month (YYYY-MM).
-final _calendarProvider = FutureProvider.family<ExpiryCalendarResponse, String>(
-  (ref, month) async {
-    final client = ref.watch(apiClientProvider);
-    return client.getExpiryCalendar(month: month);
-  },
-);
+@immutable
+class _CalendarQueryArgs {
+  const _CalendarQueryArgs({required this.storeId, required this.month});
+
+  final String storeId;
+  final String month;
+
+  @override
+  bool operator ==(Object other) =>
+      other is _CalendarQueryArgs &&
+      other.storeId == storeId &&
+      other.month == month;
+
+  @override
+  int get hashCode => Object.hash(storeId, month);
+}
+
+/// Provider that builds month data from the canonical expiry-records endpoint.
+final _calendarProvider =
+    FutureProvider.family<ExpiryCalendarResponse, _CalendarQueryArgs>((
+      ref,
+      args,
+    ) async {
+      final client = ref.watch(apiClientProvider);
+      final page = await client.getExpiries(storeId: args.storeId, limit: 200);
+      return ExpiryCalendarResponse(
+        entries: _recordsToCalendarEntries(page.items, args.month),
+      );
+    });
+
+List<Map<String, dynamic>> _recordsToCalendarEntries(
+  List<ExpiryResponse> records,
+  String month,
+) {
+  final summaries = <DateTime, _DaySummary>{};
+  for (final record in records) {
+    final parsed = DateTime.tryParse(record.expiryDate);
+    if (parsed == null) continue;
+    final recordMonth =
+        '${parsed.year}-${parsed.month.toString().padLeft(2, '0')}';
+    if (recordMonth != month) continue;
+
+    final key = DateTime.utc(parsed.year, parsed.month, parsed.day);
+    final current =
+        summaries[key] ?? const _DaySummary(expired: 0, nearExpiry: 0, safe: 0);
+    final next = switch (record.status) {
+      'expired' => _DaySummary(
+        expired: current.expired + 1,
+        nearExpiry: current.nearExpiry,
+        safe: current.safe,
+      ),
+      'red' || 'yellow' || 'near_expiry' => _DaySummary(
+        expired: current.expired,
+        nearExpiry: current.nearExpiry + 1,
+        safe: current.safe,
+      ),
+      'green' || 'safe' => _DaySummary(
+        expired: current.expired,
+        nearExpiry: current.nearExpiry,
+        safe: current.safe + 1,
+      ),
+      _ => current,
+    };
+    summaries[key] = next;
+  }
+
+  final sorted = summaries.entries.toList()
+    ..sort((a, b) => a.key.compareTo(b.key));
+  return [
+    for (final entry in sorted)
+      {
+        'date':
+            '${entry.key.year}-${entry.key.month.toString().padLeft(2, '0')}-${entry.key.day.toString().padLeft(2, '0')}',
+        'expired': entry.value.expired,
+        'nearExpiry': entry.value.nearExpiry,
+        'safe': entry.value.safe,
+      },
+  ];
+}
 
 /// Monthly calendar view showing expiry status dots per day.
 class ExpiryCalendarScreen extends ConsumerStatefulWidget {
@@ -68,7 +144,160 @@ class _ExpiryCalendarScreenState extends ConsumerState<ExpiryCalendarScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final scheme = theme.colorScheme;
-    final asyncCal = ref.watch(_calendarProvider(_monthKey));
+    final auth = ref.watch(authControllerProvider);
+    final session = auth.valueOrNull;
+    final selectedStoreId = session?.selectedStoreId;
+    final canSelectStore = session?.stores.isNotEmpty ?? false;
+
+    late final Widget body;
+    if (auth.isLoading) {
+      body = const _CalendarSkeleton();
+    } else if (selectedStoreId == null) {
+      body = _CalendarNeedsStore(canSelectStore: canSelectStore);
+    } else {
+      final query = _CalendarQueryArgs(
+        storeId: selectedStoreId,
+        month: _monthKey,
+      );
+      final asyncCal = ref.watch(_calendarProvider(query));
+      body = asyncCal.when(
+        loading: () => const _CalendarSkeleton(),
+        error: (_, _) => Center(
+          child: Padding(
+            padding: const EdgeInsets.all(RadhaSpacing.space24),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  Icons.calendar_month_outlined,
+                  size: 40,
+                  color: scheme.onSurfaceVariant,
+                ),
+                const SizedBox(height: RadhaSpacing.space12),
+                Text(
+                  'Failed to load calendar data.',
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    color: scheme.onSurfaceVariant,
+                  ),
+                ),
+                const SizedBox(height: RadhaSpacing.space16),
+                OutlinedButton.icon(
+                  onPressed: () => ref.invalidate(_calendarProvider(query)),
+                  icon: const Icon(Icons.refresh_rounded, size: 18),
+                  label: const Text('Retry'),
+                ),
+              ],
+            ),
+          ),
+        ),
+        data: (calResponse) {
+          final dayMap = _buildDayMap(calResponse.entries);
+
+          return Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(
+                  RadhaSpacing.space16,
+                  RadhaSpacing.space16,
+                  RadhaSpacing.space16,
+                  RadhaSpacing.space8,
+                ),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: scheme.surfaceContainer,
+                    borderRadius: BorderRadius.circular(RadhaRadii.radiusLg),
+                    border: Border.all(color: scheme.outline),
+                  ),
+                  padding: const EdgeInsets.all(RadhaSpacing.space8),
+                  child: TableCalendar<void>(
+                    firstDay: DateTime.utc(2020, 1, 1),
+                    lastDay: DateTime.utc(2100, 12, 31),
+                    focusedDay: _focusedDay,
+                    selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
+                    calendarFormat: CalendarFormat.month,
+                    startingDayOfWeek: StartingDayOfWeek.monday,
+                    headerStyle: HeaderStyle(
+                      formatButtonVisible: false,
+                      titleCentered: true,
+                      titleTextStyle:
+                          theme.textTheme.titleMedium ?? const TextStyle(),
+                      leftChevronIcon: Icon(
+                        Icons.chevron_left_rounded,
+                        color: scheme.onSurface,
+                      ),
+                      rightChevronIcon: Icon(
+                        Icons.chevron_right_rounded,
+                        color: scheme.onSurface,
+                      ),
+                    ),
+                    daysOfWeekStyle: DaysOfWeekStyle(
+                      weekdayStyle: theme.textTheme.labelSmall!.copyWith(
+                        color: scheme.onSurfaceVariant,
+                      ),
+                      weekendStyle: theme.textTheme.labelSmall!.copyWith(
+                        color: scheme.onSurfaceVariant,
+                      ),
+                    ),
+                    calendarStyle: CalendarStyle(
+                      outsideDaysVisible: false,
+                      defaultTextStyle:
+                          theme.textTheme.bodyMedium ?? const TextStyle(),
+                      weekendTextStyle:
+                          theme.textTheme.bodyMedium ?? const TextStyle(),
+                      todayDecoration: BoxDecoration(
+                        color: scheme.primary.withValues(alpha: 0.14),
+                        shape: BoxShape.circle,
+                      ),
+                      todayTextStyle: theme.textTheme.bodyMedium!.copyWith(
+                        color: scheme.primary,
+                        fontWeight: FontWeight.w700,
+                      ),
+                      selectedDecoration: BoxDecoration(
+                        color: scheme.primary,
+                        shape: BoxShape.circle,
+                      ),
+                      selectedTextStyle: theme.textTheme.bodyMedium!.copyWith(
+                        color: scheme.onPrimary,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    onDaySelected: (selected, focused) {
+                      setState(() {
+                        _selectedDay = selected;
+                        _focusedDay = focused;
+                      });
+                    },
+                    onPageChanged: (focused) {
+                      setState(() {
+                        _focusedDay = focused;
+                        _selectedDay = null;
+                      });
+                    },
+                    calendarBuilders: CalendarBuilders<void>(
+                      markerBuilder: (context, day, _) {
+                        final normalized = DateTime.utc(
+                          day.year,
+                          day.month,
+                          day.day,
+                        );
+                        final summary = dayMap[normalized];
+                        if (summary == null) return null;
+                        return _DayDots(summary: summary);
+                      },
+                    ),
+                  ),
+                ),
+              ),
+              const _Legend(),
+              const Divider(height: 1),
+              Expanded(
+                child: _DayDetails(selectedDay: _selectedDay, dayMap: dayMap),
+              ),
+            ],
+          );
+        },
+      );
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -79,146 +308,39 @@ class _ExpiryCalendarScreenState extends ConsumerState<ExpiryCalendarScreen> {
           ),
         ),
       ),
-      body: SafeArea(
-        child: asyncCal.when(
-          loading: () => const _CalendarSkeleton(),
-          error: (_, _) => Center(
-            child: Padding(
-              padding: const EdgeInsets.all(RadhaSpacing.space24),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(
-                    Icons.calendar_month_outlined,
-                    size: 40,
-                    color: scheme.onSurfaceVariant,
-                  ),
-                  const SizedBox(height: RadhaSpacing.space12),
-                  Text(
-                    'Failed to load calendar data.',
-                    style: theme.textTheme.bodyMedium?.copyWith(
-                      color: scheme.onSurfaceVariant,
-                    ),
-                  ),
-                  const SizedBox(height: RadhaSpacing.space16),
-                  OutlinedButton.icon(
-                    onPressed: () =>
-                        ref.invalidate(_calendarProvider(_monthKey)),
-                    icon: const Icon(Icons.refresh_rounded, size: 18),
-                    label: const Text('Retry'),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          data: (calResponse) {
-            final dayMap = _buildDayMap(calResponse.entries);
+      body: SafeArea(child: body),
+    );
+  }
+}
 
-            return Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(
-                    RadhaSpacing.space16,
-                    RadhaSpacing.space16,
-                    RadhaSpacing.space16,
-                    RadhaSpacing.space8,
-                  ),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: scheme.surfaceContainer,
-                      borderRadius: BorderRadius.circular(RadhaRadii.radiusLg),
-                      border: Border.all(color: scheme.outline),
-                    ),
-                    padding: const EdgeInsets.all(RadhaSpacing.space8),
-                    child: TableCalendar<void>(
-                      firstDay: DateTime.utc(2020, 1, 1),
-                      lastDay: DateTime.utc(2100, 12, 31),
-                      focusedDay: _focusedDay,
-                      selectedDayPredicate: (day) =>
-                          isSameDay(_selectedDay, day),
-                      calendarFormat: CalendarFormat.month,
-                      startingDayOfWeek: StartingDayOfWeek.monday,
-                      headerStyle: HeaderStyle(
-                        formatButtonVisible: false,
-                        titleCentered: true,
-                        titleTextStyle:
-                            theme.textTheme.titleMedium ?? const TextStyle(),
-                        leftChevronIcon: Icon(
-                          Icons.chevron_left_rounded,
-                          color: scheme.onSurface,
-                        ),
-                        rightChevronIcon: Icon(
-                          Icons.chevron_right_rounded,
-                          color: scheme.onSurface,
-                        ),
-                      ),
-                      daysOfWeekStyle: DaysOfWeekStyle(
-                        weekdayStyle: theme.textTheme.labelSmall!.copyWith(
-                          color: scheme.onSurfaceVariant,
-                        ),
-                        weekendStyle: theme.textTheme.labelSmall!.copyWith(
-                          color: scheme.onSurfaceVariant,
-                        ),
-                      ),
-                      calendarStyle: CalendarStyle(
-                        outsideDaysVisible: false,
-                        defaultTextStyle:
-                            theme.textTheme.bodyMedium ?? const TextStyle(),
-                        weekendTextStyle:
-                            theme.textTheme.bodyMedium ?? const TextStyle(),
-                        todayDecoration: BoxDecoration(
-                          color: scheme.primary.withValues(alpha: 0.14),
-                          shape: BoxShape.circle,
-                        ),
-                        todayTextStyle: theme.textTheme.bodyMedium!.copyWith(
-                          color: scheme.primary,
-                          fontWeight: FontWeight.w700,
-                        ),
-                        selectedDecoration: BoxDecoration(
-                          color: scheme.primary,
-                          shape: BoxShape.circle,
-                        ),
-                        selectedTextStyle: theme.textTheme.bodyMedium!.copyWith(
-                          color: scheme.onPrimary,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                      onDaySelected: (selected, focused) {
-                        setState(() {
-                          _selectedDay = selected;
-                          _focusedDay = focused;
-                        });
-                      },
-                      onPageChanged: (focused) {
-                        setState(() {
-                          _focusedDay = focused;
-                          _selectedDay = null;
-                        });
-                      },
-                      calendarBuilders: CalendarBuilders<void>(
-                        markerBuilder: (context, day, _) {
-                          final normalized = DateTime.utc(
-                            day.year,
-                            day.month,
-                            day.day,
-                          );
-                          final summary = dayMap[normalized];
-                          if (summary == null) return null;
-                          return _DayDots(summary: summary);
-                        },
-                      ),
-                    ),
-                  ),
-                ),
-                const _Legend(),
-                const Divider(height: 1),
-                Expanded(
-                  child: _DayDetails(
-                    selectedDay: _selectedDay,
-                    dayMap: dayMap,
-                  ),
-                ),
-              ],
+class _CalendarNeedsStore extends StatelessWidget {
+  const _CalendarNeedsStore({required this.canSelectStore});
+
+  final bool canSelectStore;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.all(RadhaSpacing.space16),
+        child: EmptyState(
+          illustration: const MorCompanion(mood: MorMood.concern, size: 104),
+          title: 'No store selected',
+          body:
+              'The expiry calendar is store-scoped. Select a store to view dated expiry records.',
+          actionLabel: canSelectStore ? 'Select store' : 'Contact manager',
+          actionIcon: canSelectStore
+              ? Icons.storefront_outlined
+              : Icons.support_agent_outlined,
+          onAction: () {
+            if (canSelectStore) {
+              context.push(AppRoute.selectStore);
+              return;
+            }
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Ask your manager to add you to a store.'),
+              ),
             );
           },
         ),
@@ -454,9 +576,7 @@ class _SummaryRow extends StatelessWidget {
             ),
           ),
           const SizedBox(width: RadhaSpacing.space12),
-          Expanded(
-            child: Text(label, style: theme.textTheme.bodyMedium),
-          ),
+          Expanded(child: Text(label, style: theme.textTheme.bodyMedium)),
           Text(
             '$count',
             style: theme.textTheme.titleSmall?.copyWith(color: color),
