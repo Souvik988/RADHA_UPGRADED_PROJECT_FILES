@@ -15,20 +15,91 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:table_calendar/table_calendar.dart';
 
+import '../../core/auth/auth_controller.dart';
 import '../../core/network/api_client.dart';
 import '../../core/network/dto/expiry_dto.dart';
 import '../../design/app_assets.dart';
 import '../../design/tokens.dart';
+import '../../design/widgets/empty_state.dart';
 import '../../design/widgets/mor_companion.dart';
 import '../../l10n/generated/app_localizations.dart';
 
-/// Provider that fetches the expiry calendar data for a given month (YYYY-MM).
-final _calendarProvider = FutureProvider.family<ExpiryCalendarResponse, String>(
-  (ref, month) async {
-    final client = ref.watch(apiClientProvider);
-    return client.getExpiryCalendar(month: month);
-  },
-);
+@immutable
+class _CalendarQueryArgs {
+  const _CalendarQueryArgs({required this.storeId, required this.month});
+
+  final String storeId;
+  final String month;
+
+  @override
+  bool operator ==(Object other) =>
+      other is _CalendarQueryArgs &&
+      other.storeId == storeId &&
+      other.month == month;
+
+  @override
+  int get hashCode => Object.hash(storeId, month);
+}
+
+List<Map<String, dynamic>> _recordsToCalendarEntries(
+  List<ExpiryResponse> records,
+  String month,
+) {
+  final summaries = <DateTime, _DaySummary>{};
+  for (final record in records) {
+    final parsed = DateTime.tryParse(record.expiryDate);
+    if (parsed == null) continue;
+    final recordMonth =
+        '${parsed.year}-${parsed.month.toString().padLeft(2, '0')}';
+    if (recordMonth != month) continue;
+    final key = DateTime.utc(parsed.year, parsed.month, parsed.day);
+    final current =
+        summaries[key] ?? const _DaySummary(expired: 0, nearExpiry: 0, safe: 0);
+    summaries[key] = switch (record.status) {
+      'expired' => _DaySummary(
+        expired: current.expired + 1,
+        nearExpiry: current.nearExpiry,
+        safe: current.safe,
+      ),
+      'red' || 'yellow' || 'near_expiry' => _DaySummary(
+        expired: current.expired,
+        nearExpiry: current.nearExpiry + 1,
+        safe: current.safe,
+      ),
+      'green' || 'safe' => _DaySummary(
+        expired: current.expired,
+        nearExpiry: current.nearExpiry,
+        safe: current.safe + 1,
+      ),
+      _ => current,
+    };
+  }
+  return summaries.entries
+      .map(
+        (e) => <String, dynamic>{
+          'date':
+              '${e.key.year}-${e.key.month.toString().padLeft(2, '0')}-${e.key.day.toString().padLeft(2, '0')}',
+          'expired': e.value.expired,
+          'nearExpiry': e.value.nearExpiry,
+          'safe': e.value.safe,
+        },
+      )
+      .toList();
+}
+
+/// Provider that builds month data by aggregating the expiry-records endpoint.
+/// The calendar endpoint was removed from the backend; we derive it client-side.
+final _calendarProvider =
+    FutureProvider.family<ExpiryCalendarResponse, _CalendarQueryArgs>((
+      ref,
+      args,
+    ) async {
+      final client = ref.watch(apiClientProvider);
+      final page = await client.getExpiries(storeId: args.storeId, limit: 200);
+      return ExpiryCalendarResponse(
+        entries: _recordsToCalendarEntries(page.items, args.month),
+      );
+    });
 
 /// Monthly calendar view showing expiry status dots per day.
 class ExpiryCalendarScreen extends ConsumerStatefulWidget {
@@ -46,8 +117,7 @@ class _ExpiryCalendarScreenState extends ConsumerState<ExpiryCalendarScreen> {
   String get _monthKey =>
       '${_focusedDay.year}-${_focusedDay.month.toString().padLeft(2, '0')}';
 
-  /// Parse the entries list from the API into a day-keyed map.
-  /// Each entry is expected to have: { date: 'YYYY-MM-DD', expired: int, nearExpiry: int, safe: int }
+  /// Parse the aggregated entries into a day-keyed summary map for rendering.
   Map<DateTime, _DaySummary> _buildDayMap(List<Map<String, dynamic>> entries) {
     final map = <DateTime, _DaySummary>{};
     for (final entry in entries) {
@@ -70,7 +140,30 @@ class _ExpiryCalendarScreenState extends ConsumerState<ExpiryCalendarScreen> {
     final theme = Theme.of(context);
     final scheme = theme.colorScheme;
     final l10n = AppLocalizations.of(context);
-    final asyncCal = ref.watch(_calendarProvider(_monthKey));
+    final selectedStoreId = ref.watch(currentUserProvider)?.selectedStoreId;
+
+    if (selectedStoreId == null) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text(
+            l10n.expiryCalendarTitle,
+            style: theme.textTheme.titleLarge?.copyWith(
+              fontWeight: FontWeight.w800,
+            ),
+          ),
+        ),
+        body: Center(
+          child: EmptyState(
+            illustration: const MorCompanion(mood: MorMood.concern, size: 104),
+            title: l10n.selectStoreEmpty,
+            body: l10n.selectStoreEmptyBody,
+          ),
+        ),
+      );
+    }
+
+    final args = _CalendarQueryArgs(storeId: selectedStoreId, month: _monthKey);
+    final asyncCal = ref.watch(_calendarProvider(args));
 
     return Scaffold(
       appBar: AppBar(
@@ -104,8 +197,7 @@ class _ExpiryCalendarScreenState extends ConsumerState<ExpiryCalendarScreen> {
                   ),
                   const SizedBox(height: RadhaSpacing.space16),
                   OutlinedButton.icon(
-                    onPressed: () =>
-                        ref.invalidate(_calendarProvider(_monthKey)),
+                    onPressed: () => ref.invalidate(_calendarProvider(args)),
                     icon: const Icon(Icons.refresh_rounded, size: 18),
                     label: Text(l10n.tryAgain),
                   ),

@@ -616,7 +616,7 @@ class _LikeConcern extends StatelessWidget {
       likes.add(('High protein', RadhaAssets.hiProteinGood));
     }
     if ((n.fiber ?? 0) >= 3) likes.add(('Good fibre', RadhaAssets.hiFiberGood));
-    if (n.isProcessed == false) likes.add(('Minimally processed', null));
+    if (n.isMinimallyProcessed) likes.add(('Minimally processed', null));
     if ((n.sugars ?? 0) >= 15) {
       concerns.add(('High sugar', RadhaAssets.hiSugarHigh));
     }
@@ -626,7 +626,7 @@ class _LikeConcern extends StatelessWidget {
     if ((n.sodium ?? 0) >= 0.6) {
       concerns.add(('High sodium', RadhaAssets.hiSodiumHigh));
     }
-    if (n.isProcessed == true) {
+    if (n.isUltraProcessed) {
       concerns.add(('Ultra-processed', RadhaAssets.hiUltraProcessed));
     }
 

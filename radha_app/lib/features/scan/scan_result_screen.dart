@@ -1,6 +1,8 @@
+import 'dart:io';
 import 'dart:math' as math;
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -100,7 +102,7 @@ class ScanResultScreen extends ConsumerWidget {
       ),
       body: productAsync.when(
         loading: () => const _SkeletonBody(),
-        error: (error, _) => _ErrorBody(ean: ean),
+        error: (error, _) => _ErrorBody(ean: ean, error: error),
         data: (product) => _ProductBody(product: product, ean: ean),
       ),
     );
@@ -1016,14 +1018,67 @@ class _SkeletonBody extends StatelessWidget {
 
 // ─── Error ───────────────────────────────────────────────────────────────────
 
+enum _ScanErrorKind { notFound, unauthorized, offline, timeout, serverError }
+
+_ScanErrorKind _classifyError(Object error) {
+  if (error is DioException) {
+    final status = error.response?.statusCode;
+    if (status == 401 || status == 403) return _ScanErrorKind.unauthorized;
+    if (status == 404) return _ScanErrorKind.notFound;
+    if (error.type == DioExceptionType.connectionError ||
+        error.error is SocketException) {
+      return _ScanErrorKind.offline;
+    }
+    if (error.type == DioExceptionType.receiveTimeout ||
+        error.type == DioExceptionType.sendTimeout ||
+        error.type == DioExceptionType.connectionTimeout) {
+      return _ScanErrorKind.timeout;
+    }
+    return _ScanErrorKind.serverError;
+  }
+  return _ScanErrorKind.serverError;
+}
+
 class _ErrorBody extends StatelessWidget {
-  const _ErrorBody({required this.ean});
+  const _ErrorBody({required this.ean, required this.error});
 
   final String ean;
+  final Object error;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
+    final kind = _classifyError(error);
+
+    final (title, body, showLabelScanCta) = switch (kind) {
+      _ScanErrorKind.notFound => (
+        l10n.productNotFound,
+        l10n.scanResultNotFoundBody(ean),
+        true,
+      ),
+      _ScanErrorKind.unauthorized => (
+        'Not authorised',
+        'Your session may have expired. Please sign out and sign back in.',
+        false,
+      ),
+      _ScanErrorKind.offline => (
+        'You\'re offline',
+        'Check your internet connection and try scanning again.',
+        false,
+      ),
+      _ScanErrorKind.timeout => (
+        'Request timed out',
+        'The server took too long to respond. Try again in a moment.',
+        false,
+      ),
+      _ScanErrorKind.serverError => (
+        'Something went wrong',
+        'We couldn\'t fetch this product right now. Try again.',
+        false,
+      ),
+    };
+
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(RadhaSpacing.space24),
@@ -1031,34 +1086,34 @@ class _ErrorBody extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             MorCompanion(
-              mood: MorMood.concern,
+              mood: kind == _ScanErrorKind.offline
+                  ? MorMood.concern
+                  : MorMood.concern,
               size: 108,
-              semanticLabel: AppLocalizations.of(context).scanResultNoProduct,
+              semanticLabel: l10n.scanResultNoProduct,
             ),
             const SizedBox(height: RadhaSpacing.space16),
-            Text(
-              AppLocalizations.of(context).productNotFound,
-              style: theme.textTheme.titleMedium,
-            ),
+            Text(title, style: theme.textTheme.titleMedium),
             const SizedBox(height: RadhaSpacing.space8),
             Text(
-              AppLocalizations.of(context).scanResultNotFoundBody(ean),
+              body,
               style: theme.textTheme.bodyMedium?.copyWith(
                 color: theme.colorScheme.onSurfaceVariant,
               ),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: RadhaSpacing.space24),
-            PrimaryButton(
-              label: AppLocalizations.of(context).scanResultScanLabel,
-              icon: Icons.document_scanner_outlined,
-              expand: true,
-              onPressed: () => context.pushReplacement(AppRoute.labelScan),
-            ),
-            const SizedBox(height: RadhaSpacing.space12),
+            if (showLabelScanCta)
+              PrimaryButton(
+                label: l10n.scanResultScanLabel,
+                icon: Icons.document_scanner_outlined,
+                expand: true,
+                onPressed: () => context.pushReplacement(AppRoute.labelScan),
+              ),
+            if (showLabelScanCta) const SizedBox(height: RadhaSpacing.space12),
             TextButton(
               onPressed: () => context.pop(),
-              child: Text(AppLocalizations.of(context).scanAgain),
+              child: Text(l10n.scanAgain),
             ),
           ],
         ),
