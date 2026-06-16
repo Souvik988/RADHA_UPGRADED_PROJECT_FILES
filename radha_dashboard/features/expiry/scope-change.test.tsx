@@ -33,9 +33,11 @@ function jsonResponse(body: unknown): Response {
 }
 
 // Tag each response with the requested storeId so a rendered value proves
-// exactly which scope's data is on screen.
+// exactly which scope's data is on screen. `storeId` is the real scope field on
+// `ExpiryRecord` (there is no `scope` field) — reading it back proves which
+// store's data is rendered without inventing a non-domain property.
 function scopedBody(storeId: string) {
-  return { items: [{ id: `rec-${storeId}`, scope: storeId }], total: 1, nextCursor: null };
+  return { items: [{ id: `rec-${storeId}`, storeId }], total: 1, nextCursor: null };
 }
 
 let resolveS2: (() => void) | null = null;
@@ -72,7 +74,7 @@ function Harness({ storeId }: { storeId: string }) {
   const q = useExpiryList(storeId);
   if (q.isLoading) return <div>loading…</div>;
   if (q.isError) return <div>error</div>;
-  return <div data-testid="scope">{q.data?.items[0]?.scope ?? 'none'}</div>;
+  return <div data-testid="scope">{q.data?.items[0]?.storeId ?? 'none'}</div>;
 }
 
 function tree(client: QueryClient, storeId: string) {
