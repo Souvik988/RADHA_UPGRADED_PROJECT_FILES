@@ -121,6 +121,19 @@ export interface LlmOptions {
   /** Hard wall-clock cap; 10 s default per Req 45 / T-v2.3. */
   timeoutMs?: number;
   locale?: string;
+  /**
+   * Request native structured output. When set, a provider that supports it
+   * (Gemini) constrains the model to emit a single parseable JSON object
+   * (`responseMimeType: application/json`), removing the markdown-fence /
+   * prose-leak fragility of prompt-only "STRICT JSON" requests. Providers that
+   * don't support it ignore the flag — callers must keep tolerant parsers.
+   */
+  json?: boolean;
+  /**
+   * Per-call model routing override (e.g. a heavier model for a harder task).
+   * Falls back to the provider's env-configured default when unset.
+   */
+  model?: string;
 }
 
 export interface LlmResult {

@@ -163,6 +163,8 @@ export class LlmService {
     const llm = await this.complete(prompt, {
       ...options,
       timeoutMs: options.timeoutMs ?? AI_LLM_DEFAULT_TIMEOUT_MS,
+      // Structured output — the ingredient explanation is a fixed JSON shape.
+      json: true,
     });
 
     const parsed = this.parseIngredientResponse(cacheKey, locale, llm.text);
@@ -228,6 +230,8 @@ export class LlmService {
     const llm = await this.complete(prompt, {
       ...options,
       timeoutMs: options.timeoutMs ?? AI_LLM_DEFAULT_TIMEOUT_MS,
+      // Structured output — the label analysis is a fixed JSON shape.
+      json: true,
     });
     return this.parseLabelResponse(llm);
   }
