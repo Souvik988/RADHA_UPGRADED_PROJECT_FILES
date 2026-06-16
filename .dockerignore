@@ -1,24 +1,26 @@
-# Keep the build context small + the image clean. The server image never needs
-# the Flutter app, design assets, git history, or any node_modules (pnpm
-# reinstalls inside the image from the lockfile).
+# Keep the Docker build context small and clean.
+# The API image copies only radha_backend/ — nothing else is needed.
 **/node_modules
 **/dist
 **/.git
 .git
 **/*.log
 
-# The Flutter app + its (large) bundled assets are irrelevant to the server.
-apps/mobile
-apps/marketing-web
-apps/owner-dashboard
+# Non-backend apps — irrelevant to the server image.
+radha_app
+radha_dashboard
+radha_backend/assets
+ADMIN_DASHBOARD_DOCS
+apps
+phases
 
-# Local env / secrets must never enter the image (env is injected at runtime).
+# Local env / secrets must never enter the image (injected at runtime).
 **/.env
 **/.env.*
 !**/.env.example
 !**/.env.production.example
 
-# Dev-only + heavy/irrelevant dirs.
+# Dev-only + generated dirs.
 .kiro
 **/.tmp
 **/coverage
@@ -30,3 +32,8 @@ Dockerfile
 docker-compose*.yml
 deploy
 **/*.md
+infra
+*.pem
+*.png
+*.bat
+*.ps1

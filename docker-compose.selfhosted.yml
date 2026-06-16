@@ -18,7 +18,7 @@ name: radha
 x-server-common: &server-common
   image: radha-server:latest
   env_file:
-    - server/.env.production
+    - radha_backend/.env.production
   environment:
     NODE_ENV: production
   restart: always
