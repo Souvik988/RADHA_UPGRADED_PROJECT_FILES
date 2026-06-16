@@ -68,9 +68,11 @@ describe('BullMqBootstrapService', () => {
 
   it('logs only one bullmq.redis.error warn even after 10 emitted errors', async () => {
     const created: EventEmitter[] = [];
+    const queues: Array<{ name: string; opts: Record<string, unknown> }> = [];
+    const workers: Array<{ name: string; opts: Record<string, unknown> }> = [];
 
     class FakeRedis extends EventEmitter {
-      constructor() {
+      constructor(public opts: Record<string, unknown>) {
         super();
         created.push(this);
       }
@@ -82,8 +84,10 @@ describe('BullMqBootstrapService', () => {
     class FakeQueue {
       constructor(
         public name: string,
-        public opts: unknown,
-      ) {}
+        public opts: Record<string, unknown>,
+      ) {
+        queues.push({ name, opts });
+      }
       close(): Promise<void> {
         return Promise.resolve();
       }
@@ -93,6 +97,13 @@ describe('BullMqBootstrapService', () => {
     }
 
     class FakeWorker {
+      constructor(
+        public name: string,
+        public processor: unknown,
+        public opts: Record<string, unknown>,
+      ) {
+        workers.push({ name, opts });
+      }
       on(): void {
         /* noop */
       }
@@ -118,6 +129,9 @@ describe('BullMqBootstrapService', () => {
 
     expect(created.length).toBeGreaterThan(0);
     const conn = created[0];
+    expect((conn as FakeRedis).opts).not.toHaveProperty('keyPrefix');
+    expect(queues[0]?.opts.prefix).toBe('radha:bullmq');
+    expect(workers[0]).toBeUndefined();
     for (let i = 0; i < 10; i += 1) {
       conn.emit('error', new Error(`boom-${i}`));
     }

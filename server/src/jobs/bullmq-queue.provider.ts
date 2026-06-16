@@ -15,7 +15,6 @@ interface RedisOptions {
   db: number;
   password?: string;
   tls?: Record<string, unknown>;
-  keyPrefix: string;
   maxRetriesPerRequest: null;
   enableReadyCheck: boolean;
   connectTimeout: number;
@@ -76,6 +75,7 @@ export class BullMqBootstrapService {
     try {
       const Redis = ioredis.default;
       const redisOpts = this.buildRedisOptions();
+      const queuePrefix = this.buildQueuePrefix();
       const connection = new Redis(redisOpts);
 
       // Cap error logging to ONE warn per process — the retry budget
@@ -101,6 +101,7 @@ export class BullMqBootstrapService {
 
       const queue = new bull.Queue(NOTIFICATIONS_QUEUE, {
         connection,
+        prefix: queuePrefix,
         defaultJobOptions: {
           attempts: 5,
           backoff: { type: 'exponential', delay: 5_000 },
@@ -123,6 +124,7 @@ export class BullMqBootstrapService {
           },
           {
             connection,
+            prefix: queuePrefix,
             concurrency: 10,
             limiter: { max: 200, duration: 60_000 },
           },
@@ -153,6 +155,10 @@ export class BullMqBootstrapService {
       this.bullQueue = null;
       return null;
     }
+  }
+
+  private buildQueuePrefix(): string {
+    return `${this.config.redis.keyPrefix}bullmq`;
   }
 
   jobName(): string {
@@ -195,7 +201,6 @@ export class BullMqBootstrapService {
       db: r.db,
       password: r.password,
       tls: r.tls ? {} : undefined,
-      keyPrefix: `${r.keyPrefix}bullmq:`,
       // BullMQ requires this to be `null` for blocking commands.
       maxRetriesPerRequest: null,
       enableReadyCheck: false,
