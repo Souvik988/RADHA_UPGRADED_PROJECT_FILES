@@ -1,11 +1,17 @@
 import { Module, Provider } from '@nestjs/common';
 
 import { AuthModule } from '@/modules/auth/auth.module';
+import { InventoryModule } from '@/modules/inventory/inventory.module';
 import { StoresModule } from '@/modules/stores/stores.module';
+import { SubscriptionsModule } from '@/modules/subscriptions/subscriptions.module';
 
 import { ClientDashboardController } from './client-dashboard.controller';
 import { HealthScoresRepository } from './repositories/health-scores.repository';
 import { AlertsSummaryService } from './services/alerts-summary.service';
+import {
+  ClientDashboardInventoryAccuracyAdapterService,
+  ClientDashboardSubscriptionsAdapterService,
+} from './services/client-dashboard-cross-module-adapters.service';
 import { ComplianceCalculator } from './services/components/compliance.calculator';
 import { ExpiryManagementCalculator } from './services/components/expiry-management.calculator';
 import { InventoryAccuracyCalculator } from './services/components/inventory-accuracy.calculator';
@@ -17,8 +23,6 @@ import { DashboardCacheService } from './services/dashboard-cache.service';
 import { KpiService } from './services/kpi.service';
 import { OperationalHealthScoreService } from './services/operational-health-score.service';
 import { QuickActionService } from './services/quick-action.service';
-import { StubInventoryAccuracyMetricsQuery } from './services/stub-inventory-accuracy-metrics.query';
-import { StubSubscriptionsService } from './services/stub-subscriptions.service';
 import { TeamPerformanceService } from './services/team-performance.service';
 import { TrendsService } from './services/trends.service';
 import { DASHBOARD_CACHE_INVALIDATOR_TOKEN } from './types/dashboard.types';
@@ -31,37 +35,30 @@ import {
  * BE-30 — Client Dashboard module.
  *
  * Imports:
- *   - AuthModule    → BE-08 guard stack + decorators (the controller
- *                     uses JwtAuthGuard, RolesGuard, PermissionsGuard,
- *                     TenantScopeGuard).
- *   - StoresModule  → StoresRepository (tenant + store membership
- *                     check) + StoreScopeGuard.
+ *   - AuthModule          → BE-08 guard stack + decorators.
+ *   - StoresModule        → StoresRepository + StoreScopeGuard.
+ *   - InventoryModule     → BE-27 InventoryAccuracyMetricsQuery.
+ *   - SubscriptionsModule → BE-28 SubscriptionsService.
  *
- * Cross-phase contracts (defaulted to in-process stubs so the
- * module boots and tests run without BE-27 / BE-28):
- *   - `INVENTORY_ACCURACY_METRICS_QUERY` → BE-27 owns the real impl.
- *   - `SUBSCRIPTIONS_SERVICE_TOKEN`      → BE-28 owns the real impl.
- *
- * The orchestrator overrides these providers when BE-27 / BE-28
- * land. The dashboard module is unaffected by the override; the
- * INTEGRATION CHECKLIST (BE-30 HANDOFF) lists the override points.
+ * Cross-phase contracts now wired to real BE-27 / BE-28 adapters:
+ *   - `INVENTORY_ACCURACY_METRICS_QUERY` → ClientDashboardInventoryAccuracyAdapterService.
+ *   - `SUBSCRIPTIONS_SERVICE_TOKEN`      → ClientDashboardSubscriptionsAdapterService.
  *
  * Cache invalidator export:
  *   - `DASHBOARD_CACHE_INVALIDATOR_TOKEN` is bound to the
  *     `DashboardCacheService` so other modules (scans / expiry /
  *     tasks repositories) can call `invalidateStore(...)` without
- *     reaching back into this module's source. The orchestrator
- *     wires this into the relevant post-write hooks.
+ *     reaching back into this module's source.
  */
 
-const inventoryStubProvider: Provider = {
+const inventoryAccuracyProvider: Provider = {
   provide: INVENTORY_ACCURACY_METRICS_QUERY,
-  useExisting: StubInventoryAccuracyMetricsQuery,
+  useExisting: ClientDashboardInventoryAccuracyAdapterService,
 };
 
-const subscriptionsStubProvider: Provider = {
+const subscriptionsProvider: Provider = {
   provide: SUBSCRIPTIONS_SERVICE_TOKEN,
-  useExisting: StubSubscriptionsService,
+  useExisting: ClientDashboardSubscriptionsAdapterService,
 };
 
 const cacheInvalidatorProvider: Provider = {
@@ -70,7 +67,7 @@ const cacheInvalidatorProvider: Provider = {
 };
 
 @Module({
-  imports: [AuthModule, StoresModule],
+  imports: [AuthModule, StoresModule, InventoryModule, SubscriptionsModule],
   controllers: [ClientDashboardController],
   providers: [
     /* Sub-services */
@@ -91,11 +88,11 @@ const cacheInvalidatorProvider: Provider = {
     OperationalHealthScoreService,
     HealthScoresRepository,
 
-    /* Cross-phase stubs + token bindings */
-    StubInventoryAccuracyMetricsQuery,
-    StubSubscriptionsService,
-    inventoryStubProvider,
-    subscriptionsStubProvider,
+    /* Real adapters + token bindings */
+    ClientDashboardInventoryAccuracyAdapterService,
+    ClientDashboardSubscriptionsAdapterService,
+    inventoryAccuracyProvider,
+    subscriptionsProvider,
 
     /* Cache invalidator binding for downstream modules */
     cacheInvalidatorProvider,
@@ -108,8 +105,6 @@ const cacheInvalidatorProvider: Provider = {
     OperationalHealthScoreService,
     HealthScoresRepository,
     DashboardCacheService,
-    /* Re-export the invalidator token so downstream modules can
-       inject it without depending on the dashboard's source. */
     cacheInvalidatorProvider,
   ],
 })

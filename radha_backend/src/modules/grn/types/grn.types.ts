@@ -132,9 +132,9 @@ export interface SupplierPerformanceMetrics {
 }
 
 export interface ISupplierPerformanceService {
-  updateMetrics(supplierId: string, metrics: SupplierPerformanceMetrics): Promise<void>;
+  updateMetrics(tenantId: string, supplierId: string, metrics: SupplierPerformanceMetrics): Promise<void>;
   /** Reverses a previously-posted metric set. Idempotent. */
-  reverseMetrics(supplierId: string, grnId: string): Promise<void>;
+  reverseMetrics(tenantId: string, supplierId: string, grnId: string): Promise<void>;
 }
 
 /**

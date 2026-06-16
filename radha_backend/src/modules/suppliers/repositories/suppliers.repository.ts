@@ -59,6 +59,23 @@ export class SuppliersRepository extends BaseRepository<
     return (row as SupplierRow | undefined) ?? null;
   }
 
+  /**
+   * Cross-tenant lookup for the GRN supplier-verification pattern:
+   * the GRN service fetches the row without a tenant filter and then
+   * explicitly checks `row.tenantId === callerTenantId` so the
+   * service layer owns the tenant-isolation logic rather than the DB
+   * layer. Only call this from the GRN adapter — all other callers
+   * must use `findByIdInTenant`.
+   */
+  async findById(id: string): Promise<SupplierRow | null> {
+    const [row] = await this.db
+      .select()
+      .from(suppliers)
+      .where(and(eq(suppliers.id, id), isNull(suppliers.deletedAt)))
+      .limit(1);
+    return (row as SupplierRow | undefined) ?? null;
+  }
+
   async findByCodeInTenant(code: string, tenantId: string): Promise<SupplierRow | null> {
     const [row] = await this.db
       .select()
