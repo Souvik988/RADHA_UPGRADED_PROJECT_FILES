@@ -19,8 +19,8 @@ ProductNutrition _$ProductNutritionFromJson(Map<String, dynamic> json) =>
       transFat: _toDouble(json['transFat']),
       fiber: _toDouble(json['fiber']),
       sodium: _toDouble(json['sodium']),
-      containsAllergens: json['containsAllergens'] as bool?,
-      isProcessed: json['isProcessed'] as bool?,
+      containsAllergens: _toStringList(json['containsAllergens']),
+      isProcessed: _toStringOrNull(json['isProcessed']),
     );
 
 ProductLookupItem _$ProductLookupItemFromJson(Map<String, dynamic> json) =>

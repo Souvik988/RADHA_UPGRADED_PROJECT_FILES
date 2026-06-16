@@ -209,7 +209,7 @@ class _CatalogProductDetailScreenState
           const SizedBox(height: RadhaSpacing.space12),
           _IngredientDeepDive(),
           const SizedBox(height: RadhaSpacing.space12),
-          _ForYouSection(containsAllergens: nutrition?.containsAllergens),
+          _ForYouSection(hasAllergenSignal: nutrition?.hasAllergenSignal),
           const SizedBox(height: RadhaSpacing.space24),
 
           // ── Better choice (reuse the dedicated alternatives screen) ──────
@@ -649,7 +649,7 @@ class _LikeConcern extends StatelessWidget {
     if ((n.fiber ?? 0) >= 3) {
       likes.add((l10n.catalogDetailInsightGoodFibre, RadhaAssets.hiFiberGood));
     }
-    if (n.isProcessed == false) {
+    if (n.isMinimallyProcessed) {
       likes.add((l10n.catalogDetailInsightMinimallyProcessed, null));
     }
     if ((n.sugars ?? 0) >= 15) {
@@ -670,7 +670,7 @@ class _LikeConcern extends StatelessWidget {
         RadhaAssets.hiSodiumHigh,
       ));
     }
-    if (n.isProcessed == true) {
+    if (n.isUltraProcessed) {
       concerns.add((
         l10n.catalogDetailConcernUltraProcessed,
         RadhaAssets.hiUltraProcessed,
@@ -682,7 +682,7 @@ class _LikeConcern extends StatelessWidget {
         RadhaAssets.hiAdditiveWarning,
       ));
     }
-    if (n.containsAllergens == true) {
+    if (n.hasAllergenSignal == true) {
       concerns.add((
         l10n.catalogDetailConcernContainsAllergens,
         RadhaAssets.hiAllergenFlag,
@@ -1242,8 +1242,8 @@ class _IngredientDeepDive extends ConsumerWidget {
 }
 
 class _ForYouSection extends ConsumerWidget {
-  const _ForYouSection({required this.containsAllergens});
-  final bool? containsAllergens;
+  const _ForYouSection({required this.hasAllergenSignal});
+  final bool? hasAllergenSignal;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -1269,7 +1269,7 @@ class _ForYouSection extends ConsumerWidget {
       IconData icon,
       Color color,
       String label,
-    ) = switch (containsAllergens) {
+    ) = switch (hasAllergenSignal) {
       true => (
         Icons.warning_amber_rounded,
         RadhaColors.warning,
