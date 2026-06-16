@@ -439,25 +439,36 @@ class _SegmentPage extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(height: RadhaSpacing.space24),
+          const SizedBox(height: RadhaSpacing.space16),
           Expanded(
-            child: GridView.builder(
-              physics: const BouncingScrollPhysics(),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisSpacing: RadhaSpacing.space12,
-                crossAxisSpacing: RadhaSpacing.space12,
-                childAspectRatio: 0.95,
-              ),
-              itemCount: choices.length,
-              itemBuilder: (context, index) {
-                final choice = choices[index];
-                final isSelected = selected == choice.segment;
-                return _SegmentCard(
-                  choice: choice,
-                  isSelected: isSelected,
-                  index: index,
-                  onTap: () => onSelect(choice.segment),
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                // Derive card height from available grid area so the bottom
+                // row of 6 cards (3 rows × 2 cols) never hides behind the
+                // sticky CTA on short viewports (e.g. 1080 × 2340).
+                const gap = RadhaSpacing.space12;
+                final rowExtent =
+                    ((constraints.maxHeight - (gap * 2)) / 3).clamp(136.0, 172.0);
+                return GridView.builder(
+                  physics: const BouncingScrollPhysics(),
+                  padding: EdgeInsets.zero,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: gap,
+                    crossAxisSpacing: gap,
+                    mainAxisExtent: rowExtent,
+                  ),
+                  itemCount: choices.length,
+                  itemBuilder: (context, index) {
+                    final choice = choices[index];
+                    final isSelected = selected == choice.segment;
+                    return _SegmentCard(
+                      choice: choice,
+                      isSelected: isSelected,
+                      index: index,
+                      onTap: () => onSelect(choice.segment),
+                    );
+                  },
                 );
               },
             ),

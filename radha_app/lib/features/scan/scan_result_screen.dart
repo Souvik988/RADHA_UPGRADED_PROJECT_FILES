@@ -539,27 +539,27 @@ class _HealthSection extends StatelessWidget {
             children: [
               _HealthChip(
                 label: AppLocalizations.of(context).healthSugar,
-                icon: RadhaAssets.iconSugar,
+                icon: Icons.water_drop_outlined,
                 level: _HealthLevel.unknown,
               ),
               _HealthChip(
                 label: AppLocalizations.of(context).healthSalt,
-                icon: RadhaAssets.iconSalt,
+                icon: Icons.grain,
                 level: _HealthLevel.unknown,
               ),
               _HealthChip(
                 label: AppLocalizations.of(context).healthFat,
-                icon: RadhaAssets.iconFat,
+                icon: Icons.opacity,
                 level: _HealthLevel.unknown,
               ),
               _HealthChip(
                 label: AppLocalizations.of(context).healthProcessed,
-                icon: RadhaAssets.iconProcessed,
+                icon: Icons.factory_outlined,
                 level: _HealthLevel.unknown,
               ),
               _HealthChip(
                 label: AppLocalizations.of(context).healthChildSuitable,
-                icon: RadhaAssets.iconChildStar,
+                icon: Icons.child_friendly,
                 level: _HealthLevel.unknown,
               ),
             ],
@@ -726,9 +726,7 @@ class _HealthChip extends StatelessWidget {
   });
 
   final String label;
-
-  /// Path to the v2 health-flag glyph (sugar / salt / fat / processed / child).
-  final String icon;
+  final IconData icon;
   final _HealthLevel level;
 
   @override
@@ -753,15 +751,7 @@ class _HealthChip extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Image.asset(
-            icon,
-            width: 16,
-            height: 16,
-            cacheWidth: 48,
-            filterQuality: FilterQuality.medium,
-            errorBuilder: (_, _, _) =>
-                Icon(Icons.circle, size: 10, color: color),
-          ),
+          Icon(icon, size: 16, color: color),
           const SizedBox(width: RadhaSpacing.space8),
           Text(
             label,
