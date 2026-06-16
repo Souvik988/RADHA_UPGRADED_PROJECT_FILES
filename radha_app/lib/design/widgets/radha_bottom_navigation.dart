@@ -133,9 +133,7 @@ class _NavCell extends StatelessWidget {
             reduceMotion: reduceMotion,
           );
 
-    final labelColor = selected || destination.emphasized
-        ? scheme.primary
-        : muted;
+    final labelColor = selected ? scheme.primary : muted;
 
     return Semantics(
       button: true,
