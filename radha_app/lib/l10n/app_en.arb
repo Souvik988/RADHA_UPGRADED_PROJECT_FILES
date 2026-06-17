@@ -911,6 +911,20 @@
   "profilePreferences": "Preferences",
   "profileAllergenProfile": "Allergen profile",
   "profileShoppingList": "Shopping list",
+  "recallTitle": "Recall alerts",
+  "@recallTitle": { "description": "AppBar title for the recall alerts screen." },
+  "recallProductFallback": "Product {id}",
+  "@recallProductFallback": {
+    "description": "Fallback row title when the backend has not denormalised the product name onto the alert.",
+    "placeholders": { "id": { "type": "String", "example": "a1b2c3d4" } }
+  },
+  "recallDate": "Recalled {date}",
+  "@recallDate": {
+    "description": "Date sub-label on a recall row.",
+    "placeholders": { "date": { "type": "String", "example": "2024-03-15" } }
+  },
+  "recallViewProduct": "View product",
+  "@recallViewProduct": { "description": "CTA link on a tappable recall row." },
   "recallLoadError": "Could not load recalls.",
   "recallEmpty": "No active recalls",
   "recallEmptyBody": "You will see product recall alerts here as they are issued by regulatory bodies.",

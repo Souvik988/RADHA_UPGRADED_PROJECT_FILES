@@ -1557,6 +1557,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String get profileShoppingList => 'Shopping list';
 
   @override
+  String get recallTitle => 'Recall alerts';
+
+  @override
+  String recallProductFallback(String id) {
+    return 'Product $id';
+  }
+
+  @override
+  String recallDate(String date) {
+    return 'Recalled $date';
+  }
+
+  @override
+  String get recallViewProduct => 'View product';
+
+  @override
   String get recallLoadError => 'Could not load recalls.';
 
   @override

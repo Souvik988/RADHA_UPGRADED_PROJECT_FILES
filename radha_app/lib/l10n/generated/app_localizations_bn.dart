@@ -1563,6 +1563,22 @@ class AppLocalizationsBn extends AppLocalizations {
   String get profileShoppingList => 'শপিং তালিকা';
 
   @override
+  String get recallTitle => 'রিকল সতর্কতা';
+
+  @override
+  String recallProductFallback(String id) {
+    return 'পণ্য $id';
+  }
+
+  @override
+  String recallDate(String date) {
+    return 'প্রত্যাহার করা হয়েছে $date';
+  }
+
+  @override
+  String get recallViewProduct => 'পণ্য দেখুন';
+
+  @override
   String get recallLoadError => 'রিকল লোড করা যায়নি।';
 
   @override

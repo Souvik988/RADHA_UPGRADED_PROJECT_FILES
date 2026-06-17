@@ -1583,6 +1583,22 @@ class AppLocalizationsTa extends AppLocalizations {
   String get profileShoppingList => 'ஷாப்பிங் பட்டியல்';
 
   @override
+  String get recallTitle => 'ரீகால் எச்சரிக்கைகள்';
+
+  @override
+  String recallProductFallback(String id) {
+    return 'தயாரிப்பு $id';
+  }
+
+  @override
+  String recallDate(String date) {
+    return 'திரும்பப் பெறப்பட்டது $date';
+  }
+
+  @override
+  String get recallViewProduct => 'தயாரிப்பைப் பார்';
+
+  @override
   String get recallLoadError => 'ரீகால்களை ஏற்ற முடியவில்லை.';
 
   @override

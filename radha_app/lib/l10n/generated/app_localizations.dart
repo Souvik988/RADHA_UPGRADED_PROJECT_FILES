@@ -2800,6 +2800,30 @@ abstract class AppLocalizations {
   /// **'Shopping list'**
   String get profileShoppingList;
 
+  /// AppBar title for the recall alerts screen.
+  ///
+  /// In en, this message translates to:
+  /// **'Recall alerts'**
+  String get recallTitle;
+
+  /// Fallback row title when the backend has not denormalised the product name onto the alert.
+  ///
+  /// In en, this message translates to:
+  /// **'Product {id}'**
+  String recallProductFallback(String id);
+
+  /// Date sub-label on a recall row.
+  ///
+  /// In en, this message translates to:
+  /// **'Recalled {date}'**
+  String recallDate(String date);
+
+  /// CTA link on a tappable recall row.
+  ///
+  /// In en, this message translates to:
+  /// **'View product'**
+  String get recallViewProduct;
+
   /// No description provided for @recallLoadError.
   ///
   /// In en, this message translates to:

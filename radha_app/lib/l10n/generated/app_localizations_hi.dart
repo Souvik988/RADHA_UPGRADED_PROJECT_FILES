@@ -1564,6 +1564,22 @@ class AppLocalizationsHi extends AppLocalizations {
   String get profileShoppingList => 'शॉपिंग सूची';
 
   @override
+  String get recallTitle => 'रिकॉल अलर्ट';
+
+  @override
+  String recallProductFallback(String id) {
+    return 'उत्पाद $id';
+  }
+
+  @override
+  String recallDate(String date) {
+    return 'वापस मँगाया $date';
+  }
+
+  @override
+  String get recallViewProduct => 'उत्पाद देखें';
+
+  @override
   String get recallLoadError => 'रिकॉल लोड नहीं हो सके।';
 
   @override

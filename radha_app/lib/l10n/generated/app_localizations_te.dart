@@ -1572,6 +1572,22 @@ class AppLocalizationsTe extends AppLocalizations {
   String get profileShoppingList => 'షాపింగ్ జాబితా';
 
   @override
+  String get recallTitle => 'రీకాల్ హెచ్చరికలు';
+
+  @override
+  String recallProductFallback(String id) {
+    return 'ఉత్పత్తి $id';
+  }
+
+  @override
+  String recallDate(String date) {
+    return 'వెనక్కి పిలవబడింది $date';
+  }
+
+  @override
+  String get recallViewProduct => 'ఉత్పత్తి చూడండి';
+
+  @override
   String get recallLoadError => 'రీకాల్‌లను లోడ్ చేయలేకపోయాం.';
 
   @override

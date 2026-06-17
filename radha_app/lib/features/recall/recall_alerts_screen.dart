@@ -48,7 +48,7 @@ class RecallAlertsScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Recall alerts',
+          AppLocalizations.of(context).recallTitle,
           style: theme.textTheme.titleLarge?.copyWith(
             fontWeight: FontWeight.w800,
           ),
@@ -132,7 +132,9 @@ class _RecallTileState extends State<_RecallTile> {
     final theme = Theme.of(context);
     final scheme = theme.colorScheme;
     final recall = widget.recall;
-    final title = recall.productName ?? 'Product ${_short(recall.productId)}';
+    final title = recall.productName?.isNotEmpty == true
+        ? recall.productName!
+        : AppLocalizations.of(context).recallProductFallback(_short(recall.productId));
     final ean = recall.productEan;
     final tappable = ean != null && ean.isNotEmpty;
     final stripe = _severityColor(context, recall.severity);
@@ -194,7 +196,8 @@ class _RecallTileState extends State<_RecallTile> {
                               recall.recalledAt!.isNotEmpty) ...[
                             const SizedBox(height: RadhaSpacing.space4),
                             Text(
-                              'Recalled ${_formatDate(recall.recalledAt!)}',
+                              AppLocalizations.of(context)
+                                  .recallDate(_formatDate(recall.recalledAt!)),
                               style: theme.textTheme.bodySmall?.copyWith(
                                 color: scheme.onSurfaceVariant,
                               ),
@@ -217,7 +220,7 @@ class _RecallTileState extends State<_RecallTile> {
                             Row(
                               children: [
                                 Text(
-                                  'View product',
+                                  AppLocalizations.of(context).recallViewProduct,
                                   style: theme.textTheme.labelMedium?.copyWith(
                                     color: scheme.primary,
                                   ),
