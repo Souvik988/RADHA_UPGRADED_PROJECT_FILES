@@ -1841,6 +1841,53 @@ class AppLocalizationsMr extends AppLocalizations {
   String get labelScanMaybeLater => 'कदाचित नंतर';
 
   @override
+  String get labelScanTitle => 'लेबल स्कॅन करा';
+
+  @override
+  String get labelScanNoBarcode => 'बारकोड नाही? लेबल वाचा';
+
+  @override
+  String get labelScanIdleBody =>
+      'घटक पॅनेलकडे निर्देश करा — आम्ही वाचून सांगू आत काय आहे. बारकोडशिवाय उत्पादनांसाठीही काम करते.';
+
+  @override
+  String get labelScanFlashNote => 'कमी प्रकाशात कॅमेरा फ्लॅश आपोआप चालू होते.';
+
+  @override
+  String get labelScanReading => 'लेबल वाचत आहोत…';
+
+  @override
+  String get labelScanAnalyzing => 'घटकांचे विश्लेषण करत आहोत…';
+
+  @override
+  String get labelScanFallbackError =>
+      'काहीतरी चुकले. कृपया पुन्हा प्रयत्न करा.';
+
+  @override
+  String get labelScanResultFallback => 'लेबल विश्लेषण';
+
+  @override
+  String get labelScanLowConfidence =>
+      'कमी विश्वासार्हता — स्पष्ट फोटो चांगला परिणाम देऊ शकतो.';
+
+  @override
+  String get labelScanWhatToWatch => 'लक्ष द्यावयाचे';
+
+  @override
+  String get labelScanIngredients => 'घटक';
+
+  @override
+  String get labelScanDisclaimer =>
+      'RADHA AI ने लेबल मजकुरातून वाचले. अचूक माहितीसाठी पॅक तपासा.';
+
+  @override
+  String get labelScanUnlockTitle => 'AI लेबल रीडिंग अनलॉक करा';
+
+  @override
+  String get labelScanUnlockBody =>
+      'आम्ही लेबल वाचले, पण संपूर्ण विश्लेषण प्रीमियम वैशिष्ट्य आहे.';
+
+  @override
   String scanResultNotFoundBody(String ean) {
     return 'EAN $ean साठी कॅटलॉगमध्ये जुळणी नाही — पण तुम्ही तरीही लेबल वाचू शकता. घटक पॅनेलचा फोटो घ्या, आत काय आहे ते सांगू.';
   }
@@ -2166,6 +2213,35 @@ class AppLocalizationsMr extends AppLocalizations {
 
   @override
   String get subscriptionPerMonth => '/महिना';
+
+  @override
+  String get subscriptionTitle => 'सदस्यता';
+
+  @override
+  String get subscriptionHeadline => 'RADHA ची संपूर्ण ताकद अनलॉक करा';
+
+  @override
+  String get subscriptionChooseAPlan => 'एक प्लान निवडा';
+
+  @override
+  String get subscriptionCancelAnytime => 'कधीही रद्द करा · GST समाविष्ट';
+
+  @override
+  String get subscriptionBillingYearly => 'वार्षिक';
+
+  @override
+  String get subscriptionBillingMonthly => 'मासिक';
+
+  @override
+  String get versionLoading => 'आवृत्ती लोड होत आहे…';
+
+  @override
+  String get versionUnavailable => 'आवृत्ती उपलब्ध नाही';
+
+  @override
+  String appVersionBuild(String version, String build) {
+    return 'आवृत्ती $version ($build)';
+  }
 
   @override
   String get shoppingListTitle => 'खरेदी यादी';

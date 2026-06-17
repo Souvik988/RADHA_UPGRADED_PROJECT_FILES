@@ -1855,6 +1855,54 @@ class AppLocalizationsTe extends AppLocalizations {
   String get labelScanMaybeLater => 'బహుశా తర్వాత';
 
   @override
+  String get labelScanTitle => 'లేబల్ స్కాన్ చేయండి';
+
+  @override
+  String get labelScanNoBarcode => 'బార్‌కోడ్ లేదా? లేబల్ చదవండి';
+
+  @override
+  String get labelScanIdleBody =>
+      'పదార్థాల ప్యానెల్ వైపు చూపించండి — మేము చదివి చెప్తాము. బార్‌కోడ్ లేని ఉత్పత్తులకు కూడా పని చేస్తుంది.';
+
+  @override
+  String get labelScanFlashNote =>
+      'తక్కువ వెలుతురులో కెమెరా ఫ్లాష్ స్వయంచాలకంగా వెలుగుతుంది.';
+
+  @override
+  String get labelScanReading => 'లేబల్ చదువుతున్నాము…';
+
+  @override
+  String get labelScanAnalyzing => 'పదార్థాలు విశ్లేషిస్తున్నాము…';
+
+  @override
+  String get labelScanFallbackError =>
+      'ఏదో తప్పు జరిగింది. మళ్ళీ ప్రయత్నించండి.';
+
+  @override
+  String get labelScanResultFallback => 'లేబల్ విశ్లేషణ';
+
+  @override
+  String get labelScanLowConfidence =>
+      'తక్కువ నమ్మకం — స్పష్టమైన ఫోటో మెరుగైన ఫలితం ఇవ్వవచ్చు.';
+
+  @override
+  String get labelScanWhatToWatch => 'గమనించాల్సినవి';
+
+  @override
+  String get labelScanIngredients => 'పదార్థాలు';
+
+  @override
+  String get labelScanDisclaimer =>
+      'RADHA AI లేబల్ వచనం నుండి చదివింది. ఖచ్చితమైన సమాచారానికి ప్యాక్ తనిఖీ చేయండి.';
+
+  @override
+  String get labelScanUnlockTitle => 'AI లేబల్ రీడింగ్ అన్‌లాక్ చేయండి';
+
+  @override
+  String get labelScanUnlockBody =>
+      'మేము లేబల్ చదివాం, కానీ పూర్తి విశ్లేషణ ప్రీమియం ఫీచర్.';
+
+  @override
   String scanResultNotFoundBody(String ean) {
     return 'EAN $ean కు క్యాటలాగ్‌లో సరిపోలిక లేదు — కానీ మీరు ఇప్పటికీ లేబుల్ చదవవచ్చు. పదార్థాల ప్యానెల్ ఫోటో తీయండి, లోపల ఏముందో చెబుతాం.';
   }
@@ -2182,6 +2230,37 @@ class AppLocalizationsTe extends AppLocalizations {
 
   @override
   String get subscriptionPerMonth => '/నెల';
+
+  @override
+  String get subscriptionTitle => 'సభ్యత్వం';
+
+  @override
+  String get subscriptionHeadline =>
+      'RADHA యొక్క పూర్తి సామర్థ్యాన్ని అన్‌లాక్ చేయండి';
+
+  @override
+  String get subscriptionChooseAPlan => 'ఒక ప్లాన్ ఎంచుకోండి';
+
+  @override
+  String get subscriptionCancelAnytime =>
+      'ఎప్పుడైనా రద్దు చేయండి · GST వర్తిస్తుంది';
+
+  @override
+  String get subscriptionBillingYearly => 'వార్షిక';
+
+  @override
+  String get subscriptionBillingMonthly => 'నెలవారీ';
+
+  @override
+  String get versionLoading => 'వెర్షన్ లోడ్ అవుతోంది…';
+
+  @override
+  String get versionUnavailable => 'వెర్షన్ అందుబాటులో లేదు';
+
+  @override
+  String appVersionBuild(String version, String build) {
+    return 'వెర్షన్ $version ($build)';
+  }
 
   @override
   String get shoppingListTitle => 'షాపింగ్ జాబితా';

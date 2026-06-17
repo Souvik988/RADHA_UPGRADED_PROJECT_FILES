@@ -1842,6 +1842,54 @@ class AppLocalizationsBn extends AppLocalizations {
   String get labelScanMaybeLater => 'হয়তো পরে';
 
   @override
+  String get labelScanTitle => 'লেবেল স্ক্যান করুন';
+
+  @override
+  String get labelScanNoBarcode => 'বারকোড নেই? লেবেল পড়ুন';
+
+  @override
+  String get labelScanIdleBody =>
+      'উপাদান প্যানেলের দিকে পয়েন্ট করুন — আমরা পড়ে বলব ভেতরে কী আছে। বারকোড ছাড়া পণ্যেও কাজ করে।';
+
+  @override
+  String get labelScanFlashNote =>
+      'কম আলোতে ক্যামেরা ফ্ল্যাশ স্বয়ংক্রিয়ভাবে চালু হয়।';
+
+  @override
+  String get labelScanReading => 'লেবেল পড়া হচ্ছে…';
+
+  @override
+  String get labelScanAnalyzing => 'উপাদান বিশ্লেষণ করা হচ্ছে…';
+
+  @override
+  String get labelScanFallbackError =>
+      'কিছু একটা ভুল হয়েছে। আবার চেষ্টা করুন।';
+
+  @override
+  String get labelScanResultFallback => 'লেবেল বিশ্লেষণ';
+
+  @override
+  String get labelScanLowConfidence =>
+      'কম আস্থা — স্পষ্ট ছবি আরও ভালো ফলাফল দিতে পারে।';
+
+  @override
+  String get labelScanWhatToWatch => 'সতর্ক থাকুন';
+
+  @override
+  String get labelScanIngredients => 'উপাদান';
+
+  @override
+  String get labelScanDisclaimer =>
+      'RADHA AI লেবেল পাঠ্য থেকে পড়েছে। সঠিক তথ্যের জন্য প্যাক পরীক্ষা করুন।';
+
+  @override
+  String get labelScanUnlockTitle => 'AI লেবেল রিডিং আনলক করুন';
+
+  @override
+  String get labelScanUnlockBody =>
+      'আমরা লেবেল পড়েছি, কিন্তু সম্পূর্ণ বিশ্লেষণ প্রিমিয়াম ফিচার।';
+
+  @override
   String scanResultNotFoundBody(String ean) {
     return 'EAN $ean এর জন্য ক্যাটালগে কোনো মিল নেই — তবে আপনি এখনও লেবেল পড়তে পারেন। উপাদান প্যানেলের ছবি তুলুন, আমরা বলব ভেতরে কী আছে।';
   }
@@ -2164,6 +2212,36 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get subscriptionPerMonth => '/মাস';
+
+  @override
+  String get subscriptionTitle => 'সাবস্ক্রিপশন';
+
+  @override
+  String get subscriptionHeadline => 'RADHA-এর পূর্ণ শক্তি আনলক করুন';
+
+  @override
+  String get subscriptionChooseAPlan => 'একটি প্ল্যান বেছে নিন';
+
+  @override
+  String get subscriptionCancelAnytime =>
+      'যেকোনো সময় বাতিল করুন · GST অন্তর্ভুক্ত';
+
+  @override
+  String get subscriptionBillingYearly => 'বার্ষিক';
+
+  @override
+  String get subscriptionBillingMonthly => 'মাসিক';
+
+  @override
+  String get versionLoading => 'সংস্করণ লোড হচ্ছে…';
+
+  @override
+  String get versionUnavailable => 'সংস্করণ অনুপলব্ধ';
+
+  @override
+  String appVersionBuild(String version, String build) {
+    return 'সংস্করণ $version ($build)';
+  }
 
   @override
   String get shoppingListTitle => 'শপিং তালিকা';

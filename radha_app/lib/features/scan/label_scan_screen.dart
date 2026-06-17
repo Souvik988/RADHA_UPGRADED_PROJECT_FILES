@@ -39,12 +39,13 @@ class LabelScanScreen extends ConsumerStatefulWidget {
 }
 
 enum _Stage { idle, processing, result, noText, locked, error }
+enum _ProcessingStep { reading, analyzing }
 
 class _LabelScanScreenState extends ConsumerState<LabelScanScreen> {
   final ImagePicker _picker = ImagePicker();
 
   _Stage _stage = _Stage.idle;
-  String _processingLabel = 'Reading the label…';
+  _ProcessingStep _processingStep = _ProcessingStep.reading;
   LabelTextAnalysis? _analysis;
   String? _requiredPlan;
   String _errorMessage = '';
@@ -74,7 +75,7 @@ class _LabelScanScreenState extends ConsumerState<LabelScanScreen> {
   Future<void> _processPath(String path) async {
     setState(() {
       _stage = _Stage.processing;
-      _processingLabel = 'Reading the label…';
+      _processingStep = _ProcessingStep.reading;
     });
 
     try {
@@ -119,7 +120,7 @@ class _LabelScanScreenState extends ConsumerState<LabelScanScreen> {
         return;
       }
 
-      setState(() => _processingLabel = 'Analyzing ingredients…');
+      setState(() => _processingStep = _ProcessingStep.analyzing);
       final analysis = await ref
           .read(labelAnalysisRepositoryProvider)
           .analyzeTranscript(transcript: ocr.transcript);
@@ -154,7 +155,7 @@ class _LabelScanScreenState extends ConsumerState<LabelScanScreen> {
       if (!mounted) return;
       setState(() {
         _stage = _Stage.error;
-        _errorMessage = 'Something went wrong. Please try again.';
+        _errorMessage = AppLocalizations.of(context).labelScanFallbackError;
       });
     }
   }
@@ -175,7 +176,7 @@ class _LabelScanScreenState extends ConsumerState<LabelScanScreen> {
       appBar: AppBar(
         backgroundColor: theme.colorScheme.surface,
         title: Text(
-          'Scan the label',
+          AppLocalizations.of(context).labelScanTitle,
           style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
         ),
         leading: IconButton(
@@ -190,7 +191,12 @@ class _LabelScanScreenState extends ConsumerState<LabelScanScreen> {
   Widget _buildBody(ThemeData theme) {
     switch (_stage) {
       case _Stage.processing:
-        return _ProcessingView(label: _processingLabel);
+        final l10n = AppLocalizations.of(context);
+        return _ProcessingView(
+          label: _processingStep == _ProcessingStep.analyzing
+              ? l10n.labelScanAnalyzing
+              : l10n.labelScanReading,
+        );
       case _Stage.result:
         return _AnalysisResultView(analysis: _analysis!, onAgain: _reset);
       case _Stage.noText:
@@ -246,14 +252,13 @@ class _IdleView extends StatelessWidget {
           ),
           const SizedBox(height: RadhaSpacing.space24),
           Text(
-            'No barcode? Read the label instead',
+            AppLocalizations.of(context).labelScanNoBarcode,
             textAlign: TextAlign.center,
             style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
           ),
           const SizedBox(height: RadhaSpacing.space8),
           Text(
-            'Point at the ingredients panel — we\'ll read it and tell you what\'s '
-            'inside. Works on products without a barcode.',
+            AppLocalizations.of(context).labelScanIdleBody,
             textAlign: TextAlign.center,
             style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
@@ -283,7 +288,7 @@ class _IdleView extends StatelessWidget {
               const SizedBox(width: RadhaSpacing.space8),
               Flexible(
                 child: Text(
-                  'In low light your camera flash turns on automatically.',
+                  AppLocalizations.of(context).labelScanFlashNote,
                   style: theme.textTheme.bodySmall?.copyWith(
                     color: theme.colorScheme.onSurfaceVariant,
                   ),
@@ -347,7 +352,7 @@ class _AnalysisResultView extends StatelessWidget {
               Text(
                 analysis.productName?.isNotEmpty == true
                     ? analysis.productName!
-                    : 'Label analysis',
+                    : AppLocalizations.of(context).labelScanResultFallback,
                 style: theme.textTheme.headlineSmall?.copyWith(
                   fontWeight: FontWeight.w800,
                 ),
@@ -365,7 +370,7 @@ class _AnalysisResultView extends StatelessWidget {
                 const SizedBox(height: RadhaSpacing.space12),
                 _Banner(
                   icon: Icons.info_outline_rounded,
-                  text: 'Low confidence — a clearer photo may improve this.',
+                  text: AppLocalizations.of(context).labelScanLowConfidence,
                 ),
               ],
               if (analysis.summary != null && analysis.summary!.isNotEmpty) ...[
@@ -384,7 +389,7 @@ class _AnalysisResultView extends StatelessWidget {
               ],
               if (analysis.healthFlags.isNotEmpty) ...[
                 const SizedBox(height: RadhaSpacing.space24),
-                _SectionTitle('What to watch'),
+                _SectionTitle(AppLocalizations.of(context).labelScanWhatToWatch),
                 const SizedBox(height: RadhaSpacing.space12),
                 Wrap(
                   spacing: RadhaSpacing.space8,
@@ -396,7 +401,7 @@ class _AnalysisResultView extends StatelessWidget {
               ],
               if (analysis.allergens.isNotEmpty) ...[
                 const SizedBox(height: RadhaSpacing.space24),
-                _SectionTitle('Allergens'),
+                _SectionTitle(AppLocalizations.of(context).allergenTitle),
                 const SizedBox(height: RadhaSpacing.space8),
                 Text(
                   analysis.allergens.join(', '),
@@ -405,7 +410,7 @@ class _AnalysisResultView extends StatelessWidget {
               ],
               if (analysis.ingredients.isNotEmpty) ...[
                 const SizedBox(height: RadhaSpacing.space24),
-                _SectionTitle('Ingredients'),
+                _SectionTitle(AppLocalizations.of(context).labelScanIngredients),
                 const SizedBox(height: RadhaSpacing.space8),
                 for (final ing in analysis.ingredients)
                   Padding(
@@ -425,8 +430,7 @@ class _AnalysisResultView extends StatelessWidget {
               ],
               const SizedBox(height: RadhaSpacing.space24),
               Text(
-                'Read by RADHA AI from the label text. Always check the pack for '
-                'the most accurate information.',
+                AppLocalizations.of(context).labelScanDisclaimer,
                 style: theme.textTheme.bodySmall?.copyWith(
                   color: theme.colorScheme.onSurfaceVariant,
                 ),
@@ -606,14 +610,13 @@ class _LockedView extends StatelessWidget {
           ),
           const SizedBox(height: RadhaSpacing.space16),
           Text(
-            'Unlock AI label reading',
+            AppLocalizations.of(context).labelScanUnlockTitle,
             textAlign: TextAlign.center,
             style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
           ),
           const SizedBox(height: RadhaSpacing.space8),
           Text(
-            'We read the label, but the full ingredient & health breakdown is part '
-            'of $plan. Upgrade to see what\'s inside any product you photograph.',
+            AppLocalizations.of(context).labelScanUnlockBody,
             textAlign: TextAlign.center,
             style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,

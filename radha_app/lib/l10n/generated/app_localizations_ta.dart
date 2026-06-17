@@ -1866,6 +1866,54 @@ class AppLocalizationsTa extends AppLocalizations {
   String get labelScanMaybeLater => 'ஒருவேளை பின்னர்';
 
   @override
+  String get labelScanTitle => 'லேபிலை ஸ்கேன் செய்க';
+
+  @override
+  String get labelScanNoBarcode => 'பார்கோடு இல்லையா? லேபிலை படிக்கவும்';
+
+  @override
+  String get labelScanIdleBody =>
+      'பொருட்கள் பட்டியல் பகுதியை நோக்கவும் — உள்ளே என்ன இருக்கிறது என்று சொல்கிறோம். பார்கோடு இல்லாத தயாரிப்புகளுக்கும் வேலை செய்யும்.';
+
+  @override
+  String get labelScanFlashNote =>
+      'குறைந்த வெளிச்சத்தில் கேமரா ஃபிளாஷ் தானாக இயங்கும்.';
+
+  @override
+  String get labelScanReading => 'லேபிலை படிக்கிறோம்…';
+
+  @override
+  String get labelScanAnalyzing => 'பொருட்களை பகுப்பாய்வு செய்கிறோம்…';
+
+  @override
+  String get labelScanFallbackError =>
+      'ஏதோ தவறு நடந்தது. மீண்டும் முயற்சிக்கவும்.';
+
+  @override
+  String get labelScanResultFallback => 'லேபில் பகுப்பாய்வு';
+
+  @override
+  String get labelScanLowConfidence =>
+      'குறைந்த நம்பகத்தன்மை — தெளிவான புகைப்படம் சிறந்த முடிவு தரலாம்.';
+
+  @override
+  String get labelScanWhatToWatch => 'கவனிக்க வேண்டியவை';
+
+  @override
+  String get labelScanIngredients => 'பொருட்கள்';
+
+  @override
+  String get labelScanDisclaimer =>
+      'RADHA AI மூலம் லேபில் உரையிலிருந்து படிக்கப்பட்டது. சரியான தகவலுக்கு பொட்டலத்தை சரிபார்க்கவும்.';
+
+  @override
+  String get labelScanUnlockTitle => 'AI லேபில் வாசிப்பை திறக்கவும்';
+
+  @override
+  String get labelScanUnlockBody =>
+      'லேபிலை படித்தோம், ஆனால் முழு பகுப்பாய்வு பிரீமியம் அம்சம்.';
+
+  @override
   String scanResultNotFoundBody(String ean) {
     return 'EAN $ean க்கு பட்டியலில் பொருத்தம் இல்லை — ஆனால் நீங்கள் இன்னும் லேபிளைப் படிக்கலாம். பொருட்கள் பலகத்தைப் படமெடுங்கள், உள்ளே என்ன இருக்கிறது என்று சொல்கிறோம்.';
   }
@@ -2191,6 +2239,36 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String get subscriptionPerMonth => '/மாதம்';
+
+  @override
+  String get subscriptionTitle => 'சந்தா';
+
+  @override
+  String get subscriptionHeadline => 'RADHA-வின் முழு சக்தியை திறக்கவும்';
+
+  @override
+  String get subscriptionChooseAPlan => 'ஒரு திட்டம் தேர்ந்தெடுக்கவும்';
+
+  @override
+  String get subscriptionCancelAnytime =>
+      'எப்போதும் ரத்து செய்யலாம் · GST உள்ளடக்கியது';
+
+  @override
+  String get subscriptionBillingYearly => 'வருடாந்திர';
+
+  @override
+  String get subscriptionBillingMonthly => 'மாதாந்திர';
+
+  @override
+  String get versionLoading => 'பதிப்பு ஏற்றுகிறது…';
+
+  @override
+  String get versionUnavailable => 'பதிப்பு கிடைக்கவில்லை';
+
+  @override
+  String appVersionBuild(String version, String build) {
+    return 'பதிப்பு $version ($build)';
+  }
 
   @override
   String get shoppingListTitle => 'ஷாப்பிங் பட்டியல்';

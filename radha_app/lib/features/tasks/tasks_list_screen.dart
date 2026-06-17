@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 
 import '../../core/auth/auth_controller.dart';
 import '../../core/network/api_client.dart';
@@ -570,7 +571,10 @@ class _TaskTileState extends State<_TaskTile> {
                     ),
                     const SizedBox(width: RadhaSpacing.space4),
                     Text(
-                      _formatDate(task.dueDate!),
+                      _formatDate(
+                        task.dueDate!,
+                        Localizations.localeOf(context).toString(),
+                      ),
                       style: theme.textTheme.bodySmall?.copyWith(
                         color: theme.colorScheme.onSurfaceVariant,
                       ),
@@ -619,14 +623,9 @@ class _TaskTileState extends State<_TaskTile> {
     );
   }
 
-  String _formatDate(String iso) {
+  String _formatDate(String iso, String localeName) {
     try {
-      final dt = DateTime.parse(iso);
-      const months = [
-        'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
-      ];
-      return '${dt.day} ${months[dt.month - 1]}';
+      return DateFormat('d MMM', localeName).format(DateTime.parse(iso));
     } catch (_) {
       return iso;
     }

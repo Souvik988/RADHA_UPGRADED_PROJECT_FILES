@@ -1013,6 +1013,20 @@
     "placeholders": { "plan": { "type": "String", "example": "Plus" } }
   },
   "labelScanMaybeLater": "Maybe later",
+  "labelScanTitle": "Scan the label",
+  "labelScanNoBarcode": "No barcode? Read the label instead",
+  "labelScanIdleBody": "Point at the ingredients panel — we'll read it and tell you what's inside. Works on products without a barcode.",
+  "labelScanFlashNote": "In low light your camera flash turns on automatically.",
+  "labelScanReading": "Reading the label…",
+  "labelScanAnalyzing": "Analyzing ingredients…",
+  "labelScanFallbackError": "Something went wrong. Please try again.",
+  "labelScanResultFallback": "Label analysis",
+  "labelScanLowConfidence": "Low confidence — a clearer photo may improve this.",
+  "labelScanWhatToWatch": "What to watch",
+  "labelScanIngredients": "Ingredients",
+  "labelScanDisclaimer": "Read by RADHA AI from the label text. Always check the pack for the most accurate information.",
+  "labelScanUnlockTitle": "Unlock AI label reading",
+  "labelScanUnlockBody": "We read the label, but the full ingredient & health breakdown is a premium feature.",
   "scanResultNotFoundBody": "No catalog match for EAN {ean} — but you can still read the label. Snap the ingredients panel and we'll tell you what's inside.",
   "@scanResultNotFoundBody": {
     "description": "Body on the scan-result not-found state.",
@@ -1175,6 +1189,22 @@
   },
   "subscriptionPopular": "Popular",
   "subscriptionPerMonth": "/mo",
+  "subscriptionTitle": "Subscription",
+  "subscriptionHeadline": "Unlock RADHA's full picture",
+  "subscriptionChooseAPlan": "Choose a plan",
+  "subscriptionCancelAnytime": "Cancel anytime · GST included",
+  "subscriptionBillingYearly": "yearly",
+  "subscriptionBillingMonthly": "monthly",
+  "versionLoading": "Loading version…",
+  "versionUnavailable": "Version unavailable",
+  "appVersionBuild": "Version {version} ({build})",
+  "@appVersionBuild": {
+    "description": "App version string shown in the About card.",
+    "placeholders": {
+      "version": { "type": "String" },
+      "build": { "type": "String" }
+    }
+  },
   "shoppingListTitle": "Shopping list",
   "shoppingAddItem": "Add item",
   "shoppingLoadError": "Could not load your list",

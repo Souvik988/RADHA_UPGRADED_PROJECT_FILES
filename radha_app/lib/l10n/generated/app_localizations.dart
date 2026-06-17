@@ -3334,6 +3334,90 @@ abstract class AppLocalizations {
   /// **'Maybe later'**
   String get labelScanMaybeLater;
 
+  /// No description provided for @labelScanTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan the label'**
+  String get labelScanTitle;
+
+  /// No description provided for @labelScanNoBarcode.
+  ///
+  /// In en, this message translates to:
+  /// **'No barcode? Read the label instead'**
+  String get labelScanNoBarcode;
+
+  /// No description provided for @labelScanIdleBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Point at the ingredients panel — we\'ll read it and tell you what\'s inside. Works on products without a barcode.'**
+  String get labelScanIdleBody;
+
+  /// No description provided for @labelScanFlashNote.
+  ///
+  /// In en, this message translates to:
+  /// **'In low light your camera flash turns on automatically.'**
+  String get labelScanFlashNote;
+
+  /// No description provided for @labelScanReading.
+  ///
+  /// In en, this message translates to:
+  /// **'Reading the label…'**
+  String get labelScanReading;
+
+  /// No description provided for @labelScanAnalyzing.
+  ///
+  /// In en, this message translates to:
+  /// **'Analyzing ingredients…'**
+  String get labelScanAnalyzing;
+
+  /// No description provided for @labelScanFallbackError.
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong. Please try again.'**
+  String get labelScanFallbackError;
+
+  /// No description provided for @labelScanResultFallback.
+  ///
+  /// In en, this message translates to:
+  /// **'Label analysis'**
+  String get labelScanResultFallback;
+
+  /// No description provided for @labelScanLowConfidence.
+  ///
+  /// In en, this message translates to:
+  /// **'Low confidence — a clearer photo may improve this.'**
+  String get labelScanLowConfidence;
+
+  /// No description provided for @labelScanWhatToWatch.
+  ///
+  /// In en, this message translates to:
+  /// **'What to watch'**
+  String get labelScanWhatToWatch;
+
+  /// No description provided for @labelScanIngredients.
+  ///
+  /// In en, this message translates to:
+  /// **'Ingredients'**
+  String get labelScanIngredients;
+
+  /// No description provided for @labelScanDisclaimer.
+  ///
+  /// In en, this message translates to:
+  /// **'Read by RADHA AI from the label text. Always check the pack for the most accurate information.'**
+  String get labelScanDisclaimer;
+
+  /// No description provided for @labelScanUnlockTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock AI label reading'**
+  String get labelScanUnlockTitle;
+
+  /// No description provided for @labelScanUnlockBody.
+  ///
+  /// In en, this message translates to:
+  /// **'We read the label, but the full ingredient & health breakdown is a premium feature.'**
+  String get labelScanUnlockBody;
+
   /// Body on the scan-result not-found state.
   ///
   /// In en, this message translates to:
@@ -3873,6 +3957,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'/mo'**
   String get subscriptionPerMonth;
+
+  /// No description provided for @subscriptionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Subscription'**
+  String get subscriptionTitle;
+
+  /// No description provided for @subscriptionHeadline.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock RADHA\'s full picture'**
+  String get subscriptionHeadline;
+
+  /// No description provided for @subscriptionChooseAPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a plan'**
+  String get subscriptionChooseAPlan;
+
+  /// No description provided for @subscriptionCancelAnytime.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel anytime · GST included'**
+  String get subscriptionCancelAnytime;
+
+  /// No description provided for @subscriptionBillingYearly.
+  ///
+  /// In en, this message translates to:
+  /// **'yearly'**
+  String get subscriptionBillingYearly;
+
+  /// No description provided for @subscriptionBillingMonthly.
+  ///
+  /// In en, this message translates to:
+  /// **'monthly'**
+  String get subscriptionBillingMonthly;
+
+  /// No description provided for @versionLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading version…'**
+  String get versionLoading;
+
+  /// No description provided for @versionUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Version unavailable'**
+  String get versionUnavailable;
+
+  /// App version string shown in the About card.
+  ///
+  /// In en, this message translates to:
+  /// **'Version {version} ({build})'**
+  String appVersionBuild(String version, String build);
 
   /// No description provided for @shoppingListTitle.
   ///

@@ -418,19 +418,22 @@ class _AboutCard extends StatelessWidget {
                     const SizedBox(height: 2),
                     packageInfoAsync.when(
                       loading: () => Text(
-                        'Loading version…',
+                        AppLocalizations.of(context).versionLoading,
                         style: theme.textTheme.bodySmall?.copyWith(
                           color: scheme.onSurfaceVariant,
                         ),
                       ),
                       error: (_, _) => Text(
-                        'Version unavailable',
+                        AppLocalizations.of(context).versionUnavailable,
                         style: theme.textTheme.bodySmall?.copyWith(
                           color: scheme.onSurfaceVariant,
                         ),
                       ),
                       data: (info) => Text(
-                        'Version ${info.version} (${info.buildNumber})',
+                        AppLocalizations.of(context).appVersionBuild(
+                          info.version,
+                          info.buildNumber,
+                        ),
                         style: theme.textTheme.bodySmall?.copyWith(
                           color: scheme.onSurfaceVariant,
                         ),

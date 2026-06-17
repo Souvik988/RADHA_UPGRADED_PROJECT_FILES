@@ -1836,6 +1836,54 @@ class AppLocalizationsEn extends AppLocalizations {
   String get labelScanMaybeLater => 'Maybe later';
 
   @override
+  String get labelScanTitle => 'Scan the label';
+
+  @override
+  String get labelScanNoBarcode => 'No barcode? Read the label instead';
+
+  @override
+  String get labelScanIdleBody =>
+      'Point at the ingredients panel — we\'ll read it and tell you what\'s inside. Works on products without a barcode.';
+
+  @override
+  String get labelScanFlashNote =>
+      'In low light your camera flash turns on automatically.';
+
+  @override
+  String get labelScanReading => 'Reading the label…';
+
+  @override
+  String get labelScanAnalyzing => 'Analyzing ingredients…';
+
+  @override
+  String get labelScanFallbackError =>
+      'Something went wrong. Please try again.';
+
+  @override
+  String get labelScanResultFallback => 'Label analysis';
+
+  @override
+  String get labelScanLowConfidence =>
+      'Low confidence — a clearer photo may improve this.';
+
+  @override
+  String get labelScanWhatToWatch => 'What to watch';
+
+  @override
+  String get labelScanIngredients => 'Ingredients';
+
+  @override
+  String get labelScanDisclaimer =>
+      'Read by RADHA AI from the label text. Always check the pack for the most accurate information.';
+
+  @override
+  String get labelScanUnlockTitle => 'Unlock AI label reading';
+
+  @override
+  String get labelScanUnlockBody =>
+      'We read the label, but the full ingredient & health breakdown is a premium feature.';
+
+  @override
   String scanResultNotFoundBody(String ean) {
     return 'No catalog match for EAN $ean — but you can still read the label. Snap the ingredients panel and we\'ll tell you what\'s inside.';
   }
@@ -2159,6 +2207,35 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get subscriptionPerMonth => '/mo';
+
+  @override
+  String get subscriptionTitle => 'Subscription';
+
+  @override
+  String get subscriptionHeadline => 'Unlock RADHA\'s full picture';
+
+  @override
+  String get subscriptionChooseAPlan => 'Choose a plan';
+
+  @override
+  String get subscriptionCancelAnytime => 'Cancel anytime · GST included';
+
+  @override
+  String get subscriptionBillingYearly => 'yearly';
+
+  @override
+  String get subscriptionBillingMonthly => 'monthly';
+
+  @override
+  String get versionLoading => 'Loading version…';
+
+  @override
+  String get versionUnavailable => 'Version unavailable';
+
+  @override
+  String appVersionBuild(String version, String build) {
+    return 'Version $version ($build)';
+  }
 
   @override
   String get shoppingListTitle => 'Shopping list';
