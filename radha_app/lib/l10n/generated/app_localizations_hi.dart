@@ -1813,6 +1813,23 @@ class AppLocalizationsHi extends AppLocalizations {
       'इस स्टोर की अप्रूव्ड सूची से जाँचने के लिए ऊपर EAN स्कैन करें या टाइप करें। हर परिणाम यहाँ मिलान या सूची-में-नहीं स्थिति के साथ आता है।';
 
   @override
+  String get auditTitle => 'बल्क EAN ऑडिट';
+
+  @override
+  String get auditEndAction => 'ऑडिट समाप्त करें';
+
+  @override
+  String get auditEndingAction => 'समाप्त हो रहा है…';
+
+  @override
+  String get auditEanInvalid => 'एक वैध EAN-8, EAN-13, या UPC-A कोड दर्ज करें';
+
+  @override
+  String auditEndedSummary(int matched, int notMatched) {
+    return 'ऑडिट समाप्त — $matched मिलान, $notMatched सूची में नहीं';
+  }
+
+  @override
   String get cameraCapture => 'कैप्चर करें';
 
   @override

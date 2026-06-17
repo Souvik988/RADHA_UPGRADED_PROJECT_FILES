@@ -1822,6 +1822,24 @@ class AppLocalizationsTe extends AppLocalizations {
       'ఈ స్టోర్ ఆమోదిత జాబితాతో తనిఖీ చేయడానికి పైన EAN స్కాన్ చేయండి లేదా టైప్ చేయండి. ప్రతి ఫలితం సరిపోలింది లేదా జాబితాలో-లేదు స్థితితో ఇక్కడ వస్తుంది.';
 
   @override
+  String get auditTitle => 'బల్క్ EAN ఆడిట్';
+
+  @override
+  String get auditEndAction => 'ఆడిట్ ముగించు';
+
+  @override
+  String get auditEndingAction => 'ముగుస్తోంది…';
+
+  @override
+  String get auditEanInvalid =>
+      'చెల్లుబాటు అయ్యే EAN-8, EAN-13, లేదా UPC-A కోడ్ నమోదు చేయండి';
+
+  @override
+  String auditEndedSummary(int matched, int notMatched) {
+    return 'ఆడిట్ ముగిసింది — $matched సరిపోలాయి, $notMatched జాబితాలో లేవు';
+  }
+
+  @override
   String get cameraCapture => 'క్యాప్చర్ చేయి';
 
   @override

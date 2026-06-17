@@ -1808,6 +1808,24 @@ class AppLocalizationsMr extends AppLocalizations {
       'या स्टोअरच्या मंजूर यादीशी तपासण्यासाठी वर EAN स्कॅन करा किंवा टाइप करा. प्रत्येक निकाल जुळले किंवा यादीत-नाही स्थितीसह येथे येतो.';
 
   @override
+  String get auditTitle => 'बल्क EAN ऑडिट';
+
+  @override
+  String get auditEndAction => 'ऑडिट संपवा';
+
+  @override
+  String get auditEndingAction => 'संपत आहे…';
+
+  @override
+  String get auditEanInvalid =>
+      'वैध EAN-8, EAN-13, किंवा UPC-A कोड प्रविष्ट करा';
+
+  @override
+  String auditEndedSummary(int matched, int notMatched) {
+    return 'ऑडिट संपले — $matched जुळले, $notMatched यादीत नाही';
+  }
+
+  @override
   String get cameraCapture => 'कॅप्चर करा';
 
   @override

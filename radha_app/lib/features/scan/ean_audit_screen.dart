@@ -82,7 +82,9 @@ class _EanAuditScreenState extends ConsumerState<EanAuditScreen> {
   Future<void> _addEan(String storeId) async {
     final ean = _eanController.text.trim();
     if (!isValidEan(ean)) {
-      setState(() => _inputError = 'Enter a valid EAN-8, EAN-13, or UPC-A code');
+      setState(
+        () => _inputError = AppLocalizations.of(context).auditEanInvalid,
+      );
       return;
     }
     if (_submitting) return;
@@ -151,7 +153,8 @@ class _EanAuditScreenState extends ConsumerState<EanAuditScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
-            'Audit ended — $_matched matched, $_notMatched not in list',
+            AppLocalizations.of(context)
+                .auditEndedSummary(_matched, _notMatched),
           ),
         ),
       );
@@ -177,7 +180,7 @@ class _EanAuditScreenState extends ConsumerState<EanAuditScreen> {
       appBar: AppBar(
         backgroundColor: theme.colorScheme.surface,
         title: Text(
-          'Bulk EAN Audit',
+          AppLocalizations.of(context).auditTitle,
           style: theme.textTheme.titleLarge?.copyWith(
             fontWeight: FontWeight.w800,
           ),
@@ -186,7 +189,11 @@ class _EanAuditScreenState extends ConsumerState<EanAuditScreen> {
           if (storeId != null)
             TextButton(
               onPressed: _ending ? null : _endAudit,
-              child: Text(_ending ? 'Ending…' : 'End audit'),
+              child: Text(
+                _ending
+                    ? AppLocalizations.of(context).auditEndingAction
+                    : AppLocalizations.of(context).auditEndAction,
+              ),
             ),
         ],
       ),

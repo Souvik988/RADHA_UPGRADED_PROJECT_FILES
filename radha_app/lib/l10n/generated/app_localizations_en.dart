@@ -1803,6 +1803,23 @@ class AppLocalizationsEn extends AppLocalizations {
       'Scan or type an EAN above to check it against this store\'s approved list. Each result lands here with a matched or not-in-list status.';
 
   @override
+  String get auditTitle => 'Bulk EAN Audit';
+
+  @override
+  String get auditEndAction => 'End audit';
+
+  @override
+  String get auditEndingAction => 'Ending…';
+
+  @override
+  String get auditEanInvalid => 'Enter a valid EAN-8, EAN-13, or UPC-A code';
+
+  @override
+  String auditEndedSummary(int matched, int notMatched) {
+    return 'Audit ended — $matched matched, $notMatched not in list';
+  }
+
+  @override
   String get cameraCapture => 'Capture';
 
   @override

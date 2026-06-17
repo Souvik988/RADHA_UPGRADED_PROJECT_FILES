@@ -1833,6 +1833,24 @@ class AppLocalizationsTa extends AppLocalizations {
       'இந்தக் கடையின் அங்கீகரிக்கப்பட்ட பட்டியலுடன் சரிபார்க்க மேலே EAN ஐ ஸ்கேன் செய்யவும் அல்லது தட்டச்சு செய்யவும். ஒவ்வொரு முடிவும் பொருந்திய அல்லது பட்டியலில்-இல்லை நிலையுடன் இங்கே வரும்.';
 
   @override
+  String get auditTitle => 'மொத்த EAN தணிக்கை';
+
+  @override
+  String get auditEndAction => 'தணிக்கை முடி';
+
+  @override
+  String get auditEndingAction => 'முடிகிறது…';
+
+  @override
+  String get auditEanInvalid =>
+      'சரியான EAN-8, EAN-13, அல்லது UPC-A குறியீட்டை உள்ளிடுங்கள்';
+
+  @override
+  String auditEndedSummary(int matched, int notMatched) {
+    return 'தணிக்கை முடிந்தது — $matched பொருந்தியது, $notMatched பட்டியலில் இல்லை';
+  }
+
+  @override
   String get cameraCapture => 'படமெடு';
 
   @override

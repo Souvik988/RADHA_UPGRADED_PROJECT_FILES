@@ -3274,6 +3274,36 @@ abstract class AppLocalizations {
   /// **'Scan or type an EAN above to check it against this store\'s approved list. Each result lands here with a matched or not-in-list status.'**
   String get auditStartBody;
 
+  /// AppBar title for the bulk EAN audit screen.
+  ///
+  /// In en, this message translates to:
+  /// **'Bulk EAN Audit'**
+  String get auditTitle;
+
+  /// Action button label to finish the audit session.
+  ///
+  /// In en, this message translates to:
+  /// **'End audit'**
+  String get auditEndAction;
+
+  /// Action button label while the audit is being ended.
+  ///
+  /// In en, this message translates to:
+  /// **'Ending…'**
+  String get auditEndingAction;
+
+  /// Inline validation error when the user types an invalid EAN.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a valid EAN-8, EAN-13, or UPC-A code'**
+  String get auditEanInvalid;
+
+  /// Snackbar shown after the audit session closes.
+  ///
+  /// In en, this message translates to:
+  /// **'Audit ended — {matched} matched, {notMatched} not in list'**
+  String auditEndedSummary(int matched, int notMatched);
+
   /// No description provided for @cameraCapture.
   ///
   /// In en, this message translates to:

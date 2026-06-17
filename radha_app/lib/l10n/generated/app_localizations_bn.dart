@@ -1809,6 +1809,23 @@ class AppLocalizationsBn extends AppLocalizations {
       'এই স্টোরের অনুমোদিত তালিকার সাথে যাচাই করতে উপরে EAN স্ক্যান বা টাইপ করুন। প্রতিটি ফলাফল মিলেছে বা তালিকায়-নেই স্ট্যাটাস নিয়ে এখানে আসে।';
 
   @override
+  String get auditTitle => 'বাল্ক EAN অডিট';
+
+  @override
+  String get auditEndAction => 'অডিট শেষ করুন';
+
+  @override
+  String get auditEndingAction => 'শেষ হচ্ছে…';
+
+  @override
+  String get auditEanInvalid => 'একটি বৈধ EAN-8, EAN-13, বা UPC-A কোড দিন';
+
+  @override
+  String auditEndedSummary(int matched, int notMatched) {
+    return 'অডিট শেষ — $matched মিলেছে, $notMatched তালিকায় নেই';
+  }
+
+  @override
   String get cameraCapture => 'ক্যাপচার করুন';
 
   @override

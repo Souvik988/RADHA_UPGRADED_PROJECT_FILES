@@ -999,6 +999,22 @@
   },
   "auditStartAuditing": "Start auditing",
   "auditStartBody": "Scan or type an EAN above to check it against this store's approved list. Each result lands here with a matched or not-in-list status.",
+  "auditTitle": "Bulk EAN Audit",
+  "@auditTitle": { "description": "AppBar title for the bulk EAN audit screen." },
+  "auditEndAction": "End audit",
+  "@auditEndAction": { "description": "Action button label to finish the audit session." },
+  "auditEndingAction": "Ending…",
+  "@auditEndingAction": { "description": "Action button label while the audit is being ended." },
+  "auditEanInvalid": "Enter a valid EAN-8, EAN-13, or UPC-A code",
+  "@auditEanInvalid": { "description": "Inline validation error when the user types an invalid EAN." },
+  "auditEndedSummary": "Audit ended — {matched} matched, {notMatched} not in list",
+  "@auditEndedSummary": {
+    "description": "Snackbar shown after the audit session closes.",
+    "placeholders": {
+      "matched": { "type": "int", "example": "5" },
+      "notMatched": { "type": "int", "example": "2" }
+    }
+  },
   "cameraCapture": "Capture",
   "labelScanReadError": "Couldn't read the label",
   "labelScanReadErrorBody": "Try again in better light, hold steady, and fill the frame with the ingredients panel.",
