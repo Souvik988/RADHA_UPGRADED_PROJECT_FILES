@@ -1937,6 +1937,13 @@ class AppLocalizationsTe extends AppLocalizations {
   String get selectStoreContactManager => 'మీ మేనేజర్‌ను సంప్రదించండి';
 
   @override
+  String get expiryConsumerTitle => 'వ్యాపార ఖాతాలకు';
+
+  @override
+  String get expiryConsumerBody =>
+      'గడువు ట్రాకింగ్ రిటైల్ స్టోర్ ఫీచర్. దీన్ని ఉపయోగించడానికి మీ ఖాతాను స్టోర్‌తో అనుసంధానించండి.';
+
+  @override
   String get languageSavedLocally => 'భాష స్థానికంగా మాత్రమే సేవ్ చేయబడింది';
 
   @override

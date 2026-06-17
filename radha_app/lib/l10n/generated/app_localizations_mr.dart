@@ -1923,6 +1923,13 @@ class AppLocalizationsMr extends AppLocalizations {
   String get selectStoreContactManager => 'तुमच्या व्यवस्थापकाशी संपर्क साधा';
 
   @override
+  String get expiryConsumerTitle => 'व्यवसाय खात्यांसाठी';
+
+  @override
+  String get expiryConsumerBody =>
+      'मुदत संपण्याचे ट्रॅकिंग हे किरकोळ दुकानाचे वैशिष्ट्य आहे. हे वापरण्यासाठी तुमचे खाते दुकानाशी जोडा.';
+
+  @override
   String get languageSavedLocally => 'भाषा फक्त स्थानिकरित्या जतन केली';
 
   @override

@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../core/auth/auth_controller.dart';
+import '../../core/mode/app_mode_provider.dart';
 import '../../core/network/api_client.dart';
 import '../../core/network/dto/expiry_dto.dart';
 import '../../core/router/app_router.dart';
@@ -113,11 +114,16 @@ class _ExpiryListScreenState extends ConsumerState<ExpiryListScreen>
     final session = auth.valueOrNull;
     final selectedStoreId = session?.selectedStoreId;
     final hasSelectableStores = session?.stores.isNotEmpty ?? false;
+    final isConsumerMode =
+        !(session?.roles.any(kBusinessRoles.contains) ?? false);
 
     final body = auth.isLoading
         ? const _ExpiryListSkeleton()
         : selectedStoreId == null
-        ? _ExpiryNeedsStore(canSelectStore: hasSelectableStores)
+        ? _ExpiryNeedsStore(
+            canSelectStore: hasSelectableStores,
+            isConsumerMode: isConsumerMode,
+          )
         : Column(
             children: [
               Padding(
@@ -201,16 +207,37 @@ class _ExpiryListScreenState extends ConsumerState<ExpiryListScreen>
   };
 }
 
-/// Empty state shown when no store is selected. Staff accounts see a
-/// "select store" CTA; consumer accounts see a "contact manager" prompt.
+/// Empty state shown when no store is selected.
+/// - Consumer accounts: explain this is a business/store feature.
+/// - Staff with assignable stores: prompt to pick a store.
+/// - Staff with no stores yet: tell them to contact their manager.
 class _ExpiryNeedsStore extends StatelessWidget {
-  const _ExpiryNeedsStore({required this.canSelectStore});
+  const _ExpiryNeedsStore({
+    required this.canSelectStore,
+    required this.isConsumerMode,
+  });
 
   final bool canSelectStore;
+  final bool isConsumerMode;
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
+
+    if (isConsumerMode) {
+      return Center(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(RadhaSpacing.space16),
+          child: EmptyState(
+            illustration:
+                const MorCompanion(mood: MorMood.guard, size: 104),
+            title: l10n.expiryConsumerTitle,
+            body: l10n.expiryConsumerBody,
+          ),
+        ),
+      );
+    }
+
     return Center(
       child: SingleChildScrollView(
         padding: const EdgeInsets.all(RadhaSpacing.space16),

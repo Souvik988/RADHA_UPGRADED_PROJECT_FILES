@@ -1924,6 +1924,13 @@ class AppLocalizationsBn extends AppLocalizations {
   String get selectStoreContactManager => 'আপনার ম্যানেজারের সাথে যোগাযোগ করুন';
 
   @override
+  String get expiryConsumerTitle => 'ব্যবসায়িক অ্যাকাউন্টের জন্য';
+
+  @override
+  String get expiryConsumerBody =>
+      'মেয়াদ শেষ হওয়ার ট্র্যাকিং একটি খুচরা দোকানের বৈশিষ্ট্য। এটি ব্যবহার করতে আপনার অ্যাকাউন্ট একটি দোকানে সংযুক্ত করুন।';
+
+  @override
   String get languageSavedLocally => 'ভাষা শুধুমাত্র স্থানীয়ভাবে সংরক্ষিত';
 
   @override

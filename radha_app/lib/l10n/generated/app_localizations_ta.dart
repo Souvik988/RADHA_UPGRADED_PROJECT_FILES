@@ -1948,6 +1948,13 @@ class AppLocalizationsTa extends AppLocalizations {
   String get selectStoreContactManager => 'உங்கள் மேலாளரைத் தொடர்பு கொள்ளவும்';
 
   @override
+  String get expiryConsumerTitle => 'வணிக கணக்குகளுக்கு';
+
+  @override
+  String get expiryConsumerBody =>
+      'காலாவதி கண்காணிப்பு ஒரு சில்லறை கடை அம்சம். இதை பயன்படுத்த உங்கள் கணக்கை ஒரு கடையுடன் இணைக்கவும்.';
+
+  @override
   String get languageSavedLocally => 'மொழி உள்ளூரில் மட்டும் சேமிக்கப்பட்டது';
 
   @override

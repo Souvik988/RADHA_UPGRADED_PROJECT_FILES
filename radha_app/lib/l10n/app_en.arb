@@ -1063,6 +1063,8 @@
   "selectStoreEmptyBody": "Reach out to your manager to be added to a store.",
   "selectStoreEmptyDetail": "Your account is not associated with any store yet. Ask your manager to grant access, then come back to pick one.",
   "selectStoreContactManager": "Contact your manager",
+  "expiryConsumerTitle": "For business accounts",
+  "expiryConsumerBody": "Expiry tracking is a retail-store feature. To use it, connect your account to a store.",
   "languageSavedLocally": "Language saved locally only",
   "languageSavedLocallyError": "Language saved locally only: {error}",
   "@languageSavedLocallyError": {

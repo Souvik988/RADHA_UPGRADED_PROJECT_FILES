@@ -19,7 +19,7 @@ enum AppMode { consumer, business }
 ///
 /// A user holding any of these roles AND having a selected store is resolved
 /// into business mode. Everything else is consumer mode.
-const _businessRoles = {
+const kBusinessRoles = {
   'staff',
   'manager',
   'auditor',
@@ -34,7 +34,7 @@ const _businessRoles = {
 /// (loading, signed-out) defaults to consumer so no screen is blank.
 AppMode resolveMode(CurrentUser? user) {
   if (user == null) return AppMode.consumer;
-  final hasBizRole = user.roles.any(_businessRoles.contains);
+  final hasBizRole = user.roles.any(kBusinessRoles.contains);
   return (hasBizRole && user.selectedStoreId != null)
       ? AppMode.business
       : AppMode.consumer;

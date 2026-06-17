@@ -3466,6 +3466,18 @@ abstract class AppLocalizations {
   /// **'Contact your manager'**
   String get selectStoreContactManager;
 
+  /// No description provided for @expiryConsumerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'For business accounts'**
+  String get expiryConsumerTitle;
+
+  /// No description provided for @expiryConsumerBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Expiry tracking is a retail-store feature. To use it, connect your account to a store.'**
+  String get expiryConsumerBody;
+
   /// No description provided for @languageSavedLocally.
   ///
   /// In en, this message translates to:

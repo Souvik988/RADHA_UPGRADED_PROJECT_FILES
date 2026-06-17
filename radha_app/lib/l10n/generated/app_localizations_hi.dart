@@ -1928,6 +1928,13 @@ class AppLocalizationsHi extends AppLocalizations {
   String get selectStoreContactManager => 'अपने मैनेजर से संपर्क करें';
 
   @override
+  String get expiryConsumerTitle => 'व्यापार खाते के लिए';
+
+  @override
+  String get expiryConsumerBody =>
+      'एक्सपायरी ट्रैकिंग एक रिटेल स्टोर फीचर है। इसे इस्तेमाल करने के लिए, अपने खाते को स्टोर से जोड़ें।';
+
+  @override
   String get languageSavedLocally => 'भाषा केवल स्थानीय रूप से सहेजी गई';
 
   @override

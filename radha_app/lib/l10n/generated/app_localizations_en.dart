@@ -1918,6 +1918,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get selectStoreContactManager => 'Contact your manager';
 
   @override
+  String get expiryConsumerTitle => 'For business accounts';
+
+  @override
+  String get expiryConsumerBody =>
+      'Expiry tracking is a retail-store feature. To use it, connect your account to a store.';
+
+  @override
   String get languageSavedLocally => 'Language saved locally only';
 
   @override
