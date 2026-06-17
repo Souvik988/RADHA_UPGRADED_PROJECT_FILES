@@ -47,7 +47,7 @@ class CatalogSearchBar extends StatelessWidget {
               ),
               const SizedBox(width: RadhaSpacing.space12),
               Text(
-                'Search products to find what fits you',
+                AppLocalizations.of(context).catalogSearchBarLabel,
                 style: theme.textTheme.bodyMedium?.copyWith(
                   color: theme.colorScheme.onSurfaceVariant,
                 ),
@@ -331,15 +331,14 @@ class _SearchPrompt extends StatelessWidget {
             const BrandIllustration(RadhaAssets.morSceneSearch, size: 132),
             const SizedBox(height: RadhaSpacing.space16),
             Text(
-              'Find a product',
+              AppLocalizations.of(context).catalogSearchPromptTitle,
               style: theme.textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.w700,
               ),
             ),
             const SizedBox(height: RadhaSpacing.space8),
             Text(
-              'Search by product name or brand to see its health rating and '
-              "what's inside.",
+              AppLocalizations.of(context).catalogSearchPromptBody,
               textAlign: TextAlign.center,
               style: theme.textTheme.bodyMedium?.copyWith(
                 color: theme.colorScheme.onSurfaceVariant,

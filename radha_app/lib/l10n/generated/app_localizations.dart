@@ -3136,6 +3136,210 @@ abstract class AppLocalizations {
   /// **'Scan to unlock'**
   String get productDetailScanToUnlock;
 
+  /// Generic AppBar title for the product detail screen.
+  ///
+  /// In en, this message translates to:
+  /// **'Product'**
+  String get productDetailTitle;
+
+  /// Tooltip for the save/bookmark heart button (unsaved state).
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get productDetailSave;
+
+  /// Tooltip for the save/bookmark heart button (saved state).
+  ///
+  /// In en, this message translates to:
+  /// **'Saved'**
+  String get productDetailSaved;
+
+  /// Title shown when the product has no health rating yet.
+  ///
+  /// In en, this message translates to:
+  /// **'Health rating not in yet'**
+  String get productDetailHealthNotRated;
+
+  /// Body shown when the product has no health rating yet.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan this product to pull its full health analysis into RADHA.'**
+  String get productDetailHealthNotRatedBody;
+
+  /// Section label above the numeric health score.
+  ///
+  /// In en, this message translates to:
+  /// **'RADHA Health Rating'**
+  String get productDetailHealthLabel;
+
+  /// No description provided for @productDetailHighProtein.
+  ///
+  /// In en, this message translates to:
+  /// **'High protein'**
+  String get productDetailHighProtein;
+
+  /// No description provided for @productDetailGoodFibre.
+  ///
+  /// In en, this message translates to:
+  /// **'Good fibre'**
+  String get productDetailGoodFibre;
+
+  /// No description provided for @productDetailMinimallyProcessed.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimally processed'**
+  String get productDetailMinimallyProcessed;
+
+  /// No description provided for @productDetailHighSugar.
+  ///
+  /// In en, this message translates to:
+  /// **'High sugar'**
+  String get productDetailHighSugar;
+
+  /// No description provided for @productDetailHighSatFat.
+  ///
+  /// In en, this message translates to:
+  /// **'High saturated fat'**
+  String get productDetailHighSatFat;
+
+  /// No description provided for @productDetailHighSodium.
+  ///
+  /// In en, this message translates to:
+  /// **'High sodium'**
+  String get productDetailHighSodium;
+
+  /// No description provided for @productDetailUltraProcessed.
+  ///
+  /// In en, this message translates to:
+  /// **'Ultra-processed'**
+  String get productDetailUltraProcessed;
+
+  /// Italic disclaimer below the nutrition insight badges.
+  ///
+  /// In en, this message translates to:
+  /// **'Based on the product\'s real nutrition (per 100 g).'**
+  String get productDetailNutritionNote;
+
+  /// Section heading for the key-nutrients card.
+  ///
+  /// In en, this message translates to:
+  /// **'Key nutrients'**
+  String get productDetailKeyNutrients;
+
+  /// Footer note in the all-nutrients bottom sheet.
+  ///
+  /// In en, this message translates to:
+  /// **'% of reference daily intake (adult).'**
+  String get productDetailRdaNote;
+
+  /// Secondary label next to the RADHA Plus badge.
+  ///
+  /// In en, this message translates to:
+  /// **'For you'**
+  String get productDetailForYou;
+
+  /// Subtitle in the locked ingredient deep-dive card.
+  ///
+  /// In en, this message translates to:
+  /// **'See every ingredient explained with a safety verdict — what it is, why it\'s there, and whether to worry.'**
+  String get productDetailIngredientLockBody;
+
+  /// Error state inside the ingredient deep-dive card.
+  ///
+  /// In en, this message translates to:
+  /// **'We couldn\'t explain these ingredients right now.'**
+  String get productDetailIngredientError;
+
+  /// Subtitle in the locked For-You allergen card.
+  ///
+  /// In en, this message translates to:
+  /// **'Match this product against your saved allergens & health goals — we\'ll flag what\'s right (or wrong) for you.'**
+  String get productDetailAllergenLockBody;
+
+  /// Error state inside the For-You allergen card.
+  ///
+  /// In en, this message translates to:
+  /// **'We couldn\'t personalise this right now.'**
+  String get productDetailAllergenError;
+
+  /// Success message when the product has zero allergen matches.
+  ///
+  /// In en, this message translates to:
+  /// **'No allergens detected in this product.'**
+  String get productDetailNoAllergens;
+
+  /// Label on an allergen chip when it matches the user's profile.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} — you avoid this'**
+  String productDetailAllergenAvoid(String name);
+
+  /// CTA button label in a locked Plus feature card.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock with {plan}'**
+  String productDetailUnlockWith(String plan);
+
+  /// Title of the Would-you-buy engagement widget (unanswered).
+  ///
+  /// In en, this message translates to:
+  /// **'Would you buy this product?'**
+  String get productDetailWouldYouBuy;
+
+  /// Title of the Would-you-buy widget after the user has answered.
+  ///
+  /// In en, this message translates to:
+  /// **'Thanks for sharing!'**
+  String get productDetailThanksForSharing;
+
+  /// Title of the scan-to-unlock card when nutrition data is missing.
+  ///
+  /// In en, this message translates to:
+  /// **'Full nutrition isn\'t in yet'**
+  String get productDetailNutritionNotIn;
+
+  /// Body of the scan-to-unlock card when nutrition data is missing.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan this product\'s barcode to pull its real nutrition & health analysis into RADHA — it only takes a second.'**
+  String get productDetailNutritionNotInBody;
+
+  /// Share text when the product has no health rating.
+  ///
+  /// In en, this message translates to:
+  /// **'Checked \"{name}\" on RADHA.'**
+  String productDetailShareText(String name);
+
+  /// Share text when the product has a health rating.
+  ///
+  /// In en, this message translates to:
+  /// **'Checked \"{name}\" on RADHA — RADHA health rating {rating}/5 ({label}).'**
+  String productDetailShareTextRated(String name, String rating, String label);
+
+  /// Placeholder text in the tappable search-bar pill on the home screen.
+  ///
+  /// In en, this message translates to:
+  /// **'Search products to find what fits you'**
+  String get catalogSearchBarLabel;
+
+  /// Title in the idle search prompt (before the user types).
+  ///
+  /// In en, this message translates to:
+  /// **'Find a product'**
+  String get catalogSearchPromptTitle;
+
+  /// Body in the idle search prompt.
+  ///
+  /// In en, this message translates to:
+  /// **'Search by product name or brand to see its health rating and what\'s inside.'**
+  String get catalogSearchPromptBody;
+
+  /// Generic negative response chip.
+  ///
+  /// In en, this message translates to:
+  /// **'No'**
+  String get commonNo;
+
   /// No description provided for @scanApprovalNotInAudit.
   ///
   /// In en, this message translates to:

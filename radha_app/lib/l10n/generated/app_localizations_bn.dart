@@ -1738,6 +1738,125 @@ class AppLocalizationsBn extends AppLocalizations {
   String get productDetailScanToUnlock => 'আনলক করতে স্ক্যান করুন';
 
   @override
+  String get productDetailTitle => 'পণ্য';
+
+  @override
+  String get productDetailSave => 'সেভ করুন';
+
+  @override
+  String get productDetailSaved => 'সেভ হয়েছে';
+
+  @override
+  String get productDetailHealthNotRated => 'স্বাস্থ্য রেটিং এখনও আসেনি';
+
+  @override
+  String get productDetailHealthNotRatedBody =>
+      'এই পণ্যের সম্পূর্ণ স্বাস্থ্য বিশ্লেষণ RADHA-তে আনতে স্ক্যান করুন।';
+
+  @override
+  String get productDetailHealthLabel => 'RADHA স্বাস্থ্য রেটিং';
+
+  @override
+  String get productDetailHighProtein => 'উচ্চ প্রোটিন';
+
+  @override
+  String get productDetailGoodFibre => 'ভালো আঁশ';
+
+  @override
+  String get productDetailMinimallyProcessed => 'ন্যূনতম প্রক্রিয়াজাত';
+
+  @override
+  String get productDetailHighSugar => 'উচ্চ চিনি';
+
+  @override
+  String get productDetailHighSatFat => 'উচ্চ সম্পৃক্ত চর্বি';
+
+  @override
+  String get productDetailHighSodium => 'উচ্চ সোডিয়াম';
+
+  @override
+  String get productDetailUltraProcessed => 'অতি-প্রক্রিয়াজাত';
+
+  @override
+  String get productDetailNutritionNote =>
+      'পণ্যের প্রকৃত পুষ্টিমান (প্রতি ১০০ গ্রাম) এর উপর ভিত্তি করে।';
+
+  @override
+  String get productDetailKeyNutrients => 'মূল পুষ্টি উপাদান';
+
+  @override
+  String get productDetailRdaNote =>
+      '% দৈনিক প্রস্তাবিত পরিমাণ (প্রাপ্তবয়স্ক)।';
+
+  @override
+  String get productDetailForYou => 'আপনার জন্য';
+
+  @override
+  String get productDetailIngredientLockBody =>
+      'প্রতিটি উপাদানের নিরাপত্তা রায়সহ ব্যাখ্যা দেখুন।';
+
+  @override
+  String get productDetailIngredientError =>
+      'এই মুহূর্তে উপাদানগুলি ব্যাখ্যা করা সম্ভব হয়নি।';
+
+  @override
+  String get productDetailAllergenLockBody =>
+      'এই পণ্যটি আপনার সংরক্ষিত অ্যালার্জেন এবং স্বাস্থ্য লক্ষ্যের বিপরীতে মিলিয়ে দেখুন।';
+
+  @override
+  String get productDetailAllergenError => 'এখন ব্যক্তিগতকরণ করা সম্ভব হয়নি।';
+
+  @override
+  String get productDetailNoAllergens =>
+      'এই পণ্যে কোনো অ্যালার্জেন পাওয়া যায়নি।';
+
+  @override
+  String productDetailAllergenAvoid(String name) {
+    return '$name — আপনি এটি এড়িয়ে চলেন';
+  }
+
+  @override
+  String productDetailUnlockWith(String plan) {
+    return '$plan দিয়ে আনলক করুন';
+  }
+
+  @override
+  String get productDetailWouldYouBuy => 'আপনি কি এই পণ্যটি কিনবেন?';
+
+  @override
+  String get productDetailThanksForSharing => 'শেয়ার করার জন্য ধন্যবাদ!';
+
+  @override
+  String get productDetailNutritionNotIn => 'সম্পূর্ণ পুষ্টি তথ্য এখনও আসেনি';
+
+  @override
+  String get productDetailNutritionNotInBody =>
+      'প্রকৃত পুষ্টি ও স্বাস্থ্য বিশ্লেষণ RADHA-তে আনতে এই পণ্যের বারকোড স্ক্যান করুন।';
+
+  @override
+  String productDetailShareText(String name) {
+    return 'RADHA-তে \"$name\" যাচাই করা হয়েছে।';
+  }
+
+  @override
+  String productDetailShareTextRated(String name, String rating, String label) {
+    return 'RADHA-তে \"$name\" যাচাই করা হয়েছে — RADHA স্বাস্থ্য রেটিং $rating/5 ($label)।';
+  }
+
+  @override
+  String get catalogSearchBarLabel => 'আপনার পছন্দের পণ্য খুঁজুন';
+
+  @override
+  String get catalogSearchPromptTitle => 'একটি পণ্য খুঁজুন';
+
+  @override
+  String get catalogSearchPromptBody =>
+      'স্বাস্থ্য রেটিং এবং ভেতরে কী আছে তা দেখতে পণ্যের নাম বা ব্র্যান্ড দিয়ে অনুসন্ধান করুন।';
+
+  @override
+  String get commonNo => 'না';
+
+  @override
   String get scanApprovalNotInAudit => 'অনুমোদন স্ট্যাটাস — অডিটে নেই';
 
   @override

@@ -1732,6 +1732,125 @@ class AppLocalizationsEn extends AppLocalizations {
   String get productDetailScanToUnlock => 'Scan to unlock';
 
   @override
+  String get productDetailTitle => 'Product';
+
+  @override
+  String get productDetailSave => 'Save';
+
+  @override
+  String get productDetailSaved => 'Saved';
+
+  @override
+  String get productDetailHealthNotRated => 'Health rating not in yet';
+
+  @override
+  String get productDetailHealthNotRatedBody =>
+      'Scan this product to pull its full health analysis into RADHA.';
+
+  @override
+  String get productDetailHealthLabel => 'RADHA Health Rating';
+
+  @override
+  String get productDetailHighProtein => 'High protein';
+
+  @override
+  String get productDetailGoodFibre => 'Good fibre';
+
+  @override
+  String get productDetailMinimallyProcessed => 'Minimally processed';
+
+  @override
+  String get productDetailHighSugar => 'High sugar';
+
+  @override
+  String get productDetailHighSatFat => 'High saturated fat';
+
+  @override
+  String get productDetailHighSodium => 'High sodium';
+
+  @override
+  String get productDetailUltraProcessed => 'Ultra-processed';
+
+  @override
+  String get productDetailNutritionNote =>
+      'Based on the product\'s real nutrition (per 100 g).';
+
+  @override
+  String get productDetailKeyNutrients => 'Key nutrients';
+
+  @override
+  String get productDetailRdaNote => '% of reference daily intake (adult).';
+
+  @override
+  String get productDetailForYou => 'For you';
+
+  @override
+  String get productDetailIngredientLockBody =>
+      'See every ingredient explained with a safety verdict — what it is, why it\'s there, and whether to worry.';
+
+  @override
+  String get productDetailIngredientError =>
+      'We couldn\'t explain these ingredients right now.';
+
+  @override
+  String get productDetailAllergenLockBody =>
+      'Match this product against your saved allergens & health goals — we\'ll flag what\'s right (or wrong) for you.';
+
+  @override
+  String get productDetailAllergenError =>
+      'We couldn\'t personalise this right now.';
+
+  @override
+  String get productDetailNoAllergens =>
+      'No allergens detected in this product.';
+
+  @override
+  String productDetailAllergenAvoid(String name) {
+    return '$name — you avoid this';
+  }
+
+  @override
+  String productDetailUnlockWith(String plan) {
+    return 'Unlock with $plan';
+  }
+
+  @override
+  String get productDetailWouldYouBuy => 'Would you buy this product?';
+
+  @override
+  String get productDetailThanksForSharing => 'Thanks for sharing!';
+
+  @override
+  String get productDetailNutritionNotIn => 'Full nutrition isn\'t in yet';
+
+  @override
+  String get productDetailNutritionNotInBody =>
+      'Scan this product\'s barcode to pull its real nutrition & health analysis into RADHA — it only takes a second.';
+
+  @override
+  String productDetailShareText(String name) {
+    return 'Checked \"$name\" on RADHA.';
+  }
+
+  @override
+  String productDetailShareTextRated(String name, String rating, String label) {
+    return 'Checked \"$name\" on RADHA — RADHA health rating $rating/5 ($label).';
+  }
+
+  @override
+  String get catalogSearchBarLabel => 'Search products to find what fits you';
+
+  @override
+  String get catalogSearchPromptTitle => 'Find a product';
+
+  @override
+  String get catalogSearchPromptBody =>
+      'Search by product name or brand to see its health rating and what\'s inside.';
+
+  @override
+  String get commonNo => 'No';
+
+  @override
   String get scanApprovalNotInAudit => 'Approval status — not in an audit';
 
   @override
