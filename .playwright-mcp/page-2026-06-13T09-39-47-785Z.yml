@@ -1,0 +1,11 @@
+- generic [active] [ref=e1]:
+  - link "Skip to content" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - main [ref=e3]:
+    - generic [ref=e5]:
+      - paragraph [ref=e6]: Error 403
+      - img [ref=e8]
+      - heading "Access Denied" [level=1] [ref=e11]
+      - paragraph [ref=e12]: You don't have permission to view this page. Contact your admin if you believe this is a mistake.
+      - link "Back to Dashboard" [ref=e13] [cursor=pointer]:
+        - /url: /

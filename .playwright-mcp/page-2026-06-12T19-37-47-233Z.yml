@@ -1,0 +1,27 @@
+- generic [ref=e1]:
+  - link "Skip to content" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - main [ref=e3]:
+    - generic [ref=e5]:
+      - generic [ref=e6]:
+        - generic [ref=e7]: R
+        - generic [ref=e8]:
+          - paragraph [ref=e9]: RADHA · Admin Dashboard
+          - heading "Sign in to your account" [level=1] [ref=e10]
+      - generic [ref=e11]:
+        - generic [ref=e12]:
+          - generic [ref=e13]: Email address*
+          - textbox "Email address" [active] [invalid] [ref=e14]:
+            - /placeholder: you@company.com
+          - alert [ref=e31]: Email is required
+        - generic [ref=e15]:
+          - generic [ref=e16]: Password*
+          - textbox "Password" [invalid] [ref=e17]:
+            - /placeholder: Enter your password
+          - alert [ref=e32]: Password is required
+        - link "Forgot password?" [ref=e19] [cursor=pointer]:
+          - /url: /reset
+        - button "Sign in" [ref=e20] [cursor=pointer]
+  - alert [ref=e21]
+  - button "Open Next.js Dev Tools" [ref=e27] [cursor=pointer]:
+    - img [ref=e28]

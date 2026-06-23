@@ -2,10 +2,10 @@
 #
 # Topology (per the chosen architecture): the three NestJS processes run here;
 # Postgres lives on RDS and Redis on ElastiCache (configured via
-# server/.env.production — NOT in this file). nginx + TLS terminate in front of
+# radha_backend/.env.production — NOT in this file). nginx + TLS terminate in front of
 # `api` (see deploy/nginx/radha-api.conf); only nginx is public.
 #
-#   docker compose -f docker-compose.prod.yml --env-file server/.env.production up -d --build
+#   docker compose -f docker-compose.prod.yml --env-file radha_backend/.env.production up -d --build
 #
 # The image is built once (by `api`) and reused by worker + scheduler.
 
@@ -14,7 +14,7 @@ name: radha
 x-server-common: &server-common
   image: radha-server:latest
   env_file:
-    - server/.env.production
+    - radha_backend/.env.production
   environment:
     NODE_ENV: production
   restart: always

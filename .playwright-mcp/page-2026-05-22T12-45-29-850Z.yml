@@ -1,8 +1,0 @@
-- generic [ref=e7] [cursor=pointer]:
-  - generic:
-    - generic:
-      - generic:
-        - generic:
-          - generic [ref=e10]:
-            - generic: Built for the floor, not the back office. Scan products in one tap EAN lookup with health and approval pre-checked. Catch expiry before it costs you OCR-assisted dates and per-category thresholds. Run audits the team can finish Tasks, evidence and bulk scan sessions.
-          - button "Continue" [active] [ref=e9]

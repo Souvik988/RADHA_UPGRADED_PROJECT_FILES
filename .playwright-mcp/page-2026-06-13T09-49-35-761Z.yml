@@ -1,0 +1,33 @@
+- generic [active] [ref=e1]:
+  - link "Skip to content" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - main [ref=e3]:
+    - generic [ref=e5]:
+      - generic [ref=e6]:
+        - 'button "Store: Select store" [ref=e7] [cursor=pointer]':
+          - img [ref=e8]
+          - generic [ref=e13]: Select store
+          - img [ref=e14]
+        - button "Open command palette (⌘K)" [ref=e16] [cursor=pointer]:
+          - img [ref=e17]
+          - generic [ref=e20]: Search…
+          - generic [ref=e21]: ⌘K
+        - generic [ref=e22]:
+          - link "Notifications" [ref=e25] [cursor=pointer]:
+            - /url: /notifications
+            - img [ref=e26]
+          - button "Account menu" [ref=e30] [cursor=pointer]: R
+      - main [ref=e31]:
+        - generic [ref=e32]:
+          - generic [ref=e33]:
+            - generic [ref=e35]:
+              - paragraph [ref=e36]: ADMINISTRATION
+              - heading "Settings" [level=1] [ref=e37]
+              - paragraph [ref=e38]: Manage your profile, preferences, security, and team.
+            - tablist "Settings sections" [ref=e40]:
+              - tab "Profile" [selected] [ref=e41] [cursor=pointer]
+              - tab "Language" [ref=e42] [cursor=pointer]
+              - tab "Security" [ref=e43] [cursor=pointer]
+              - tab "Tenant Info" [ref=e44] [cursor=pointer]
+              - tab "Team 🔒" [ref=e45] [cursor=pointer]
+          - tabpanel "Profile" [ref=e46]

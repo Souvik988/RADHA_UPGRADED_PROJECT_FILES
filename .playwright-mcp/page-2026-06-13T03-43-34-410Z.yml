@@ -1,0 +1,37 @@
+- generic [active] [ref=e1]:
+  - link "Skip to content" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - main [ref=e3]:
+    - generic [ref=e5]:
+      - generic [ref=e6]:
+        - 'button "Store: Select store" [ref=e7] [cursor=pointer]':
+          - img [ref=e8]
+          - generic [ref=e13]: Select store
+          - img [ref=e14]
+        - button "Open command palette (⌘K)" [ref=e16] [cursor=pointer]:
+          - img [ref=e17]
+          - generic [ref=e20]: Search…
+          - generic [ref=e21]: ⌘K
+        - link "Notifications" [ref=e23] [cursor=pointer]:
+          - /url: /notifications
+          - img [ref=e24]
+        - button "Account menu" [ref=e28] [cursor=pointer]: R
+      - main [ref=e29]:
+        - generic [ref=e30]:
+          - generic [ref=e33]:
+            - paragraph [ref=e34]: ACCOUNT
+            - heading "Billing & Plans" [level=1] [ref=e35]
+            - paragraph [ref=e36]: Manage your subscription, usage, and payments.
+          - generic [ref=e37]:
+            - paragraph [ref=e39]: CURRENT PLAN
+            - paragraph [ref=e45]: USAGE
+            - paragraph [ref=e60]: AVAILABLE PLANS
+            - generic [ref=e80]:
+              - paragraph [ref=e81]: REFUNDS
+              - generic [ref=e82]:
+                - generic [ref=e83]:
+                  - paragraph [ref=e84]: Request a Refund
+                  - paragraph [ref=e85]: Admin/owner only. All refunds are audited.
+                - button "Refund" [ref=e86] [cursor=pointer]:
+                  - img [ref=e87]
+                  - text: Refund

@@ -1,0 +1,397 @@
+- generic [active] [ref=e1]:
+  - link "Skip to content" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - main [ref=e3]:
+    - generic [ref=e4]:
+      - generic [ref=e6]:
+        - generic [ref=e7]:
+          - paragraph [ref=e8]: Phase 02 · Design System
+          - heading "Component Styleguide" [level=1] [ref=e9]
+          - paragraph [ref=e10]: Every Phase 02 component rendered in all states.
+        - button "Open ⌘K" [ref=e12] [cursor=pointer]:
+          - img [ref=e13]
+          - text: Open ⌘K
+      - generic [ref=e14]:
+        - generic [ref=e15]:
+          - paragraph [ref=e16]: Primitives — Eyebrow, Chip, Button
+          - generic [ref=e18]:
+            - generic [ref=e19]:
+              - paragraph [ref=e20]: Section Label
+              - paragraph [ref=e21]: Accent Eyebrow
+            - generic [ref=e22]:
+              - generic [ref=e23]: Default
+              - generic [ref=e24]: Matched
+              - generic [ref=e25]: Expiring
+              - generic [ref=e26]: Expired
+              - generic [ref=e27]: Accent
+            - generic [ref=e28]:
+              - button "Primary" [ref=e29] [cursor=pointer]
+              - button "Secondary" [ref=e30] [cursor=pointer]
+              - button "Ghost" [ref=e31] [cursor=pointer]
+              - button "Danger" [ref=e32] [cursor=pointer]
+              - button "Loading… Loading…" [disabled]:
+                - generic: Loading…
+                - text: Loading…
+              - button "Disabled" [disabled]
+        - generic [ref=e33]:
+          - paragraph [ref=e34]: MonoNumber — count-up, tabular
+          - generic [ref=e35]:
+            - generic "₹1,24,560" [ref=e36]: ₹0
+            - generic "98" [ref=e37]: "0"
+            - generic "0" [ref=e38]
+        - generic [ref=e39]:
+          - paragraph [ref=e40]: Status Chips (4.5)
+          - generic [ref=e41]:
+            - status "Matched" [ref=e42]:
+              - img [ref=e43]
+              - text: Matched
+            - status "Expired" [ref=e46]:
+              - img [ref=e47]
+              - text: Expired
+            - status "Expiring soon" [ref=e51]:
+              - img [ref=e52]
+              - text: Expiring soon
+            - status "Pending" [ref=e55]:
+              - img [ref=e56]
+              - text: Pending
+            - status "Info" [ref=e58]:
+              - img [ref=e59]
+              - text: Info
+            - status "Custom label" [ref=e61]:
+              - img [ref=e62]
+              - text: Custom label
+        - generic [ref=e65]:
+          - paragraph [ref=e66]: KPI Tiles (4.1) — default · loading · error
+          - generic [ref=e67]:
+            - generic [ref=e68]:
+              - generic [ref=e69]:
+                - img [ref=e71]
+                - 'generic "Scans today: 324" [ref=e76]': "0"
+                - paragraph [ref=e77]: Scans today
+                - generic "Up 12% from last period" [ref=e78]:
+                  - img [ref=e79]
+                  - text: 12%
+                - link "View audit" [ref=e82] [cursor=pointer]:
+                  - /url: /audit
+                  - text: View audit
+                  - img [ref=e83]
+              - generic [ref=e85]:
+                - img [ref=e87]
+                - 'generic "Expiring (7d): 18" [ref=e90]': "0"
+                - paragraph [ref=e91]: Expiring (7d)
+                - generic "Down 5% from last period" [ref=e92]:
+                  - img [ref=e93]
+                  - text: 5%
+              - generic [ref=e96]:
+                - img [ref=e98]
+                - 'generic "Pending tasks: 7" [ref=e101]': "0"
+                - paragraph [ref=e102]: Pending tasks
+              - generic [ref=e103]:
+                - img [ref=e105]
+                - 'generic "GRN pending: 3" [ref=e110]': "0"
+                - paragraph [ref=e111]: GRN pending
+            - generic [ref=e118]: Failed to load
+        - generic [ref=e119]:
+          - paragraph [ref=e120]: Filter Bar (4.4) — sliding segment indicator
+          - generic [ref=e123]:
+            - tablist "Filter segments" [ref=e124]:
+              - tab "All" [selected] [ref=e126] [cursor=pointer]
+              - tab "Near expiry" [ref=e127] [cursor=pointer]
+              - tab "Expired" [ref=e128] [cursor=pointer]
+            - generic [ref=e129]:
+              - img
+              - searchbox "Search products…" [ref=e130]
+        - generic [ref=e131]:
+          - paragraph [ref=e132]: Data Table (4.2) — sortable, mono EAN, status chip
+          - generic [ref=e135]:
+            - button "Export CSV" [ref=e137] [cursor=pointer]:
+              - img [ref=e138]
+              - text: Export CSV
+            - grid [ref=e142]:
+              - rowgroup [ref=e143]:
+                - row "EAN Product Qty Status" [ref=e144]:
+                  - columnheader "EAN" [ref=e145] [cursor=pointer]:
+                    - generic [ref=e146]:
+                      - text: EAN
+                      - img [ref=e147]
+                  - columnheader "Product" [ref=e150] [cursor=pointer]:
+                    - generic [ref=e151]:
+                      - text: Product
+                      - img [ref=e152]
+                  - columnheader "Qty" [ref=e155] [cursor=pointer]:
+                    - generic [ref=e156]:
+                      - text: Qty
+                      - img [ref=e157]
+                  - columnheader "Status" [ref=e160]:
+                    - generic [ref=e161]: Status
+              - rowgroup [ref=e162]:
+                - row "8901030864450 Amul Butter 100g 24 Matched" [ref=e163]:
+                  - gridcell "8901030864450" [ref=e164]
+                  - gridcell "Amul Butter 100g" [ref=e165]
+                  - gridcell "24" [ref=e166]
+                  - gridcell "Matched" [ref=e167]:
+                    - status "Matched" [ref=e168]:
+                      - img [ref=e169]
+                      - text: Matched
+                - row "8906002490012 Parle-G Biscuits 12 Expiring soon" [ref=e172]:
+                  - gridcell "8906002490012" [ref=e173]
+                  - gridcell "Parle-G Biscuits" [ref=e174]
+                  - gridcell "12" [ref=e175]
+                  - gridcell "Expiring soon" [ref=e176]:
+                    - status "Expiring soon" [ref=e177]:
+                      - img [ref=e178]
+                      - text: Expiring soon
+                - row "8901063023468 Tata Salt 1kg 48 Matched" [ref=e181]:
+                  - gridcell "8901063023468" [ref=e182]
+                  - gridcell "Tata Salt 1kg" [ref=e183]
+                  - gridcell "48" [ref=e184]
+                  - gridcell "Matched" [ref=e185]:
+                    - status "Matched" [ref=e186]:
+                      - img [ref=e187]
+                      - text: Matched
+                - row "8901719110047 Maggi Noodles 0 Expired" [ref=e190]:
+                  - gridcell "8901719110047" [ref=e191]
+                  - gridcell "Maggi Noodles" [ref=e192]
+                  - gridcell "0" [ref=e193]
+                  - gridcell "Expired" [ref=e194]:
+                    - status "Expired" [ref=e195]:
+                      - img [ref=e196]
+                      - text: Expired
+        - generic [ref=e200]:
+          - paragraph [ref=e201]: Data Table — loading · empty · error
+          - generic [ref=e203]:
+            - grid [ref=e206]:
+              - rowgroup [ref=e207]:
+                - row "EAN Product Qty Status" [ref=e208]:
+                  - columnheader "EAN" [ref=e209] [cursor=pointer]:
+                    - generic [ref=e210]:
+                      - text: EAN
+                      - img [ref=e211]
+                  - columnheader "Product" [ref=e214] [cursor=pointer]:
+                    - generic [ref=e215]:
+                      - text: Product
+                      - img [ref=e216]
+                  - columnheader "Qty" [ref=e219] [cursor=pointer]:
+                    - generic [ref=e220]:
+                      - text: Qty
+                      - img [ref=e221]
+                  - columnheader "Status" [ref=e224]:
+                    - generic [ref=e225]: Status
+              - rowgroup [ref=e226]:
+                - row [ref=e227]:
+                  - gridcell [ref=e228]
+                  - gridcell [ref=e230]
+                  - gridcell [ref=e232]
+                  - gridcell [ref=e234]
+                - row [ref=e236]:
+                  - gridcell [ref=e237]
+                  - gridcell [ref=e239]
+                  - gridcell [ref=e241]
+                  - gridcell [ref=e243]
+                - row [ref=e245]:
+                  - gridcell [ref=e246]
+                  - gridcell [ref=e248]
+                  - gridcell [ref=e250]
+                  - gridcell [ref=e252]
+                - row [ref=e254]:
+                  - gridcell [ref=e255]
+                  - gridcell [ref=e257]
+                  - gridcell [ref=e259]
+                  - gridcell [ref=e261]
+                - row [ref=e263]:
+                  - gridcell [ref=e264]
+                  - gridcell [ref=e266]
+                  - gridcell [ref=e268]
+                  - gridcell [ref=e270]
+            - grid [ref=e274]:
+              - rowgroup [ref=e275]:
+                - row "EAN Product Qty Status" [ref=e276]:
+                  - columnheader "EAN" [ref=e277] [cursor=pointer]:
+                    - generic [ref=e278]:
+                      - text: EAN
+                      - img [ref=e279]
+                  - columnheader "Product" [ref=e282] [cursor=pointer]:
+                    - generic [ref=e283]:
+                      - text: Product
+                      - img [ref=e284]
+                  - columnheader "Qty" [ref=e287] [cursor=pointer]:
+                    - generic [ref=e288]:
+                      - text: Qty
+                      - img [ref=e289]
+                  - columnheader "Status" [ref=e292]:
+                    - generic [ref=e293]: Status
+              - rowgroup [ref=e294]:
+                - row "No products found." [ref=e295]:
+                  - gridcell "No products found." [ref=e296]
+            - grid [ref=e299]:
+              - rowgroup [ref=e300]:
+                - row "EAN Product Qty Status" [ref=e301]:
+                  - columnheader "EAN" [ref=e302] [cursor=pointer]:
+                    - generic [ref=e303]:
+                      - text: EAN
+                      - img [ref=e304]
+                  - columnheader "Product" [ref=e307] [cursor=pointer]:
+                    - generic [ref=e308]:
+                      - text: Product
+                      - img [ref=e309]
+                  - columnheader "Qty" [ref=e312] [cursor=pointer]:
+                    - generic [ref=e313]:
+                      - text: Qty
+                      - img [ref=e314]
+                  - columnheader "Status" [ref=e317]:
+                    - generic [ref=e318]: Status
+              - rowgroup [ref=e319]:
+                - row "Failed to load data." [ref=e320]:
+                  - gridcell "Failed to load data." [ref=e321]
+        - generic [ref=e322]:
+          - paragraph [ref=e323]: Charts (4.3) — Line · Bar · Donut
+          - generic [ref=e324]:
+            - generic [ref=e325]:
+              - generic [ref=e326]:
+                - paragraph [ref=e327]: Scans
+                - heading "Daily scan trend" [level=3] [ref=e328]
+                - img "Daily scans line chart" [ref=e329]
+              - generic [ref=e331]:
+                - paragraph [ref=e332]: Inventory
+                - heading "Stock in / out" [level=3] [ref=e333]
+                - img "Inventory movements bar chart" [ref=e334]
+              - generic [ref=e336]:
+                - paragraph [ref=e337]: Categories
+                - heading "Stock mix" [level=3] [ref=e338]
+                - img "Category stock mix donut chart" [ref=e339]
+            - generic [ref=e345]:
+              - heading "Error chart" [level=3] [ref=e346]
+              - alert [ref=e347]:
+                - img [ref=e349]
+                - heading "Chart unavailable" [level=3] [ref=e351]
+                - paragraph [ref=e352]: Could not load chart data.
+                - button "Try again" [ref=e353] [cursor=pointer]:
+                  - img [ref=e354]
+                  - text: Try again
+        - generic [ref=e359]:
+          - paragraph [ref=e360]: OHS Gauge (4.6)
+          - generic [ref=e361]:
+            - generic [ref=e362]:
+              - generic [ref=e363]:
+                - 'img "OHS score: 74 out of 100" [ref=e364]'
+                - generic [ref=e367]:
+                  - generic [ref=e368]: "74"
+                  - generic [ref=e369]: /100
+              - generic [ref=e370]:
+                - generic [ref=e371]:
+                  - generic [ref=e372]: Compliance
+                  - 'generic "Compliance: 82%" [ref=e374]'
+                  - generic [ref=e375]: "82"
+                - generic [ref=e376]:
+                  - generic [ref=e377]: Expiry mgmt
+                  - 'generic "Expiry mgmt: 68%" [ref=e379]'
+                  - generic [ref=e380]: "68"
+                - generic [ref=e381]:
+                  - generic [ref=e382]: Inv accuracy
+                  - 'generic "Inv accuracy: 91%" [ref=e384]'
+                  - generic [ref=e385]: "91"
+                - generic [ref=e386]:
+                  - generic [ref=e387]: Task completion
+                  - 'generic "Task completion: 76%" [ref=e389]'
+                  - generic [ref=e390]: "76"
+                - generic [ref=e391]:
+                  - generic [ref=e392]: Team activity
+                  - 'generic "Team activity: 55%" [ref=e394]'
+                  - generic [ref=e395]: "55"
+                - generic [ref=e396]:
+                  - generic [ref=e397]: Vendor quality
+                  - 'generic "Vendor quality: 72%" [ref=e399]'
+                  - generic [ref=e400]: "72"
+            - generic [ref=e402]:
+              - img "OHS score pending" [ref=e403]
+              - generic [ref=e405]:
+                - generic [ref=e406]: –
+                - generic [ref=e407]: Pending
+        - generic [ref=e408]:
+          - paragraph [ref=e409]: States (4.11) — Empty · Error · Skeleton
+          - generic [ref=e411]:
+            - generic [ref=e412]:
+              - img [ref=e414]
+              - heading "No expiry records" [level=3] [ref=e418]
+              - paragraph [ref=e419]: Add your first expiry record to start tracking.
+              - button "Add record" [ref=e420] [cursor=pointer]
+            - alert [ref=e421]:
+              - img [ref=e423]
+              - heading "Something went wrong" [level=3] [ref=e425]
+              - paragraph [ref=e426]: We could not load this data. Please try again.
+              - button "Try again" [ref=e427] [cursor=pointer]:
+                - img [ref=e428]
+                - text: Try again
+        - generic [ref=e447]:
+          - paragraph [ref=e448]: Locked Overlay (4.12)
+          - generic [ref=e451]:
+            - generic:
+              - generic:
+                - paragraph: Revenue report
+                - paragraph: ₹4,24,000
+            - generic [ref=e452]:
+              - img [ref=e454]
+              - generic [ref=e457]:
+                - paragraph [ref=e458]: Reports
+                - paragraph [ref=e459]: Upgrade to Pro to generate reports.
+              - button "View plans" [ref=e460] [cursor=pointer]
+        - generic [ref=e461]:
+          - paragraph [ref=e462]: Activity Feed (4.14)
+          - generic [ref=e464]:
+            - generic [ref=e465]:
+              - generic [ref=e466]: RP
+              - paragraph [ref=e468]: Ramesh Patel added expiry record for Amul Butter 100g
+              - time [ref=e469]: 09:42 AM
+            - generic [ref=e470]:
+              - img [ref=e472]
+              - paragraph [ref=e476]: Sonal Mehta completed task Aisle 3 audit
+              - time [ref=e477]: 08:15 AM
+            - generic [ref=e478]:
+              - img [ref=e480]
+              - paragraph [ref=e486]: "Admin posted GRN GRN #1042"
+              - time [ref=e487]: 07:30 AM
+        - generic [ref=e488]:
+          - paragraph [ref=e489]: Form Field (4.9) — label · error · hint · required
+          - generic [ref=e491]:
+            - generic [ref=e492]:
+              - generic [ref=e493]: Product name*
+              - textbox "Product name" [ref=e494]:
+                - /placeholder: e.g. Amul Butter 100g
+            - generic [ref=e495]:
+              - generic [ref=e496]: EAN code*
+              - textbox "EAN code" [ref=e497]:
+                - /placeholder: "8901030864450"
+              - paragraph [ref=e498]: Scan or type the 13-digit barcode
+            - generic [ref=e499]:
+              - generic [ref=e500]: Batch number
+              - textbox "Batch number" [invalid] [ref=e501]:
+                - /placeholder: BATCH-001
+              - alert [ref=e502]: Batch number is required
+        - generic [ref=e503]:
+          - paragraph [ref=e504]: Side Panel (4.7) · Modal (4.8) · Toast (4.13)
+          - generic [ref=e505]:
+            - button "Open Side Panel" [ref=e506] [cursor=pointer]
+            - button "Open Modal" [ref=e507] [cursor=pointer]
+            - button "Destructive Modal" [ref=e508] [cursor=pointer]
+            - button "Success Toast" [ref=e509] [cursor=pointer]
+            - button "Info Toast" [ref=e510] [cursor=pointer]
+            - button "Error Toast" [ref=e511] [cursor=pointer]
+            - button "Warn Toast" [ref=e512] [cursor=pointer]
+        - generic [ref=e513]:
+          - paragraph [ref=e514]: Command Palette (4.15)
+          - button "Open ⌘K palette" [ref=e516] [cursor=pointer]
+        - generic [ref=e517]:
+          - paragraph [ref=e518]: Accessibility sanity — contrast · focus ring
+          - generic [ref=e520]:
+            - paragraph [ref=e521]: "Tab through these buttons to verify orange focus ring (2px):"
+            - generic [ref=e522]:
+              - button "Primary" [ref=e523] [cursor=pointer]
+              - button "Secondary" [ref=e524] [cursor=pointer]
+              - button "Ghost" [ref=e525] [cursor=pointer]
+            - status "Matched" [ref=e526]:
+              - img [ref=e527]
+              - text: Matched
+            - status "Expiring soon" [ref=e530]:
+              - img [ref=e531]
+              - text: Expiring soon
+    - generic "Notifications"

@@ -6,6 +6,7 @@ node_modules/
 dist/
 build/
 *.tsbuildinfo
+app_apks/*.apk
 
 # Logs
 logs/

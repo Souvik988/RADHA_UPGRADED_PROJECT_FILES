@@ -152,7 +152,7 @@ the warmth visually.
 
 ## 2. Brand foundations — LOCKED tokens
 
-These map 1:1 to `apps/mobile/lib/design/tokens.dart` (`RadhaColors`, `RadhaSpacing`,
+These map 1:1 to `radha_app/lib/design/tokens.dart` (`RadhaColors`, `RadhaSpacing`,
 `RadhaRadii`, `RadhaMotion`, `RadhaTypography`). **Never hard-code values in features** — always
 read tokens. When briefing the bridge, always cite **exact hex**.
 

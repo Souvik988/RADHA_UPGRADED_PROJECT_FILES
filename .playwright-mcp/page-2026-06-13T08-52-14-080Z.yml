@@ -1,0 +1,80 @@
+- generic [active] [ref=e1]:
+  - link "Skip to content" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - main [ref=e3]:
+    - generic [ref=e5]:
+      - generic [ref=e6]:
+        - 'button "Store: Select store" [ref=e7] [cursor=pointer]':
+          - img [ref=e8]
+          - generic [ref=e13]: Select store
+          - img [ref=e14]
+        - button "Open command palette (⌘K)" [ref=e16] [cursor=pointer]:
+          - img [ref=e17]
+          - generic [ref=e20]: Search…
+          - generic [ref=e21]: ⌘K
+        - generic [ref=e22]:
+          - link "Notifications" [ref=e25] [cursor=pointer]:
+            - /url: /notifications
+            - img [ref=e26]
+          - button "Account menu" [ref=e30] [cursor=pointer]: R
+      - main [ref=e31]:
+        - generic [ref=e32]:
+          - generic [ref=e34]:
+            - generic [ref=e35]:
+              - paragraph [ref=e36]: OPERATIONS
+              - heading "Tasks" [level=1] [ref=e37]
+              - paragraph [ref=e38]: Assign and track store tasks across your team.
+            - button "New task" [ref=e40] [cursor=pointer]:
+              - img [ref=e41]
+              - text: New task
+          - region "Task statistics" [ref=e42]:
+            - paragraph [ref=e43]: Overview
+            - generic "Task statistics" [ref=e44]:
+              - generic [ref=e45]:
+                - img [ref=e47]
+                - 'generic "Open / Pending: 0" [ref=e50]': "0"
+                - paragraph [ref=e51]: Open / Pending
+              - generic [ref=e52]:
+                - img [ref=e54]
+                - 'generic "In progress: 0" [ref=e57]': "0"
+                - paragraph [ref=e58]: In progress
+              - generic [ref=e59]:
+                - img [ref=e61]
+                - 'generic "Completed: 0" [ref=e64]': "0"
+                - paragraph [ref=e65]: Completed
+              - generic [ref=e66]:
+                - img [ref=e68]
+                - 'generic "Cancelled: 0" [ref=e72]': "0"
+                - paragraph [ref=e73]: Cancelled
+          - generic [ref=e74]:
+            - tablist "Filter segments" [ref=e76]:
+              - tab "All" [selected] [ref=e78] [cursor=pointer]
+              - tab "To-do" [ref=e79] [cursor=pointer]
+              - tab "In progress" [ref=e80] [cursor=pointer]
+              - tab "Done" [ref=e81] [cursor=pointer]
+            - group "View mode" [ref=e82]:
+              - button "Board view" [pressed] [ref=e83] [cursor=pointer]:
+                - img [ref=e84]
+              - button "Table view" [ref=e89] [cursor=pointer]:
+                - img [ref=e90]
+          - region "Task board" [ref=e91]:
+            - paragraph [ref=e92]: Board
+            - generic "Task board" [ref=e93]:
+              - generic [ref=e94]:
+                - generic [ref=e95]:
+                  - generic [ref=e98]: To-do
+                  - generic [ref=e99]: "0"
+                - list "To-do tasks" [ref=e100]:
+                  - paragraph [ref=e102]: No tasks here
+              - generic [ref=e103]:
+                - generic [ref=e104]:
+                  - generic [ref=e107]: In progress
+                  - generic [ref=e108]: "0"
+                - list "In progress tasks" [ref=e109]:
+                  - paragraph [ref=e111]: No tasks here
+              - generic [ref=e112]:
+                - generic [ref=e113]:
+                  - generic [ref=e116]: Done
+                  - generic [ref=e117]: "0"
+                - list "Done tasks" [ref=e118]:
+                  - paragraph [ref=e120]: No tasks here

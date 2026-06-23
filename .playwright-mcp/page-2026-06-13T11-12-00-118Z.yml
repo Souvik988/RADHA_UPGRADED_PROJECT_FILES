@@ -1,0 +1,69 @@
+- generic [active] [ref=e1]:
+  - link "Skip to content" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - main [ref=e3]:
+    - generic [ref=e5]:
+      - generic [ref=e6]:
+        - 'button "Store: Select store" [ref=e7] [cursor=pointer]':
+          - img [ref=e8]
+          - generic [ref=e13]: Select store
+          - img [ref=e14]
+        - button "Open command palette (⌘K)" [ref=e16] [cursor=pointer]:
+          - img [ref=e17]
+          - generic [ref=e20]: Search…
+          - generic [ref=e21]: ⌘K
+        - generic [ref=e22]:
+          - link "Notifications" [ref=e25] [cursor=pointer]:
+            - /url: /notifications
+            - img [ref=e26]
+          - button "Account menu" [ref=e30] [cursor=pointer]: R
+      - main [ref=e31]:
+        - generic [ref=e32]:
+          - generic [ref=e34]:
+            - generic [ref=e35]:
+              - paragraph [ref=e36]: COMPLIANCE
+              - heading "Audit / EAN" [level=1] [ref=e37]
+              - paragraph [ref=e38]: Scan product barcodes, manage approved EAN lists and review sessions.
+            - generic [ref=e39]:
+              - button "New list" [ref=e40] [cursor=pointer]
+              - button "Import list" [ref=e41] [cursor=pointer]:
+                - img [ref=e42]
+                - text: Import list
+          - generic [ref=e45]:
+            - generic [ref=e46]:
+              - img [ref=e48]
+              - 'generic "EAN Match Rate: 0" [ref=e53]': 0.0%
+              - paragraph [ref=e54]: EAN Match Rate
+            - generic [ref=e55]:
+              - img [ref=e57]
+              - 'generic "Active Lists: 0" [ref=e60]': "0"
+              - paragraph [ref=e61]: Active Lists
+            - generic [ref=e62]:
+              - img [ref=e64]
+              - 'generic "Total Scans: 0" [ref=e66]': "0"
+              - paragraph [ref=e67]: Total Scans
+          - tablist [ref=e68]:
+            - tab "Scan Product" [selected] [ref=e69] [cursor=pointer]:
+              - img [ref=e70]
+              - text: Scan Product
+            - tab "EAN Lists" [ref=e75] [cursor=pointer]:
+              - img [ref=e76]
+              - text: EAN Lists
+            - tab "Scan Sessions" [ref=e79] [cursor=pointer]:
+              - img [ref=e80]
+              - text: Scan Sessions
+          - tabpanel "Scan Product" [ref=e85]:
+            - region "Scan a barcode" [ref=e86]:
+              - generic [ref=e87]:
+                - paragraph [ref=e88]: SCAN A PRODUCT
+                - generic [ref=e89]:
+                  - generic [ref=e90]:
+                    - generic [ref=e91]: Barcode / EAN
+                    - textbox "Barcode or EAN to verify" [ref=e92]:
+                      - /placeholder: Scan or type an EAN
+                  - button "Verify" [disabled]:
+                    - img
+                    - text: Verify
+              - generic [ref=e94]:
+                - img [ref=e96]
+                - paragraph [ref=e97]: Scan or enter a barcode to verify it against this store's approved EAN list.

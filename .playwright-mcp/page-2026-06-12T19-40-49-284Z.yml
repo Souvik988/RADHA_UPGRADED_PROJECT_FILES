@@ -1,0 +1,27 @@
+- generic [active] [ref=e1]:
+  - link "Skip to content" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - main [ref=e3]:
+    - generic [ref=e5]:
+      - paragraph [ref=e6]: RADHA · Admin Dashboard
+      - heading "Phase 01 complete ✓" [level=1] [ref=e7]
+      - paragraph [ref=e8]: Project scaffold, RADHA design tokens, security headers, and brand fonts are all wired. The app is ready for the Phase 02 component build.
+      - separator [ref=e9]
+      - paragraph [ref=e10]: Token sanity check
+      - generic [ref=e11]:
+        - generic [ref=e12]:
+          - generic [ref=e13]: ₹1,24,560
+          - generic [ref=e14]: JetBrains Mono · tabular figures
+        - generic [ref=e15]:
+          - generic [ref=e16]: accent
+          - generic [ref=e17]: accent-tint
+          - generic [ref=e18]: success
+          - generic [ref=e19]: warn
+          - generic [ref=e20]: danger
+          - generic [ref=e21]: teal
+        - generic [ref=e22]:
+          - generic [ref=e23]: sm·8
+          - generic [ref=e24]: md·12
+          - generic [ref=e25]: lg·16
+          - generic [ref=e26]: xl·24
+      - button "Proceed to Phase 02 →" [ref=e28] [cursor=pointer]

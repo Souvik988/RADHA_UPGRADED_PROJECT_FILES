@@ -1,0 +1,42 @@
+- generic [active] [ref=e1]:
+  - link "Skip to content" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - main [ref=e3]:
+    - generic [ref=e5]:
+      - generic [ref=e6]:
+        - generic [ref=e7]:
+          - combobox "Switch store" [ref=e8] [cursor=pointer]
+          - img
+          - img
+        - button "Open command palette (⌘K)" [ref=e9] [cursor=pointer]:
+          - img [ref=e10]
+          - generic [ref=e13]: Search…
+          - generic [ref=e14]: ⌘K
+        - link "Notifications" [ref=e16] [cursor=pointer]:
+          - /url: /notifications
+          - img [ref=e17]
+        - button "Account menu" [ref=e21] [cursor=pointer]: R
+      - main [ref=e22]:
+        - generic [ref=e23]:
+          - generic [ref=e25]:
+            - generic [ref=e26]:
+              - paragraph [ref=e27]: COMMAND CENTRE
+              - heading "Good morning, there" [level=1] [ref=e28]
+              - paragraph [ref=e29]: Here's what needs your attention today.
+            - button "Generate report" [ref=e31] [cursor=pointer]:
+              - img [ref=e32]
+              - text: Generate report
+          - region "Store KPIs" [ref=e35]:
+            - paragraph [ref=e36]: At a glance
+          - region "Health and trends" [ref=e54]:
+            - paragraph [ref=e55]: Performance
+            - generic [ref=e61]:
+              - paragraph [ref=e62]: 30-Day Trend
+              - generic [ref=e63]:
+                - heading [level=3]
+          - region "Active alerts" [ref=e64]:
+            - paragraph [ref=e65]: Alerts
+            - paragraph [ref=e67]: Alerts
+          - region "Recent activity" [ref=e71]:
+            - paragraph [ref=e72]: Activity
+            - paragraph [ref=e74]: Recent Activity

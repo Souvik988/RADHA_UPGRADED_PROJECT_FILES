@@ -1,0 +1,31 @@
+[96msrc/jobs/bullmq-queue.provider.ts[0m:[93m103[0m:[93m9[0m - [91merror[0m[90m TS2322: [0mType 'Redis' is not assignable to type 'ConnectionOptions'.
+  Type 'Redis' is not assignable to type 'ClusterOptions | Redis | IRedisClient | Cluster'.
+    Type 'import("C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/radha_backend/node_modules/.pnpm/ioredis@5.11.1/node_modules/ioredis/built/Redis").default' is not assignable to type 'import("C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/radha_backend/node_modules/.pnpm/ioredis@5.10.1/node_modules/ioredis/built/Redis").default'.
+      Types of property 'options' are incompatible.
+        Type 'import("C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/radha_backend/node_modules/.pnpm/ioredis@5.11.1/node_modules/ioredis/built/redis/RedisOptions").RedisOptions' is not assignable to type 'import("C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/radha_backend/node_modules/.pnpm/ioredis@5.10.1/node_modules/ioredis/built/redis/RedisOptions").RedisOptions'.
+          Type 'RedisOptions' is not assignable to type 'CommonRedisOptions'.
+            Types of property 'Connector' are incompatible.
+              Type 'import("C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/radha_backend/node_modules/.pnpm/ioredis@5.11.1/node_modules/ioredis/built/connectors/ConnectorConstructor").default | undefined' is not assignable to type 'import("C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/radha_backend/node_modules/.pnpm/ioredis@5.10.1/node_modules/ioredis/built/connectors/ConnectorConstructor").default | undefined'.
+                Type 'import("C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/radha_backend/node_modules/.pnpm/ioredis@5.11.1/node_modules/ioredis/built/connectors/ConnectorConstructor").default' is not assignable to type 'import("C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/radha_backend/node_modules/.pnpm/ioredis@5.10.1/node_modules/ioredis/built/connectors/ConnectorConstructor").default'.
+                  Type 'import("C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/radha_backend/node_modules/.pnpm/ioredis@5.11.1/node_modules/ioredis/built/connectors/AbstractConnector").default' is not assignable to type 'import("C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/radha_backend/node_modules/.pnpm/ioredis@5.10.1/node_modules/ioredis/built/connectors/AbstractConnector").default'.
+                    Property 'connecting' is protected but type 'AbstractConnector' is not a class derived from 'AbstractConnector'.
+
+[7m103[0m         connection,
+[7m   [0m [91m        ~~~~~~~~~~[0m
+[96msrc/jobs/bullmq-queue.provider.ts[0m:[93m125[0m:[93m13[0m - [91merror[0m[90m TS2322: [0mType 'Redis' is not assignable to type 'ConnectionOptions'.
+  Type 'Redis' is not assignable to type 'ClusterOptions | Redis | IRedisClient | Cluster'.
+    Type 'import("C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/radha_backend/node_modules/.pnpm/ioredis@5.11.1/node_modules/ioredis/built/Redis").default' is not assignable to type 'import("C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/radha_backend/node_modules/.pnpm/ioredis@5.10.1/node_modules/ioredis/built/Redis").default'.
+      Types of property 'options' are incompatible.
+        Type 'import("C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/radha_backend/node_modules/.pnpm/ioredis@5.11.1/node_modules/ioredis/built/redis/RedisOptions").RedisOptions' is not assignable to type 'import("C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/radha_backend/node_modules/.pnpm/ioredis@5.10.1/node_modules/ioredis/built/redis/RedisOptions").RedisOptions'.
+          Type 'RedisOptions' is not assignable to type 'CommonRedisOptions'.
+            Types of property 'Connector' are incompatible.
+              Type 'import("C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/radha_backend/node_modules/.pnpm/ioredis@5.11.1/node_modules/ioredis/built/connectors/ConnectorConstructor").default | undefined' is not assignable to type 'import("C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/radha_backend/node_modules/.pnpm/ioredis@5.10.1/node_modules/ioredis/built/connectors/ConnectorConstructor").default | undefined'.
+                Type 'import("C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/radha_backend/node_modules/.pnpm/ioredis@5.11.1/node_modules/ioredis/built/connectors/ConnectorConstructor").default' is not assignable to type 'import("C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/radha_backend/node_modules/.pnpm/ioredis@5.10.1/node_modules/ioredis/built/connectors/ConnectorConstructor").default'.
+                  Type 'import("C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/radha_backend/node_modules/.pnpm/ioredis@5.11.1/node_modules/ioredis/built/connectors/AbstractConnector").default' is not assignable to type 'import("C:/Users/sayan/Downloads/RADHA_UPGRADED_PROJECT_FILES new/RADHA_UPGRADED_PROJECT_FILES/radha_backend/node_modules/.pnpm/ioredis@5.10.1/node_modules/ioredis/built/connectors/AbstractConnector").default'.
+                    Property 'connecting' is protected but type 'AbstractConnector' is not a class derived from 'AbstractConnector'.
+
+[7m125[0m             connection,
+[7m   [0m [91m            ~~~~~~~~~~[0m
+
+Found 2 error(s).
+

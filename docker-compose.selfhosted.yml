@@ -1,0 +1,122 @@
+# RADHA production stack — self-hosted single-box (EC2).
+#
+# All services run on one instance: Postgres + Redis + 3 NestJS processes.
+# nginx + TLS terminate in front of `api` (see deploy/nginx/radha-api.conf).
+#
+# Usage (from the repo root, after setting server/.env.production):
+#   docker compose -f docker-compose.selfhosted.yml --env-file server/.env.production up -d --build
+#   docker compose -f docker-compose.selfhosted.yml ps
+#   docker compose -f docker-compose.selfhosted.yml exec api pnpm db:migrate
+#   docker compose -f docker-compose.selfhosted.yml exec api pnpm db:import:curated
+#   docker compose -f docker-compose.selfhosted.yml logs -f api
+#
+# Redeploy after a code change:
+#   git pull && docker compose -f docker-compose.selfhosted.yml --env-file server/.env.production up -d --build
+
+name: radha
+
+x-server-common: &server-common
+  image: radha-server:latest
+  env_file:
+    - radha_backend/.env.production
+  environment:
+    NODE_ENV: production
+  restart: always
+  depends_on:
+    postgres:
+      condition: service_healthy
+    redis:
+      condition: service_healthy
+  deploy:
+    resources:
+      limits:
+        memory: 512M
+
+services:
+  # ─── Stateful services ────────────────────────────────────────────────────
+  postgres:
+    image: postgres:16-alpine
+    container_name: radha-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: radha_app
+      POSTGRES_PASSWORD: fdbe4b88cf40efc65bba40ef653f25119ca1
+      POSTGRES_DB: radha
+      POSTGRES_INITDB_ARGS: '--encoding=UTF-8 --lc-collate=C --lc-ctype=C'
+    volumes:
+      - radha-pg-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U radha_app -d radha']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    # Not exposed publicly — app containers reach it via the Docker network.
+    expose:
+      - '5432'
+
+  redis:
+    image: redis:7-alpine
+    container_name: radha-redis
+    restart: always
+    command:
+      - redis-server
+      - --requirepass
+      - '22d301079a2c0f4de5411974e8908da23534'
+      - --save
+      - '60'
+      - '1'
+      - --loglevel
+      - warning
+    volumes:
+      - radha-redis-data:/data
+    healthcheck:
+      test:
+        - CMD
+        - redis-cli
+        - -a
+        - '22d301079a2c0f4de5411974e8908da23534'
+        - ping
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    expose:
+      - '6379'
+
+  # ─── Application tier ─────────────────────────────────────────────────────
+  api:
+    <<: *server-common
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: ['node', 'dist/main.api.js']
+    # Bind to loopback only — nginx is the sole public entry point.
+    ports:
+      - '127.0.0.1:3000:3000'
+    healthcheck:
+      test:
+        - CMD
+        - node
+        - -e
+        - "fetch('http://127.0.0.1:3000/api/v1/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 60s
+
+  worker:
+    <<: *server-common
+    command: ['node', 'dist/main.worker.js']
+    depends_on:
+      api:
+        condition: service_started
+
+  scheduler:
+    <<: *server-common
+    command: ['node', 'dist/main.scheduler.js']
+    depends_on:
+      api:
+        condition: service_started
+
+volumes:
+  radha-pg-data:
+  radha-redis-data:

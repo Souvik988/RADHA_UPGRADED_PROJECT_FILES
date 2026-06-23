@@ -1,0 +1,64 @@
+- generic [active] [ref=e1]:
+  - link "Skip to content" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - main [ref=e3]:
+    - generic [ref=e5]:
+      - generic [ref=e6]:
+        - 'button "Store: Select store" [ref=e7] [cursor=pointer]':
+          - img [ref=e8]
+          - generic [ref=e13]: Select store
+          - img [ref=e14]
+        - button "Open command palette (⌘K)" [ref=e16] [cursor=pointer]:
+          - img [ref=e17]
+          - generic [ref=e20]: Search…
+          - generic [ref=e21]: ⌘K
+        - generic [ref=e22]:
+          - link "Notifications" [ref=e25] [cursor=pointer]:
+            - /url: /notifications
+            - img [ref=e26]
+          - button "Account menu" [ref=e30] [cursor=pointer]: R
+      - main [ref=e31]:
+        - generic [ref=e32]:
+          - generic [ref=e35]:
+            - paragraph [ref=e36]: INVENTORY
+            - heading "Goods Received Notes" [level=1] [ref=e37]
+            - paragraph [ref=e38]: Track inward stock receipts from suppliers.
+          - generic [ref=e39]:
+            - generic [ref=e40]:
+              - img [ref=e42]
+              - 'generic "Pending GRNs: 0" [ref=e45]': "0"
+              - paragraph [ref=e46]: Pending GRNs
+            - generic [ref=e47]:
+              - img [ref=e49]
+              - 'generic "Received This Month: 0" [ref=e52]': "0"
+              - paragraph [ref=e53]: Received This Month
+          - generic [ref=e54]:
+            - paragraph [ref=e55]: GRN RECORDS
+            - generic [ref=e56]:
+              - tablist "Filter segments" [ref=e57]:
+                - tab "All" [selected] [ref=e59] [cursor=pointer]
+                - tab "Draft" [ref=e60] [cursor=pointer]
+                - tab "Partial" [ref=e61] [cursor=pointer]
+                - tab "Received" [ref=e62] [cursor=pointer]
+                - tab "Cancelled" [ref=e63] [cursor=pointer]
+              - generic [ref=e64]:
+                - img
+                - 'searchbox "Search invoice #…" [ref=e65]'
+            - grid [ref=e68]:
+              - rowgroup [ref=e69]:
+                - 'row "Date Invoice # Supplier Items Status Received" [ref=e70]':
+                  - columnheader "Date" [ref=e71] [cursor=pointer]:
+                    - generic [ref=e72]:
+                      - text: Date
+                      - img [ref=e73]
+                  - 'columnheader "Invoice #" [ref=e76]':
+                    - generic [ref=e77]: "Invoice #"
+                  - columnheader "Supplier" [ref=e78]:
+                    - generic [ref=e79]: Supplier
+                  - columnheader "Items" [ref=e80]:
+                    - generic [ref=e81]: Items
+                  - columnheader "Status" [ref=e82]:
+                    - generic [ref=e83]: Status
+                  - columnheader "Received" [ref=e84]:
+                    - generic [ref=e85]: Received
+              - rowgroup

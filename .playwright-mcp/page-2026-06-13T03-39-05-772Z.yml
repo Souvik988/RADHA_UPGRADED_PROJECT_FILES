@@ -1,0 +1,157 @@
+- generic [active] [ref=e1]:
+  - link "Skip to content" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - main [ref=e3]:
+    - generic [ref=e5]:
+      - generic [ref=e6]:
+        - 'button "Store: Select store" [ref=e7] [cursor=pointer]':
+          - img [ref=e8]
+          - generic [ref=e13]: Select store
+          - img [ref=e14]
+        - button "Open command palette (⌘K)" [ref=e16] [cursor=pointer]:
+          - img [ref=e17]
+          - generic [ref=e20]: Search…
+          - generic [ref=e21]: ⌘K
+        - link "Notifications" [ref=e23] [cursor=pointer]:
+          - /url: /notifications
+          - img [ref=e24]
+        - button "Account menu" [ref=e28] [cursor=pointer]: R
+      - main [ref=e29]:
+        - generic [ref=e30]:
+          - generic [ref=e32]:
+            - generic [ref=e33]:
+              - paragraph [ref=e34]: INVENTORY
+              - heading "Expiry" [level=1] [ref=e35]
+              - paragraph [ref=e36]: Monitor and manage product expiry dates across your store.
+            - button "Add expiry record" [ref=e38] [cursor=pointer]:
+              - img [ref=e39]
+              - text: Add expiry record
+          - region "Expiry KPIs" [ref=e40]:
+            - paragraph [ref=e41]: At a glance
+            - generic "Expiry KPIs" [ref=e42]:
+              - generic [ref=e43]:
+                - img [ref=e45]
+                - 'generic "Expiring within 7 days: 0" [ref=e48]': "0"
+                - paragraph [ref=e49]: Expiring within 7 days
+              - generic [ref=e50]:
+                - img [ref=e52]
+                - 'generic "Already expired: 0" [ref=e56]': "0"
+                - paragraph [ref=e57]: Already expired
+              - generic [ref=e58]:
+                - img [ref=e60]
+                - 'generic "Expiring within 30 days: 0" [ref=e62]': "0"
+                - paragraph [ref=e63]: Expiring within 30 days
+          - tablist "Filter segments" [ref=e65]:
+            - tab "All" [selected] [ref=e67] [cursor=pointer]
+            - tab "Fresh" [ref=e68] [cursor=pointer]
+            - tab "Expiring soon" [ref=e69] [cursor=pointer]
+            - tab "Expired" [ref=e70] [cursor=pointer]
+          - generic [ref=e71]:
+            - region "Expiry calendar" [ref=e72]:
+              - paragraph [ref=e73]: Calendar
+              - region "Expiry calendar" [ref=e74]:
+                - generic [ref=e75]:
+                  - generic [ref=e76]:
+                    - img [ref=e77]
+                    - generic [ref=e79]: June 2026
+                  - generic [ref=e80]:
+                    - button "Previous month" [ref=e81] [cursor=pointer]:
+                      - img [ref=e82]
+                    - button "Next month" [ref=e84] [cursor=pointer]:
+                      - img [ref=e85]
+                - row "Sun Mon Tue Wed Thu Fri Sat" [ref=e87]:
+                  - columnheader "Sun" [ref=e88]
+                  - columnheader "Mon" [ref=e89]
+                  - columnheader "Tue" [ref=e90]
+                  - columnheader "Wed" [ref=e91]
+                  - columnheader "Thu" [ref=e92]
+                  - columnheader "Fri" [ref=e93]
+                  - columnheader "Sat" [ref=e94]
+                - grid "June 2026 expiry calendar" [ref=e95]:
+                  - gridcell [ref=e96]
+                  - gridcell "2026-06-01" [ref=e97] [cursor=pointer]:
+                    - generic [ref=e98]: "1"
+                  - gridcell "2026-06-02" [ref=e99] [cursor=pointer]:
+                    - generic [ref=e100]: "2"
+                  - gridcell "2026-06-03" [ref=e101] [cursor=pointer]:
+                    - generic [ref=e102]: "3"
+                  - gridcell "2026-06-04" [ref=e103] [cursor=pointer]:
+                    - generic [ref=e104]: "4"
+                  - gridcell "2026-06-05" [ref=e105] [cursor=pointer]:
+                    - generic [ref=e106]: "5"
+                  - gridcell "2026-06-06" [ref=e107] [cursor=pointer]:
+                    - generic [ref=e108]: "6"
+                  - gridcell "2026-06-07" [ref=e109] [cursor=pointer]:
+                    - generic [ref=e110]: "7"
+                  - gridcell "2026-06-08" [ref=e111] [cursor=pointer]:
+                    - generic [ref=e112]: "8"
+                  - gridcell "2026-06-09" [ref=e113] [cursor=pointer]:
+                    - generic [ref=e114]: "9"
+                  - gridcell "2026-06-10" [ref=e115] [cursor=pointer]:
+                    - generic [ref=e116]: "10"
+                  - gridcell "2026-06-11" [ref=e117] [cursor=pointer]:
+                    - generic [ref=e118]: "11"
+                  - gridcell "2026-06-12" [ref=e119] [cursor=pointer]:
+                    - generic [ref=e120]: "12"
+                  - gridcell "2026-06-13" [ref=e121] [cursor=pointer]:
+                    - generic [ref=e122]: "13"
+                  - gridcell "2026-06-14" [ref=e123] [cursor=pointer]:
+                    - generic [ref=e124]: "14"
+                  - gridcell "2026-06-15" [ref=e125] [cursor=pointer]:
+                    - generic [ref=e126]: "15"
+                  - gridcell "2026-06-16" [ref=e127] [cursor=pointer]:
+                    - generic [ref=e128]: "16"
+                  - gridcell "2026-06-17" [ref=e129] [cursor=pointer]:
+                    - generic [ref=e130]: "17"
+                  - gridcell "2026-06-18" [ref=e131] [cursor=pointer]:
+                    - generic [ref=e132]: "18"
+                  - gridcell "2026-06-19" [ref=e133] [cursor=pointer]:
+                    - generic [ref=e134]: "19"
+                  - gridcell "2026-06-20" [ref=e135] [cursor=pointer]:
+                    - generic [ref=e136]: "20"
+                  - gridcell "2026-06-21" [ref=e137] [cursor=pointer]:
+                    - generic [ref=e138]: "21"
+                  - gridcell "2026-06-22" [ref=e139] [cursor=pointer]:
+                    - generic [ref=e140]: "22"
+                  - gridcell "2026-06-23" [ref=e141] [cursor=pointer]:
+                    - generic [ref=e142]: "23"
+                  - gridcell "2026-06-24" [ref=e143] [cursor=pointer]:
+                    - generic [ref=e144]: "24"
+                  - gridcell "2026-06-25" [ref=e145] [cursor=pointer]:
+                    - generic [ref=e146]: "25"
+                  - gridcell "2026-06-26" [ref=e147] [cursor=pointer]:
+                    - generic [ref=e148]: "26"
+                  - gridcell "2026-06-27" [ref=e149] [cursor=pointer]:
+                    - generic [ref=e150]: "27"
+                  - gridcell "2026-06-28" [ref=e151] [cursor=pointer]:
+                    - generic [ref=e152]: "28"
+                  - gridcell "2026-06-29" [ref=e153] [cursor=pointer]:
+                    - generic [ref=e154]: "29"
+                  - gridcell "2026-06-30" [ref=e155] [cursor=pointer]:
+                    - generic [ref=e156]: "30"
+                - generic [ref=e157]:
+                  - generic [ref=e158]: "Legend:"
+                  - generic [ref=e159]: Expired
+                  - generic [ref=e161]: Expiring soon
+                  - generic [ref=e163]: Upcoming
+            - region "Expiry records" [ref=e165]:
+              - paragraph [ref=e166]: All records
+              - grid [ref=e170]:
+                - rowgroup [ref=e171]:
+                  - row "EAN Product Batch Qty Expiry Date Status" [ref=e172]:
+                    - columnheader "EAN" [ref=e173]:
+                      - generic [ref=e174]: EAN
+                    - columnheader "Product" [ref=e175]:
+                      - generic [ref=e176]: Product
+                    - columnheader "Batch" [ref=e177]:
+                      - generic [ref=e178]: Batch
+                    - columnheader "Qty" [ref=e179]:
+                      - generic [ref=e180]: Qty
+                    - columnheader "Expiry Date" [ref=e181] [cursor=pointer]:
+                      - generic [ref=e182]:
+                        - text: Expiry Date
+                        - img [ref=e183]
+                    - columnheader "Status" [ref=e186]:
+                      - generic [ref=e187]: Status
+                    - columnheader [ref=e188]
+                - rowgroup
