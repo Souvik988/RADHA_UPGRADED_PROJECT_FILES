@@ -96,6 +96,14 @@ class RadhaAssets {
   static const String illoSpotStoreHealth =
       '$_v2/illustrations/spot-storehealth.png';
 
+  // --- Onboarding split-screen photos (Personal/Business segment picker) --
+  static const String heroOnboardingWelcome =
+      '$_v2/illustrations/hero_onboarding_welcome.png';
+  static const String heroOnboardingCapabilities =
+      '$_v2/illustrations/hero_onboarding_capabilities.png';
+  static const String segPersonal = '$_v2/illustrations/seg_personal.png';
+  static const String segBusiness = '$_v2/illustrations/seg_business.png';
+
   // --- Home promo banners (v3 — cinematic editorial scenes) --------------
   // Full-bleed 1:1 photographic banners; rendered with a bottom gradient
   // scrim so overlaid copy stays legible. See `home_screen.dart`.
