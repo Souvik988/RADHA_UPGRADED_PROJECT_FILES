@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 
 import '../../core/network/api_client.dart';
 import '../../core/network/dto/grn_dto.dart';
@@ -11,6 +12,35 @@ import '../../design/theme.dart';
 import '../../design/tokens.dart';
 import '../../design/widgets/empty_state.dart';
 import '../../design/widgets/mor_companion.dart';
+import '../../l10n/generated/app_localizations.dart';
+
+/// Maps a GRN filter-tab id (null = All) to its localized label.
+String _filterLabel(AppLocalizations l10n, String? id) {
+  switch (id) {
+    case 'draft':
+      return l10n.grnFilterDraft;
+    case 'pending_review':
+      return l10n.grnFilterPendingReview;
+    case 'posted':
+      return l10n.grnFilterPosted;
+    default:
+      return l10n.grnFilterAll;
+  }
+}
+
+/// Maps a backend GRN status code to its localized pill label.
+String _statusLabel(AppLocalizations l10n, String status) {
+  switch (status) {
+    case 'draft':
+      return l10n.grnFilterDraft;
+    case 'pending_review':
+      return l10n.grnStatusPending;
+    case 'posted':
+      return l10n.grnFilterPosted;
+    default:
+      return status;
+  }
+}
 
 /// Paginated GRN list state — keeps loaded items + the page cursor so we can
 /// append more rows on scroll without rebuilding the whole list.
@@ -117,11 +147,12 @@ class _GrnListScreenState extends ConsumerState<GrnListScreen> {
   String? _statusFilter;
   final _scrollController = ScrollController();
 
-  static const _filters = <(String?, String)>[
-    (null, 'All'),
-    ('draft', 'Draft'),
-    ('pending_review', 'Pending Review'),
-    ('posted', 'Posted'),
+  /// Backend status codes for the filter tabs; labels are localized at build.
+  static const _filterIds = <String?>[
+    null,
+    'draft',
+    'pending_review',
+    'posted',
   ];
 
   @override
@@ -149,14 +180,18 @@ class _GrnListScreenState extends ConsumerState<GrnListScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     final grnsAsync = ref.watch(_grnListControllerProvider);
+    final filters = <(String?, String)>[
+      for (final id in _filterIds) (id, _filterLabel(l10n, id)),
+    ];
 
     return Scaffold(
       backgroundColor: theme.colorScheme.surface,
       appBar: AppBar(
         backgroundColor: theme.colorScheme.surface,
         title: Text(
-          'Goods received',
+          l10n.grnTitle,
           style: theme.textTheme.titleLarge?.copyWith(
             fontWeight: FontWeight.w800,
           ),
@@ -165,7 +200,7 @@ class _GrnListScreenState extends ConsumerState<GrnListScreen> {
       body: Column(
         children: [
           _StatusTabs(
-            filters: _filters,
+            filters: filters,
             selected: _statusFilter,
             onChanged: (value) {
               HapticFeedback.selectionClick();
@@ -212,9 +247,8 @@ class _GrnListScreenState extends ConsumerState<GrnListScreen> {
                               mood: MorMood.greet,
                               size: 104,
                             ),
-                            title: 'No GRNs here',
-                            body: 'Create a goods-received note to log a '
-                                'supplier delivery.',
+                            title: l10n.grnEmptyTitle,
+                            body: l10n.grnEmptyBody,
                           ),
                         ),
                       ],
@@ -274,7 +308,7 @@ class _GrnListScreenState extends ConsumerState<GrnListScreen> {
           context.push(AppRoute.grnCreate);
         },
         icon: const Icon(Icons.add_rounded),
-        label: const Text('New GRN'),
+        label: Text(l10n.grnNew),
       ),
     );
   }
@@ -401,7 +435,8 @@ class _GrnTileState extends State<_GrnTile> {
                 children: [
                   Expanded(
                     child: Text(
-                      grn.supplierName ?? 'Supplier',
+                      grn.supplierName ??
+                          AppLocalizations.of(context).grnSupplierFallback,
                       style: theme.textTheme.titleSmall?.copyWith(
                         color: theme.colorScheme.onSurface,
                         fontWeight: FontWeight.w700,
@@ -418,7 +453,11 @@ class _GrnTileState extends State<_GrnTile> {
               Text(
                 [
                   if (grn.invoiceNumber != null) grn.invoiceNumber,
-                  if (grn.invoiceDate != null) _formatDate(grn.invoiceDate!),
+                  if (grn.invoiceDate != null)
+                    _formatDate(
+                      grn.invoiceDate!,
+                      Localizations.localeOf(context).languageCode,
+                    ),
                 ].whereType<String>().join(' · '),
                 style: theme.textTheme.bodySmall?.copyWith(
                   color: theme.colorScheme.onSurfaceVariant,
@@ -469,14 +508,10 @@ class _GrnTileState extends State<_GrnTile> {
     return buf.toString();
   }
 
-  String _formatDate(String iso) {
+  String _formatDate(String iso, String localeName) {
     try {
       final dt = DateTime.parse(iso);
-      const months = [
-        'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
-      ];
-      return '${dt.day} ${months[dt.month - 1]}';
+      return DateFormat('d MMM', localeName).format(dt);
     } catch (_) {
       return iso;
     }
@@ -493,7 +528,7 @@ class _StatusPill extends StatelessWidget {
   Widget build(BuildContext context) {
     if (status == null) return const SizedBox.shrink();
     final color = _statusColor(status!);
-    final label = _statusLabel(status!);
+    final label = _statusLabel(AppLocalizations.of(context), status!);
 
     return Container(
       padding: const EdgeInsets.symmetric(
@@ -529,18 +564,6 @@ Color _statusColor(String status) {
   }
 }
 
-String _statusLabel(String status) {
-  switch (status) {
-    case 'draft':
-      return 'Draft';
-    case 'pending_review':
-      return 'Pending';
-    case 'posted':
-      return 'Posted';
-    default:
-      return status;
-  }
-}
 
 // ─── Loading / empty / error ─────────────────────────────────────────────────
 
@@ -581,21 +604,22 @@ class _GrnError extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(RadhaSpacing.space24),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const MorCompanion(
+            MorCompanion(
               mood: MorMood.concern,
               size: 96,
-              semanticLabel: 'Could not load',
+              semanticLabel: l10n.commonCouldNotLoad,
             ),
             const SizedBox(height: RadhaSpacing.space16),
-            Text('Failed to load GRNs', style: theme.textTheme.bodyMedium),
+            Text(l10n.grnLoadError, style: theme.textTheme.bodyMedium),
             const SizedBox(height: RadhaSpacing.space16),
-            OutlinedButton(onPressed: onRetry, child: const Text('Retry')),
+            OutlinedButton(onPressed: onRetry, child: Text(l10n.tryAgain)),
           ],
         ),
       ),

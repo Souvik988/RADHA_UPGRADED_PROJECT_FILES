@@ -318,10 +318,10 @@ class _SavedProductsError extends StatelessWidget {
       physics: const AlwaysScrollableScrollPhysics(),
       padding: const EdgeInsets.all(RadhaSpacing.space24),
       children: [
-        const MorCompanion(
+        MorCompanion(
           mood: MorMood.concern,
           size: 96,
-          semanticLabel: 'Could not load',
+          semanticLabel: AppLocalizations.of(context).commonCouldNotLoad,
         ),
         const SizedBox(height: RadhaSpacing.space16),
         Text(

@@ -325,7 +325,7 @@ export class GrnPostingService {
     const deliveryDays =
       orderTime !== null ? Math.max(0, Math.floor((inwardTime - orderTime) / 86_400_000)) : -1;
 
-    await this.supplierPerf.updateMetrics(grn.supplierId, {
+    await this.supplierPerf.updateMetrics(grn.tenantId, grn.supplierId, {
       grnId: grn.id,
       deliveryDays,
       expiryRemainingDays: grn.minExpiryRemainingDays ?? 9999,

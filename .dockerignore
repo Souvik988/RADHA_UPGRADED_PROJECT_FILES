@@ -1,0 +1,39 @@
+# Keep the Docker build context small and clean.
+# The API image copies only radha_backend/ — nothing else is needed.
+**/node_modules
+**/dist
+**/.git
+.git
+**/*.log
+
+# Non-backend apps — irrelevant to the server image.
+radha_app
+radha_dashboard
+radha_backend/assets
+ADMIN_DASHBOARD_DOCS
+apps
+phases
+
+# Local env / secrets must never enter the image (injected at runtime).
+**/.env
+**/.env.*
+!**/.env.example
+!**/.env.production.example
+
+# Dev-only + generated dirs.
+.kiro
+**/.tmp
+**/coverage
+**/*.tsbuildinfo
+**/assets/_fullres_backup
+**/build
+**/.dart_tool
+Dockerfile
+docker-compose*.yml
+deploy
+**/*.md
+infra
+*.pem
+*.png
+*.bat
+*.ps1

@@ -39,6 +39,7 @@ import { SearchAnalyticsService } from './services/search-analytics.service';
     ProductsRepository,
     ProductNutritionRepository,
     SearchRepository,
+    ConsumerCatalogRepository,
     ProductCategoriesRepository,
     ProductsService,
     ProductLookupService,

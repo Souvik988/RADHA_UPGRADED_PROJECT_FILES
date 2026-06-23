@@ -47,7 +47,7 @@ export class SupplierLookupStubService implements ISupplierLookupService {
 export class SupplierPerformanceStubService implements ISupplierPerformanceService {
   constructor(private readonly logger: LoggerService) {}
 
-  async updateMetrics(supplierId: string, metrics: SupplierPerformanceMetrics): Promise<void> {
+  async updateMetrics(_tenantId: string, supplierId: string, metrics: SupplierPerformanceMetrics): Promise<void> {
     this.logger.info('grn.supplier_performance.deferred.update', {
       reason: 'BE-25 supplier-performance service not yet wired',
       supplierId,
@@ -58,7 +58,7 @@ export class SupplierPerformanceStubService implements ISupplierPerformanceServi
     });
   }
 
-  async reverseMetrics(supplierId: string, grnId: string): Promise<void> {
+  async reverseMetrics(_tenantId: string, supplierId: string, grnId: string): Promise<void> {
     this.logger.info('grn.supplier_performance.deferred.reverse', {
       reason: 'BE-25 supplier-performance service not yet wired',
       supplierId,

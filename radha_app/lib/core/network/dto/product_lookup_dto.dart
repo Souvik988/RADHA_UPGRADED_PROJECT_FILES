@@ -17,6 +17,23 @@ double? _toDouble(dynamic v) {
   return double.tryParse(v.toString());
 }
 
+List<String>? _toStringList(dynamic v) {
+  if (v == null) return null;
+  if (v is List) {
+    return v.map((item) => item.toString()).where((s) => s.isNotEmpty).toList();
+  }
+  if (v is bool) return v ? const ['declared'] : const [];
+  final text = v.toString().trim();
+  if (text.isEmpty) return const [];
+  return text.split(',').map((item) => item.trim()).where((s) => s.isNotEmpty).toList();
+}
+
+String? _toStringOrNull(dynamic v) {
+  if (v == null) return null;
+  final text = v.toString().trim();
+  return text.isEmpty ? null : text;
+}
+
 /// Per-serving / per-100g nutrition. Every field is nullable — a product may
 /// have partial or no nutrition, which the UI renders as "—" (never zero-faked).
 @JsonSerializable(createToJson: false)
@@ -58,8 +75,10 @@ class ProductNutrition {
   final double? fiber;
   @JsonKey(fromJson: _toDouble)
   final double? sodium;
-  final bool? containsAllergens;
-  final bool? isProcessed;
+  @JsonKey(fromJson: _toStringList)
+  final List<String>? containsAllergens;
+  @JsonKey(fromJson: _toStringOrNull)
+  final String? isProcessed;
 
   /// True when at least one macronutrient value is present — lets the UI decide
   /// between the real nutrient panel and the honest "scan to unlock" state.
@@ -70,6 +89,12 @@ class ProductNutrition {
       sugars != null ||
       fat != null ||
       sodium != null;
+
+  bool? get hasAllergenSignal => containsAllergens?.isNotEmpty;
+
+  bool get isMinimallyProcessed => isProcessed == 'not';
+
+  bool get isUltraProcessed => isProcessed == 'ultra';
 
   factory ProductNutrition.fromJson(Map<String, dynamic> json) =>
       _$ProductNutritionFromJson(json);

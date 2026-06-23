@@ -26,6 +26,7 @@ import '../../design/tokens.dart';
 import '../../design/widgets/empty_state.dart';
 import '../../design/widgets/error_state.dart';
 import '../../design/widgets/mor_companion.dart';
+import '../../l10n/generated/app_localizations.dart';
 
 /// Provider for the list of active recall alerts. Uses
 /// `apiClient.getRecalls()` which maps to `GET /api/v1/recalls`.
@@ -47,7 +48,7 @@ class RecallAlertsScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Recall alerts',
+          AppLocalizations.of(context).recallTitle,
           style: theme.textTheme.titleLarge?.copyWith(
             fontWeight: FontWeight.w800,
           ),
@@ -63,7 +64,7 @@ class RecallAlertsScreen extends ConsumerWidget {
               children: [
                 const SizedBox(height: 80),
                 ErrorState(
-                  title: 'Could not load recalls.',
+                  title: AppLocalizations.of(context).recallLoadError,
                   onRetry: () => ref.invalidate(recallsProvider),
                 ),
               ],
@@ -74,17 +75,15 @@ class RecallAlertsScreen extends ConsumerWidget {
                   // RefreshIndicator needs a scrollable child even when
                   // there's nothing to show, so wrap the empty state.
                   physics: const AlwaysScrollableScrollPhysics(),
-                  children: const [
-                    SizedBox(height: 80),
+                  children: [
+                    const SizedBox(height: 80),
                     EmptyState(
-                      illustration: MorCompanion(
+                      illustration: const MorCompanion(
                         mood: MorMood.guard,
                         size: 104,
                       ),
-                      title: 'No active recalls',
-                      body:
-                          'You will see product recall alerts here as they are '
-                          'issued by regulatory bodies.',
+                      title: AppLocalizations.of(context).recallEmpty,
+                      body: AppLocalizations.of(context).recallEmptyBody,
                     ),
                   ],
                 );
@@ -133,7 +132,9 @@ class _RecallTileState extends State<_RecallTile> {
     final theme = Theme.of(context);
     final scheme = theme.colorScheme;
     final recall = widget.recall;
-    final title = recall.productName ?? 'Product ${_short(recall.productId)}';
+    final title = recall.productName?.isNotEmpty == true
+        ? recall.productName!
+        : AppLocalizations.of(context).recallProductFallback(_short(recall.productId));
     final ean = recall.productEan;
     final tappable = ean != null && ean.isNotEmpty;
     final stripe = _severityColor(context, recall.severity);
@@ -195,7 +196,8 @@ class _RecallTileState extends State<_RecallTile> {
                               recall.recalledAt!.isNotEmpty) ...[
                             const SizedBox(height: RadhaSpacing.space4),
                             Text(
-                              'Recalled ${_formatDate(recall.recalledAt!)}',
+                              AppLocalizations.of(context)
+                                  .recallDate(_formatDate(recall.recalledAt!)),
                               style: theme.textTheme.bodySmall?.copyWith(
                                 color: scheme.onSurfaceVariant,
                               ),
@@ -218,7 +220,7 @@ class _RecallTileState extends State<_RecallTile> {
                             Row(
                               children: [
                                 Text(
-                                  'View product',
+                                  AppLocalizations.of(context).recallViewProduct,
                                   style: theme.textTheme.labelMedium?.copyWith(
                                     color: scheme.primary,
                                   ),

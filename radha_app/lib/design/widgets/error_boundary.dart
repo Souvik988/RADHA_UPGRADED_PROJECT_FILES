@@ -203,7 +203,7 @@ class _ErrorFallback extends StatelessWidget {
                     ),
                     const SizedBox(height: RadhaSpacing.space24),
                     PrimaryButton(
-                      label: 'Report',
+                      label: 'Report', // l10n-ignore: crash fallback must not depend on the l10n layer
                       icon: Icons.flag_outlined,
                       expand: true,
                       onPressed: () {
@@ -217,7 +217,7 @@ class _ErrorFallback extends StatelessWidget {
                     ),
                     const SizedBox(height: RadhaSpacing.space12),
                     SecondaryButton(
-                      label: 'Retry',
+                      label: 'Retry', // l10n-ignore: crash fallback must not depend on the l10n layer
                       icon: Icons.refresh,
                       expand: true,
                       onPressed: () {

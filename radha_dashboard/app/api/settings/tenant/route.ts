@@ -14,7 +14,8 @@ export async function GET(): Promise<NextResponse> {
     return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
   }
 
-  const { tenantId, accessToken } = session;
+  const { accessToken } = session;
+  const { tenantId } = session.user;
 
   try {
     const res = await fetch(`${API_BASE}/tenants/${tenantId}`, {

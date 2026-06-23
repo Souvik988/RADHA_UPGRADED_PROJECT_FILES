@@ -10,6 +10,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../core/entitlements/entitlement_provider.dart';
 import '../../core/router/app_router.dart';
+import '../../l10n/generated/app_localizations.dart';
 import '../tokens.dart';
 import 'primary_button.dart';
 
@@ -45,6 +46,7 @@ class _LockedOverlay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     final planName = requiredPlanFor(feature);
 
     return Stack(
@@ -87,7 +89,7 @@ class _LockedOverlay extends StatelessWidget {
                   ),
                   const SizedBox(height: RadhaSpacing.space16),
                   Text(
-                    'Upgrade to $planName',
+                    l10n.lockedFeatureUpgradeTo(planName),
                     textAlign: TextAlign.center,
                     style: theme.textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.w700,
@@ -95,7 +97,7 @@ class _LockedOverlay extends StatelessWidget {
                   ),
                   const SizedBox(height: RadhaSpacing.space4),
                   Text(
-                    'This feature is part of the $planName plan.',
+                    l10n.lockedFeaturePlan(planName),
                     textAlign: TextAlign.center,
                     style: theme.textTheme.bodySmall?.copyWith(
                       color: theme.colorScheme.onSurfaceVariant,
@@ -103,7 +105,7 @@ class _LockedOverlay extends StatelessWidget {
                   ),
                   const SizedBox(height: RadhaSpacing.space24),
                   PrimaryButton(
-                    label: 'View plans',
+                    label: l10n.lockedFeatureViewPlans,
                     icon: Icons.workspace_premium_outlined,
                     onPressed: () => context.push(AppRoute.subscription),
                   ),

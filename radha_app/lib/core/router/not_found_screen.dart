@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import '../../design/app_assets.dart';
 import '../../design/tokens.dart';
 import '../../design/widgets/mor_companion.dart';
+import '../../l10n/generated/app_localizations.dart';
 import 'app_router.dart';
 
 /// Branded 404 surface for GoRouter's `errorBuilder`.
@@ -20,6 +21,7 @@ class NotFoundScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     return Scaffold(
       backgroundColor: theme.colorScheme.surface,
       body: SafeArea(
@@ -29,14 +31,14 @@ class NotFoundScreen extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const MorCompanion(
+                MorCompanion(
                   mood: MorMood.concern,
                   size: 120,
-                  semanticLabel: 'Page not found',
+                  semanticLabel: l10n.notFoundSemantic,
                 ),
                 const SizedBox(height: RadhaSpacing.space24),
                 Text(
-                  'This page wandered off',
+                  l10n.notFoundTitle,
                   textAlign: TextAlign.center,
                   style: theme.textTheme.headlineSmall?.copyWith(
                     fontWeight: FontWeight.w800,
@@ -44,8 +46,7 @@ class NotFoundScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: RadhaSpacing.space8),
                 Text(
-                  "We couldn't find what you were looking for. Let's get you "
-                  'back home.',
+                  l10n.notFoundBody,
                   textAlign: TextAlign.center,
                   style: theme.textTheme.bodyMedium?.copyWith(
                     color: theme.colorScheme.onSurfaceVariant,
@@ -54,7 +55,7 @@ class NotFoundScreen extends StatelessWidget {
                 const SizedBox(height: RadhaSpacing.space24),
                 FilledButton(
                   onPressed: () => context.go(AppRoute.home),
-                  child: const Text('Back to home'),
+                  child: Text(l10n.notFoundBackHome),
                 ),
                 if (location != null && location!.isNotEmpty) ...[
                   const SizedBox(height: RadhaSpacing.space24),

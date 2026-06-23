@@ -1,5 +1,6 @@
 ﻿import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'package:radha_app/core/auth/auth_controller.dart';
 import 'package:radha_app/core/network/api_client.dart';
 import 'package:radha_app/core/network/dto/task_dto.dart';
 
@@ -12,11 +13,17 @@ import 'package:radha_app/core/network/dto/task_dto.dart';
 /// while good data sticks until an explicit pull-to-refresh invalidates it.
 void _cacheOnSuccess(Ref ref) => ref.keepAlive();
 
-/// Count of expiry records with status "near_expiry".
-/// Calls the paginated endpoint with `limit: 1` and reads the `total` field.
+/// Count of expiry records in warning/danger states for the selected store.
+/// Returns 0 immediately when no store is selected (consumer accounts).
 final nearExpiryCountProvider = FutureProvider.autoDispose<int>((ref) async {
+  final storeId = ref.watch(currentUserProvider)?.selectedStoreId;
+  if (storeId == null) return 0;
   final client = ref.watch(apiClientProvider);
-  final response = await client.getExpiries(status: 'near_expiry', limit: 1);
+  final response = await client.getExpiries(
+    status: 'yellow,red',
+    storeId: storeId,
+    limit: 200,
+  );
   _cacheOnSuccess(ref);
   return response.total;
 });

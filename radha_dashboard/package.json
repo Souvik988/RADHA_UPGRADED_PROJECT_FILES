@@ -10,7 +10,8 @@
     "token-lint": "node scripts/token-lint.mjs",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "@hookform/resolvers": "3.3.4",
@@ -40,6 +41,7 @@
     "zod": "3.22.4"
   },
   "devDependencies": {
+    "@playwright/test": "^1.61.0",
     "@testing-library/dom": "10.4.0",
     "@testing-library/jest-dom": "6.6.3",
     "@testing-library/react": "16.1.0",

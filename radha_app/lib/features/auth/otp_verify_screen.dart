@@ -335,7 +335,7 @@ class _OtpVerifyScreenState extends ConsumerState<OtpVerifyScreen> {
                               minimumSize: Size.zero,
                               tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                             ),
-                            child: const Text('Edit'),
+                            child: Text(AppLocalizations.of(context).edit),
                           ),
                         ],
                       ),
@@ -409,7 +409,7 @@ class _OtpVerifyScreenState extends ConsumerState<OtpVerifyScreen> {
                       const Spacer(),
                       const SizedBox(height: RadhaSpacing.space24),
                       PrimaryButton(
-                        label: 'Verify OTP',
+                        label: AppLocalizations.of(context).verifyOtp,
                         expand: true,
                         loading: _loading,
                         onPressed: _loading
@@ -503,7 +503,7 @@ class _DevOtpBanner extends StatelessWidget {
               minimumSize: Size.zero,
               tapTargetSize: MaterialTapTargetSize.shrinkWrap,
             ),
-            child: const Text('Use code'),
+            child: Text(AppLocalizations.of(context).otpUseCode),
           ),
         ],
       ),
@@ -543,7 +543,7 @@ class _ResendRow extends StatelessWidget {
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         alignment: Alignment.centerLeft,
       ),
-      child: const Text('Resend OTP'),
+      child: Text(AppLocalizations.of(context).resendOtp),
     );
   }
 }

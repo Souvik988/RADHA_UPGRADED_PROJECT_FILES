@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 
 import { AuthModule } from '@/modules/auth/auth.module';
 import { ObservabilityModule } from '@/observability/observability.module';
+import { ProductsModule } from '@/modules/products/products.module';
 
 import { AffiliateController } from './controllers/affiliate.controller';
 import { AlternativesController } from './controllers/alternatives.controller';
@@ -11,6 +12,7 @@ import { AffiliateRevenueRepository } from './repositories/affiliate-revenue.rep
 import { AffiliateLinkService } from './services/affiliate-link.service';
 import { AffiliateTrackingService } from './services/affiliate-tracking.service';
 import { HealthyAlternativesService } from './services/healthy-alternatives.service';
+import { RealProductsLookupAdapterService } from './services/real-products-lookup.adapter';
 import { StubProductsLookupAdapter } from './services/stub-products-lookup.adapter';
 import { PRODUCTS_LOOKUP_PORT } from './ports/products-lookup.port';
 
@@ -48,7 +50,7 @@ import { PRODUCTS_LOOKUP_PORT } from './ports/products-lookup.port';
  * its response without re-instantiating the engine.
  */
 @Module({
-  imports: [AuthModule, ObservabilityModule],
+  imports: [AuthModule, ObservabilityModule, ProductsModule],
   controllers: [AlternativesController, AffiliateController],
   providers: [
     AffiliatePartnerRepository,
@@ -57,9 +59,10 @@ import { PRODUCTS_LOOKUP_PORT } from './ports/products-lookup.port';
     AffiliateLinkService,
     AffiliateTrackingService,
     StubProductsLookupAdapter,
+    RealProductsLookupAdapterService,
     {
       provide: PRODUCTS_LOOKUP_PORT,
-      useExisting: StubProductsLookupAdapter,
+      useExisting: RealProductsLookupAdapterService,
     },
     HealthyAlternativesService,
   ],
@@ -69,6 +72,7 @@ import { PRODUCTS_LOOKUP_PORT } from './ports/products-lookup.port';
     AffiliateTrackingService,
     PRODUCTS_LOOKUP_PORT,
     StubProductsLookupAdapter,
+    RealProductsLookupAdapterService,
   ],
 })
 export class AffiliateModule {}

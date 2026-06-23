@@ -13,6 +13,7 @@ import 'package:radha_app/design/widgets/error_state.dart';
 import 'package:radha_app/design/widgets/skeleton_loader.dart';
 import 'package:radha_app/features/catalog/catalog_health.dart';
 import 'package:radha_app/features/home/data/home_catalog.dart';
+import 'package:radha_app/l10n/generated/app_localizations.dart';
 
 import 'providers/product_browse_providers.dart';
 
@@ -40,8 +41,11 @@ class _ProductBrowseScreenState extends ConsumerState<ProductBrowseScreen> {
 
   RadhaCategory get _category => kRadhaCategories.firstWhere(
     (c) => c.id == widget.categoryId,
-    orElse: () =>
-        RadhaCategory(id: widget.categoryId, label: 'Products', asset: ''),
+    orElse: () => RadhaCategory(
+      id: widget.categoryId,
+      label: 'Products', // l10n-ignore: internal fallback; category titles localize via home_catalog (Phase 4)
+      asset: '',
+    ),
   );
 
   @override
@@ -72,6 +76,10 @@ class _ProductBrowseScreenState extends ConsumerState<ProductBrowseScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final category = _category;
+    final categoryName = categoryLabel(
+      AppLocalizations.of(context),
+      category.id,
+    );
     final args = (widget.categoryId, _sort);
     final browse = ref.watch(categoryBrowseProvider(args));
 
@@ -80,7 +88,7 @@ class _ProductBrowseScreenState extends ConsumerState<ProductBrowseScreen> {
       appBar: AppBar(
         backgroundColor: theme.colorScheme.surface,
         title: Text(
-          category.label,
+          categoryName,
           style: theme.textTheme.titleLarge?.copyWith(
             fontWeight: FontWeight.w800,
           ),
@@ -105,10 +113,10 @@ class _ProductBrowseScreenState extends ConsumerState<ProductBrowseScreen> {
               loading: () => const _ProductGridSkeleton(),
               error: (_, _) => Center(
                 child: ErrorState(
-                  title: "Couldn't load products",
-                  body:
-                      'We hit a snag loading ${category.label.toLowerCase()}. '
-                      'Please try again.',
+                  title: AppLocalizations.of(context).browseLoadError,
+                  body: AppLocalizations.of(
+                    context,
+                  ).browseLoadErrorBody(categoryName.toLowerCase()),
                   onRetry: () => ref.invalidate(categoryBrowseProvider(args)),
                 ),
               ),
@@ -125,37 +133,121 @@ class _ProductBrowseScreenState extends ConsumerState<ProductBrowseScreen> {
                     onClearVeg: () => setState(() => _vegOnly = false),
                   );
                 }
-                return RefreshIndicator(
-                  color: RadhaColors.primary,
-                  onRefresh: () async =>
-                      ref.invalidate(categoryBrowseProvider(args)),
-                  child: GridView.builder(
-                    controller: _scrollController,
-                    physics: const AlwaysScrollableScrollPhysics(
-                      parent: BouncingScrollPhysics(),
-                    ),
-                    padding: const EdgeInsets.all(RadhaSpacing.space20),
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          childAspectRatio: 0.66,
-                          crossAxisSpacing: RadhaSpacing.space12,
-                          mainAxisSpacing: RadhaSpacing.space12,
+                return Column(
+                  children: [
+                    // Honest provenance: when the rows aren't live, say so and
+                    // offer a retry — the bundled catalog still renders below.
+                    if (state.source != CatalogSource.live)
+                      _CatalogSourceBanner(
+                        source: state.source,
+                        onRetry: () =>
+                            ref.invalidate(categoryBrowseProvider(args)),
+                      ),
+                    Expanded(
+                      child: RefreshIndicator(
+                        color: RadhaColors.primary,
+                        onRefresh: () async =>
+                            ref.invalidate(categoryBrowseProvider(args)),
+                        child: GridView.builder(
+                          controller: _scrollController,
+                          physics: const AlwaysScrollableScrollPhysics(
+                            parent: BouncingScrollPhysics(),
+                          ),
+                          padding: const EdgeInsets.all(RadhaSpacing.space20),
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                childAspectRatio: 0.66,
+                                crossAxisSpacing: RadhaSpacing.space12,
+                                mainAxisSpacing: RadhaSpacing.space12,
+                              ),
+                          // +1 trailing cell for the load-more footer.
+                          itemCount: items.length + (state.loadingMore ? 2 : 0),
+                          itemBuilder: (context, i) {
+                            if (i >= items.length) {
+                              return const _LoadingMoreCell();
+                            }
+                            return RepaintBoundary(
+                              child: _ProductCard(product: items[i]),
+                            );
+                          },
                         ),
-                    // +1 trailing cell for the load-more footer when paging.
-                    itemCount: items.length + (state.loadingMore ? 2 : 0),
-                    itemBuilder: (context, i) {
-                      if (i >= items.length) {
-                        return const _LoadingMoreCell();
-                      }
-                      return RepaintBoundary(
-                        child: _ProductCard(product: items[i]),
-                      );
-                    },
-                  ),
+                      ),
+                    ),
+                  ],
                 );
               },
             ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// ─── Catalog source banner (honest offline / unavailable cue) ──────────────
+
+/// A slim, non-blocking strip shown above the grid when the visible rows are
+/// the bundled catalog rather than live server data. Communicates *why* (icon +
+/// text, never colour-alone) and offers a retry. The grid stays usable below.
+class _CatalogSourceBanner extends StatelessWidget {
+  const _CatalogSourceBanner({required this.source, required this.onRetry});
+
+  final CatalogSource source;
+  final VoidCallback onRetry;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final offline = source == CatalogSource.offline;
+    final tone = offline ? RadhaColors.complement : RadhaColors.warning;
+    final icon = offline
+        ? Icons.cloud_off_rounded
+        : Icons.error_outline_rounded;
+    final message = offline
+        ? 'Offline — showing your saved catalog'
+        : 'Live catalog unavailable — showing saved catalog';
+
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.fromLTRB(
+        RadhaSpacing.space20,
+        0,
+        RadhaSpacing.space20,
+        RadhaSpacing.space8,
+      ),
+      padding: const EdgeInsets.symmetric(
+        horizontal: RadhaSpacing.space12,
+        vertical: RadhaSpacing.space8,
+      ),
+      decoration: BoxDecoration(
+        color: tone.withValues(alpha: 0.10),
+        borderRadius: BorderRadius.circular(RadhaRadii.radiusMd),
+        border: Border.all(color: tone.withValues(alpha: 0.30)),
+      ),
+      child: Row(
+        children: [
+          Icon(icon, size: 18, color: tone),
+          const SizedBox(width: RadhaSpacing.space8),
+          Expanded(
+            child: Text(
+              message,
+              style: theme.textTheme.bodySmall?.copyWith(
+                color: theme.colorScheme.onSurface,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+          TextButton(
+            onPressed: onRetry,
+            style: TextButton.styleFrom(
+              foregroundColor: tone,
+              minimumSize: const Size(0, kMinTouchTarget),
+              padding: const EdgeInsets.symmetric(
+                horizontal: RadhaSpacing.space8,
+              ),
+            ),
+            child: Text(AppLocalizations.of(context).tryAgain),
           ),
         ],
       ),
@@ -197,16 +289,16 @@ class _ControlBar extends StatelessWidget {
                 visualDensity: VisualDensity.compact,
                 textStyle: WidgetStatePropertyAll(theme.textTheme.labelLarge),
               ),
-              segments: const [
+              segments: [
                 ButtonSegment(
                   value: CatalogSort.health,
-                  label: Text('Healthiest'),
-                  icon: Icon(Icons.favorite_rounded, size: 16),
+                  label: Text(AppLocalizations.of(context).browseSortHealthiest),
+                  icon: const Icon(Icons.favorite_rounded, size: 16),
                 ),
                 ButtonSegment(
                   value: CatalogSort.name,
-                  label: Text('A–Z'),
-                  icon: Icon(Icons.sort_by_alpha_rounded, size: 16),
+                  label: Text(AppLocalizations.of(context).browseSortAZ),
+                  icon: const Icon(Icons.sort_by_alpha_rounded, size: 16),
                 ),
               ],
               selected: {sort},
@@ -232,8 +324,9 @@ class _VegToggle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     return Semantics(
-      label: 'Veg only',
+      label: l10n.browseFilterVegOnly,
       toggled: value,
       button: true,
       child: InkWell(
@@ -257,7 +350,7 @@ class _VegToggle extends StatelessWidget {
               const VegDot(isVeg: true, size: 14),
               const SizedBox(width: RadhaSpacing.space8),
               Text(
-                'Veg',
+                l10n.browseVeg,
                 style: theme.textTheme.labelLarge?.copyWith(
                   fontWeight: FontWeight.w700,
                   color: value
@@ -507,11 +600,14 @@ class _EmptyBody extends StatelessWidget {
             size: 150,
           ),
           icon: Icons.eco_outlined,
-          title: 'No veg items here yet',
-          body:
-              "Nothing in ${category.label.toLowerCase()} matches the veg "
-              'filter right now.',
-          actionLabel: 'Show all',
+          title: AppLocalizations.of(context).browseEmptyVeg,
+          body: AppLocalizations.of(context).browseEmptyVegBody(
+            categoryLabel(
+              AppLocalizations.of(context),
+              category.id,
+            ).toLowerCase(),
+          ),
+          actionLabel: AppLocalizations.of(context).browseShowAll,
           actionIcon: Icons.clear_rounded,
           onAction: onClearVeg,
         ),
@@ -524,11 +620,14 @@ class _EmptyBody extends StatelessWidget {
           size: 150,
         ),
         icon: Icons.inventory_2_outlined,
-        title: 'No products yet',
-        body:
-            "We're stocking the ${category.label.toLowerCase()} aisle. "
-            'Meanwhile, scan any item to check its health and expiry.',
-        actionLabel: 'Scan a product',
+        title: AppLocalizations.of(context).browseEmpty,
+        body: AppLocalizations.of(context).browseEmptyBody(
+          categoryLabel(
+            AppLocalizations.of(context),
+            category.id,
+          ).toLowerCase(),
+        ),
+        actionLabel: AppLocalizations.of(context).scanProduct,
         actionIcon: Icons.qr_code_scanner_rounded,
         onAction: onScan,
       ),

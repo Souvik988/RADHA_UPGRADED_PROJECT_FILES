@@ -11,6 +11,18 @@ import type { AiOperation, OperationLimits } from './types/ai.types';
 /** Hard wall-clock cap on a single LLM completion (Req 45 + T-v2.3). */
 export const AI_LLM_DEFAULT_TIMEOUT_MS = 10_000;
 
+/**
+ * Transient-failure retry policy for LLM providers. A production LLM call can
+ * hit a transient 429/5xx or a dropped connection; one retry with jittered
+ * exponential backoff absorbs those without compounding latency. Per-attempt
+ * timeouts (`timeoutMs`) still bound each try, and a wall-clock timeout
+ * (AbortError) is treated as terminal — retrying it would blow the budget.
+ */
+export const AI_LLM_MAX_ATTEMPTS = 3;
+export const AI_LLM_RETRY_BASE_DELAY_MS = 250;
+/** HTTP statuses worth retrying (rate-limit + transient upstream errors). */
+export const AI_LLM_RETRYABLE_STATUSES: ReadonlySet<number> = new Set([429, 500, 502, 503, 504]);
+
 /** Wall-clock cap on a single Vision / Rekognition request. */
 export const AI_VISION_DEFAULT_TIMEOUT_MS = 8_000;
 

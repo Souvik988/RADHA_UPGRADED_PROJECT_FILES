@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../core/auth/auth_controller.dart';
+import '../../core/mode/app_mode_provider.dart';
 import '../../core/network/api_client.dart';
 import '../../core/network/dto/expiry_dto.dart';
 import '../../core/router/app_router.dart';
@@ -11,6 +13,7 @@ import '../../design/theme.dart';
 import '../../design/tokens.dart';
 import '../../design/widgets/empty_state.dart';
 import '../../design/widgets/mor_companion.dart';
+import '../../l10n/generated/app_localizations.dart';
 
 /// Status filter tabs for the expiry list.
 enum _ExpiryTab { nearExpiry, expired, safe }
@@ -22,20 +25,47 @@ extension on _ExpiryTab {
     _ExpiryTab.safe => 'safe',
   };
 
-  String get label => switch (this) {
-    _ExpiryTab.nearExpiry => 'Near-expiry',
-    _ExpiryTab.expired => 'Expired',
-    _ExpiryTab.safe => 'Safe',
+  String get apiStatus => switch (this) {
+    _ExpiryTab.nearExpiry => 'yellow,red',
+    _ExpiryTab.expired => 'expired',
+    _ExpiryTab.safe => 'green',
   };
+}
+
+@immutable
+class _ExpiryQueryArgs {
+  const _ExpiryQueryArgs({
+    required this.storeId,
+    required this.uiStatus,
+    required this.apiStatus,
+  });
+
+  final String storeId;
+  final String uiStatus;
+  final String apiStatus;
+
+  @override
+  bool operator ==(Object other) =>
+      other is _ExpiryQueryArgs &&
+      other.storeId == storeId &&
+      other.uiStatus == uiStatus &&
+      other.apiStatus == apiStatus;
+
+  @override
+  int get hashCode => Object.hash(storeId, uiStatus, apiStatus);
 }
 
 /// First-page provider per status. Pagination beyond page one is handled in
 /// local state inside [_ExpiryTabContent]; this provider owns the initial
 /// fetch + pull-to-refresh invalidation.
 final _expiryFirstPageProvider = FutureProvider.autoDispose
-    .family<PaginatedExpiries, String>((ref, status) async {
+    .family<PaginatedExpiries, _ExpiryQueryArgs>((ref, args) async {
       final client = ref.watch(apiClientProvider);
-      return client.getExpiries(status: status, limit: 20);
+      return client.getExpiries(
+        status: args.apiStatus,
+        storeId: args.storeId,
+        limit: 20,
+      );
     });
 
 /// Expiry list screen — a segmented Near-expiry / Expired / Safe view, each
@@ -79,65 +109,159 @@ class _ExpiryListScreenState extends ConsumerState<ExpiryListScreen>
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
+    final auth = ref.watch(authControllerProvider);
+    final session = auth.valueOrNull;
+    final selectedStoreId = session?.selectedStoreId;
+    final hasSelectableStores = session?.stores.isNotEmpty ?? false;
+    final isConsumerMode =
+        !(session?.roles.any(kBusinessRoles.contains) ?? false);
+
+    final body = auth.isLoading
+        ? const _ExpiryListSkeleton()
+        : selectedStoreId == null
+        ? _ExpiryNeedsStore(
+            canSelectStore: hasSelectableStores,
+            isConsumerMode: isConsumerMode,
+          )
+        : Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(
+                  RadhaSpacing.space20,
+                  RadhaSpacing.space8,
+                  RadhaSpacing.space20,
+                  RadhaSpacing.space12,
+                ),
+                child: _SegmentedTabs(
+                  labels: _tabs.map((t) => _tabLabel(l10n, t)).toList(),
+                  index: _index,
+                  onChanged: (i) {
+                    HapticFeedback.selectionClick();
+                    _tabController.animateTo(i);
+                  },
+                ),
+              ),
+              Expanded(
+                child: TabBarView(
+                  controller: _tabController,
+                  children: _tabs
+                      .map(
+                        (t) => _ExpiryTabContent(
+                          query: _ExpiryQueryArgs(
+                            storeId: selectedStoreId,
+                            uiStatus: t.status,
+                            apiStatus: t.apiStatus,
+                          ),
+                        ),
+                      )
+                      .toList(),
+                ),
+              ),
+            ],
+          );
+
     return Scaffold(
       backgroundColor: theme.colorScheme.surface,
       appBar: AppBar(
         backgroundColor: theme.colorScheme.surface,
         title: Text(
-          'Expiry Tracking',
+          l10n.expiryTracker,
           style: theme.textTheme.titleLarge?.copyWith(
             fontWeight: FontWeight.w800,
           ),
         ),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.calendar_month_outlined),
-            tooltip: 'Calendar view',
-            onPressed: () {
-              HapticFeedback.selectionClick();
-              context.push(AppRoute.expiryCalendar);
-            },
-          ),
-        ],
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(
-              RadhaSpacing.space20,
-              RadhaSpacing.space8,
-              RadhaSpacing.space20,
-              RadhaSpacing.space12,
-            ),
-            child: _SegmentedTabs(
-              labels: _tabs.map((t) => t.label).toList(),
-              index: _index,
-              onChanged: (i) {
+          if (selectedStoreId != null)
+            IconButton(
+              icon: const Icon(Icons.calendar_month_outlined),
+              tooltip: l10n.expiryCalendarTooltip,
+              onPressed: () {
                 HapticFeedback.selectionClick();
-                _tabController.animateTo(i);
+                context.push(AppRoute.expiryCalendar);
               },
             ),
-          ),
-          Expanded(
-            child: TabBarView(
-              controller: _tabController,
-              children: _tabs
-                  .map((t) => _ExpiryTabContent(status: t.status))
-                  .toList(),
-            ),
-          ),
         ],
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        heroTag: 'expiry_fab',
-        backgroundColor: RadhaColors.primary,
-        foregroundColor: RadhaColors.onPrimary,
-        onPressed: () {
-          HapticFeedback.lightImpact();
-          context.push(AppRoute.expiryNew);
-        },
-        icon: const Icon(Icons.add_rounded),
-        label: const Text('Add'),
+      body: body,
+      floatingActionButton: selectedStoreId == null
+          ? null
+          : FloatingActionButton.extended(
+              heroTag: 'expiry_fab',
+              backgroundColor: RadhaColors.primary,
+              foregroundColor: RadhaColors.onPrimary,
+              onPressed: () {
+                HapticFeedback.lightImpact();
+                context.push(AppRoute.expiryNew);
+              },
+              icon: const Icon(Icons.add_rounded),
+              label: Text(l10n.add),
+            ),
+    );
+  }
+
+  String _tabLabel(AppLocalizations l10n, _ExpiryTab tab) => switch (tab) {
+    _ExpiryTab.nearExpiry => l10n.expiryTabNear,
+    _ExpiryTab.expired => l10n.expired,
+    _ExpiryTab.safe => l10n.expiryTabSafe,
+  };
+}
+
+/// Empty state shown when no store is selected.
+/// - Consumer accounts: explain this is a business/store feature.
+/// - Staff with assignable stores: prompt to pick a store.
+/// - Staff with no stores yet: tell them to contact their manager.
+class _ExpiryNeedsStore extends StatelessWidget {
+  const _ExpiryNeedsStore({
+    required this.canSelectStore,
+    required this.isConsumerMode,
+  });
+
+  final bool canSelectStore;
+  final bool isConsumerMode;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+
+    if (isConsumerMode) {
+      return Center(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(RadhaSpacing.space16),
+          child: EmptyState(
+            illustration:
+                const MorCompanion(mood: MorMood.guard, size: 104),
+            title: l10n.expiryConsumerTitle,
+            body: l10n.expiryConsumerBody,
+          ),
+        ),
+      );
+    }
+
+    return Center(
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.all(RadhaSpacing.space16),
+        child: EmptyState(
+          illustration: const MorCompanion(mood: MorMood.concern, size: 104),
+          title: l10n.selectStoreEmpty,
+          body: l10n.selectStoreEmptyBody,
+          actionLabel: canSelectStore
+              ? 'Select store'
+              : l10n.selectStoreContactManager,
+          actionIcon: canSelectStore
+              ? Icons.storefront_outlined
+              : Icons.support_agent_outlined,
+          onAction: () {
+            HapticFeedback.selectionClick();
+            if (canSelectStore) {
+              context.push(AppRoute.selectStore);
+              return;
+            }
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(l10n.selectStoreEmptyBody)),
+            );
+          },
+        ),
       ),
     );
   }
@@ -206,9 +330,9 @@ class _SegmentedTabs extends StatelessWidget {
 /// Content of a single tab — first page from the provider, further pages from
 /// local state. Self-contained so each status keeps its own scroll + cursor.
 class _ExpiryTabContent extends ConsumerStatefulWidget {
-  const _ExpiryTabContent({required this.status});
+  const _ExpiryTabContent({required this.query});
 
-  final String status;
+  final _ExpiryQueryArgs query;
 
   @override
   ConsumerState<_ExpiryTabContent> createState() => _ExpiryTabContentState();
@@ -232,6 +356,17 @@ class _ExpiryTabContentState extends ConsumerState<_ExpiryTabContent>
   }
 
   @override
+  void didUpdateWidget(covariant _ExpiryTabContent oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.query != widget.query) {
+      _more.clear();
+      _cursor = null;
+      _initialised = false;
+      _loadingMore = false;
+    }
+  }
+
+  @override
   void dispose() {
     _scrollController.dispose();
     super.dispose();
@@ -251,7 +386,8 @@ class _ExpiryTabContentState extends ConsumerState<_ExpiryTabContent>
       final page = await client.getExpiries(
         cursor: _cursor,
         limit: 20,
-        status: widget.status,
+        status: widget.query.apiStatus,
+        storeId: widget.query.storeId,
       );
       if (!mounted) return;
       setState(() {
@@ -270,14 +406,15 @@ class _ExpiryTabContentState extends ConsumerState<_ExpiryTabContent>
       _cursor = null;
       _initialised = false;
     });
-    ref.invalidate(_expiryFirstPageProvider(widget.status));
-    await ref.read(_expiryFirstPageProvider(widget.status).future);
+    ref.invalidate(_expiryFirstPageProvider(widget.query));
+    await ref.read(_expiryFirstPageProvider(widget.query).future);
   }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    final asyncValue = ref.watch(_expiryFirstPageProvider(widget.status));
+    final l10n = AppLocalizations.of(context);
+    final asyncValue = ref.watch(_expiryFirstPageProvider(widget.query));
 
     return asyncValue.when(
       loading: () => const _ExpiryListSkeleton(),
@@ -303,11 +440,11 @@ class _ExpiryTabContentState extends ConsumerState<_ExpiryTabContent>
                 Center(
                   child: EmptyState(
                     illustration: MorCompanion(
-                      mood: _emptyMood(widget.status),
+                      mood: _emptyMood(widget.query.uiStatus),
                       size: 104,
                     ),
-                    title: _emptyTitle(widget.status),
-                    body: _emptyMessage(widget.status),
+                    title: _emptyTitle(l10n, widget.query.uiStatus),
+                    body: _emptyMessage(l10n, widget.query.uiStatus),
                   ),
                 ),
               ],
@@ -353,19 +490,20 @@ class _ExpiryTabContentState extends ConsumerState<_ExpiryTabContent>
     );
   }
 
-  MorMood _emptyMood(String status) => switch (status) {
+  MorMood _emptyMood(String uiStatus) => switch (uiStatus) {
     'expired' => MorMood.celebrate,
     'near_expiry' => MorMood.guard,
     _ => MorMood.greet,
   };
 
-  String _emptyTitle(String status) => switch (status) {
-    'expired' => 'Nothing expired',
-    'near_expiry' => 'All clear',
-    _ => 'No records yet',
+  String _emptyTitle(AppLocalizations l10n, String status) => switch (status) {
+    'expired' => l10n.expiryEmptyExpiredTitle,
+    'near_expiry' => l10n.expiryEmptyNearTitle,
+    _ => l10n.expiryEmptyDefaultTitle,
   };
 
-  String _emptyMessage(String status) => 'No records in this category.';
+  String _emptyMessage(AppLocalizations l10n, String status) =>
+      l10n.expiryEmptyBody;
 }
 
 /// A single expiry record tile — thumbnail, name/batch, and a day-count
@@ -385,19 +523,20 @@ class _ExpiryListTile extends StatelessWidget {
     return dateOnly.difference(todayOnly).inDays;
   }
 
-  String _shortProduct() {
+  String _shortProduct(AppLocalizations l10n) {
     // The list endpoint returns productId only; show a stable short token
     // rather than a raw uuid until the product-name join lands server-side.
     final id = item.productId;
-    if (id.length <= 8) return 'Product $id';
-    return 'Product ${id.substring(0, 8)}';
+    final token = id.length <= 8 ? id : id.substring(0, 8);
+    return l10n.expiryProductShort(token);
   }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     final days = _daysLeft;
-    final (pillColor, pillBg, pillText) = _pill(theme, days, item.status);
+    final (pillColor, pillBg, pillText) = _pill(theme, days, item.status, l10n);
 
     return Container(
       decoration: BoxDecoration(
@@ -428,7 +567,7 @@ class _ExpiryListTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  _shortProduct(),
+                  _shortProduct(l10n),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: theme.textTheme.titleSmall?.copyWith(
@@ -438,9 +577,10 @@ class _ExpiryListTile extends StatelessWidget {
                 const SizedBox(height: RadhaSpacing.space2),
                 Text(
                   [
-                    if (item.batchNumber != null) 'Batch ${item.batchNumber}',
-                    if (item.quantity != null) 'Qty ${item.quantity}',
-                    'Exp ${item.expiryDate}',
+                    if (item.batchNumber != null)
+                      l10n.expiryBatch(item.batchNumber!),
+                    if (item.quantity != null) l10n.expiryQty('${item.quantity}'),
+                    l10n.expiryExp(item.expiryDate),
                   ].join(' · '),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
@@ -475,53 +615,60 @@ class _ExpiryListTile extends StatelessWidget {
     );
   }
 
-  (Color, Color, String) _pill(ThemeData theme, int? days, String? status) {
+  (Color, Color, String) _pill(
+    ThemeData theme,
+    int? days,
+    String? status,
+    AppLocalizations l10n,
+  ) {
     // Prefer the precise day count; fall back to the server status label.
     if (days != null) {
       if (days < 0) {
         return (
           RadhaColors.danger,
           RadhaColors.danger.withValues(alpha: 0.12),
-          'Expired',
+          l10n.expired,
         );
       }
       if (days == 0) {
         return (
           RadhaColors.danger,
           RadhaColors.danger.withValues(alpha: 0.12),
-          'Today',
+          l10n.expiryPillToday,
         );
       }
       if (days == 1) {
         return (
           RadhaColors.warning,
           RadhaColors.primaryTint.withValues(alpha: 0.5),
-          'Tomorrow',
+          l10n.expiryPillTomorrow,
         );
       }
       if (days <= 30) {
         return (
           RadhaColors.warning,
           RadhaColors.primaryTint.withValues(alpha: 0.5),
-          '${days}d',
+          l10n.expiryPillDays(days),
         );
       }
       return (
         theme.colorScheme.onSurfaceVariant,
         theme.colorScheme.surfaceContainerLow,
-        '${days}d',
+        l10n.expiryPillDays(days),
       );
     }
     final c = switch (status) {
       'expired' => RadhaColors.danger,
-      'near_expiry' => RadhaColors.warning,
-      'safe' => RadhaColors.success,
+      'red' || 'near_expiry' => RadhaColors.danger,
+      'yellow' || 'safe' => RadhaColors.warning,
+      'green' => RadhaColors.success,
       _ => theme.colorScheme.onSurfaceVariant,
     };
     final label = switch (status) {
-      'expired' => 'Expired',
-      'near_expiry' => 'Soon',
-      'safe' => 'Safe',
+      'expired' => l10n.expired,
+      'red' || 'near_expiry' => l10n.expiryPillSoon,
+      'yellow' => l10n.expiryPillSoon,
+      'green' || 'safe' => l10n.expiryTabSafe,
       _ => '—',
     };
     return (c, c.withValues(alpha: 0.12), label);
@@ -566,26 +713,27 @@ class _ExpiryError extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(RadhaSpacing.space24),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const MorCompanion(
+            MorCompanion(
               mood: MorMood.concern,
               size: 96,
-              semanticLabel: 'Could not load',
+              semanticLabel: l10n.expiryCouldNotLoadSemantic,
             ),
             const SizedBox(height: RadhaSpacing.space16),
             Text(
-              'Couldn\'t load expiry records.',
+              l10n.expiryLoadError,
               style: theme.textTheme.bodyMedium,
             ),
             const SizedBox(height: RadhaSpacing.space16),
             OutlinedButton(
               onPressed: onRetry,
-              child: const Text('Retry'),
+              child: Text(l10n.tryAgain),
             ),
           ],
         ),

@@ -78,7 +78,7 @@ export class GrnReversalService {
       { isolationLevel: 'serializable' },
     );
 
-    void this.supplierPerf.reverseMetrics(grn.supplierId, grn.id).catch((err) => {
+    void this.supplierPerf.reverseMetrics(grn.tenantId, grn.supplierId, grn.id).catch((err) => {
       this.logger.warn('grn.supplier_performance.reverse_failed', {
         grnId: grn.id,
         supplierId: grn.supplierId,

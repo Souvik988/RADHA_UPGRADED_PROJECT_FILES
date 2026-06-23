@@ -737,7 +737,7 @@ class _ApiClient implements ApiClient {
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/api/v1/expiry',
+            '/api/v1/expiry-records',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -755,34 +755,36 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<PaginatedExpiries> getExpiries({
-    String? cursor,
+  Future<List<ExpiryResponse>> getExpiryRecords({
     int? limit,
     String? status,
+    String? storeId,
   }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
-      r'cursor': cursor,
       r'limit': limit,
       r'status': status,
+      r'storeId': storeId,
     };
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<PaginatedExpiries>(
+    final _options = _setStreamType<List<ExpiryResponse>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/api/v1/expiry',
+            '/api/v1/expiry-records',
             queryParameters: queryParameters,
             data: _data,
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late PaginatedExpiries _value;
+    final _result = await _dio.fetch<List<dynamic>>(_options);
+    late List<ExpiryResponse> _value;
     try {
-      _value = PaginatedExpiries.fromJson(_result.data!);
+      _value = _result.data!
+          .map((e) => ExpiryResponse.fromJson(e as Map<String, dynamic>))
+          .toList();
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
@@ -800,7 +802,7 @@ class _ApiClient implements ApiClient {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/api/v1/expiry/${id}',
+            '/api/v1/expiry-records/${id}',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -827,41 +829,13 @@ class _ApiClient implements ApiClient {
       Options(method: 'DELETE', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/api/v1/expiry/${id}',
+            '/api/v1/expiry-records/${id}',
             queryParameters: queryParameters,
             data: _data,
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     await _dio.fetch<void>(_options);
-  }
-
-  @override
-  Future<ExpiryCalendarResponse> getExpiryCalendar({String? month}) async {
-    final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'month': month};
-    queryParameters.removeWhere((k, v) => v == null);
-    final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<ExpiryCalendarResponse>(
-      Options(method: 'GET', headers: _headers, extra: _extra)
-          .compose(
-            _dio.options,
-            '/api/v1/expiry/calendar',
-            queryParameters: queryParameters,
-            data: _data,
-          )
-          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
-    );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late ExpiryCalendarResponse _value;
-    try {
-      _value = ExpiryCalendarResponse.fromJson(_result.data!);
-    } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
-      rethrow;
-    }
-    return _value;
   }
 
   @override

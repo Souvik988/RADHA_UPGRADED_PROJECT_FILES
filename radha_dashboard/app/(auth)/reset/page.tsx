@@ -157,7 +157,9 @@ function CompleteStep({ token }: { token: string }) {
 }
 
 /* ── Page ─────────────────────────────────────────────────────────────────── */
-export default function ResetPage() {
+import { Suspense } from 'react';
+
+function ResetContent() {
   const params = useSearchParams();
   const token = params.get('token');
 
@@ -177,5 +179,17 @@ export default function ResetPage() {
         {token ? <CompleteStep token={token} /> : <RequestStep />}
       </div>
     </div>
+  );
+}
+
+export default function ResetPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-[var(--surface)]">
+        <div className="w-10 h-10 rounded-full border-4 border-[var(--accent)] border-t-transparent animate-spin" />
+      </div>
+    }>
+      <ResetContent />
+    </Suspense>
   );
 }

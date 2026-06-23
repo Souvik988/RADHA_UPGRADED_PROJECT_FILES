@@ -61,7 +61,7 @@ final ohsSnapshotProvider = FutureProvider.autoDispose<OhsSnapshot>((ref) async 
     throw const ApiException(
       statusCode: 400,
       code: 'NO_STORE_SELECTED',
-      message: 'Pick a store before opening the dashboard.',
+      message: 'Pick a store before opening the dashboard.', // l10n-ignore: data-layer exception; UI should map code NO_STORE_SELECTED → l10n.ohsPickStore
     );
   }
   final response = await api.getDashboardSummary(storeId, daysAhead: 14);
@@ -837,10 +837,10 @@ class _OhsError extends StatelessWidget {
       physics: const AlwaysScrollableScrollPhysics(),
       padding: const EdgeInsets.all(RadhaSpacing.space24),
       children: [
-        const MorCompanion(
+        MorCompanion(
           mood: MorMood.concern,
           size: 96,
-          semanticLabel: 'Could not load',
+          semanticLabel: AppLocalizations.of(context).commonCouldNotLoad,
         ),
         const SizedBox(height: RadhaSpacing.space16),
         Text(

@@ -11,6 +11,7 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 import '../../core/router/app_router.dart';
 import '../../design/theme.dart';
 import '../../design/tokens.dart';
+import '../../l10n/generated/app_localizations.dart';
 import 'utils/ean_validator.dart';
 
 /// Side length of the central scan window / reticle, in logical pixels.
@@ -126,7 +127,9 @@ class _ScanScreenState extends ConsumerState<ScanScreen> {
           SnackBar(
             duration: const Duration(milliseconds: 900),
             behavior: SnackBarBehavior.floating,
-            content: Text('Added $code  ·  $_batchCount scanned'),
+            content: Text(
+              AppLocalizations.of(context).scanBatchAdded(code, _batchCount),
+            ),
           ),
         );
       return;
@@ -194,11 +197,9 @@ class _ScanScreenState extends ConsumerState<ScanScreen> {
       ScaffoldMessenger.of(context)
         ..hideCurrentSnackBar()
         ..showSnackBar(
-          const SnackBar(
+          SnackBar(
             behavior: SnackBarBehavior.floating,
-            content: Text(
-              "No barcode found. Tip: use 'Scan label' to read the ingredients.",
-            ),
+            content: Text(AppLocalizations.of(context).scanGalleryNoBarcode),
           ),
         );
     }
@@ -208,8 +209,8 @@ class _ScanScreenState extends ConsumerState<ScanScreen> {
     final code = _webEanController.text.trim();
     if (!isValidEan(code)) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Enter a valid EAN-8, EAN-13, or UPC-A code'),
+        SnackBar(
+          content: Text(AppLocalizations.of(context).scanInvalidEan),
         ),
       );
       return;
@@ -259,6 +260,7 @@ class _ScanScreenState extends ConsumerState<ScanScreen> {
   }
 
   Widget _buildCameraScanner(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final media = MediaQuery.of(context);
     final topPad = media.padding.top;
     final bottomPad = media.padding.bottom;
@@ -305,7 +307,7 @@ class _ScanScreenState extends ConsumerState<ScanScreen> {
                 ),
                 Expanded(
                   child: Text(
-                    'Scan a product',
+                    l10n.scanTitle,
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       color: RadhaColors.onPrimary,
@@ -343,9 +345,7 @@ class _ScanScreenState extends ConsumerState<ScanScreen> {
               child: _showHelp
                   ? _TroubleCard(onFlash: _toggleTorch, onLabel: _openLabelScan)
                   : _HelperPill(
-                      text: _batchMode
-                          ? 'Batch mode — keep scanning, items add automatically'
-                          : 'Align the barcode within the frame',
+                      text: _batchMode ? l10n.scanBatchHint : l10n.scanAlignHint,
                     ),
             ),
           ),
@@ -363,32 +363,32 @@ class _ScanScreenState extends ConsumerState<ScanScreen> {
                 if (_batchMode)
                   _PillTextButton(
                     icon: Icons.check_circle_rounded,
-                    label: 'Done · $_batchCount',
+                    label: l10n.scanBatchDone(_batchCount),
                     onTap: _toggleBatchMode,
                   ),
                 _PillTextButton(
                   icon: Icons.document_scanner_outlined,
-                  label: 'Scan label',
+                  label: l10n.scanLabelAction,
                   onTap: _openLabelScan,
                 ),
                 _PillTextButton(
                   icon: Icons.photo_library_outlined,
-                  label: 'Gallery',
+                  label: l10n.scanGalleryAction,
                   onTap: _galleryImport,
                 ),
                 _PillTextButton(
                   icon: Icons.keyboard_rounded,
-                  label: 'Enter manually',
+                  label: l10n.scanEnterManually,
                   onTap: _manualEntry,
                 ),
                 _PillTextButton(
                   icon: Icons.fact_check_outlined,
-                  label: 'Bulk audit',
+                  label: l10n.scanBulkAudit,
                   onTap: _openBulkAudit,
                 ),
                 _PillTextButton(
                   icon: Icons.history_rounded,
-                  label: 'History',
+                  label: l10n.scanHistoryAction,
                   onTap: _showHistory,
                 ),
               ],
@@ -401,8 +401,9 @@ class _ScanScreenState extends ConsumerState<ScanScreen> {
 
   Widget _buildWebFallback(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     return Scaffold(
-      appBar: AppBar(title: const Text('Scan')),
+      appBar: AppBar(title: Text(l10n.scanWebTitle)),
       body: Padding(
         padding: const EdgeInsets.all(RadhaSpacing.space24),
         child: Column(
@@ -415,7 +416,7 @@ class _ScanScreenState extends ConsumerState<ScanScreen> {
             ),
             const SizedBox(height: RadhaSpacing.space24),
             Text(
-              'Camera scanning is not available on web.\nEnter a barcode manually:',
+              l10n.scanWebUnavailable,
               textAlign: TextAlign.center,
               style: theme.textTheme.bodyLarge,
             ),
@@ -423,9 +424,9 @@ class _ScanScreenState extends ConsumerState<ScanScreen> {
             TextField(
               controller: _webEanController,
               keyboardType: TextInputType.number,
-              decoration: const InputDecoration(
-                labelText: 'EAN / UPC Code',
-                hintText: 'e.g. 5901234123457',
+              decoration: InputDecoration(
+                labelText: l10n.scanEanFieldLabel,
+                hintText: l10n.scanEanHintExample,
               ),
               onSubmitted: (_) => _onWebLookup(),
             ),
@@ -435,14 +436,14 @@ class _ScanScreenState extends ConsumerState<ScanScreen> {
               width: double.infinity,
               child: FilledButton(
                 onPressed: _onWebLookup,
-                child: const Text('Lookup'),
+                child: Text(l10n.scanLookUp),
               ),
             ),
             const SizedBox(height: RadhaSpacing.space16),
             TextButton.icon(
               onPressed: _showHistory,
               icon: const Icon(Icons.history),
-              label: const Text('Scan history'),
+              label: Text(l10n.scanHistoryTitle),
             ),
           ],
         ),
@@ -622,6 +623,7 @@ class _TroubleCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     return Container(
       padding: const EdgeInsets.all(RadhaSpacing.space16),
       decoration: BoxDecoration(
@@ -633,7 +635,7 @@ class _TroubleCard extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            'Trouble scanning?',
+            l10n.scanTroubleTitle,
             style: theme.textTheme.titleSmall?.copyWith(
               color: RadhaColors.onPrimary,
               fontWeight: FontWeight.w700,
@@ -641,8 +643,7 @@ class _TroubleCard extends StatelessWidget {
           ),
           const SizedBox(height: RadhaSpacing.space4),
           Text(
-            'Low light or a damaged barcode? Turn on the flash, or read the '
-            'label instead.',
+            l10n.scanTroubleBody,
             textAlign: TextAlign.center,
             style: theme.textTheme.bodySmall?.copyWith(
               color: RadhaColors.onPrimary.withValues(alpha: 0.85),
@@ -654,13 +655,13 @@ class _TroubleCard extends StatelessWidget {
             children: [
               _PillTextButton(
                 icon: Icons.flash_on_rounded,
-                label: 'Flash',
+                label: l10n.scanFlash,
                 onTap: onFlash,
               ),
               const SizedBox(width: RadhaSpacing.space12),
               _PillTextButton(
                 icon: Icons.document_scanner_outlined,
-                label: 'Scan label',
+                label: l10n.scanLabelAction,
                 onTap: onLabel,
               ),
             ],
@@ -769,7 +770,9 @@ class _ManualEntrySheetState extends State<_ManualEntrySheet> {
   void _submit() {
     final code = _controller.text.trim();
     if (!isValidEan(code)) {
-      setState(() => _error = 'Enter a valid EAN-8, EAN-13, or UPC-A code');
+      setState(
+        () => _error = AppLocalizations.of(context).scanInvalidEan,
+      );
       return;
     }
     Navigator.of(context).pop(code);
@@ -778,6 +781,7 @@ class _ManualEntrySheetState extends State<_ManualEntrySheet> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     final bottomInset = MediaQuery.of(context).viewInsets.bottom;
     return Padding(
       padding: EdgeInsets.fromLTRB(
@@ -790,14 +794,14 @@ class _ManualEntrySheetState extends State<_ManualEntrySheet> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Enter barcode', style: theme.textTheme.titleLarge),
+          Text(l10n.scanEnterBarcode, style: theme.textTheme.titleLarge),
           const SizedBox(height: RadhaSpacing.space16),
           TextField(
             controller: _controller,
             keyboardType: TextInputType.number,
             autofocus: true,
             decoration: InputDecoration(
-              hintText: 'e.g. 5901234123457',
+              hintText: l10n.scanEanHintExample,
               errorText: _error,
             ),
             onChanged: (_) {
@@ -811,7 +815,7 @@ class _ManualEntrySheetState extends State<_ManualEntrySheet> {
             height: kMinTouchTarget,
             child: FilledButton(
               onPressed: _submit,
-              child: const Text('Look up'),
+              child: Text(l10n.scanLookUp),
             ),
           ),
         ],
@@ -829,6 +833,7 @@ class _ScanHistorySheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.symmetric(
@@ -839,7 +844,7 @@ class _ScanHistorySheet extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Scan history', style: theme.textTheme.titleLarge),
+            Text(l10n.scanHistoryTitle, style: theme.textTheme.titleLarge),
             const SizedBox(height: RadhaSpacing.space16),
             if (history.isEmpty)
               Padding(
@@ -848,7 +853,7 @@ class _ScanHistorySheet extends StatelessWidget {
                 ),
                 child: Center(
                   child: Text(
-                    'No scans yet this session.',
+                    l10n.scanNoHistory,
                     style: theme.textTheme.bodyMedium?.copyWith(
                       color: theme.colorScheme.onSurfaceVariant,
                     ),

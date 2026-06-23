@@ -213,7 +213,10 @@ class _OtpRequestScreenState extends ConsumerState<OtpRequestScreen> {
                         ),
                       ),
                       const SizedBox(height: RadhaSpacing.space32),
-                      Text('Mobile number', style: theme.textTheme.labelLarge),
+                      Text(
+                        AppLocalizations.of(context).mobileNumber,
+                        style: theme.textTheme.labelLarge,
+                      ),
                       const SizedBox(height: RadhaSpacing.space8),
                       _PhoneField(
                         controller: _controller,
@@ -254,7 +257,7 @@ class _OtpRequestScreenState extends ConsumerState<OtpRequestScreen> {
                       const Spacer(),
                       const SizedBox(height: RadhaSpacing.space24),
                       PrimaryButton(
-                        label: 'Send OTP',
+                        label: AppLocalizations.of(context).sendOtp,
                         expand: true,
                         loading: _loading,
                         onPressed: _isValid && !_loading ? _submit : null,

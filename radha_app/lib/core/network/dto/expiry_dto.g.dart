@@ -9,9 +9,13 @@ part of 'expiry_dto.dart';
 Map<String, dynamic> _$CreateExpiryDtoToJson(CreateExpiryDto instance) =>
     <String, dynamic>{
       'productId': instance.productId,
+      'storeId': instance.storeId,
       'expiryDate': instance.expiryDate,
+      'manufactureDate': instance.manufactureDate,
       'batchNumber': instance.batchNumber,
       'quantity': instance.quantity,
+      'source': instance.source,
+      'shelfLocation': instance.shelfLocation,
     };
 
 ExpiryResponse _$ExpiryResponseFromJson(Map<String, dynamic> json) =>

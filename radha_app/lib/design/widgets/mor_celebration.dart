@@ -6,6 +6,7 @@ import 'package:radha_app/design/app_assets.dart';
 import 'package:radha_app/design/tokens.dart';
 import 'package:radha_app/design/widgets/brand_illustration.dart';
 import 'package:radha_app/design/widgets/mor_companion.dart';
+import 'package:radha_app/l10n/generated/app_localizations.dart';
 
 /// A one-shot celebration beat: Mor in the `celebrate` pose with a burst of
 /// marigold petals radiating outward, then a gentle settle.
@@ -101,7 +102,7 @@ class _MorCelebrationState extends State<MorCelebration>
     final mor = BrandIllustration(
       RadhaAssets.morSceneWin,
       size: widget.size,
-      semanticLabel: 'Success',
+      semanticLabel: AppLocalizations.of(context).commonSuccess,
       // The breathing idle would fight the burst; the static frame is the
       // fallback if the win illustration can't decode.
       fallback: MorCompanion(

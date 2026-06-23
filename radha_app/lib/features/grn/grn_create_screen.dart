@@ -6,6 +6,7 @@ import '../../core/network/api_client.dart';
 import '../../core/network/dto/grn_dto.dart';
 import '../../design/tokens.dart';
 import '../../design/widgets/primary_button.dart';
+import '../../l10n/generated/app_localizations.dart';
 
 /// GRN creation screen — captures the header fields (supplier, invoice number,
 /// invoice date, expected delivery) and creates a draft GRN via the API.
@@ -57,11 +58,12 @@ class _GrnCreateScreenState extends ConsumerState<GrnCreateScreen> {
   }
 
   Future<void> _submit() async {
+    final l10n = AppLocalizations.of(context);
     if (!_formKey.currentState!.validate()) return;
     if (_invoiceDate == null) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text('Invoice date is required')));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(l10n.grnInvoiceDateRequired)),
+      );
       return;
     }
 
@@ -88,9 +90,7 @@ class _GrnCreateScreenState extends ConsumerState<GrnCreateScreen> {
     } catch (_) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Could not create the GRN. Please try again.'),
-        ),
+        SnackBar(content: Text(AppLocalizations.of(context).grnCreateError)),
       );
     } finally {
       if (mounted) setState(() => _isSubmitting = false);
@@ -100,13 +100,14 @@ class _GrnCreateScreenState extends ConsumerState<GrnCreateScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
 
     return Scaffold(
       backgroundColor: theme.colorScheme.surface,
       appBar: AppBar(
         backgroundColor: theme.colorScheme.surface,
         title: Text(
-          'New GRN',
+          l10n.grnNew,
           style: theme.textTheme.titleLarge?.copyWith(
             fontWeight: FontWeight.w800,
           ),
@@ -120,7 +121,7 @@ class _GrnCreateScreenState extends ConsumerState<GrnCreateScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
-                'Supplier & invoice',
+                l10n.grnSupplierInvoiceSection,
                 style: theme.textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w700,
                 ),
@@ -130,13 +131,13 @@ class _GrnCreateScreenState extends ConsumerState<GrnCreateScreen> {
               // Supplier picker (text field for now).
               TextFormField(
                 controller: _supplierController,
-                decoration: const InputDecoration(
-                  labelText: 'Supplier name',
-                  hintText: 'Enter supplier name',
-                  prefixIcon: Icon(Icons.business),
+                decoration: InputDecoration(
+                  labelText: l10n.grnSupplierNameLabel,
+                  hintText: l10n.grnSupplierNameHint,
+                  prefixIcon: const Icon(Icons.business),
                 ),
                 validator: (v) => (v == null || v.trim().isEmpty)
-                    ? 'Supplier is required'
+                    ? l10n.grnSupplierRequired
                     : null,
               ),
               const SizedBox(height: RadhaSpacing.space24),
@@ -144,20 +145,20 @@ class _GrnCreateScreenState extends ConsumerState<GrnCreateScreen> {
               // Invoice number.
               TextFormField(
                 controller: _invoiceNumberController,
-                decoration: const InputDecoration(
-                  labelText: 'Invoice number',
-                  hintText: 'Enter invoice number',
-                  prefixIcon: Icon(Icons.receipt),
+                decoration: InputDecoration(
+                  labelText: l10n.grnInvoiceNumberLabel,
+                  hintText: l10n.grnInvoiceNumberHint,
+                  prefixIcon: const Icon(Icons.receipt),
                 ),
                 validator: (v) => (v == null || v.trim().isEmpty)
-                    ? 'Invoice number is required'
+                    ? l10n.grnInvoiceNumberRequired
                     : null,
               ),
               const SizedBox(height: RadhaSpacing.space24),
 
               // Invoice date.
               _DatePickerField(
-                label: 'Invoice date *',
+                label: l10n.grnInvoiceDateLabel,
                 value: _invoiceDate,
                 onTap: _pickInvoiceDate,
               ),
@@ -165,7 +166,7 @@ class _GrnCreateScreenState extends ConsumerState<GrnCreateScreen> {
 
               // Expected delivery date.
               _DatePickerField(
-                label: 'Expected delivery date',
+                label: l10n.grnExpectedDeliveryLabel,
                 value: _expectedDelivery,
                 onTap: _pickExpectedDelivery,
               ),
@@ -173,7 +174,7 @@ class _GrnCreateScreenState extends ConsumerState<GrnCreateScreen> {
 
               // Submit button.
               PrimaryButton(
-                label: 'Create Draft GRN',
+                label: l10n.grnCreateDraft,
                 expand: true,
                 loading: _isSubmitting,
                 onPressed: _isSubmitting ? null : _submit,
@@ -212,7 +213,7 @@ class _DatePickerField extends StatelessWidget {
         child: Text(
           value != null
               ? '${value!.day}/${value!.month}/${value!.year}'
-              : 'Select date',
+              : AppLocalizations.of(context).grnSelectDate,
           style: TextStyle(
             color: value != null
                 ? Theme.of(context).textTheme.bodyLarge?.color

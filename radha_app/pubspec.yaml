@@ -125,6 +125,7 @@ flutter:
     - assets/v2/character/mor/sheet-expressions.png
     - assets/v2/character/mor/sheet-turnaround.png
     - assets/v2/character/mor/parts/parts-sheet.png
+    - assets/v2/character/mor/scenes/
     # Human character cast
     - assets/v2/character/humans/sheet.png
     - assets/v2/character/humans/ramesh-onit.png
@@ -143,9 +144,15 @@ flutter:
     - assets/v2/icons/fat-droplet.png
     - assets/v2/icons/processed-factory.png
     - assets/v2/icons/child-star.png
+    - assets/v2/icons/health/
     # ── Home illustrations ────────────────────────────────────────────────
     - assets/v2/illustration/home-storefront.png
     - assets/v2/illustration/home-mission.png
+    - assets/v2/illustrations/
+    - assets/v2/states/
+    - assets/v2/onboarding/
+    - assets/v2/banners/
+    - assets/v2/plus/
     # ── Lottie animations ─────────────────────────────────────────────────
     - assets/v2/lottie/splash.json
     - assets/v2/lottie/scan-success.json

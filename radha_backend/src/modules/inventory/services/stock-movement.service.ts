@@ -80,6 +80,14 @@ export class StockMovementService {
     }
 
     const existing = await this.itemsRepo.findByProductAndStore(input.productId, input.storeId, tx);
+    // `findByProductAndStore` is keyed on (product, store) only — NOT tenant —
+    // so an existing row could belong to another tenant if a storeId ever
+    // resolved outside the caller's tenant. Fail closed rather than writing
+    // across tenants, matching applyStockOutInTx / applyAdjustInTx. A genuinely
+    // new (product, store) for this tenant still hits the create path below.
+    if (existing && existing.tenantId !== tenantId) {
+      throw new DomainNotFoundException('InventoryItem');
+    }
     const quantityBefore = existing?.quantity ?? 0;
     const quantityAfter = quantityBefore + input.quantity;
 

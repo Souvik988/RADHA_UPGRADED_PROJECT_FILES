@@ -1,6 +1,8 @@
+import 'dart:io';
 import 'dart:math' as math;
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -18,6 +20,7 @@ import '../../design/tokens.dart';
 import '../../design/widgets/mor_celebration.dart';
 import '../../design/widgets/mor_companion.dart';
 import '../../design/widgets/primary_button.dart';
+import '../../l10n/generated/app_localizations.dart';
 
 /// FutureProvider that fetches a product by EAN. Auto-disposed so cache
 /// doesn't grow unbounded across many scan results.
@@ -78,7 +81,7 @@ class ScanResultScreen extends ConsumerWidget {
       appBar: AppBar(
         backgroundColor: theme.colorScheme.surface,
         title: Text(
-          'Scan Result',
+          AppLocalizations.of(context).scanResultTitle,
           style: theme.textTheme.titleLarge?.copyWith(
             fontWeight: FontWeight.w800,
           ),
@@ -90,16 +93,16 @@ class ScanResultScreen extends ConsumerWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.ios_share_rounded),
-            tooltip: 'Share',
+            tooltip: AppLocalizations.of(context).commonShare,
             onPressed: () => Share.share(
-              'I checked this product on RADHA — barcode $ean.',
+              AppLocalizations.of(context).scanResultShareMessage(ean),
             ),
           ),
         ],
       ),
       body: productAsync.when(
         loading: () => const _SkeletonBody(),
-        error: (error, _) => _ErrorBody(ean: ean),
+        error: (error, _) => _ErrorBody(ean: ean, error: error),
         data: (product) => _ProductBody(product: product, ean: ean),
       ),
     );
@@ -329,11 +332,13 @@ class _ApprovedEanPill extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final storeId = ref.watch(currentUserProvider)?.selectedStoreId;
 
+    final l10n = AppLocalizations.of(context);
+
     // No store ⇒ consumer context, nothing to verify against.
     if (storeId == null) {
-      return const _PillFrame(
+      return _PillFrame(
         icon: Icons.verified_outlined,
-        label: 'Approval status — not in an audit',
+        label: l10n.scanApprovalNotInAudit,
         tone: _PillTone.neutral,
       );
     }
@@ -343,42 +348,42 @@ class _ApprovedEanPill extends ConsumerWidget {
     );
 
     return result.when(
-      loading: () => const _PillFrame(
+      loading: () => _PillFrame(
         icon: null,
-        label: 'Checking approved list…',
+        label: l10n.scanApprovalChecking,
         tone: _PillTone.neutral,
         showSpinner: true,
       ),
-      error: (_, _) => const _PillFrame(
+      error: (_, _) => _PillFrame(
         icon: Icons.help_outline_rounded,
-        label: "Couldn't check approval",
+        label: l10n.scanApprovalCheckFailed,
         tone: _PillTone.neutral,
       ),
       data: (validation) {
         if (validation.matched) {
-          return const _PillFrame(
+          return _PillFrame(
             icon: Icons.check_circle_rounded,
-            label: 'Approved — in list',
+            label: l10n.scanApprovalApproved,
             tone: _PillTone.success,
           );
         }
         switch (validation.reason) {
           case 'no_active_list':
-            return const _PillFrame(
+            return _PillFrame(
               icon: Icons.info_outline_rounded,
-              label: 'No approved list active',
+              label: l10n.scanApprovalNoList,
               tone: _PillTone.warning,
             );
           case 'invalid_format':
-            return const _PillFrame(
+            return _PillFrame(
               icon: Icons.cancel_rounded,
-              label: 'Invalid barcode',
+              label: l10n.scanApprovalInvalidBarcode,
               tone: _PillTone.danger,
             );
           default:
-            return const _PillFrame(
+            return _PillFrame(
               icon: Icons.cancel_rounded,
-              label: 'Not in approved list',
+              label: l10n.scanApprovalNotInList,
               tone: _PillTone.danger,
             );
         }
@@ -424,7 +429,7 @@ class _PillFrame extends StatelessWidget {
     final Color foreground = tinted ? accent : theme.colorScheme.onSurfaceVariant;
 
     return Semantics(
-      label: 'Approval status: $label',
+      label: AppLocalizations.of(context).scanApprovalStatus(label),
       child: Align(
         alignment: Alignment.centerLeft,
         child: Container(
@@ -472,6 +477,7 @@ class _HealthSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     return Container(
       padding: const EdgeInsets.all(RadhaSpacing.space16),
       decoration: BoxDecoration(
@@ -485,7 +491,7 @@ class _HealthSection extends StatelessWidget {
           Row(
             children: [
               Text(
-                'Health',
+                l10n.scanResultHealthHeading,
                 style: theme.textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w700,
                 ),
@@ -502,7 +508,7 @@ class _HealthSection extends StatelessWidget {
                   borderRadius: BorderRadius.circular(RadhaRadii.radiusFull),
                 ),
                 child: Text(
-                  'Assessment pending',
+                  l10n.scanResultAssessmentPending,
                   style: theme.textTheme.labelSmall?.copyWith(
                     color: theme.colorScheme.onSurfaceVariant,
                   ),
@@ -517,8 +523,7 @@ class _HealthSection extends StatelessWidget {
               const SizedBox(width: RadhaSpacing.space20),
               Expanded(
                 child: Text(
-                  'Nutrition flags appear here once this product is matched '
-                  'in the catalog. Scan more items to enrich the database.',
+                  l10n.scanResultNutritionPending,
                   style: theme.textTheme.bodySmall?.copyWith(
                     color: theme.colorScheme.onSurfaceVariant,
                     height: 1.4,
@@ -528,33 +533,33 @@ class _HealthSection extends StatelessWidget {
             ],
           ),
           const SizedBox(height: RadhaSpacing.space16),
-          const Wrap(
+          Wrap(
             spacing: RadhaSpacing.space8,
             runSpacing: RadhaSpacing.space8,
             children: [
               _HealthChip(
-                label: 'Sugar',
-                icon: RadhaAssets.iconSugar,
+                label: AppLocalizations.of(context).healthSugar,
+                icon: Icons.water_drop_outlined,
                 level: _HealthLevel.unknown,
               ),
               _HealthChip(
-                label: 'Salt',
-                icon: RadhaAssets.iconSalt,
+                label: AppLocalizations.of(context).healthSalt,
+                icon: Icons.grain,
                 level: _HealthLevel.unknown,
               ),
               _HealthChip(
-                label: 'Fat',
-                icon: RadhaAssets.iconFat,
+                label: AppLocalizations.of(context).healthFat,
+                icon: Icons.opacity,
                 level: _HealthLevel.unknown,
               ),
               _HealthChip(
-                label: 'Processed',
-                icon: RadhaAssets.iconProcessed,
+                label: AppLocalizations.of(context).healthProcessed,
+                icon: Icons.factory_outlined,
                 level: _HealthLevel.unknown,
               ),
               _HealthChip(
-                label: 'Child-suitable',
-                icon: RadhaAssets.iconChildStar,
+                label: AppLocalizations.of(context).healthChildSuitable,
+                icon: Icons.child_friendly,
                 level: _HealthLevel.unknown,
               ),
             ],
@@ -721,9 +726,7 @@ class _HealthChip extends StatelessWidget {
   });
 
   final String label;
-
-  /// Path to the v2 health-flag glyph (sugar / salt / fat / processed / child).
-  final String icon;
+  final IconData icon;
   final _HealthLevel level;
 
   @override
@@ -748,15 +751,7 @@ class _HealthChip extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Image.asset(
-            icon,
-            width: 16,
-            height: 16,
-            cacheWidth: 48,
-            filterQuality: FilterQuality.medium,
-            errorBuilder: (_, _, _) =>
-                Icon(Icons.circle, size: 10, color: color),
-          ),
+          Icon(icon, size: 16, color: color),
           const SizedBox(width: RadhaSpacing.space8),
           Text(
             label,
@@ -814,7 +809,7 @@ class _ExplainIngredientsButton extends StatelessWidget {
               const SizedBox(width: RadhaSpacing.space12),
               Expanded(
                 child: Text(
-                  'Explain ingredients',
+                  AppLocalizations.of(context).scanResultExplainIngredients,
                   style: theme.textTheme.titleSmall?.copyWith(
                     color: theme.colorScheme.onSurface,
                   ),
@@ -857,8 +852,7 @@ class _AllergenNote extends StatelessWidget {
           const SizedBox(width: RadhaSpacing.space12),
           Expanded(
             child: Text(
-              'Set up your allergen profile to get instant warnings when a '
-              'scanned product contains something you avoid.',
+              AppLocalizations.of(context).scanResultAllergenPrompt,
               style: theme.textTheme.bodySmall?.copyWith(
                 color: RadhaColors.ink,
                 height: 1.4,
@@ -896,7 +890,7 @@ class _ActionBar extends StatelessWidget {
         children: [
           Expanded(
             child: PrimaryButton(
-              label: 'Add to expiry',
+              label: AppLocalizations.of(context).scanResultAddToExpiry,
               icon: Icons.event_available_outlined,
               expand: true,
               onPressed: () {
@@ -908,13 +902,13 @@ class _ActionBar extends StatelessWidget {
           const SizedBox(width: RadhaSpacing.space12),
           _OutlineIconButton(
             icon: Icons.add_box_outlined,
-            tooltip: 'Add to stock',
+            tooltip: AppLocalizations.of(context).scanResultAddToStock,
             onTap: () => context.push(AppRoute.inventoryStockMovement),
           ),
           const SizedBox(width: RadhaSpacing.space12),
           _OutlineIconButton(
             icon: Icons.bookmark_add_outlined,
-            tooltip: 'Save to list',
+            tooltip: AppLocalizations.of(context).scanResultSaveToList,
             onTap: () => context.push(AppRoute.shoppingList),
           ),
         ],
@@ -1014,47 +1008,102 @@ class _SkeletonBody extends StatelessWidget {
 
 // ─── Error ───────────────────────────────────────────────────────────────────
 
+enum _ScanErrorKind { notFound, unauthorized, offline, timeout, serverError }
+
+_ScanErrorKind _classifyError(Object error) {
+  if (error is DioException) {
+    final status = error.response?.statusCode;
+    if (status == 401 || status == 403) return _ScanErrorKind.unauthorized;
+    if (status == 404) return _ScanErrorKind.notFound;
+    if (error.type == DioExceptionType.connectionError ||
+        error.error is SocketException) {
+      return _ScanErrorKind.offline;
+    }
+    if (error.type == DioExceptionType.receiveTimeout ||
+        error.type == DioExceptionType.sendTimeout ||
+        error.type == DioExceptionType.connectionTimeout) {
+      return _ScanErrorKind.timeout;
+    }
+    return _ScanErrorKind.serverError;
+  }
+  return _ScanErrorKind.serverError;
+}
+
 class _ErrorBody extends StatelessWidget {
-  const _ErrorBody({required this.ean});
+  const _ErrorBody({required this.ean, required this.error});
 
   final String ean;
+  final Object error;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
+    final kind = _classifyError(error);
+
+    final (title, body, showLabelScanCta) = switch (kind) {
+      _ScanErrorKind.notFound => (
+        l10n.productNotFound,
+        l10n.scanResultNotFoundBody(ean),
+        true,
+      ),
+      _ScanErrorKind.unauthorized => (
+        'Not authorised',
+        'Your session may have expired. Please sign out and sign back in.',
+        false,
+      ),
+      _ScanErrorKind.offline => (
+        'You\'re offline',
+        'Check your internet connection and try scanning again.',
+        false,
+      ),
+      _ScanErrorKind.timeout => (
+        'Request timed out',
+        'The server took too long to respond. Try again in a moment.',
+        false,
+      ),
+      _ScanErrorKind.serverError => (
+        'Something went wrong',
+        'We couldn\'t fetch this product right now. Try again.',
+        false,
+      ),
+    };
+
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(RadhaSpacing.space24),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const MorCompanion(
-              mood: MorMood.concern,
+            MorCompanion(
+              mood: kind == _ScanErrorKind.offline
+                  ? MorMood.concern
+                  : MorMood.concern,
               size: 108,
-              semanticLabel: 'No product found',
+              semanticLabel: l10n.scanResultNoProduct,
             ),
             const SizedBox(height: RadhaSpacing.space16),
-            Text('Product not found', style: theme.textTheme.titleMedium),
+            Text(title, style: theme.textTheme.titleMedium),
             const SizedBox(height: RadhaSpacing.space8),
             Text(
-              'No catalog match for EAN $ean — but you can still read the label. '
-              'Snap the ingredients panel and we\'ll tell you what\'s inside.',
+              body,
               style: theme.textTheme.bodyMedium?.copyWith(
                 color: theme.colorScheme.onSurfaceVariant,
               ),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: RadhaSpacing.space24),
-            PrimaryButton(
-              label: 'Scan the label',
-              icon: Icons.document_scanner_outlined,
-              expand: true,
-              onPressed: () => context.pushReplacement(AppRoute.labelScan),
-            ),
-            const SizedBox(height: RadhaSpacing.space12),
+            if (showLabelScanCta)
+              PrimaryButton(
+                label: l10n.scanResultScanLabel,
+                icon: Icons.document_scanner_outlined,
+                expand: true,
+                onPressed: () => context.pushReplacement(AppRoute.labelScan),
+              ),
+            if (showLabelScanCta) const SizedBox(height: RadhaSpacing.space12),
             TextButton(
               onPressed: () => context.pop(),
-              child: const Text('Scan again'),
+              child: Text(l10n.scanAgain),
             ),
           ],
         ),

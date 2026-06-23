@@ -8,10 +8,11 @@ import '../../core/network/dto/inventory_dto.dart';
 import '../../design/theme.dart';
 import '../../design/tokens.dart';
 import '../../design/widgets/primary_button.dart';
+import '../../l10n/generated/app_localizations.dart';
 
-/// Reasons available for stock movements. The backend accepts a slightly
-/// different enum per direction; this mobile-side list is the union shown
-/// to the operator, mapped to the appropriate backend reason on submit.
+/// Reasons available for stock movements. These canonical English strings are
+/// the dropdown `value` (mapped to the backend reason on submit); the visible
+/// label is resolved through [_reasonLabel].
 const List<String> _reasons = <String>[
   'Purchase',
   'Return',
@@ -21,6 +22,26 @@ const List<String> _reasons = <String>[
   'Expiry removal',
   'Other',
 ];
+
+/// Localized label for a canonical [_reasons] value.
+String _reasonLabel(AppLocalizations l10n, String reason) {
+  switch (reason) {
+    case 'Purchase':
+      return l10n.smReasonPurchase;
+    case 'Return':
+      return l10n.smReasonReturn;
+    case 'Adjustment':
+      return l10n.smReasonAdjustment;
+    case 'Transfer':
+      return l10n.smReasonTransfer;
+    case 'Damage':
+      return l10n.smReasonDamage;
+    case 'Expiry removal':
+      return l10n.smReasonExpiryRemoval;
+    default:
+      return l10n.smReasonOther;
+  }
+}
 
 /// Stock movement screen with a Stock In / Stock Out segmented toggle.
 ///
@@ -91,6 +112,7 @@ class _StockMovementScreenState extends ConsumerState<StockMovementScreen> {
   /// product's known current stock. Returns true when safe to continue.
   Future<bool> _passesStockOutGuard(String productId, int quantity) async {
     if (_type != 'out') return true;
+    final insufficientMessage = AppLocalizations.of(context).smInsufficientStock;
     try {
       final client = ref.read(apiClientProvider);
       final inventoryData = await client.getInventory();
@@ -98,7 +120,7 @@ class _StockMovementScreenState extends ConsumerState<StockMovementScreen> {
           .where((i) => i.productId == productId)
           .toList();
       if (match.isNotEmpty && match.first.quantity < quantity) {
-        setState(() => _stockError = 'Insufficient stock for this movement');
+        setState(() => _stockError = insufficientMessage);
         return false;
       }
     } catch (_) {
@@ -108,6 +130,7 @@ class _StockMovementScreenState extends ConsumerState<StockMovementScreen> {
   }
 
   Future<void> _submit() async {
+    final l10n = AppLocalizations.of(context);
     setState(() => _stockError = null);
     if (!_formKey.currentState!.validate()) return;
 
@@ -131,7 +154,7 @@ class _StockMovementScreenState extends ConsumerState<StockMovementScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
-            _type == 'in' ? 'Stock-in recorded' : 'Stock-out recorded',
+            _type == 'in' ? l10n.smStockInRecorded : l10n.smStockOutRecorded,
           ),
         ),
       );
@@ -139,11 +162,7 @@ class _StockMovementScreenState extends ConsumerState<StockMovementScreen> {
     } catch (_) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text(
-            'Could not record the stock movement. Please try again.',
-          ),
-        ),
+        SnackBar(content: Text(l10n.smRecordError)),
       );
     } finally {
       if (mounted) setState(() => _isSubmitting = false);
@@ -153,13 +172,14 @@ class _StockMovementScreenState extends ConsumerState<StockMovementScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
 
     return Scaffold(
       backgroundColor: theme.colorScheme.surface,
       appBar: AppBar(
         backgroundColor: theme.colorScheme.surface,
         title: Text(
-          'Stock movement',
+          l10n.smTitle,
           style: theme.textTheme.titleLarge?.copyWith(
             fontWeight: FontWeight.w800,
           ),
@@ -204,42 +224,45 @@ class _StockMovementScreenState extends ConsumerState<StockMovementScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      _Label('Product'),
+                      _Label(l10n.smProductLabel),
                       TextFormField(
                         key: const ValueKey('field-product'),
                         controller: _productController,
                         enabled: !_isSubmitting,
-                        decoration: const InputDecoration(
-                          hintText: 'Enter product ID or EAN',
-                          prefixIcon: Icon(Icons.inventory_2_outlined),
+                        decoration: InputDecoration(
+                          hintText: l10n.smProductHint,
+                          prefixIcon: const Icon(Icons.inventory_2_outlined),
                         ),
-                        validator: (v) =>
-                            (v == null || v.trim().isEmpty) ? 'Required' : null,
+                        validator: (v) => (v == null || v.trim().isEmpty)
+                            ? l10n.commonRequired
+                            : null,
                       ),
                       const SizedBox(height: RadhaSpacing.space16),
 
-                      _Label('Reason'),
+                      _Label(l10n.smReasonLabel),
                       DropdownButtonFormField<String>(
                         key: const ValueKey('field-reason'),
                         initialValue: _selectedReason,
                         isExpanded: true,
                         items: _reasons
                             .map(
-                              (r) =>
-                                  DropdownMenuItem(value: r, child: Text(r)),
+                              (r) => DropdownMenuItem(
+                                value: r,
+                                child: Text(_reasonLabel(l10n, r)),
+                              ),
                             )
                             .toList(),
                         onChanged: _isSubmitting
                             ? null
                             : (v) => setState(() => _selectedReason = v),
-                        decoration: const InputDecoration(
-                          hintText: 'Select reason',
+                        decoration: InputDecoration(
+                          hintText: l10n.smSelectReason,
                         ),
-                        validator: (v) => v == null ? 'Required' : null,
+                        validator: (v) => v == null ? l10n.commonRequired : null,
                       ),
                       const SizedBox(height: RadhaSpacing.space16),
 
-                      _Label('Quantity'),
+                      _Label(l10n.commonQuantity),
                       _QuantityStepper(
                         controller: _quantityController,
                         enabled: !_isSubmitting,
@@ -252,16 +275,16 @@ class _StockMovementScreenState extends ConsumerState<StockMovementScreen> {
                       ),
                       const SizedBox(height: RadhaSpacing.space16),
 
-                      _Label('Batch number'),
+                      _Label(l10n.smBatchLabel),
                       TextFormField(
                         key: const ValueKey('field-batch'),
                         controller: _batchController,
                         enabled: !_isSubmitting,
-                        decoration: const InputDecoration(hintText: 'Optional'),
+                        decoration: InputDecoration(hintText: l10n.commonOptional),
                       ),
                       const SizedBox(height: RadhaSpacing.space16),
 
-                      _Label('Expiry date'),
+                      _Label(l10n.smExpiryLabel),
                       InkWell(
                         borderRadius: BorderRadius.circular(RadhaRadii.radiusMd),
                         onTap: _isSubmitting ? null : _pickExpiryDate,
@@ -289,7 +312,7 @@ class _StockMovementScreenState extends ConsumerState<StockMovementScreen> {
                               Text(
                                 _expiryDate != null
                                     ? '${_expiryDate!.day}/${_expiryDate!.month}/${_expiryDate!.year}'
-                                    : 'Optional — tap to select',
+                                    : l10n.smExpiryOptionalHint,
                                 style: theme.textTheme.bodyMedium?.copyWith(
                                   color: _expiryDate != null
                                       ? theme.colorScheme.onSurface
@@ -302,14 +325,14 @@ class _StockMovementScreenState extends ConsumerState<StockMovementScreen> {
                       ),
                       const SizedBox(height: RadhaSpacing.space16),
 
-                      _Label('Notes'),
+                      _Label(l10n.smNotesLabel),
                       TextFormField(
                         key: const ValueKey('field-notes'),
                         controller: _notesController,
                         enabled: !_isSubmitting,
                         maxLines: 3,
-                        decoration: const InputDecoration(
-                          hintText: 'Optional notes',
+                        decoration: InputDecoration(
+                          hintText: l10n.smNotesHint,
                         ),
                       ),
                     ],
@@ -319,7 +342,7 @@ class _StockMovementScreenState extends ConsumerState<StockMovementScreen> {
 
                 PrimaryButton(
                   key: const ValueKey('submit-stock-movement'),
-                  label: _type == 'in' ? 'Record stock in' : 'Record stock out',
+                  label: _type == 'in' ? l10n.smRecordIn : l10n.smRecordOut,
                   icon: _type == 'in'
                       ? Icons.south_west_rounded
                       : Icons.north_east_rounded,
@@ -367,6 +390,7 @@ class _InOutToggle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     Widget seg(String value, String label, IconData icon) {
       final active = type == value;
       return Expanded(
@@ -422,8 +446,8 @@ class _InOutToggle extends StatelessWidget {
       ),
       child: Row(
         children: [
-          seg('in', 'Stock In', Icons.south_west_rounded),
-          seg('out', 'Stock Out', Icons.north_east_rounded),
+          seg('in', l10n.smStockIn, Icons.south_west_rounded),
+          seg('out', l10n.smStockOut, Icons.north_east_rounded),
         ],
       ),
     );

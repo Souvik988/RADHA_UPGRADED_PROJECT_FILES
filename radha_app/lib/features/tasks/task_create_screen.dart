@@ -19,6 +19,39 @@ import '../../core/network/api_client.dart';
 import '../../core/network/dto/task_dto.dart';
 import '../../design/tokens.dart';
 import '../../design/widgets/primary_button.dart';
+import '../../l10n/generated/app_localizations.dart';
+
+/// Maps a backend task-type code to its localized label.
+String _taskTypeLabel(AppLocalizations l10n, String id) {
+  switch (id) {
+    case 'ean_audit':
+      return l10n.taskTypeEanAudit;
+    case 'expiry_check':
+      return l10n.taskTypeExpiryCheck;
+    case 'inventory_count':
+      return l10n.taskTypeInventoryCount;
+    case 'display_verification':
+      return l10n.taskTypeDisplayVerification;
+    default:
+      return l10n.taskTypeCustom;
+  }
+}
+
+/// Maps a backend priority code to its localized severity label.
+String _priorityLabel(AppLocalizations l10n, String id) {
+  switch (id) {
+    case 'urgent':
+      return l10n.priorityUrgent;
+    case 'high':
+      return l10n.priorityHigh;
+    case 'medium':
+      return l10n.priorityMedium;
+    case 'low':
+      return l10n.priorityLow;
+    default:
+      return id;
+  }
+}
 
 /// Task creation screen — restricted to manager and admin roles.
 class TaskCreateScreen extends ConsumerStatefulWidget {
@@ -40,20 +73,15 @@ class _TaskCreateScreenState extends ConsumerState<TaskCreateScreen> {
   bool _requiresEvidence = false;
   bool _isSubmitting = false;
 
-  static const _taskTypes = [
-    ('ean_audit', 'EAN Audit'),
-    ('expiry_check', 'Expiry Check'),
-    ('inventory_count', 'Inventory Count'),
-    ('display_verification', 'Display Verification'),
-    ('custom', 'Custom'),
+  static const _taskTypeIds = [
+    'ean_audit',
+    'expiry_check',
+    'inventory_count',
+    'display_verification',
+    'custom',
   ];
 
-  static const _priorities = [
-    ('low', 'Low'),
-    ('medium', 'Medium'),
-    ('high', 'High'),
-    ('urgent', 'Urgent'),
-  ];
+  static const _priorityIds = ['low', 'medium', 'high', 'urgent'];
 
   @override
   void dispose() {
@@ -90,16 +118,18 @@ class _TaskCreateScreenState extends ConsumerState<TaskCreateScreen> {
       );
 
       if (mounted) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(const SnackBar(content: Text('Task created')));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(AppLocalizations.of(context).taskCreatedSnack),
+          ),
+        );
         context.pop();
       }
     } catch (_) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Could not create the task. Please try again.'),
+          SnackBar(
+            content: Text(AppLocalizations.of(context).taskCreateError),
           ),
         );
       }
@@ -125,6 +155,7 @@ class _TaskCreateScreenState extends ConsumerState<TaskCreateScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final scheme = theme.colorScheme;
+    final l10n = AppLocalizations.of(context);
     final currentUser = ref.watch(currentUserProvider);
     final reduceMotion =
         MediaQuery.maybeOf(context)?.disableAnimations ?? false;
@@ -156,10 +187,13 @@ class _TaskCreateScreenState extends ConsumerState<TaskCreateScreen> {
                   ),
                 ),
                 const SizedBox(height: RadhaSpacing.space16),
-                Text('Not authorized', style: theme.textTheme.titleMedium),
+                Text(
+                  l10n.taskNotAuthorizedTitle,
+                  style: theme.textTheme.titleMedium,
+                ),
                 const SizedBox(height: RadhaSpacing.space8),
                 Text(
-                  'Only managers and admins can create tasks.',
+                  l10n.taskNotAuthorizedBody,
                   textAlign: TextAlign.center,
                   style: theme.textTheme.bodyMedium?.copyWith(
                     color: scheme.onSurfaceVariant,
@@ -188,14 +222,14 @@ class _TaskCreateScreenState extends ConsumerState<TaskCreateScreen> {
                   reduceMotion: reduceMotion,
                   child: TextFormField(
                     controller: _titleController,
-                    decoration: const InputDecoration(
-                      labelText: 'Title',
-                      hintText: 'e.g. Audit dairy aisle EANs',
+                    decoration: InputDecoration(
+                      labelText: l10n.taskTitleLabel,
+                      hintText: l10n.taskTitleHint,
                     ),
                     textCapitalization: TextCapitalization.sentences,
                     textInputAction: TextInputAction.next,
                     validator: (v) => (v == null || v.trim().isEmpty)
-                        ? 'Title is required'
+                        ? l10n.taskTitleRequired
                         : null,
                   ),
                 ),
@@ -205,9 +239,9 @@ class _TaskCreateScreenState extends ConsumerState<TaskCreateScreen> {
                   reduceMotion: reduceMotion,
                   child: TextFormField(
                     controller: _descriptionController,
-                    decoration: const InputDecoration(
-                      labelText: 'Description',
-                      hintText: 'Optional details for the assignee',
+                    decoration: InputDecoration(
+                      labelText: l10n.taskDescriptionLabel,
+                      hintText: l10n.taskDescriptionHint,
                       alignLabelWithHint: true,
                     ),
                     maxLines: 3,
@@ -221,7 +255,7 @@ class _TaskCreateScreenState extends ConsumerState<TaskCreateScreen> {
                 _StaggerIn(
                   index: 2,
                   reduceMotion: reduceMotion,
-                  child: _FieldLabel(label: 'Type'),
+                  child: _FieldLabel(label: l10n.taskTypeLabel),
                 ),
                 const SizedBox(height: RadhaSpacing.space8),
                 _StaggerIn(
@@ -231,13 +265,13 @@ class _TaskCreateScreenState extends ConsumerState<TaskCreateScreen> {
                     spacing: RadhaSpacing.space8,
                     runSpacing: RadhaSpacing.space8,
                     children: [
-                      for (final t in _taskTypes)
+                      for (final t in _taskTypeIds)
                         _SelectChip(
-                          label: t.$2,
-                          selected: _type == t.$1,
+                          label: _taskTypeLabel(l10n, t),
+                          selected: _type == t,
                           onTap: () {
                             HapticFeedback.selectionClick();
-                            setState(() => _type = t.$1);
+                            setState(() => _type = t);
                           },
                         ),
                     ],
@@ -249,7 +283,7 @@ class _TaskCreateScreenState extends ConsumerState<TaskCreateScreen> {
                 _StaggerIn(
                   index: 4,
                   reduceMotion: reduceMotion,
-                  child: _FieldLabel(label: 'Priority'),
+                  child: _FieldLabel(label: l10n.taskPriorityLabel),
                 ),
                 const SizedBox(height: RadhaSpacing.space8),
                 _StaggerIn(
@@ -259,18 +293,18 @@ class _TaskCreateScreenState extends ConsumerState<TaskCreateScreen> {
                     spacing: RadhaSpacing.space8,
                     runSpacing: RadhaSpacing.space8,
                     children: [
-                      for (final p in _priorities)
+                      for (final p in _priorityIds)
                         _SelectChip(
-                          label: p.$2,
-                          selected: _priority == p.$1,
-                          accent: p.$1 == 'urgent'
+                          label: _priorityLabel(l10n, p),
+                          selected: _priority == p,
+                          accent: p == 'urgent'
                               ? RadhaColors.danger
-                              : p.$1 == 'high'
+                              : p == 'high'
                                   ? RadhaColors.warning
                                   : null,
                           onTap: () {
                             HapticFeedback.selectionClick();
-                            setState(() => _priority = p.$1);
+                            setState(() => _priority = p);
                           },
                         ),
                     ],
@@ -287,7 +321,7 @@ class _TaskCreateScreenState extends ConsumerState<TaskCreateScreen> {
                         currentUser?.selectedStoreName ??
                         currentUser?.selectedStoreId ??
                         '',
-                    decoration: const InputDecoration(labelText: 'Store'),
+                    decoration: InputDecoration(labelText: l10n.taskStoreLabel),
                     enabled: false,
                   ),
                 ),
@@ -299,9 +333,9 @@ class _TaskCreateScreenState extends ConsumerState<TaskCreateScreen> {
                   reduceMotion: reduceMotion,
                   child: TextFormField(
                     controller: _assigneeController,
-                    decoration: const InputDecoration(
-                      labelText: 'Assignee (user ID)',
-                      hintText: 'Enter user ID or leave blank',
+                    decoration: InputDecoration(
+                      labelText: l10n.taskAssigneeLabel,
+                      hintText: l10n.taskAssigneeHint,
                     ),
                     textInputAction: TextInputAction.next,
                   ),
@@ -316,13 +350,15 @@ class _TaskCreateScreenState extends ConsumerState<TaskCreateScreen> {
                     onTap: _pickDueDate,
                     borderRadius: BorderRadius.circular(RadhaRadii.radiusMd),
                     child: InputDecorator(
-                      decoration: const InputDecoration(labelText: 'Due date'),
+                      decoration: InputDecoration(
+                        labelText: l10n.taskDueDateLabel,
+                      ),
                       child: Row(
                         children: [
                           Expanded(
                             child: Text(
                               _dueDate == null
-                                  ? 'Select a date'
+                                  ? l10n.taskSelectDate
                                   : '${_dueDate!.day}/${_dueDate!.month}/${_dueDate!.year}',
                               style: theme.textTheme.bodyMedium?.copyWith(
                                 color: _dueDate == null
@@ -349,9 +385,9 @@ class _TaskCreateScreenState extends ConsumerState<TaskCreateScreen> {
                   reduceMotion: reduceMotion,
                   child: SwitchListTile(
                     contentPadding: EdgeInsets.zero,
-                    title: const Text('Requires evidence'),
+                    title: Text(l10n.taskRequiresEvidence),
                     subtitle: Text(
-                      'Assignee must upload a photo to complete',
+                      l10n.taskRequiresEvidenceSubtitle,
                       style: theme.textTheme.bodySmall?.copyWith(
                         color: scheme.onSurfaceVariant,
                       ),
@@ -371,7 +407,7 @@ class _TaskCreateScreenState extends ConsumerState<TaskCreateScreen> {
                   index: 10,
                   reduceMotion: reduceMotion,
                   child: PrimaryButton(
-                    label: 'Create Task',
+                    label: l10n.taskCreateCta,
                     icon: Icons.add_task_rounded,
                     expand: true,
                     loading: _isSubmitting,
@@ -394,7 +430,7 @@ class _TaskCreateScreenState extends ConsumerState<TaskCreateScreen> {
         onPressed: () => context.pop(),
       ),
       title: Text(
-        'Create task',
+        AppLocalizations.of(context).taskCreateTitle,
         style: theme.textTheme.titleLarge?.copyWith(
           fontWeight: FontWeight.w800,
         ),
